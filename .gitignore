@@ -5,3 +5,6 @@ db.json
 node_modules/
 public/
 .deploy*/
+
+# NexT 主题的改动单独保存在另一个 Repo 中
+themes/next/
