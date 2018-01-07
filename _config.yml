@@ -79,3 +79,4 @@ theme: next
 deploy:
   type: git
   repo: git@github.com:ZephyrHuang/ZephyrHuang.github.io.git
+  branch: master
