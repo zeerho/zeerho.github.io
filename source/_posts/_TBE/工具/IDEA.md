@@ -1,0 +1,65 @@
+﻿# IDEA
+
+标签：!工具
+
+[TOC]
+
+---
+
+## 切换 editor 主题时保留 ide 整体主题
+
+1. 编辑文件 `$User/.IdeaIC201x.x/config/options/options.xml`
+2. `<property name="change.laf.on.editor.theme.change" value="false" />`
+
+---
+## 选中变量时，在滚动条上显示所有出现的位置
+
+Editor - Colors Scheme - General - code - Identifier under caret - 勾选 Error stripe mark
+
+---
+## Live Templates
+
+**iterations**
+
+- `fori` Create iteration loop
+  `for (int $INDEX$ = 0; $INDEX$ < $LIMIT$; $INDEX$++)`
+- `itar` Iterate elements of array
+  `for (int $INDEX$ = 0; $INDEX < $ARRAY$.length; $INDEX$++)`
+- `itco` Iterate elements of Collection
+  `for ($ITER_TYPE$ $ITER$ = $COLLECTION$.iterator(); $ITER$.hasNext(); )`
+- `iten` Iterate Enumeration
+  `while ($ENUM$.hasMoreElements())`
+- `iter` Iterate Iterable`
+  foreach
+- `itit` Iterate Iterator
+  `while ($ITER.hasNext())`
+- `itli` Iterate elements of List
+  `for (int $INDEX$ = 0; $INDEX$ < $LIST$.size(); $INDEX$++)`
+- `ittok` Iterate tokens from String
+  `for (java.util.StringTokenizer $TOKENIZER$ = new java.util.StringTokenizer(String); $TOKENIZER$.hasMoreTokens(); )`
+- `itve` Iterate elements of Vector
+  `for (int $INDEX$ = 0; $INDEX$ < $VECTOR$.size(); $INDEX$++)`
+- `ritar` Iterate elements of array in reverse order
+  `for (int $INDEX$ = $ARRAY$.length - 1; $INDEX$ >= 0; $INDEX$--)`
+
+**other**
+
+- `ifn` Inserts "if null" statement
+- `inn` Inserts "if not null" statement
+- `psvm` main() method declaration
+
+**output**
+
+- `sout` System.out.println()
+
+**plain**
+
+- `psfs` public static final String
+
+**surround**
+
+- `I` foreach
+
+
+
+
