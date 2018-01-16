@@ -1,12 +1,10 @@
-﻿# Quartz
-
-标签： !Java
-
-[TOC]
-
+﻿---
+title: Quartz
+date: 2017-01-01 09:00:00
+tags: [Java]
 ---
 
-## 1.JobDetail 
+# 1.JobDetail 
 `JobDetail`的结构如下：
 
 `JobDetail`中有三个关键字段：`JobKey`、`Job`、`JobDataMap`。
@@ -37,7 +35,7 @@ public class JobImpl implements Job{
 }
 ```
 
-## 2.Trigger
+# 2.Trigger
 常用的触发器有 **SimpleTrigger** 和 **CronTrigger**。
 **SimpleTrigger** 适用于在一个固定时间点和重复次数或固定的时间间隔的情况。
 **CronTrigger** 适用于比较复杂的作业调度。需要 cron 表达式。
@@ -63,8 +61,8 @@ public class JobImpl implements Job{
 - `C`：表示基于相关日历（calendar）所计算出的值，具体用法存疑。
 - 备注：对于“月”和“周几”字段的合法字符来说大小写不敏感。
 
-## 3.实例
-### 简单构造方式
+# 3.实例
+## 简单构造方式
 ```Java
 public static void main(String[] args){
     /*********************Scheduler************************/
@@ -100,7 +98,7 @@ public static void main(String[] args){
 }
 ```
 
-### Quartz推荐构造方式
+## Quartz推荐构造方式
 Quartz提供了一组“Builder-style API”来构造相关的对象。具体方法是通过静态引用对应Builder类中的静态方法来进行对象的构造。这些类包括：`ScheduleBuilder`的各种实现类以及`TriggerBuilder`,`JobBuilder`,
 `DateBuilder`,`JobKey`,`TriggerKey`。具体的方式如下：
 ```java
@@ -119,8 +117,8 @@ Trigger trigger = newTrigger()
 scheduler.scheduleJob(job, trigger);
 ```
 
-## 4.与Spring整合
-### 方式1.作业类继承QuartzJobBean
+# 4.与Spring整合
+## 方式1.作业类继承QuartzJobBean
 ```Java
 package com.demo;
 
@@ -145,7 +143,7 @@ public class myJob1 extends QuartzJobBean{
     </property>
 </bean>
 ```
-### 方式2.在配置中定义作业类和执行方法
+## 方式2.在配置中定义作业类和执行方法
 ```Java
 package com.demo;
 

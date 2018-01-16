@@ -1,12 +1,10 @@
-﻿# Linux
-
-标签：!操作系统
-
-[TOC]
-
+﻿---
+title: Linux
+date: 2017-01-01 09:00:00
+tags: [操作系统]
 ---
 
-##开机流程
+# 开机流程
 
 1. BIOS：开机主动执行的固件，会识别用户设定的用于启动系统的存储设备。
 2. MBR：用于启动系统的存储设备的第一个扇区（或 LBA）内的主要启动记录区块，内含开机管理程序。
@@ -19,7 +17,7 @@
 一些发行版使用一个表来管理开机自启的进程，该表通常位于 /etc/inittab 文件中。另一些发行版则采用 /etc/init.d/ 目录，将开机时启动或停止某个应用的脚本放到该目录下，这些脚本通过 /etc/rcX.d/ 目录下的符号链接（链接到 /etc/init.d/ 目录中的启动脚本）启动，其中 X 代表运行级（run level）。
 
 ---
-##挂载/卸载
+# 挂载/卸载
 
 `df -h` 查看挂载情况
 `umount {file_system}` 卸载，终端中挂载消失，UI 中挂载仍在
@@ -27,9 +25,10 @@
 `eject` 弹出，UI 中挂载也消失，且无法直接再用`mount`命令挂载回来
 
 ---
-##软件安装
+# 软件安装
 
-###JDK
+## JDK
+
 1. 安装
     1. 选择要安装 jdk 的位置，如 /usr/ 目录下，新建文件夹 java(`sudo mkdir /usr/java`)
     2. 将文件 jdk-7u40-linux-i586.tar.gz 移动到 /usr/java
@@ -47,7 +46,8 @@ export JAVA_HOME PATH
 
 验证是否安装成功：`java -version`
 
-###Chrome
+## Chrome
+
 1. `sudo wget http://www.linuxidc.com/files/repo/google-chrome.list -P /etc/apt/sources.list.d/`
 将下载源加入系统的源列表
 2. `wget -q -O - https://dl.google.com/linux/linux_signing_key.pub  | sudo apt-key add -`
@@ -60,9 +60,10 @@ export JAVA_HOME PATH
 启动 chrome
 
 ---
-##命令
+#命令
 
-###常用
+##常用
+
 - cat
 
 > *concatenate*
@@ -244,7 +245,7 @@ export JAVA_HOME PATH
 `du -sh ./*`
 显示当前目录下所有文件和目录的磁盘使用情况。
 
-###进程
+##进程
 - ps
 
 > 列出所有正在运行的进程。
@@ -279,7 +280,7 @@ COMMAND：命令名，进程有可能将其由初始值改为其他。
 **TERM** 要求进程自己正常退出，该信号可以被阻塞或处理。
 
 ---
-##特殊字符
+#特殊字符
 
 |字符|名称|用途|
 |:--|:--|:--|
@@ -302,7 +303,7 @@ COMMAND：命令名，进程有可能将其由初始值改为其他。
 控制键 CTRL 通常用 ^ 来表示。
 
 ---
-##命令行按键
+#命令行按键
 
 |按键|操作|
 |:--|:--|
@@ -319,14 +320,14 @@ COMMAND：命令名，进程有可能将其由初始值改为其他。
 
 
 ---
-##配置
+#配置
 
-###安装配置文件
+##安装配置文件
 kickstart
 /root/anaconda-ks.cfg
 
 ---
-##问题
+#问题
 
 1. `FATAL:Could not read from Boot Medium! System Halted.`
 解决：虚拟机设置-存储-删除多余的控制器

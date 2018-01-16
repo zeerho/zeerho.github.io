@@ -1,13 +1,12 @@
-﻿# Spring
-——整理自《Spring实战（第3版）》
-
-标签： !Java #Spring
-
-[TOC]
-
+﻿---
+title: Spring
+date: 2017-01-01 09:00:00
+tags: [Java]
 ---
 
-## 第1章 Spring 之旅
+整理自《Spring实战（第3版）》
+
+# 第1章 Spring 之旅
 
 **Spring 自带了几种容器实现，可归为两种类型：**
 

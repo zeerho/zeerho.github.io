@@ -1,9 +1,7 @@
-﻿# SimpleDateFormat
-
-标签： !Java 
-
-[TOC]
-
+﻿---
+title: SimpleDateFormat
+date: 2017-01-01 09:00:00
+tags: [Java]
 ---
 
 |字母|日期或时间元素|表示|示例|

@@ -1,11 +1,10 @@
-﻿# Git
-
-标签（空格分隔）： !工具
-
-[TOC]
-
+﻿---
+title: Git
+date: 2017-01-01 09:00:00
+tags: [工具]
 ---
-## 基本操作
+
+# 基本操作
 
 - `ssh-keygen -C myemail -t rsa`
 创建 ssh 密钥
@@ -34,14 +33,14 @@
 - `git blame [-C] [-L m,n] {file}`
 查看文件内容的最近修改者。`-C` 可查看文本行的来源文件（如果该行是复制过来的话）；`-L m,n` 将查看范围限制在第 m ~ n 行
 
-### 删除文件
+## 删除文件
 
 - `git rm [-f] {filename}`
 删除三棵树中的指定文件，若暂存区与版本库中的不同，则需加上 `-f` 参数
 - `git rm [-r] --cached {filename}`
 删除 index 中的文件，保留工作区中的文件，`-r` 表示递归
 
-### 提交文件
+## 提交文件
 
 - `git commit`
 打开编辑器来撰写 commit 信息，编辑方法同 vi
@@ -52,20 +51,22 @@ commit 到 Head，并附带备注 "message"
 - `git commit --amend`
 修改最近一次提交，使用当前暂存区做提交，并可以修改提交信息
 
-### 撤销文件
+## 撤销文件
 
 `git reset HEAD {file}...` 撤销某个文件的暂存操作
 `git checkout {file}...` 撤销对某个文件的修改
 `git clean -[f][d]` 删除未跟踪的[文件]、[目录]
 `git reset [--soft|--mixed|--hard] {HEAD~|commit_id}` 撤销错误的提交。--soft 表示只回退版本库，不回退暂存区和工作区；--mixed 为缺省选项，回退版本库和暂存区；--hard 回退版本库、暂存区和工作区
 
-### 重命名文件
+## 重命名文件
+
 `git mv {file_from} {file_to}` 相当于依次执行下面两条命令
 
 - `git rm {file_from}`
 - `git add {file_to}`
 
-### 储藏文件
+## 储藏文件
+
 `git stash [save '{message}']` 储藏当前所有未提交的改动，可附加备注
 `git stash list` 列出储藏栈中内容
 `git stash apply [stash@{n}] [--index]` 恢复指定某次的储藏内容中的工作区文件，缺省为最近一次的；`--index` 表示恢复工作区和暂存区文件
@@ -74,7 +75,8 @@ commit 到 Head，并附带备注 "message"
 `git stash pop [stash@{n}] [--index]` 应用并删除储藏
 `git stash branch {branch_name} [stash@{n}]` 新建一个分支并应用储藏内容，如果没有冲突则会自动删除该储藏
 
-### 日志
+## 日志
+
 `git log -p -{n}` 显示最近 n 次的提交日志，并展开每次提交的内容差异
 `git log --stat` 仅显示简要的增改行数统计
 `git log --shortstat` 仅显示 `--stat` 中最后的行数修改添加移除的统计
@@ -85,11 +87,11 @@ commit 到 Head，并附带备注 "message"
 `git log --graph` 显示 ASCII 图形表示的分支合并历史
 `git log --pretty` 使用其他格式显示历史提交信息。可用选项包括 `oneline`、`short`、`full`、`fuller`、`format`（后跟指定格式）
 
-### 重排提交
+## 重排提交
 
 - `git rebase -i {ref}` 其中 {ref} 为希望重排的提交的父提交
 
-### 跟远程仓库交互
+## 跟远程仓库交互
 
 - `git remote`
     - `git remote [-v]`
@@ -125,7 +127,8 @@ commit 到 Head，并附带备注 "message"
 - `git branch -r`
 查看远程分支
 
-### 分支
+## 分支
+
 `git branch` 查看本地分支
 `git branch -a` 查看所有分支
 `git branch -v` 查看各分支最后一次提交信息
@@ -136,7 +139,8 @@ commit 到 Head，并附带备注 "message"
 `git branch -d {branch_name}` 分支已经合并到主干后删除分支
 `git branch -D {branch_name}` 强制删除分支 
 
-### 差异比较
+## 差异比较
+
 `git diff {source_branch} {target_branch}` 查看两个分支之间的差异
 `git diff {source_branch}...{target_branch}` 查看 target 分支与 source 和 target 共同祖先之间的差异
 `git diff` 暂存区到工作区的变化
@@ -151,7 +155,8 @@ git维护代码分为三部分：“工作区 working directory”、“暂存�
 `git diff --cached|--staged` 3到2的变化
 `git diff HEAD` 3到1的变化
 
-### 文件状态生命周期
+## 文件状态生命周期
+
 ```seq
 untracked->unmodified:add the file
 unmodified->modified:edit the file
@@ -161,7 +166,7 @@ unmodified->untracked:remove the file
 ```
 
 ---
-## git config
+# git config
 
 `user.name "John"`
 `user.email John@example.com`
@@ -232,8 +237,9 @@ GPG 签署密钥，用来创建经签署的含附注的标签。
 `push.default`
 push 时的默认行为。Git2.0 之前默认使用 `matching`，之后默认使用 `simple`。
 ```
-git branch --set-upstream-to=origin/<branch> develop
-// 或者git push --set-upstream origin develop
+git branch --set-upstream-to={remote}/{branch} [{local_branch}]
+// 或者 git branch -u {remote}/{branch} [{local_branch}]
+// 或者 git push --set-upstream {remote} [{local_branch}:]{remote_branch}
 ```
 
 - `nothing`：push 操作无效，除非显式指定远程分支：`git push origin develop`。
@@ -255,7 +261,9 @@ merge 时的默认操作。在 pull 的时候也会用到。
 git config branch.develop.merge refs/heads/develop
 ```
 为什么不是refs/remotes/develop？
-> 因为这里 merge 指代的是我们想要 merge 的远程分支，是 remote 上的 refs/heads/develop，文中即是 origin 上的 refs/heads/develop，这和我们在本地直接执行 `git merge` 是不同的（本地执行 `git merge origin/develop` 则是直接 merge refs/remotes/develop）。
+> 因为这里 merge 指代的是我们想要 merge 的远程分支，是站在远程仓库的角度看到的引用路径。
+站在本地仓库来看，远程仓库的分支引用路径为 `refs/remotes/{branch}`；站在远程仓库的角度来看，这个分支引用路径自然就是 `refs/heads/{branch}`。
+这和我们在本地直接执行 `git merge` 是不同的（本地执行 `git merge origin/develop` 则是直接 merge refs/remotes/develop）。
 
 ---
 `git config --list`
@@ -266,15 +274,15 @@ git config branch.develop.merge refs/heads/develop
 查看特定变量。
 
 ---
-## git help
+# git help
 
 `git help {verb}`
 `git {verb} --help`
 `man git-{verb}`
-查看特定命令`{verb}`的帮助信息。
+查看特定命令 `{verb}` 的帮助信息。
 
 ---
-## git tag
+# git tag
 
 - **通用参数**
     - `{commit}` 某次提交的校验 ID。缺省为 HEAD。
@@ -332,7 +340,7 @@ git config branch.develop.merge refs/heads/develop
         - `--dirty` 加上该参数后，若工作区的文件被修改过，则会在标签名后面显示“-dirty”。
 
 ---
-## git log
+# git log
 
 > git log [{options}] [{revision_range}] [[\\--] {path}...]
 
@@ -393,30 +401,31 @@ git config branch.develop.merge refs/heads/develop
     - `--boundary`
 
 ---
-## .gitignore 文件
+# .gitignore 文件
+
 在 `.git` 同级目录下，手动创建 `.gitignore` 文件
 ```
-#井号表示注释
-#文件名/目录名中可用正则表达式
+# 井号表示注释
+# 文件名/目录名中可用正则表达式
 
-#指定忽略某个文件
+# 指定忽略某个文件
 abc.txt
 
-#指定忽略某个目录
+# 指定忽略某个目录
 abc/
 
-#指定不忽略某个文件/目录
+# 指定不忽略某个文件/目录
 !def.txt
 !def/
 
-#指定忽略某一类文件
+# 指定忽略某一类文件
 *.doc
-#使用标准的 glob 模式匹配
+# 使用标准的 glob 模式匹配
 *.[ch]
 ```
 
 ---
-## 乱码
+# 乱码
 
 **乱码情景1**
 
@@ -466,6 +475,6 @@ export LESSCHARSET=utf-8
 如果不抗拒命令行的话，直接用 Cygwin 来提交Git库。因为 Cygwin 其实是一个在 Windows 平台上的模拟器，它完全模拟 GNU/Linux 的方式运行，所以 Cygwin 中的 Git 是采用 UTF-8 编码来保存中文的。
 
 ---
-## git 中的 upstream 和 downstream
+# git 中的 upstream 和 downstream
 
 git 中存在 upstream 和 downstream，简言之，当我们把仓库 A 中某分支 x 的代码 push 到仓库 B 分支 y，此时仓库 B 的这个分支 y 就叫做 A 中 x 分支的 upstream，而 x 则被称作 y 的 downstream，这是一个相对关系，每一个本地分支都相对地可以有一个远程的 upstream 分支（注意这个 upstream 分支可以不同名，但通常我们都会使用同名分支作为 upstream）。

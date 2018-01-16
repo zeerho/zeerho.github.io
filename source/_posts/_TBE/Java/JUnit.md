@@ -1,16 +1,14 @@
-﻿# JUnit
-
-标签： !Java
-
-[TOC]
-
+﻿---
+title: JUnit
+date: 2017-01-01 09:00:00
+tags: [Java]
 ---
 
-## org.junit
+# org.junit
 
-### **Classes**
+## **Classes**
 
-#### Assert
+### Assert
 > 断言。不符条件的话会中断测试方法并报错。
 
 `assertArrayEquals()`
@@ -24,7 +22,7 @@
 `assertTrue()`
 `fail()`
 
-#### Asssume
+### Asssume
 > 假设。不符条件的话会中断测试方法但不会报错。
 
 `assumeNoException()`
@@ -32,72 +30,72 @@
 `assumeThat()`
 `assumeTrue()`
 
-#### Test.None
+### Test.None
 > 缺省的报空异常。
 
-### **Errors**
+## **Errors**
 
-#### ComparisonFailure
+### ComparisonFailure
 > 当 assertEquals(String, String) 方法失败时抛出，用来展示两个复杂字符串之间具体的不同之处。
 
 `getActual()`
 `getExpected()`
 `getMessage()`
 
-### **Annotation Types**
+## **Annotation Types**
 
-#### After
+### After
 > @After 方法在 @Test 方法之后运行（即使 @Before 和 @Test 方法抛出了异常），针对每个测试方法都会执行一次。父类中的 @After 方法会在当前类的 @After 方法之后运行。
 
-#### AfterClass
+### AfterClass
 > @AfterClass 方法在本测试类的所有 @Test 方法运行结束之后运行（即使 @BeforeClass 方法抛出了异常），针对所有测试方法，只执行一次。父类中的 @AfterClass 方法会在当前类的 @AfterClass 方法之后运行。
 
-#### Before
+### Before
 > @Before 方法在 @Test 方法之前运行，针对每个测试方法都会执行一次。父类中的 @Before 方法会在当前类的 @Before 方法之前运行。
 
-#### BeforeClass
+### BeforeClass
 > @BeforeClass 方法在本测试类的所有 @Test 方法之前运行，针对所有测试方法，只执行一次。父类中的 @BeforeClass 方法会在当前类的 @BeforeClass 方法之前运行。
 
-#### Ignore
+### Ignore
 > @Ignore 可标记类或方法。被标记的类或方法不会在测试过程中被运行。可自定义参数 @Ignore("why the test is being ignored") 来备注忽略的原因。
 
-#### Test
+### Test
 > 将一个 public void 方法标记为测试方法，该方法中抛出的任何异常都会被视为测试失败。有两个可选参数：@Test(expected=SomeException.class) 除了参数中声明的异常外，抛出任何其他异常都会被视为测试失败，缺省为 org.junit.Test.None.class；@Test(timeout=100) 若测试方法运行时间大于参数声明的时间（毫秒），则视为测试失败，缺省为0L。
 
 ---
-## org.harmcrest.core
+# org.harmcrest.core
 
-### **Classes**
+## **Classes**
 
-#### AllOf
+### AllOf
 > 对多个 Matcher 进行逻辑与短路运算。
 
 `allOf()`
 `describeTo()`
 `matches()`
 
-#### AnyOf
+### AnyOf
 > 对多个 Matcher 进行逻辑或短路运算。
 
 `anyOf()`
 `describeTo()`
 `matches()`
 
-#### DescribeAs
+### DescribeAs
 > 提供针对另一个 Matcher 的自定义描述。
 
 `describedAs()`
 `describeTo()`
 `matches()`
 
-#### Is
+### Is
 > 包装另一个 Matcher，保留其行为但使其更具可读性。
 
 `describeTo()`
 `is()`
 `matches()`
 
-#### IsAnything
+### IsAnything
 > 一个永远返回 true 的 Matcher。
 
 `any()`
@@ -105,28 +103,28 @@
 `describeTo()`
 `matches()`
 
-#### IsEqual
+### IsEqual
 > 通过 Object.equals() 方法计算值是否相等。
 
 `describeTo()`
 `equalTo()`
 `matches()`
 
-#### IsInstanceOf
+### IsInstanceOf
 > 测试是否为某个类的实例。
 
 `decribeTo()`
 `instanceOf()`
 `matches()`
 
-#### IsNot
+### IsNot
 > 对一个 Matcher 的结果进行逻辑非运算。
 
 `describeTo()`
 `matches()`
 `not()`
 
-#### IsNull
+### IsNull
 > 判断是否为 null。
 
 `describeTo()`
@@ -134,7 +132,7 @@
 `notNullValue()`
 `nullValue()`
 
-#### IsSame
+### IsSame
 > 判断是否为同一个对象。
 
 `describeTo()`
@@ -142,11 +140,11 @@
 `sameInstance()`
 
 ---
-## org.junit.matchers
+# org.junit.matchers
 
-### **Classes**
+## **Classes**
 
-#### JUnitMatchers
+### JUnitMatchers
 > 包含了一些 hamcrest 的基础 CoreMatchers 类中没有的 match 方法，供 assertThat() 方法使用。
 
 `both()`
@@ -157,16 +155,16 @@
 `hasItems()`
 
 ---
-## org.junit.runner
+# org.junit.runner
 
-### **Interfaces**
+## **Interfaces**
 
-#### Desribable
+### Desribable
 > 包含了一个 getDescription() 方法，提供了被测试方法的描述信息。
 
-### **Classes**
+## **Classes**
 
-#### Description
+### Description
 > 包含了将运行或已运行的测试类的类名和类信息。以前是通过 TestCase 和 TestSuite 类来容纳和展示测试类信息，而在 JUnit4 中由于单元测试没有除 Object 之外的父类，所以需要 Description 类来提供类的描述信息。
 
 `addChild()`
@@ -185,10 +183,10 @@
 `testCount()`
 `toString()`
 
-#### JUnitCore
+### JUnitCore
 > JUnitCore 是运行测试方法的入口。支持运行 JUnit4、JUnit3.8.x 以及混合方法。可在命令行中执行 `java org.junit.runner.JUnitCore TestClass1 TestClass2 ...`来运行测试。也可使用静态方法 runClasses(Class[]) 来批量运行测试。可以通过创建 JUnitCore 的实例来添加 listener。
 
-#### Request
+### Request
 > 一个 Request 对象是所有待运行测试的抽象描述。之前版本的 JUnit 没有这个概念，后来为了支持过滤、排序，并提供更抽象、更丰富的类型（而不只是待测试的那些类），才有了 Request 类。
 JUnit 运行测试的流程是：一个指定了待运行测试的 Request -> 为 Request 中指明的每个类创建一个 Runner -> 该 Runner 返回一个 Description （包含了待运行测试的树状结构）。
 
@@ -202,7 +200,7 @@ JUnit 运行测试的流程是：一个指定了待运行测试的 Request -> �
 `runner()`
 `sortWith()`
 
-#### Result
+### Result
 > Result 对象收集所有被运行的测试的信息。
 
 `createListener()`
@@ -213,7 +211,7 @@ JUnit 运行测试的流程是：一个指定了待运行测试的 Request -> �
 `getRunTime()`
 `wasSuccessful()`
 
-#### Runner
+### Runner
 > Runner 负责运行测试并将重要事件通知给一个 RunNotifier。当使用 RunWith 类调用一个自定义 runner 时需要继承 Runner 类。当创建自定义 runner 时，除了要实现其抽象方法外，还要提供一个构造方法接受包含了所有测试的类作为构造参数。
 缺省的 runner 实现保证了测试类会在测试运行前立刻被实例化并且 runner 不会保留测试实例的引用，留给 gc 去清理。
 
@@ -221,27 +219,27 @@ JUnit 运行测试的流程是：一个指定了待运行测试的 Request -> �
 `run()`
 `testCount()`
 
-### **Annotation Types**
+## **Annotation Types**
 <span id='returnFromRunWith'></span>
-#### RunWith
+### RunWith
 > 若一个类被 @RunWith 注解或继承了一个被 @RunWith 注解的类，则 JUnit 会调用在注解中引用的 runner 类来运行测试，而不是 JUnit 中的 runner 类（缺省为 BlockJUnit4ClassRunner.class），从而实现不同的测试行为。详见 [@RunWith](#runWith)
 
 ---
-## org.junit.runner.manipulation
+# org.junit.runner.manipulation
 
-### **Interfaces**
+## **Interfaces**
 
-#### Filterable
+### Filterable
 > runner 可通过实现此接口来实现过滤测试用例的功能。
 
 `filter()`
 
-#### Sortable
+### Sortable
 > runner 可通过实现此接口来实现对测试用例的排序功能。
 
-### **Classes**
+## **Classes**
 
-#### Filter
+### Filter
 > 一种典型的应用 Filter 的场景是运行一个测试类中的个别方法。在运行测试之前，可以通过继承 Filter 并将其作为 Request.filterWith() 的入参，或作为 Runner.filter() 的入参（该方法实现自 Filterable 接口）。
 
 `apply()`
@@ -254,17 +252,17 @@ Sorter
 `apply()`
 `compare()`
 
-### **Exceptions**
+## **Exceptions**
 
-#### NoTestsRemainException
+### NoTestsRemainException
 > 当 Filter 过滤掉 Runner 中所有测试时抛出。
 
 ---
-## org.junit.runner.notification
+# org.junit.runner.notification
 
-### **Classes**
+## **Classes**
 
-#### Failure
+### Failure
 > Failure 对象保存着失败的测试的 Description 和运行时抛出的异常。通常这个 Description 是单个测试的，但是如果在构建测试时发生问题（比如在 @BeforeClass 方法中），则不只包含单个测试的信息。
 
 `getDescription()`
@@ -274,7 +272,7 @@ Sorter
 `getTrace()`
 `toString()`
 
-#### RunListener
+### RunListener
 > 通过继承 RunListener 并重写适当的方法，来在测试运行期间对某些事件做出响应。如果 Listener 抛出异常，那么为了余下的测试正常运行，该 Listener 会被移除。
 
 `testAssumptionFailure()`
@@ -285,7 +283,7 @@ Sorter
 `testRunStarted()`
 `testStarted()`
 
-#### RunNotifier
+### RunNotifier
 > 如果自定义了 Runner，就需要向 JUnit 通知测试的运行过程，办法就是向实现的 Runner.runWith(RunNotifier) 传入 RunNotifier 实例。
 
 `addFirstListener()`
@@ -300,20 +298,20 @@ Sorter
 `pleaseStop()`
 `removeListener()`
 
-### **Exceptions**
+## **Exceptions**
 
-#### StoppedByUserException
+### StoppedByUserException
 > 当用户请求停止测试时抛出。
 
 ---
-## org.junit.runners
+# org.junit.runners
 
-### **Classes**
+## **Classes**
 
-#### AllTests
+### AllTests
 > 用来运行 JUnit3.8.x 风格的 AllTests 类（即只实现了一个静态方法 suite() 的类）。
 
-#### BlockJUnit4ClassRunner
+### BlockJUnit4ClassRunner
 > JUnit4 缺省的 Runner，跟上个版本的缺省 Runner（JUnit4ClassRunner）运行效果相同，但具有以一些额外的优点：基于 Statement 的更简单的实现，从而可以在执行流程中插入新的操作；更适合扩展和复用。
 
 `collectInitializationErrors()`
@@ -333,15 +331,15 @@ Sorter
 `withBefores()`
 `withPotentialTimeout()`
 
-#### JUnit4
+### JUnit4
 > 当前版本缺省 Runner 的“别名”，用来实现向后兼容。若缺省 Runner 随着版本更新而改变时，JUnit4 就会改成新缺省 Runner 的“别名”。在 @RunWith() 注解中使用 JUnit4.class 就可以始终使用缺省的 Runner 而不用在意 JUnit 的版本。
 
-#### Parameterized
+### Parameterized
 > 为每个测试方法都用每组参数构造一个实例，即构造 测试方法m*参数数量n 个实例。
 
 `getChildren()`
 
-#### ParentRunner
+### ParentRunner
 > ParentRunner 在整个测试树中处于父节点的位置，而其子节点由某种数据对象 T 定义（对于 BlockJUnit4ClassRunner 是 Method，对于 Suite 是 Class）。ParentRunner 的子类必须实现寻找子节点、描述子节点和运行子节点的功能。ParentRunner 会过滤和排序子节点，处理 @BeforeClass 和 @AfterClass 方法，创建一个复合的 Description，以及按顺序运行子节点。
 
 `childrenInvoker()`
@@ -361,24 +359,24 @@ Sorter
 `withBeforeClasses()`
 
 
-#### Suite
+### Suite
 > Suite 可以将多个测试类中的指定方法组合在一起运行。相当于 JUnit3.8.x 中的 static Test suite() 方法。
 
 `describeChild()`
 `getChildren()`
 `runChild()`
 
-### **Annotation Types**
+## **Annotation Types**
 
-#### Parameterized.Parameters
+### Parameterized.Parameters
 > 从被注解的方法中获得参数数组，每组参数都会作为测试类构造函数的入参来依次实例化一个测试对象。
 
-#### Suite.SuiteClasses
+### Suite.SuiteClasses
 > 此注解参数中传入的类的所有测试方法将被组合到一起依次运行。
 
 ---
 <span id='runWith'></span>
-## @RunWith 详述
+# @RunWith 详述
 
 **BlockJUnit4ClassRunner**
 JUnit 的缺省 Runner。不添加 @RunWith 注解时使用的都是这个 Runner。

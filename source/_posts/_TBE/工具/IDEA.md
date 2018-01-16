@@ -1,23 +1,21 @@
-﻿# IDEA
-
-标签：!工具
-
-[TOC]
-
+﻿---
+title: IDEA
+date: 2017-01-01 09:00:00
+tags: [工具]
 ---
 
-## 切换 editor 主题时保留 ide 整体主题
+# 切换 editor 主题时保留 ide 整体主题
 
 1. 编辑文件 `$User/.IdeaIC201x.x/config/options/options.xml`
 2. `<property name="change.laf.on.editor.theme.change" value="false" />`
 
 ---
-## 选中变量时，在滚动条上显示所有出现的位置
+# 选中变量时，在滚动条上显示所有出现的位置
 
 Editor - Colors Scheme - General - code - Identifier under caret - 勾选 Error stripe mark
 
 ---
-## Live Templates
+# Live Templates
 
 **iterations**
 

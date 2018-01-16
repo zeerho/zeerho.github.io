@@ -1,12 +1,10 @@
-﻿# Maven
-
-标签： !工具
-
-[TOC]
-
+﻿---
+title: Maven
+date: 2017-01-01 09:00:00
+tags: [工具]
 ---
 
-## 基本步骤
+# 基本步骤
 
 - `mvn clean compile` 编译
 - `mvn clean test` 测试
@@ -44,7 +42,7 @@ maven 中下载的插件都在 `~\.m2\repository\org\apache\maven` 文件夹内�
 `-Dmaven.test.skip=true` :不执行测试用例，也不编译测试用例类。
 
 ---
-## 依赖的配置
+# 依赖的配置
 
 *“[...]”表示可选*
 ```XML
@@ -128,7 +126,7 @@ maven 中下载的插件都在 `~\.m2\repository\org\apache\maven` 文件夹内�
 `mvn dependency:list -->C:/list.txt`：将结果输出到指定文件。其它两条命令同理。
 
 ---
-## 远程仓库、镜像仓库
+# 远程仓库、镜像仓库
 
 **远程仓库的配置**
 在 `pom.xml` 中配置 repository：
@@ -212,7 +210,7 @@ maven 中下载的插件都在 `~\.m2\repository\org\apache\maven` 文件夹内�
 - `<mirrorOf>*,!repo1</mirrorOf>`：使用感叹号将仓库排除
 
 ---
-## 生命周期、阶段、插件
+# 生命周期、阶段、插件
 Maven 有三套生命周期，互相独立，目的不同。
 
 - `clean` 清理项目
@@ -322,7 +320,7 @@ Maven 核心内置绑定了主要的生命周期阶段与插件的目标。用�
 ```
 
 ---
-## 聚合、继承
+# 聚合、继承
 
 **聚合**
 目的是能够使用一条命令就构建多个模块（或称项目）。需要建立一个聚合项目，该项目有自己的POM，如下，其中关键元素是 `<modules>`

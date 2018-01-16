@@ -1,16 +1,14 @@
-﻿# Java 8
-
-标签：!Java
-
-[TOC]
-
+﻿---
+title: Java 8
+date: 2017-01-01 09:00:00
+tags: [Java]
 ---
 
-## 将 lamda 表达式替换为方法引用
+# 将 lamda 表达式替换为方法引用
 
 *参考并摘自 [developerWorks-传递表达式（pass-through lambdas）的替代方案](https://www.ibm.com/developerworks/cn/java/j-java8idioms5/index.html)。*
 
-### 使用方法引用增加代码可读性
+## 使用方法引用增加代码可读性
 
 若 lamda 中没有做实际的操作，而仅仅是将参数传递给了另一个方法，则最好将 lamda 替换为方法引用。
 
@@ -29,7 +27,7 @@ lamda 表达式中的形参有几种不同的用途：
 - 传递多个实参
 
 ---
-### 传递形参作为实参
+## 传递形参作为实参
 
 ```
 实例方法的实参
@@ -48,7 +46,7 @@ this::instanceMethod
 ```
 
 ---
-### 传递形参作为目标
+## 传递形参作为目标
 
 ```
 variable -> variable.instanceMethod()
@@ -60,7 +58,7 @@ Clazz::instanceMethod
 比如将 `(Integer e) -> e.toString` 写为 `Integer::toString`，由于 Integer 类同时包含静态方法 `public static String toString(int i)` 和实例方法 `public String toString()`，所以编译器无法确定该方法引用对应哪个方法。这种情况下只能使用 lamda 表达式来确定唯一的一个方法。
 
 ---
-### 传递构造函数调用
+## 传递构造函数调用
 
 ```
 variable -> new Clazz(variable)
@@ -68,7 +66,7 @@ Clazz::new
 ```
 
 ---
-### 传递多个形参
+## 传递多个形参
 
 传递多个形参作为实参
 ```

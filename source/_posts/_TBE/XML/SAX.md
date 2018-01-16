@@ -1,12 +1,10 @@
-﻿# SAX
-
-标签： !XML
-
-[TOC]
-
+﻿---
+title: SAX
+date: 2017-01-01 09:00:00
+tags: [XML]
 ---
 
-## SAX
+# SAX
 
 > Simple API for XML
 
@@ -17,7 +15,7 @@
 - 需要比 DOM 更多的工作。
 
 ---
-## 常用的 SAX 接口和类
+# 常用的 SAX 接口和类
 
 SAX 将其事件分为几个接口：
 
@@ -29,7 +27,7 @@ SAX 将其事件分为几个接口：
 为简化工作，SAX 在 DefaultHandler 类中提供了这些接口的缺省实现。在大多数情况下，为应用程序扩展 DefaultHandler 并覆盖相关的方法要比直接实现一个接口更容易。
 
 ---
-## XMLReader
+# XMLReader
 
 为注册事件处理器并启动语法分析器，应用程序使用 XMLReader 接口中的相关方法，启动语法分析：
 ```
@@ -48,7 +46,7 @@ parser.parse(args[0]);
 - **http://xml.org/sax/features/validation**，它是可选的。如果将它设置为 true，则验证语法分析器将验证该文档。非验证语法分析器忽略该功能。
 
 ---
-## XMLReaderFactory
+# XMLReaderFactory
 
 XMLReaderFactory 创建语法分析器对象。它定义 createXMLReader() 的两个版本：一个采用语法分析器的类名作为参数，另一个从 org.xml.sax.driver 系统特性中获得类名称。
 对于 Xerces，类是 org.apache.xerces.parsers.SAXParser 。应该使用 XMLReaderFactory ，因为它易于切换至另一种 SAX 语法分析器。实际上，只需要更改一行然后重新编译。
@@ -59,13 +57,13 @@ XMLReader parser = XMLReaderFactory.createXMLReader(
 为获得更大的灵活性，应用程序可以从命令行读取类名或使用不带参数的 createXMLReader() 。因此，甚至可以不重新编译就更改语法分析器。
 
 ---
-## InputSource
+# InputSource
 
 InputSource 控制语法分析器如何读取文件，包括 XML 文档和实体。
 在大多数情况下，文档是从 URL 装入的。但是，有特殊需求的应用程序可以覆盖 InputSource 。例如，这可以用来从数据库中装入文档。
 
 ---
-## ContentHandler
+# ContentHandler
 
 ContentHandler 是最常用的 SAX 接口，因为它定义 XML 文档的事件。
 
@@ -80,7 +78,7 @@ ContentHandler 声明下列事件：
 - **setDocumentLocator()** 将 Locator 对象传递到应用程序。请注意，不需要 SAX 语法分析器提供 Locator ，但是如果它提供了，则必须在任何其它事件之前激活该事件。
 
 ---
-## 属性
+# 属性
 
 在 startElement() 事件中，应用程序在 Attributes 参数中接收属性列表。
 ```
@@ -96,7 +94,7 @@ Attributes 定义下列方法：
 - **getType(i) / getType(qName) / getType(uri,localName)** 返回第 i 个属性的类型或者给定名称的属性类型。类型为字符串，即在 DTD 所使用的： “CDATA”、“ID”、“IDREF”、“IDREFS”、“NMTOKEN”、“NMTOKENS”、“ENTITY”、“ENTITIES” 或 “NOTATION”。
 
 ---
-## 定位器
+# 定位器
 
 Locator 为应用程序提供行和列的位置。不需要语法分析器来提供 Locator 对象。
 
@@ -108,7 +106,7 @@ Locator 定义下列方法：
 - **getSystemId()** 返回当前文档事件的系统标识。
 
 ---
-## DTDHandler
+# DTDHandler
 
 DTDHandler 声明两个与 DTD 语法分析器相关的事件。
 
@@ -116,13 +114,13 @@ DTDHandler 声明两个与 DTD 语法分析器相关的事件。
 - **nparsedEntityDecl()** 通知应用程序已经发现了一个未经过语法分析的实体声明。
 
 ---
-## EntityResolver
+# EntityResolver
 
 EntityResolver 接口仅定义一个事件 resolveEntity() ，它返回 InputSource。
 因为 SAX 语法分析器已经可以解析大多数 URL，所以很少应用程序实现 EntityResolver 。例外情况是目录文件，它将公共标识解析成系统标识。如果在应用程序中需要目录文件，请下载 Norman Walsh 的目录软件包。
 
 ---
-## ErrorHandler
+# ErrorHandler
 
 ErrorHandler 接口定义错误事件。处理这些事件的应用程序可以提供定制错误处理。
 安装了定制错误处理器后，语法分析器不再抛出异常。抛出异常是事件处理器的责任。
@@ -133,7 +131,7 @@ ErrorHandler 接口定义错误事件。处理这些事件的应用程序可以�
 - **fatalError()** 警示那些由 XML 规范定义的致命错误。
 
 ---
-## SAXException
+# SAXException
 
 SAX 定义的大多数方法都可以抛出 SAXException 。当对 XML 文档进行语法分析时， SAXException 通知一个错误。
 错误可以是语法分析错误也可以是事件处理器中的错误。要报告来自事件处理器的其它异常，可以将异常封装在 SAXException 中。

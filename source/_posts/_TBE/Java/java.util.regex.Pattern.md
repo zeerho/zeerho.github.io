@@ -1,7 +1,7 @@
-﻿# java.util.regex.Pattern
-
-标签（空格分隔）： !Java 
-
+﻿---
+title: java.util.regex.Pattern
+date: 2017-01-01 09:00:00
+tags: [Java]
 ---
 
 A compiled representation of a regular expression. 

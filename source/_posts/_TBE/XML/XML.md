@@ -1,12 +1,10 @@
-﻿# XML
-
-标签： !XML
-
-[TOC]
-
+﻿---
+title: XML
+date: 2017-01-01 09:00:00
+tags: [XML]
 ---
 
-## 定义
+# 定义
 
 XML
 > 可扩展标记语言（eXtensible Markup Language）
@@ -15,7 +13,7 @@ XML 元素
 > XML 元素指的是从（且包括）开始标签直到（且包括）结束标签的部分。
 一个元素可以包含：其他元素、文本、属性，或混合以上所有...
 
-## 语法
+# 语法
 
 - 声明部分 `<?xml version="1.0" encoding="utf-8" standalone="yes"?>` 可选，如果存在须放第一行；
     - `standalone="yes"` 表示该 XML 文档独立，不能引用外部的 DTD 规范文件，反之则非独立，可以引用外部规范文件。
@@ -50,7 +48,7 @@ XML 元素
 - XML 会保留连续的多个空格，而不会裁剪为一个；
 - XML 以 `LF` 存储换行。
 
-## 格式化
+# 格式化
 
 1. CSS
     ```
@@ -66,13 +64,13 @@ XML 元素
 > eXtensible Stylesheet Language Transformations
 XSLT 是首选的 XML 样式表语言，它在浏览器显示 XML 文件之前，先把它转换为 HTML。
 
-## 命名空间
+# 命名空间
 
 命名空间是在元素的开始标签的 xmlns 属性中定义的。
 命名空间声明的语法：`xmlns:前缀="URI"`。
 可以为元素定义默认的命名空间来省去在所有子元素中使用前缀的工作：`xmlns="URI`。
 
-## CDATA
+# CDATA
 
 1. CDATA - （未解析）字符数据 character data
 术语 CDATA 是不应该由 XML 解析器解析的文本数据。
@@ -85,7 +83,7 @@ CDATA 部分不能包含字符串 `]]>`。也不允许嵌套的 CDATA 部分。
 2. PCDATA - 被解析的字符数据 parsed character data
 XML 解析器通常会解析 XML 文档中所有的文本。PCDATA 是相对于 CDATA 而言的。
 
-## 编码
+# 编码
 
 在载入一个 XML 文档时可能得到两个不同的错误，表示编码问题：
 
@@ -102,7 +100,7 @@ XML 解析器通常会解析 XML 文档中所有的文本。PCDATA 是相对于 
 - 确保知道编辑器使用什么编码
 - 在编码属性中使用相同的编码
 
-## XML 相关技术
+# XML 相关技术
 
 XHTML (可扩展 HTML) 
 > 更严格更纯净的基于 XML 的 HTML 版本。
@@ -149,10 +147,10 @@ SVG (可伸缩矢量图形)
 
 ---
 <span id="DTD_content"></span>
-## DTD
+# DTD
 [back](#DTD_title)
 
-### 介绍
+## 介绍
 > DTD（文档类型定义）的作用是定义 XML 文档的合法构建模块。
 DTD 可被成行地声明于 XML 文档中，也可作为一个外部引用。
 
@@ -201,7 +199,7 @@ DTD 可被成行地声明于 XML 文档中，也可作为一个外部引用。
 - 可以使用 DTD 来验证自身的数据。
 
 ---
-### 元素
+## 元素
 在 DTD 中，XML 元素通过元素声明来进行声明：
 `<!ELEMENT element-name category>`
 或
@@ -238,7 +236,7 @@ DTD 可被成行地声明于 XML 文档中，也可作为一个外部引用。
 上面的例子声明了："note" 元素可包含出现零次或多次的 PCDATA、"to"、"from"、"header" 或者 "message"。
 
 ---
-### 属性
+## 属性
 在 DTD 中，属性通过 ATTLIST 声明来进行声明：
 `<!ATTLIST element-name attribute-name attribute-type attribute-value>`
 DTD 实例：
@@ -271,7 +269,7 @@ XML 实例：
 
 
 ---
-### 实体
+## 实体
 实体是用于定义引用普通文本或特殊字符的快捷方式的变量。
 
 - 实体引用是对实体的引用。
@@ -297,7 +295,7 @@ XML 实例：
 
 ---
 <span id="XSD_content"></span>
-## XSD
+# XSD
 [back](#XSD_title)
 
 > XML Schema 的作用是定义 XML 文档的合法构建模块，类似 DTD。
@@ -311,7 +309,7 @@ XML 实例：
 > - 定义元素和属性的数据类型
 > - 定义元素和属性的默认值以及固定值
 
-### < schema> 元素
+## < schema> 元素
 **`<schema>` 元素是每一个 XML Schema 的根元素**
 ```
 <?xml version="1.0"?>
@@ -353,7 +351,7 @@ xsi:schemaLocation="http://www.runoob.com note.xsd">
 `xsi:schemaLocation="http://www.runoob.com note.xsd"`
 
 ---
-### 数据类型
+## 数据类型
 
 **字符串数据类型**
 
@@ -528,7 +526,7 @@ xsi:schemaLocation="http://www.runoob.com note.xsd">
     - whiteSpace
     
 ---
-### 简易元素
+## 简易元素
 > 简易元素指那些仅包含文本的元素。它不会包含任何其他的元素或属性。
 不过，“仅包含文本”这个限定却很容易造成误解。文本有很多类型。它可以是 XML Schema 定义中包括的类型中的一种（布尔、字符串、数据等等），或者它也可以是自行定义的定制类型。
 也可向数据类型添加限定（即 facets），以此来限制它的内容，或者可以要求数据匹配某种特定的模式。
@@ -552,7 +550,7 @@ xsi:schemaLocation="http://www.runoob.com note.xsd">
 `<xs:element name="color" type="xs:string" fixed="red"/>`
 
 ---
-### 属性
+## 属性
 > 所有的属性均作为简易类型来声明。简易元素无法拥有属性。假如某个元素拥有属性，它就会被当作某种复合类型。但是属性本身总是作为简易类型被声明的。
 
 **定义属性**
@@ -578,7 +576,7 @@ xsi:schemaLocation="http://www.runoob.com note.xsd">
 `<xs:attribute name="lang" type="xs:string" use="required"/>`
 
 ---
-### 限定 / Facets
+## 限定 / Facets
 > 限定（restriction）用于为 XML 元素或者属性定义可接受的值。对 XML 元素的限定被称为 facet。
 
 **对值的限定**
@@ -698,7 +696,7 @@ xsi:schemaLocation="http://www.runoob.com note.xsd">
 
 
 ---
-### 复合元素
+## 复合元素
 > 复合元素指包含其他元素及/或属性的 XML 元素。
 > 
 > - 空元素
@@ -778,7 +776,7 @@ xsi:schemaLocation="http://www.runoob.com note.xsd">
 </xs:complexType>
 ```
 
-#### **复合类型-空元素**
+### **复合类型-空元素**
 > 空的复合元素不能包含内容，只能含有属性。
 
 一个空的 XML 元素：
@@ -815,7 +813,7 @@ xsi:schemaLocation="http://www.runoob.com note.xsd">
 </xs:complexType>
 ```
 
-#### **复合类型-仅含元素**
+### **复合类型-仅含元素**
 > "仅含元素"的复合类型元素是只能包含其他元素的元素。
 
 ```
@@ -848,7 +846,7 @@ xsi:schemaLocation="http://www.runoob.com note.xsd">
 </xs:complexType>
 ```
 
-#### **复合类型-仅含文本**
+### **复合类型-仅含文本**
 > 含文本的复合元素可包含文本和属性。
 
 此类型仅包含简易的内容（文本和属性），因此要向此内容添加 simpleContent 元素。当使用简易内容时，我们就必须在 simpleContent 元素内定义扩展或限定：
@@ -906,7 +904,7 @@ xsi:schemaLocation="http://www.runoob.com note.xsd">
 </xs:complexType>
 ```
 
-#### **复合类型-混合内容**
+### **复合类型-混合内容**
 > 混合的复合类型可包含属性、元素以及文本。
 
 ```
@@ -943,7 +941,7 @@ xsi:schemaLocation="http://www.runoob.com note.xsd">
 ```
 
 ---
-### 指示器
+## 指示器
 > 通过指示器，可以控制在文档中使用元素的方式。
 > 
 > - Order 指示器：
@@ -1107,7 +1105,7 @@ xsi:schemaLocation="http://www.runoob.com note.xsd">
 ```
 
 ---
-### any 元素
+## any 元素
 > any 元素使我们有能力通过未被 schema 规定的元素来拓展 XML 文档。
 
 下面这个例子是从名为 "family.xsd" 的 XML schema 中引用的片段。它展示了一个针对 "person" 元素的声明。通过使用 any 元素，我们可以通过任何元素（在 `<lastname>` 之后）扩展 "person" 的内容：
@@ -1163,7 +1161,7 @@ http://www.w3schools.com children.xsd">
 上面这个 XML 文件是有效的，这是由于 schema "family.xsd" 允许我们通过在 "lastname" 元素后的可选元素来扩展 "person" 元素。
 
 ---
-### anyAttribute
+## anyAttribute
 > anyAttribute 元素使我们有能力通过未被 schema 规定的属性来扩展 XML 文档。
 
 下面的例子是来自名为 "family.xsd" 的 XML schema 的一个片段。它为我们展示了针对 "person" 元素的一个声明。通过使用 `<anyAttribute>` 元素，我们就可以向 "person" 元素添加任意数量的属性：
@@ -1215,7 +1213,7 @@ http://www.w3schools.com attribute.xsd">
 上面这个 XML 文件是有效的，这是因为 schema "family.xsd" 允许我们向 "person" 元素添加属性。
 
 ---
-### 元素替换
+## 元素替换
 > 通过元素替换 (Element Substitution)，一个元素可对另一个元素进行替换。
 
 **元素替换**

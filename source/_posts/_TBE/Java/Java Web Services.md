@@ -1,14 +1,12 @@
-﻿# Java Web Services
-
-标签： !Java
-
-[TOC]
-
+﻿---
+title: Java Web Services
+date: 2017-01-01 09:00:00
+tags: [Java]
 ---
 
-## 1. 基于 SOAP 的 Web 服务
+# 1. 基于 SOAP 的 Web 服务
 
-### 1.1 TimeServer 的服务端点接口（SEI，Service Endpoint Interface）
+## 1.1 TimeServer 的服务端点接口（SEI，Service Endpoint Interface）
 
 ```java
 package ch01.ts; //time server
@@ -26,7 +24,7 @@ public interface TimeServer{
 }
 ```
 
-### 1.2 TimeServer 服务实现 Bean（SIB，Service Implementation Bean）[^new Date()]
+## 1.2 TimeServer 服务实现 Bean（SIB，Service Implementation Bean）[^new Date()]
 
 ```java
 package ch01.ts;
@@ -41,7 +39,7 @@ public class TimeServerImpl implements TimeServer{
 }
 ```
 
-### 1.3 将 Java 程序发布为 Web 服务
+## 1.3 将 Java 程序发布为 Web 服务
 
 Web 服务可以发布到独立的 Java 应用服务器中，也可以如下简单地为其提供一个 Web 服务发布程序。
 
@@ -60,11 +58,11 @@ public class TimeServerPublisher{
 这样发布的服务同一时刻只能处理一个客户端服务请求。
 
 <span id="return1"></span>
-### 1.4 通过浏览器测试 Web 服务
+## 1.4 通过浏览器测试 Web 服务
 
 通过浏览器查看由发布程序自动产生的服务契约 WSDL（Web Services Description Language）文档。访问地址 `http://127.0.0.1:9876/ts?wsdl`。详细报文见[这里](#wsdl)。
 
-### 1.5 传输SOAP消息时HTTP请求的内容结构
+## 1.5 传输SOAP消息时HTTP请求的内容结构
 
 ```xml
 POST http://127.0.0.1:9876/ts HTTP/ 1.1
@@ -96,7 +94,7 @@ SOAPAction:""
 
 针对 Web 服务来说，底层的 Java 支持库处理 HTTP 请求，并将 SOAP 信封拆包，分析出客户端请求的服务操作，然后调用对应的方法，生成相应的 SOAP 消息返回给客户端。
 
-### 1.6 来自 TimeServer 服务的 HTTP 响应
+## 1.6 来自 TimeServer 服务的 HTTP 响应
 
 ```xml
 HTTP/1.1 200 OK
@@ -120,7 +118,7 @@ Client-Response-Num:1
 
 根据 WSDL 文档提供的信息（这里未列出），要求从 Web 服务返回的值出现在 XML 的 `<return>` 元素中。
 
-### 1.7 Java 语言实现的 Web 服务客户端
+## 1.7 Java 语言实现的 Web 服务客户端
 
 ```java
 package ch01.ts;
@@ -148,9 +146,9 @@ class TimeClient{
 Java客户端明确地创建了一个语法格式为“URI：本地名称”的 XML 限定名，`java.xml.namespace.Qname` 类用来表示一个 XML 限定名。本类中的命名空间 URI 在 WSDL 文档中提供；本地名称在 WSDL 文档最后一段的 Service 元素中描述（这里是“TimeServerImplService”）。
 调用 `Service.create()` 方法后，执行 `getPort()` 方法，该方法返回一个 Java 对象，可以通过此对象调用 portType 中描述的操作。
 
-## 2. 全面了解 WSDL
+# 2. 全面了解 WSDL
 
-### 2.1 从 WSDL 文档中生成客户端支持代码
+## 2.1 从 WSDL 文档中生成客户端支持代码
 
 2.1.1 使用 wsimport
 
@@ -216,7 +214,7 @@ class TimeClientWSDL {
 1. 通过 wsimport 产生的 Class 文件中的构造方法构造一个服务对象，比如本例中的 `TimeServerImplService` 类。
 2. 通过构建的服务对象调用对应的 get 方法。
 
-### 2.2 WSDL文档结构
+## 2.2 WSDL文档结构
 根元素 `<definitions>` 内部分为 3 部分：
 
 - **类型（Types）：**非必需。通常基于像XML模式（XML Schema）这样的类型系统来提供数据类型的定义。这种用来定义数据类型的文档就是XSD（XML Schema Definition）。在数据类型部分可以持有、指向或引入一个XSD。若为空，则只使用简单数据类型，比如`xsd:String`和`xsd:long`。
@@ -228,7 +226,7 @@ class TimeClientWSDL {
     - SOAP消息中使用的数据编码格式有两种：“literal”（逐字的）和“encoded”。其中“encoded”不符合WS-I指导原则，一般不使用。
 - **服务（service）：**指定了一个或多个端点，端点中描述了服务的功能和所包括的操作。从技术上看，服务部分包括一个或多个port（端口），每个port包括portType（接口）及与之对应的binding（接口实现）。port一词源自分布式系统。
 
-### 2.4 wsgen 工具与 JAX-B 工件（Artifacts）
+## 2.4 wsgen 工具与 JAX-B 工件（Artifacts）
 任何 Document 样式的服务，都需要由 wsgen 工具产生的工件（Artifacts，支持客户端开发的相关代码资源）。
 假设 TimeServerImpl.class(注意是 **.class** 而不是 **.java**)的路径为 `C:/workspace/MyProject/build/classes/com/demo/TimeServerImpl.class`，则需要在 `C:/workspace/MyProject/build/classes` 目录内运行下列命令，否则提示 `Class Not Found.`
 `wsgen -keep -cp . com.demo.TimeServerImpl`
@@ -240,10 +238,10 @@ class TimeClientWSDL {
 `wsgen -cp "." -wsdl com.demo.TimeServerImpl `
 命令运行目录同前文所述。运行后将在`../MyProject/build/classes`内生成相应的`.wsdl`和`.xsd`。
 
-##3. Web Service注解
+#3. Web Service注解
 JSR 181
 **注释类：** 
-###javax.jws.WebService
+##javax.jws.WebService
 **注释：** 
 当实现 Web Service 时，`@WebService` 注释标记 Java 类；实现 Web Service 接口时，标记服务端点接口（SEI）。
 要点：
@@ -266,7 +264,7 @@ JSR 181
 指定用于定义 Web Service 的 WSDL 文档的 Web 地址。Web 地址可以是相对路径或绝对路径。（字符串）
 
 **注释类：** 
-###javax.jws.WebMethod
+##javax.jws.WebMethod
 **注释：** 
 `@WebMethod` 注释表示作为一项 Web Service 操作的方法。
 将此注释应用于客户机或服务器服务端点接口（SEI）上的方法，或者应用于 JavaBeans 端点的服务器端点实现类。
@@ -282,7 +280,7 @@ JSR 181
 指定是否从 Web Service 中排除某一方法。缺省值为 false。（布尔值）
 
 **注释类：** 
-###javax.jws.Oneway
+##javax.jws.Oneway
 **注释：** 
 `@Oneway` 注释将一个方法表示为只有输入消息而没有输出消息的 Web Service 单向操作。
 将此注释应用于客户机或服务器服务端点接口（SEI）上的方法，或者应用于 JavaBeans 端点的服务器端点实现类。
@@ -291,7 +289,7 @@ JSR 181
 没有适用于 Oneway 注释的属性。
 
 **注释类：** 
-###javax.jws.WebParam
+##javax.jws.WebParam
 **注释：** 
 `@WebParam` 注释用于定制从单个参数至 Web Service 消息部件和 XML 元素的映射。
 将此注释应用于客户机或服务器服务端点接口（SEI）上的方法，或者应用于 JavaBeans 端点的服务器端点实现类。
@@ -309,7 +307,7 @@ JSR 181
 指定参数是在消息头还是消息体中。缺省值为 false。（布尔值）
 
 **注释类：** 
-###javax.jws.WebResult
+##javax.jws.WebResult
 **注释：** 
 `@WebResult` 注释用于定制从返回值至 WSDL 部件或 XML 元素的映射。
 将此注释应用于客户机或服务器服务端点接口（SEI）上的方法，或者应用于 JavaBeans 端点的服务器端点实现类。
@@ -325,7 +323,7 @@ JSR 181
 指定 RPC 或 DOCUMENT/BARE 操作的结果的部件名称。缺省值为`@WebResult.name`。（字符串）
 
 **注释类：** 
-###javax.jws.HandlerChain
+##javax.jws.HandlerChain
 **注释：** 
 `@HandlerChain` 注释用于使 Web Service 与外部定义的处理程序链相关联。
 只能通过对 SEI 或实现类使用 `@HandlerChain` 注释来配置服务器端的处理程序。
@@ -338,7 +336,7 @@ JSR 181
 指定配置文件中处理程序链的名称。（字符串）
 
 **注释类：** 
-###javax.jws.SOAPBinding
+##javax.jws.SOAPBinding
 **注释：** 
 `@SOAPBinding` 注释指定 Web Service 与 SOAP 消息协议之间的映射。
 将此注释应用于客户机或服务器服务端点接口（SEI）上的类型或方法，或者应用于 JavaBeans 端点的服务器端点实现类。
@@ -354,7 +352,7 @@ JSR 181
 
 JSR 224
 **注释类：** 
-###javax.xml.ws.BindingType
+##javax.xml.ws.BindingType
 **注释：** 
 `@BindingType` 注释指定在发布此类型的端点时要使用的绑定。
 将此注释应用于 JavaBeans 端点或提供程序端点的服务器端点实现类。
@@ -366,7 +364,7 @@ JSR 224
 指示绑定标识 Web 地址。有效值为 javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING、javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING 和 javax.xml.ws.http.HTTPBinding.HTTP2HTTP_BINDING。缺省值为 javax.xml.ws.soap.SOAPBinding.SOAP11HTTP_BINDING。（字符串）
 
 **注释类：** 
-###javax.xml.ws.RequestWrapper
+##javax.xml.ws.RequestWrapper
 **注释：** 
 `@RequestWrapper` 注释提供 JAXB 生成的请求包装器 bean、元素名称和名称空间，用于对在运行时使用的请求包装器 bean 进行序列化和反序列化。
 从 Java 对象开始时，此元素用来解决 document literal 方式下的重载冲突。在这种情况下，只有 className 属性是必需的。
@@ -381,7 +379,7 @@ JSR 224
 指定用于表示请求包装器的类的名称。（字符串）
 
 **注释类：** 
-###javax.xml.ws.ResponseWrapper
+##javax.xml.ws.ResponseWrapper
 **注释：** 
 `@ResponseWrapper` 注释提供 JAXB 生成的响应包装器 bean、元素名称和名称空间，用于对在运行时使用的响应包装器 bean 进行序列化和反序列化。
 从 Java 对象开始时，此元素用来解决 document literal 方式下的重载冲突。在这种情况下，只有 className 属性是必需的。
@@ -396,7 +394,7 @@ JSR 224
 指定用于表示响应包装器的类的名称。（字符串）
 
 **注释类：** 
-###javax.xml.ws.ServiceMode
+##javax.xml.ws.ServiceMode
 **注释：** 
 `@ServiceMode` 注释指定服务提供者是需要对整个协议消息具有访问权还是只需对消息有效内容具有访问权。
 要点：
@@ -407,7 +405,7 @@ JSR 224
 指示提供者类是接受消息的有效内容 PAYLOAD 还是整个消息 MESSAGE。缺省值为 PAYLOAD。（字符串）
 
 **注释类：** 
-###javax.xml.ws.WebFault
+##javax.xml.ws.WebFault
 **注释：** 
 `@WebFault` 注释将 WSDL 故障映射至 Java 异常。对从 WSDL 故障消息引用的全局元素生成的 JAXB 类型进行序列化期间，该注释用来捕获故障的名称。它还可以用来定制从特定于服务的异常到 WSDL 故障的映射。
 此注释只能应用于客户机或服务器上的故障实现类。
@@ -421,7 +419,7 @@ JSR 224
 指定故障 bean 类的名称。（字符串）
 
 **注释类：** 
-###javax.xml.ws.WebServiceProvider
+##javax.xml.ws.WebServiceProvider
 **注释：** 
 `@WebServiceProvider` 注释表示一个类满足 JAX-WS 提供程序实现类的要求。
 要点：
@@ -440,7 +438,7 @@ JSR 224
 
 JSR 250
 **注释类：**
-###javax.annotation.Resource
+##javax.annotation.Resource
 **注释：**
 `@Resource` 注释标记应用程序所需要的 WebServiceContext 资源。
 将此注释应用于 JavaBeans 端点或提供程序端点的服务器端点实现类。对容器进行初始化时，容器会将 WebServiceContext 资源的实例添加到端点实现中。
@@ -450,7 +448,7 @@ JSR 250
 指示资源的 Java 类型。您需要使用缺省值 java.lang.Object 或者 javax.xml.ws.Web ServiceContext 值。如果类型是缺省值，那么必须将资源添加到字段或方法中。在这种情况下，字段的类型或者由方法定义的 JavaBeans 属性的类型必须为 javax.xml.ws.WebServiceContext。（字符串）
 
 **注释类：**
-###javax.annotation.PostConstruct
+##javax.annotation.PostConstruct
 **注释：**
 `@PostConstruct` 注释标记需要在对类执行依赖性注入之后才执行的方法。
 将此注释应用于 JAX-WS 应用程序处理程序、JavaBeans 端点或提供程序端点的服务器端点实现类。
@@ -458,7 +456,7 @@ JSR 250
 注释目标：方法
 
 **注释类：**
-###javax.annotation.PreDestroy
+##javax.annotation.PreDestroy
 **注释：**
 `@PreDestroy` 注释标记在容器除去实例时必须执行的方法。
 将此注释应用于 JAX-WS 应用程序处理程序、JavaBeans 端点或提供程序端点的服务器端点实现类。
@@ -471,8 +469,8 @@ JSR 250
 无论是否指定了 `@WebMethod` 注释，SEI 的所有公用方法都被认为是已显示的方法。在包含 exclude 属性的 SEI 上使用 `@WebMethod` 注释是不正确的。
 对于不引用 SEI 的实现类，如果对 `@WebMethod` 注释指定了值 exclude=true，那么不会显示该方法。如果未指定 `@WebMethod` 注释，那么将显示包括继承的方法在内的所有公用方法，但是不包括从 java.lang.Object 继承的方法。
 
-## 附录
-### <span id="wsdl">WSDL详细报文</span>
+# 附录
+## <span id="wsdl">WSDL详细报文</span>
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions

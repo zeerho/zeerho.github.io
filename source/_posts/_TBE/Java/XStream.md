@@ -1,12 +1,10 @@
-﻿# XStream
-
-标签： !Java
-
-[TOC]
-
+﻿---
+title: XStream
+date: 2017-01-01 09:00:00
+tags: [Java]
 ---
 
-## 常用注解
+# 常用注解
 |注解|作用|作用目标
 |:--|:--:|:--:|
 |`@XStreamAlias("label_name")`|别名注解|作用目标: 类,字段  
@@ -18,8 +16,8 @@
 |`xstream.autodetectAnnotations(true);`|自动侦查注解  
 *自动侦查注解与 `XStream.processAnnotations(Class[] cls)` 的区别在于性能.自动侦查注解将缓存所有类的类型.*  
 
-### 简单示例
-####1.实体类
+## 简单示例
+###1.实体类
 以下所有实体类省略了 getter 和 setter 方法。
 ```java
 package com.demo.entity;
@@ -87,7 +85,7 @@ public class Animal {
 	}
 }
 ```
-####2.测试类
+###2.测试类
 bean->xml ↓
 ```java
 package com.demo.test;
@@ -152,7 +150,7 @@ public class TestFromXML {
 }
 ```
 
-## 使用 Java 语句实现 bean 字段与 xml 标签的映射
+# 使用 Java 语句实现 bean 字段与 xml 标签的映射
 
 ```java
 public static void main(String[] args){
@@ -164,7 +162,7 @@ public static void main(String[] args){
 }
 ```
 
-## 处理对象引用的不同方式
+# 处理对象引用的不同方式
 
 通过 `xstream.setMode(XStream.NO_REFERENCES);` 来设置处理对象引用的方式。其中，`xstream` 为一个 XStream 实例；`NO_REFERENCES` 为 static final 形式，所以直接通过 XStream 类引用。
 所有的模式如下：

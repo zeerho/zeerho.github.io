@@ -1,12 +1,10 @@
-﻿# Spring 配置文件详解
-
-标签： !Java #Spring
-
-[TOC]
-
+﻿---
+title: Spring 配置文件详解
+date: 2017-01-01 09:00:00
+tags: [Java]
 ---
 
-## Spring2.5 配置文件详解
+# Spring2.5 配置文件详解
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans  
