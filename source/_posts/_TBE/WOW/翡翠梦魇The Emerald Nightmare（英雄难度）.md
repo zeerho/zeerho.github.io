@@ -1,4 +1,4 @@
-﻿---
+---
 title: 翡翠梦魇The Emerald Nightmare（英雄难度）
 date: 2017-01-01 09:00:00
 tags: [WOW]

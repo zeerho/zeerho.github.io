@@ -1,4 +1,4 @@
-﻿---
+---
 title: Apache 通用日志工具 commons-logging 和 Log4j 使用总结
 date: 2017-01-01 09:00:00
 tags: [Java]

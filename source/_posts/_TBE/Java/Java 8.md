@@ -1,4 +1,4 @@
-﻿---
+---
 title: Java 8
 date: 2017-01-01 09:00:00
 tags: [Java]
@@ -19,14 +19,13 @@ System.out::println
 ```
 
 ---
-lamda 表达式中的形参有几种不同的用途：
+# lamda 表达式中的形参有几种不同的用途：
 
 - 形参作为另一个方法的实参
 - 形参作为类/对象，并调用其中的方法
 - 传递一个构造函数
 - 传递多个实参
 
----
 ## 传递形参作为实参
 
 ```
@@ -45,7 +44,6 @@ variable -> this.instanceMethod(variable)
 this::instanceMethod
 ```
 
----
 ## 传递形参作为目标
 
 ```
@@ -57,7 +55,6 @@ Clazz::instanceMethod
 若一个类的一个静态方法和一个兼容的实例方法同名，那么使用方法引用会引起歧义，使得编译失败。
 比如将 `(Integer e) -> e.toString` 写为 `Integer::toString`，由于 Integer 类同时包含静态方法 `public static String toString(int i)` 和实例方法 `public String toString()`，所以编译器无法确定该方法引用对应哪个方法。这种情况下只能使用 lamda 表达式来确定唯一的一个方法。
 
----
 ## 传递构造函数调用
 
 ```
@@ -65,7 +62,6 @@ variable -> new Clazz(variable)
 Clazz::new
 ```
 
----
 ## 传递多个形参
 
 传递多个形参作为实参
