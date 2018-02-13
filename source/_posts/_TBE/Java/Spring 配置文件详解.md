@@ -1,7 +1,7 @@
 ---
 title: Spring 配置文件详解
 date: 2017-01-01 09:00:00
-tags: [Java]
+tags: [Java, Spring]
 ---
 
 # Spring2.5 配置文件详解
