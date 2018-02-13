@@ -1,11 +1,12 @@
 ---
 title: Apache Commons
 date: 2017-10-13 10:00:00
-tags: Java
+tags: [Java]
 ---
+
 # Apache Commons
 
----
+<!-- more -->
 
 ## Collections
 

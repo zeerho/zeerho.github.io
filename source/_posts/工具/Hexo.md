@@ -39,19 +39,23 @@ ssh-keygen -t rsa -C "MyEmail@gmail.com"
 
 ### 准备 Hexo
 
-1. `
+[Hexo 中文文档](https://hexo.io/zh-cn/docs/)
+
 1. 进入用来放博客的文件夹，比如 `C:\workspace\blog` （下面涉及到这个文件夹的地方都要替换为你自己的文件夹）
-2. 在命令行中执行 `npm install -g hexo-cli`、`hexo init`、`npm install`、`hexo g`、`hexo s`
-3. 访问 `localhost:4000`，若以上步骤没问题则能看到 Hexo 的默认页面
-4. 回命令行中按 `Ctrl-C` 来关闭刚才 `hexo s` 启动的本地服务
-5. 配置部署方式。打开刚才的 `C:\workspace\blog`，编辑 _config.yml
+2. 在命令行中执行 `npm install -g hexo-cli` 来安装 Hexo
+3. `hexo init` 初始化全部文件（迁移博客时不要执行，会覆盖掉原先的配置等文件）、`npm install`
+4. `hexo g` 生成静态文件
+5. `hexo s` 部署并启动服务
+6. 访问 `localhost:4000`，若以上步骤没问题则能看到 Hexo 的默认页面
+7. 回命令行中按 `Ctrl-C` 来关闭刚才 `hexo s` 启动的本地服务
+8. 配置部署方式。打开刚才的 `C:\workspace\blog`，编辑 _config.yml
 ```
 deploy:
   type: git
   repo: git@github.com:MyName/MyName.github.io.git
   branch: master
 ```
-6. 为了使用 `hexo d` 来部署到 Github 上，需要安装
+9. 为了使用 `hexo d` 来部署到 Github 上，需要安装
 `npm install hexo-deployer-git --save`
 
 ### Hexo 主题
