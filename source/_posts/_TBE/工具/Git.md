@@ -105,8 +105,8 @@ commit 到 Head，并附带备注 "message"
     重命名远程仓库的简称
     - `git remote rm {remote_name}`
     移除远程仓库
-- `git clone {url} [custom_repo_name]`
-从服务器上克隆项目，包括所有历史数据。可自定义本地项目的名称
+- `git clone [-b {branch}] {url} [custom_repo_name]`
+从服务器上克隆项目，包括所有历史数据。可自定义本地项目的名称，可指明克隆的分支。
 - `git checkout`
     - `git checkout --track {remote_name}/{remote_branch}`
     从远程分支检出一个跟踪分支，即可以直接运行 `git push` 和 `git pull` 的分支，本地分支的名字同样为 {remote_branch}

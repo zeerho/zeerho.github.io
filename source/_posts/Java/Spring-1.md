@@ -958,3 +958,148 @@ public class EncoreableIntroducer {
 	</aop:aspect>
 </aop:config>
 ```
+
+# 事务管理
+
+## 事务管理器
+
+Spring 的事务管理器都是 `PlatformTransactionManager` 的实现。
+
+### JDBC 事务
+
+```xml
+<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="dataSource" />
+</bean>
+```
+
+事务管理器通过调用 `java.sql.connection` 来管理事务。
+
+### Hibernate 事务
+
+```xml
+<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <property name="sessionFactory" ref="sessionFactory" />
+</bean>
+```
+
+事务管理器通过调用 `org.hibernate.Transaction` 对象来管理事务。
+
+### JPA 事务
+
+```xml
+<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+    <property name="entityManagerFactory" ref="entityManagerFactory" />
+</bean>
+```
+
+### JTA 事务
+
+```xml
+<bean id="transactionManager" class="org.springframework.transaction.jta.JtaTransactionManager">
+    <property name="transactionManagerName" value="java:/TransactionManager" />
+</bean>
+```
+
+## 在 Spring 中的编码事务
+
+调用 `TransactionTemplate.execute()` 方法。
+
+```xml
+<bean id="txTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+    <property name="transactionManager" ref="transactionManager" />
+</bean>
+```
+
+## 声明式事务
+
+### 定义事务属性
+
+事务属性描述了事务策略，包括 5 个方面。
+
+**传播行为**
+
+`PROPAGATION_MANDATORY` 表示该方法必须在事务中运行。如果当前事务不存在，则会抛出异常。
+
+`PROPAGATION_NESTED` 表示如果当前已经存在一个事务，那么该方法将会在嵌套事务中运行。嵌套的事务可以独立于当前事务进行单独地提交或回滚。如果当前事务不存在，则其行为与 `PROPAGATION_REQUIRED` 一样。各厂商对这种行为的支持有所差异。
+
+`PROPAGATION_NEVER` 表示当前方法不应该运行在事务上下文中。如果当前正有一个事务在运行，则会抛出异常。
+
+`PROPAGATION_NOT_SUPPORTED` 表示该方法不应该运行在事务中。如果存在当前事务，在该方法运行期间，当前事务将被挂起。如果使用 `JTATransactionManager` 的话，则需要访问 `TransactionManager`。
+
+`PROPAGATION_REQUIRED` 表示当前方法必须运行在事务中。如果不存在当前事务，则会启动一个新事务。
+
+`PROPAGATION_REQUIRES_NEW` 表示当前方法必须运行在它自己的事务中。如果不存在当前事务，则会启动一个新事务。如果存在当前事务，在该方法执行期间，当前事务会被挂起。如果使用 `JTATransactionManager` 的话，则需要访问 `TransactionManager`。 
+
+`PROPAGATION_SUPPORTS` 表示当前方法不需要事务上下文，但是如果存在当前事务的话，那么该方法会在这个事务中运行。
+
+**隔离级别**
+
+并发事务可能产生的问题：
+
+- 脏读：A 读取了 B 改写的但未提交的数据，然后 B 回滚了，因此 A 读取的数据是无效的。
+- 不可重复读：A 先后执行两次相同的查询，但两次数据不同，因为 B 在之间修改了数据。
+- 幻读：A 读取了几行数据，然后 B 插入了一些数据，接着 A 在查询时发现多了一些原本不存在的记录。
+
+不同的隔离级别：
+
+`ISOLATION_DEFAULT` 使用后端数据库默认的隔离级别。
+
+`ISOLATION_READ_UNCOMMITTED` 允许读取尚未提交的数据变更。可能会导致脏读、幻读和不可重复读。
+
+`ISOLATION_READ_COMMITTED` 允许读取并发事务已经提交的数据。可以阻止脏读，但是幻读或不可重复读仍有可能发生。
+
+`ISOLATION_REPEATABLE_READ` 对同一字段的多次读取结果是一致的。除非数据是被本事务自己所修改。可以阻止脏读和不可重复读，但幻读仍有可能。
+
+`ISOLATION_SERIALIZABLE` 完全服从 ACID 的隔离级别，确保阻止脏读、不可重复读以及幻读。这是最慢的事务隔离级别，因为它通常是通过完全锁定事务相关的数据库表来实现的。
+
+**只读**
+
+若事务只对后端的数据库进行读操作，数据库可以利用事务的只读特性来进行一些特定的优化。因为只读优化实在事务启动时由数据库实施的，所以只对那些具备启动新事务的传播行为有效。
+
+**事务超时**
+
+因为超时时钟在事务创建时启动，所以只对那些具备启动新事务的传播行为有效。
+
+**回滚规则**
+
+默认情况下，事务只有在遇到运行期异常时才会回滚，遇到检查型异常时不会。
+
+### 在 XML 中声明事务
+
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+    <!-- 启动注解驱动的事务管理 @Transactional -->
+    <!-- 默认为 id="transactionManager" 的 bean，若不是这个 id 则需写明 -->
+    <tx:annotation-driven transaction-manager="txManager" />
+
+    <!-- transaction-manager 默认为 id="transactionManager" 的 bean，若不是这个 id 则需写明 -->
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED" />
+            <tx:method name="*" propagation="SUPPORTS" read-only="true" />
+        </tx:attributes>
+    </tx:advice>
+
+</beans>
+```
+
+5 个事务属性对应的 xml 属性
+
+|属性       |含义                            |
+|:----------|:-------------------------------|
+|isolation  |指定事务的隔离级别              |
+|propagation|定义事务的传播规则              |
+|read-only  |指定事务为只读                  |
+|rollback-for, no-rollback-for|rollback-for 指定事务对于哪些检查型异常应当回滚而不提交；no-rollback-for 指定事务对于哪些异常应当继续执行而不回滚。|
+|timeout    |对于长时间运行的事务定义超时时间|
