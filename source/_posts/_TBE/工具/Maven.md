@@ -13,6 +13,7 @@ tags: [工具]
 - `mvn install:install-file  -Dfile=D:/xxx.jar  -DgroupId=xxx.xxx  -DartifactId=xxx -Dversion=x.x -Dpackaging=jar` 将指定 jar 包安装至本地库
 
 若要使打包得到的 .jar 中包含 main 方法（即为可执行 .jar），需要借助 `maven-shade-plugin`，配置该插件如下：
+
 ```XML
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
@@ -34,6 +35,7 @@ tags: [工具]
     </executions>
 </plugin>
 ```
+
 其中，`<plugin>` 元素在 `<project><build><plugins>` 下面。
 maven 中下载的插件都在 `~\.m2\repository\org\apache\maven` 文件夹内。
 

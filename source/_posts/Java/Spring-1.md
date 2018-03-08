@@ -1,5 +1,5 @@
 ---
-title: Spring
+title: Spring-1
 date: 2017-01-01 09:00:01
 tags: [Java, Spring]
 ---
@@ -76,8 +76,13 @@ application 由 `org.springframework.context.ApplicationContext` 接口定义，
 
 ## bean 的生命周期
 
-1. Spring 对 bean 进行实例化。
-2. Spring 将值和 bean 的引用注入进 bean 对应的属性中。
+实例化过程发生在 BeanFactory 中。
+
+1. **若容器注册了 `InstantiationAwareBeanPostProcessor` 接口，则调用其 `postProcessBeforeInstantiation()` 方法。**
+1. Spring 通过构造函数或工厂方法对 bean 进行实例化。
+1. **若容器注册了 `InstantiationAwareBeanPostProcessor` 接口，则调用其 `postProcessAfterInstantiation()` 方法。**
+4. **准备设置配置的属性，先调用 `InstantiationAwareBeanPostProcessor` 接口的 `postProcessPropertyValues()` 方法。**
+2. 根据配置设置属性。
 3. 若 bean 实现了 `BeanNameAware` 接口，Spring 将调用 `setBeanName()` 接口方法。
 4. 若 bean 实现了 `BeanFactoryAware` 接口，Spring 将调用 `setBeanFactory()` 接口方法，将 BeanFactory 容器实例传入。
 5. 若 bean 实现了 `ApplicationContextAware` 接口，Spring 将调用 `setApplicationContext()` 接口方法，将应用上下文的引用传入。
@@ -1019,19 +1024,33 @@ Spring 的事务管理器都是 `PlatformTransactionManager` 的实现。
 
 **传播行为**
 
-`PROPAGATION_MANDATORY` 表示该方法必须在事务中运行。如果当前事务不存在，则会抛出异常。
+`PROPAGATION_MANDATORY`
 
-`PROPAGATION_NESTED` 表示如果当前已经存在一个事务，那么该方法将会在嵌套事务中运行。嵌套的事务可以独立于当前事务进行单独地提交或回滚。如果当前事务不存在，则其行为与 `PROPAGATION_REQUIRED` 一样。各厂商对这种行为的支持有所差异。
+表示该方法必须在事务中运行。如果当前事务不存在，则会抛出异常。
 
-`PROPAGATION_NEVER` 表示当前方法不应该运行在事务上下文中。如果当前正有一个事务在运行，则会抛出异常。
+`PROPAGATION_NESTED`
 
-`PROPAGATION_NOT_SUPPORTED` 表示该方法不应该运行在事务中。如果存在当前事务，在该方法运行期间，当前事务将被挂起。如果使用 `JTATransactionManager` 的话，则需要访问 `TransactionManager`。
+表示如果当前已经存在一个事务，那么该方法将会在嵌套事务中运行。嵌套的事务可以独立于当前事务进行单独地提交或回滚。如果当前事务不存在，则其行为与 `PROPAGATION_REQUIRED` 一样。各厂商对这种行为的支持有所差异。
 
-`PROPAGATION_REQUIRED` 表示当前方法必须运行在事务中。如果不存在当前事务，则会启动一个新事务。
+`PROPAGATION_NEVER`
 
-`PROPAGATION_REQUIRES_NEW` 表示当前方法必须运行在它自己的事务中。如果不存在当前事务，则会启动一个新事务。如果存在当前事务，在该方法执行期间，当前事务会被挂起。如果使用 `JTATransactionManager` 的话，则需要访问 `TransactionManager`。 
+表示当前方法不应该运行在事务上下文中。如果当前正有一个事务在运行，则会抛出异常。
 
-`PROPAGATION_SUPPORTS` 表示当前方法不需要事务上下文，但是如果存在当前事务的话，那么该方法会在这个事务中运行。
+`PROPAGATION_NOT_SUPPORTED`
+
+表示该方法不应该运行在事务中。如果存在当前事务，在该方法运行期间，当前事务将被挂起。如果使用 `JTATransactionManager` 的话，则需要访问 `TransactionManager`。
+
+`PROPAGATION_REQUIRED`
+
+表示当前方法必须运行在事务中。如果不存在当前事务，则会启动一个新事务。
+
+`PROPAGATION_REQUIRES_NEW`
+
+表示当前方法必须运行在它自己的事务中。如果不存在当前事务，则会启动一个新事务。如果存在当前事务，在该方法执行期间，当前事务会被挂起。如果使用 `JTATransactionManager` 的话，则需要访问 `TransactionManager`。 
+
+`PROPAGATION_SUPPORTS`
+
+表示当前方法不需要事务上下文，但是如果存在当前事务的话，那么该方法会在这个事务中运行。
 
 **隔离级别**
 
