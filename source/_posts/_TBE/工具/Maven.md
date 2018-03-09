@@ -131,7 +131,9 @@ maven 中下载的插件都在 `~\.m2\repository\org\apache\maven` 文件夹内�
 # 远程仓库、镜像仓库
 
 **远程仓库的配置**
+
 在 `pom.xml` 中配置 repository：
+
 ```XML
 <project>
     ...
@@ -156,7 +158,9 @@ maven 中下载的插件都在 `~\.m2\repository\org\apache\maven` 文件夹内�
     ...
 </project>
 ```
+
 在 `settings.xml` 中配置仓库认证信息
+
 ```
 <settings>
     ...
@@ -170,7 +174,9 @@ maven 中下载的插件都在 `~\.m2\repository\org\apache\maven` 文件夹内�
     ...
 </settings>
 ```
+
 部署到远程仓库，在 `pom.xml` 中配置构件部署地址：
+
 ```
 <project>
     ...
@@ -189,9 +195,11 @@ maven 中下载的插件都在 `~\.m2\repository\org\apache\maven` 文件夹内�
     ...
 </project>
 ```
+
 配置正确后，运行 `mvn clean deploy` 进行部署。
 
 **配置镜像**
+
 ```
 <settings>
     ...
@@ -257,9 +265,11 @@ Maven 有三套生命周期，互相独立，目的不同。
 - `mvn clean install`：可以同时调用多个不同生命周期中的阶段。调用 clean 生命周期的 clean 阶段和 default 生命周期的 install 阶段。
 
 **插件绑定**
+
 Maven 的生命周期与插件相互绑定，用以完成实际的构建任务。
 
 **表3 clean 生命周期阶段与插件目标的绑定关系**
+
 |生命周期阶段|插件目标                 |
 |:----------:|:-----------------------:|
 |pre-clean   |	                       |
@@ -267,6 +277,7 @@ Maven 的生命周期与插件相互绑定，用以完成实际的构建任务�
 |post-clean  |                         |
 
 **表4 site 生命周期阶段与插件目标的绑定关系**
+
 |生命周期阶段|插件目标                 |
 |:---------:|:----------------------:|
 |pre-site   |                        |	
@@ -275,20 +286,23 @@ Maven 的生命周期与插件相互绑定，用以完成实际的构建任务�
 |site-deploy|maven-site-plugin:deploy|
 
 **表5 default 生命周期的内置插件绑定关系及具体任务（打包类型：jar）**
-|生命周期阶段	       |插件目标	                            |执行任务                    |
-|:--------------------:|:----------------------------------:|:-------------------------:|
-|process-resources     |maven-resources-plugin:resources    |复制主资源文件至主输出目录   |
-|compile               |maven-compiler-plugin:compile	    |编译主代码至主输出目录       |
+
+|生命周期阶段	       |插件目标	                        |执行任务                      |
+|:--------------------:|:----------------------------------:|:----------------------------:|
+|process-resources     |maven-resources-plugin:resources    |复制主资源文件至主输出目录    |
+|compile               |maven-compiler-plugin:compile	    |编译主代码至主输出目录        |
 |process-test-resources|maven-resources-plugin:testResources|复制测试资源文件至测试输出目录|
 |test-compile	       |maven-compiler-plugin:testCompile   |编译测试代码至测试输出目录    |
-|test	               |maven-surefire-plugin:test	    |执行测试用例                |
-|package	       |maven-jar-plugin:jar	            |创建项目 jar 包               |
-|install	       |maven-install-plugin:install	    |将项目输出构件安装到本地仓库  |
-|deploy	               |maven-deploy-plugin:deploy	    |将项目输出构件部署到远程仓库  |
+|test	               |maven-surefire-plugin:test	        |执行测试用例                  |
+|package	           |maven-jar-plugin:jar	            |创建项目 jar 包               |
+|install	           |maven-install-plugin:install	    |将项目输出构件安装到本地仓库  |
+|deploy	               |maven-deploy-plugin:deploy	        |将项目输出构件部署到远程仓库  |
 
 Maven 核心内置绑定了主要的生命周期阶段与插件的目标。用户也可自定义绑定。
+
 **自定义绑定插件目标：**
 *复制使用时可选择删除注释*
+
 ```
 <project>
     ...
@@ -325,8 +339,10 @@ Maven 核心内置绑定了主要的生命周期阶段与插件的目标。用�
 # 聚合、继承
 
 **聚合**
+
 目的是能够使用一条命令就构建多个模块（或称项目）。需要建立一个聚合项目，该项目有自己的POM，如下，其中关键元素是 `<modules>`
-```
+
+```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0:"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
@@ -347,8 +363,10 @@ Maven 核心内置绑定了主要的生命周期阶段与插件的目标。用�
 ```
 
 **继承**
+
 父模块
-```
+
+```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
@@ -364,7 +382,8 @@ Maven 核心内置绑定了主要的生命周期阶段与插件的目标。用�
 ```
 
 子模块
-```
+
+```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
@@ -410,6 +429,7 @@ Maven 核心内置绑定了主要的生命周期阶段与插件的目标。用�
 
 依赖管理
 在父模块中加入`<dependencyManagement>`元素
+
 ```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -447,7 +467,27 @@ Maven 核心内置绑定了主要的生命周期阶段与插件的目标。用�
 
 几个命令可组合使用。
 
+# 问题
 
+## mvn 编译报错 -source 1.5 不支持...
+
+maven compiler 默认 jdk 版本是 1.5，要更高版本需要手动指定。
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.1</version>
+            <configuration>
+                <source>1.8</source>
+                <target>1.8</target>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+```
 
 
 
