@@ -19,6 +19,16 @@ tags: [Spring]
 
 - `ExecutorService newFixedThreadPool(in nThreads)`：创建一个线程池；
 - `ExecutorService newCachedThreadPool()`：动态线程池，不够用时创建新线程，长时间闲置的线程被回收；
-- `Scheduled
+- `ScheduledExecutorService newScheduledThreadPool(int corePoolSize, ThreadFactory threadFactory)`：创建一个线程池，可指定延迟和周期。
+
+Spring 的 `TaskExecutor` 接口等同于 `java.util.concurrent.Executor` 接口。Spring 提供了一些实现类：
+
+- `SyncTaskExecutor`：直接在主线程中执行。
+- `SchedulingTaskExecutor`：子接口，提供了调度功能。
+    - `SimpleAsyncTaskExecutor`：每次执行创建新线程，但支持对并发总数的限制，超出部分会被阻塞。
+    - `ConcurrentTaskExecutor`：是 Java 5.0 的 `Executor` 的适配器。
+    - `SimpleThreadPoolTaskExecutor`：是 Quartz 的 `SimpleThreadPool` 的子类，负责监听 Spring 的生命周期回调。当需要在 Quartz 和非 Quartz 组件中共享线程池时使用。
+    - `ThreadPoolTaskExecutor`：只能在 Java 5.0 中使用。它暴露了一些属性，方便在 Spring 中配置一个 `java.util.concurrent.ThreadPoolExecutor`，并包装成 `TaskExecutor`。
+    - `TimerTaskExecutor`：使用一个 Timer 作为后台实现。
 
 
