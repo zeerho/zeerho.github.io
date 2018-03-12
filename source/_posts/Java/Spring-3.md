@@ -57,6 +57,12 @@ public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource da
 
 启动 Spring Data JPA 自动扩展 `Repository` 接口的功能。
 
+```xml
+<jpa:repositories base-package="com.example"
+    transaction-manager-ref="transactionManager"
+    entity-manager-factory-ref="entityManagerFactory" />
+```
+
 # 第 12 章 使用 NoSQL 数据库
 
 # 第 13 章 缓存数据
