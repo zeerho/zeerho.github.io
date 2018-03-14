@@ -110,3 +110,6 @@ scaffolds 目录下有默认的布局模板。也可以仿照着创建自定义�
 或者也可以将已有的 xxx.md 放到 `C:\workspace\blog\source\_posts` 下面。
 也可以在这个目录下面自定义一些文件夹来分门别类地存放。
 
+# 问题
+
+遇到 3 个连续的 `{` 时，hexo 解析会报错，详细参考 [这篇文章](!http://mlnote.com/2016/09/03/solved-mathjex-problem/)
