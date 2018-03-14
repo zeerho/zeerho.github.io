@@ -4,6 +4,22 @@ date: 2017-01-01 09:00:00
 tags: [工具]
 ---
 
+# 关键设置
+
+自动补全快捷键：keymap-Main menu-Code Completion-Basic
+
+自动补全取消大小写敏感：Editor-General-Code Completion-Case sensitive completion
+
+编辑区字体：Editor-Font
+
+换行符：Editor-Code Style-Line seperator
+
+Tab：Editor-Code Style-Java
+
+编码：Editor-File Encodings
+
+
+
 # 切换 editor 主题时保留 ide 整体主题
 
 1. 编辑文件 `$User/.IdeaIC201x.x/config/options/options.xml`

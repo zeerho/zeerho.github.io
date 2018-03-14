@@ -104,6 +104,7 @@ comments: false
 ### 新建
 `hexo new [layout] xxx`
 hexo 会在 _posts 目录下自动新建一个 xxx.md 的文件。若指定了布局模板 layout，则 xxx.md 中会预先填充了该模板的内容。
+
 scaffolds 目录下有默认的布局模板。也可以仿照着创建自定义的模板。
 
 或者也可以将已有的 xxx.md 放到 `C:\workspace\blog\source\_posts` 下面。

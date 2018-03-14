@@ -9,9 +9,7 @@ tags: [工具]
 - `ssh-keygen -C myemail -t rsa`
 创建 ssh 密钥
 - `git add .|{filename}`
-跟踪新文件，或把已跟踪的文件放到暂存区，或在合并时把冲突文件标记为已解决
-- `git add -i`
-进入交互式暂存界面
+  跟踪新文件，或把已跟踪的文件放到暂存区，或在合并时把冲突文件标记为已解决
 - `git merge [--no-ff|--squash] {another_branch_name}`
 将指定名称的另一分支合并至当前分支。若出现冲突需要手动解决然后 `git add {file_name}`
 - `git gc`
@@ -31,7 +29,36 @@ tags: [工具]
 - `git log [--left-right] {b1}...{b2}`
 只存在于 {b1} 和 {b2} 中的一个，而不同时存在于两者的提交；`--left-right` 会显示每个提交具体在哪个分支中
 - `git blame [-C] [-L m,n] {file}`
-查看文件内容的最近修改者。`-C` 可查看文本行的来源文件（如果该行是复制过来的话）；`-L m,n` 将查看范围限制在第 m ~ n 行
+  查看文件内容的最近修改者。`-C` 可查看文本行的来源文件（如果该行是复制过来的话）；`-L m,n` 将查看范围限制在第 m ~ n 行
+
+## 暂存
+
+`git add -i` 进入交互模式
+
+- status：展示已暂存的（staged）、未暂存的（unstaged）和该文件的路径。
+- update：命令行提示符变为 `Update>>`，通过输入数字来选择文件，数字之间用空格或逗号分隔，如：2-3 5,6；数字前加减号取消选择。最后输入一个空行表示确认，被选择的文件会被暂存。
+- revert：交互模式同 update。被选择的文件会用 HEAD 覆盖暂存区内容。
+- add untracked：交互模式同 update。
+- patch：选择一个文件，对文件内容分块依次决定是否暂存。
+  - y：暂存此块。
+  - n：不暂存此块。
+  - q：取消并退出。
+  - a：暂存此块以及后面的块。
+  - d：不暂存此块以及后面的块。
+  - g：选择并跳转到某个块。
+  - /：用正则表达式搜索某个块。
+  - j：暂时不决定此块，跳转到下一个未决定的块。
+  - J：暂时不决定此块，跳转到下一个块。
+  - k：暂时不决定此块，跳转到上一个未决定的块。
+  - K：暂时不决定此块，跳转到上一个块。
+  - s：将当前块继续分割成小块。
+  - e：编辑当前块。
+  - ？：帮助
+- diff：展示 HEAD 和暂存区之间的区别。
+- quit
+- help
+
+`git add -p` 同交互模式中的 patch。
 
 ## 删除文件
 
@@ -307,8 +334,8 @@ git config branch.develop.merge refs/heads/develop
 为什么不是refs/remotes/develop？
 
 > 因为这里 merge 指代的是我们想要 merge 的远程分支，是站在远程仓库的角度看到的引用路径。
-站在本地仓库来看，远程仓库的分支引用路径为 `refs/remotes/{branch}`；站在远程仓库的角度来看，这个分支引用路径自然就是 `refs/heads/{branch}`。
-这和我们在本地直接执行 `git merge` 是不同的（本地执行 `git merge origin/develop` 则是直接 merge refs/remotes/develop）。
+ 在本地仓库来看，远程仓库的分支引用路径为 `refs/remotes/{branch}`；站在远程仓库的角度来看，这个分支引用路径自然就是 `refs/heads/{branch}`。
+ 和我们在本地直接执行 `git merge` 是不同的（本地执行 `git merge origin/develop` 则是直接 merge refs/remotes/develop）。
 
 ## other
 `git config --list`
@@ -364,7 +391,7 @@ git config branch.develop.merge refs/heads/develop
     - `-u {keyid}` 创建一个 GnuPG 签名的、带注释的标签，使用指定的 {keyid} 作为公钥/私钥对。
     - `-m {msg}` 若创建的是带注释的标签，则必须使用 `-m {msg}` 参数来创建该标签的注释。若使用了 `-m {msg}` 而未使用 `-a`、`-s` 或 `-u {keyid}`，则会隐含使用 `-a`。
     - `-F {file}` 读取指定文件的内容作为标签注释。`-F -` 表示从标准输入中读取注释。若使用了 `-F {file}` 而未使用 `-a`、`-s` 或 `-u {keyid}`，则会隐含使用 `-a`。
-    
+
 - **删除标签**
 > git tag -d {tagname}...
 
