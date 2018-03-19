@@ -31,7 +31,10 @@ tags: [Java]
 </html>
 ```
 
+<!-- more -->
+
 ## 1. FTL 指令规则
+
 在 FreeMarker 中，使用 FTL 标签来使用指令，FreeMarker 有3种 FTL 标签，这和 HTML 标签是完全类似的。
 
 - **开始标签：** `<#directivename parameter>`

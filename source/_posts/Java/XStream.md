@@ -5,18 +5,22 @@ tags: [Java]
 ---
 
 # 常用注解
-|注解|作用|作用目标
-|:--|:--:|:--:|
-|`@XStreamAlias("label_name")`|别名注解|作用目标: 类,字段  
-|`@XStreamImplicit`|隐式集合|集合字段  
-|`@XStreamImplicit(itemFieldName="item_field_name")`|隐式集合，|并指定集合内标签名|集合字段  
-|`@XStreamConverter(SingleValueCalendarConverter.class)`|注入转换器|对象  
-|`@XStreamAsAttribute`|设为该标签的属性|字段  
-|`@XStreamOmitField`|忽略字段|字段
-|`xstream.autodetectAnnotations(true);`|自动侦查注解  
+| 注解                                                    | 作用                         | 作用目标          |
+| :------------------------------------------------------ | :--------------------------- | :---------------- |
+| `@XStreamAlias("label_name")`                           | 别名注解                     | 作用目标: 类,字段 |
+| `@XStreamImplicit`                                      | 隐式集合                     | 集合字段          |
+| `@XStreamImplicit(itemFieldName="item_field_name")`     | 隐式集合，并指定集合内标签名 | 集合字段          |
+| `@XStreamConverter(SingleValueCalendarConverter.class)` | 注入转换器                   | 对象              |
+| `@XStreamAsAttribute`                                   | 设为该标签的属性             | 字段              |
+| `@XStreamOmitField`                                     | 忽略字段                     | 字段              |
+| `xstream.autodetectAnnotations(true);`                  | 自动侦查注解                 |                   |
+
 *自动侦查注解与 `XStream.processAnnotations(Class[] cls)` 的区别在于性能.自动侦查注解将缓存所有类的类型.*  
 
+<!-- more -->
+
 ## 简单示例
+
 ###1.实体类
 以下所有实体类省略了 getter 和 setter 方法。
 ```java
