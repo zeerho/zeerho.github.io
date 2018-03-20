@@ -147,3 +147,73 @@ Jdk 1.2 之后，Java 扩充了引用的类型。
 ### 分代收集算法
 
 把 Java 堆分为新生代和老年代。新生代用复制算法，老年代用标记-清除或标记-整理。
+
+# 虚拟机执行子系统
+
+## Class 类文件结构
+
+Class 文件中只有两种数据类型：4 种长度的无符号数（u1、u2、u4、u8）、表。
+
+| 类型           | 名称                | 数量             |
+| -------------- | ------------------- | ---------------- |
+| u4             | magic               | 1                |
+| u2             | minor_version       | 1                |
+| u2             | major_version       | 1                |
+| u2             | constant_pool_count | 1                |
+| cp_info        | constant_pool       | constant_pool-1  |
+| u2             | access_flags        | 1                |
+| u2             | this_class          | 1                |
+| u2             | super_class         | 1                |
+| u2             | interfaces_count    | 1                |
+| u2             | interfaces          | interfaces_count |
+| u2             | fields_count        | 1                |
+| field_info     | fields              | fields_count     |
+| u2             | methods_count       | 1                |
+| method_info    | methods             | methods_count    |
+| u2             | attributes_count    | 1                |
+| attribute_info | attributes          | attributes_count |
+
+其中，magic	是各种文件普遍用来识别文件格式的一种方式。.java 文件的魔数是 0xCAFEBABE。
+
+# 虚拟机类加载机制
+
+## 类加载的时机
+
+加载 -> 验证 -> 准备 -> 解析 -> 初始化 -> 使用 -> 卸载
+
+# Java 内存模型与线程
+
+## Java 与线程
+
+### 线程的实现
+
+**内核线程 **Kernel-Level Thread，KLT
+
+直接由操作系统支持的线程，内核通过操纵调度器对线程进行调度，并负责将线程的任务映射到各处理器上。
+
+**轻量级线程** Light Weight Process, LWP
+
+通常意义上的线程。每个轻量级线程由一个内核线程支持。轻量级线程享受从内核线程带来的系统调度，但同时也增加了内核态和用户态之间切换的消耗，以及一定内核资源的消耗。
+
+**用户线程** User Thread, UT
+
+广义上讲，非内核线程的都算用户线程。狭义上讲，用户线程完全建立在用户线程库上，线程的生命周期完全在用户态中完成，不消耗额外的内核资源。
+
+### 状态转换
+
+Java 定义了 5 种线程状态。
+
+- 新建 new：创建后尚未启动。
+- 运行 runable：正在执行或等待分配 CPU 时间。
+- 无限期等待 waiting：不会分配到 CPU 时间，需要其他线程显式唤醒。
+  - 没有设置 Timeout 参数的 Object.wait() 方法。
+  - 没有设置 Timeout 参数的 Thread.join() 方法。
+  - LockSupport.park() 方法。
+- 限期等待 timed waiting：不会分配到 CPU 时间，通过自身自动唤醒。
+  - Thread.sleep() 方法。
+  - 设置了 Timeout 参数的 Object.wait() 方法。
+  - 设置了 Timeout 参数的 Thread.join() 方法。
+  - LockSupport.parkNanos() 方法。
+  - LockSupport.parkUntil() 方法。
+- 阻塞 blocked：在等待获取一个排他锁。
+- 结束 terminated：线程终止。
