@@ -964,6 +964,46 @@ public class EncoreableIntroducer {
 </aop:config>
 ```
 
+## 切面的一些实践细节
+
+### 连接点对象 ProceedingJoinPoint
+
+假设被切面包裹的类如下
+
+```java
+package com.example;
+
+pubilc class ExampleTarget {
+    public void test() {
+        // blabla
+    }
+}
+```
+
+
+
+`jp.getKind()`
+
+method-execution（应该还有其他枚举值）
+
+`jp.getSignature().getDeclaringTypeName()`
+
+com.example.ExampleTarget
+
+`jp.getSignature().getName()`
+
+test
+
+`jp.getTarget().toString()`
+
+com.example.ExampleTarget@15a3d5a
+
+后面的十六进制代码是 Object 类默认的基于对象内存地址计算出的 hashCode。
+
+`jp.getTarget().getClass().toString()` `jp.getSignature().getDeclaringType().toString()`
+
+class com.example.ExampleTarget
+
 # 事务管理
 
 ## 事务管理器
