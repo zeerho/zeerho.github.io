@@ -16,6 +16,45 @@ tags: [操作系统]
 
 一些发行版使用一个表来管理开机自启的进程，该表通常位于 /etc/inittab 文件中。另一些发行版则采用 /etc/init.d/ 目录，将开机时启动或停止某个应用的脚本放到该目录下，这些脚本通过 /etc/rcX.d/ 目录下的符号链接（链接到 /etc/init.d/ 目录中的启动脚本）启动，其中 X 代表运行级（run level）。
 
+# 环境变量
+
+`$ export VAR="test"` 临时变量，重启系统后时效
+
+/etc/environment 是整个系统的环境，/etc/profile 是所有用户的环境。
+
+login shell：通过终端凭借用户名和密码登录的动作。
+non-login shell：在图形界面启动一个 terminal，或者执行 /bin/bash，/usr/bin/bash。
+
+|文件           |非交互+登录|交互+登录|交互+非登录|非交互+非登录|
+|:-------------:|:---------:|:-------:|:---------:|:-----------:|
+|/etc/profile   |加载       |加载     |           |             |
+|/etc/bashrc    |加载       |加载     |           |             |
+|~/.bash_profile|加载       |加载     |           |             |
+|~/.bashrc      |加载       |加载     |加载       |             |
+|BASH_ENV       |           |         |           |加载         |
+
+可以修改 shell 来模拟交互登录式的动作：
+
+```sh
+#!/path/to/my_sh -ilex
+#e 一旦出错就退出当前 shell
+#i 交互式
+#l 登录式
+#x 显示所执行的每条命令
+```
+
+login shell 读取文件的顺序是：
+
+1. /etc/profile
+2. 读到任意一个就忽略后面的
+    1. ~/.bash_profile
+    2. ~/.bash_login
+    3. ~/.profile
+
+non-login shell 每次启动 shell 都会读取：
+
+1. ~/.bashrc
+
 ---
 # 挂载/卸载
 
@@ -93,7 +132,41 @@ export JAVA_HOME PATH
    2. `set global validate_password_length=4;`
    3. `set password=password('root')` 测试环境换个简单的密码
 
+## erlang
 
+1. 下源码。从官网或 github 下：
+    - `wget http://www.erlang.org/download/otp_src_20.3.tar.gz`
+    - `git clone https://github.com/erlang/otp.git`
+2. 解压 `tar -zxvf ~/Downloads/otp_src_20.3.tar.gz`
+3. 配置
+    - 如果是从 github 上下载的源码，要先生成配置脚本 `./otp_build autoconf`
+    - 配置中会检查必需的工具。
+        - GNU `make`
+        - Compiler -- GNU C Compiler, gcc or the C compiler frontend for LLVM, clang.
+        - Perl 5
+        - GNU `m4`
+        - `ncurses`, `termcap`, or `termlib` -- The development headers and libraries are needed, often known as ncurses-devel. Use --without-termcap to build without any of these libraries. Note that in this case only the old shell (without any line editing) can be used.
+        - `sed`
+    - `cd otp_src_20.3`
+    - 配置自定义的安装目录 `./configure --prefix=/opt/erlang`
+4. 编译 `make`
+5. 安装 `make install`
+6. 设置环境变量 `vi /etc/profile`（`whereis erl` 查看安装目录）
+```
+ERL_HOME=/usr/local/erlang
+PATH=$ERL_HOME/bin:$PATH
+export ERL_HOME PATH
+```
+
+## rabbitmq
+
+1. 下包。`wget https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.7.4/rabbitmq-server-3.7.4-1.el7.noarch.rpm`
+2. 可能要安装 socat：`yum -i socat`
+3. 安装。`rpm -i rabbitmq-server-3.7.4-1.el7.noarch.rpm`
+4. 如果不是用这种包管理的方式安装的话可能要手动创建几个文件夹
+    - `mkdir -p /var/log/rabbitmq`
+    - `mkdir -p /var/log/rabbitmq/mnesia/rabbit`
+5. 启动服务 `sbin/rabbitmq-server`
 
 # 包管理
 
@@ -161,15 +234,15 @@ APT 的底层包是 dpkg，dpkg 会把 .deb 文件放在 /var/cache/apt/archives
 
 
 
-`yum update`  升级系统
+`yum update` 升级系统
 
-`yum install {name}`  安装指定软件包
+`yum install {name}` 安装指定软件包
 
 `yum update {name}` 升级指定软件包
 
 `yum remove {name}` 卸载指定软件
 
-`yum grouplist`  查看系统中已经安装的和可用的软件组，可用的可以安装
+`yum grouplist` 查看系统中已经安装的和可用的软件组，可用的可以安装
 
 ` yum grooupinstall {name}` 安装上一个命令显示的可用的软件组中的一个
 
@@ -179,7 +252,7 @@ APT 的底层包是 dpkg，dpkg 会把 .deb 文件放在 /var/cache/apt/archives
 
 `yum deplist {name}` 查询指定软件包的依赖关系
 
-` yum list yum\* `列出所有以yum开头的软件包
+` yum list yum\* ` 列出所有以yum开头的软件包
 
 `yum localinstall {name}` 从硬盘安装rpm包并使用yum解决依赖
 
@@ -472,10 +545,10 @@ kickstart
 # 问题
 
 1. `FATAL:Could not read from Boot Medium! System Halted.`
-解决：虚拟机设置-存储-删除多余的控制器
+  解决：虚拟机设置-存储-删除多余的控制器
 2. 参数风格
-解决：
-    1. 参数用一横的说明后面的参数是字符形式。
-    2. 参数用两横的说明后面的参数是单词形式。
-    3. 参数前有横的是 System V 风格。
-    4. 参数前没有横的是 BSD 风格。
+  解决：
+      1. 参数用一横的说明后面的参数是字符形式。
+      2. 参数用两横的说明后面的参数是单词形式。
+      3. 参数前有横的是 System V 风格。
+      4. 参数前没有横的是 BSD 风格。
