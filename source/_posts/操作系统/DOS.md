@@ -104,6 +104,7 @@ tags: [操作系统]
 - `ping`：进行网络连接测试、名称解析。
 - `ftp`：文件传输。
 - `net`：网络命令集及用户管理。
+    - `net start|stop {service}` 启动/停止服务
 - `telnet`：远程登陆。
 - `ipconfig`：显示、修改TCP/IP设置。
 - `msg`：给用户发送消息。
@@ -117,6 +118,8 @@ tags: [操作系统]
 - `taskkill`：结束进程（比`tskill`高级，但Win XP Home版中无该命令。
 - `tasklist`：显示进程列表（Windows XP Home Edition中没有）。
 - `sc`：系统服务设置与控制。
+    - `sc config {service} start=demand|auto|disabled` 手动/自动/禁用
+    - `sc start|stop {service}` 启动/停止服务
 - `reg`：注册表控制台工具。 
 - `powercfg`：控制系统上的电源设置。
 

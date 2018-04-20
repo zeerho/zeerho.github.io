@@ -16,6 +16,131 @@ tags: [Java, Spring]
 
 # 第 17 章 Spring 消息
 
+## 使用 JMS 发送消息
+
+### 在 Spring 中搭建消息代理
+
+**创建连接工厂**
+
+1. 创建连接工厂。`<bean id="connectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory"/>
+2. 默认假设 ActiveMQ 代理监听 61616 端口。也可以指定代理的 URL。`<bean id="connectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory" p:brokerURL="tcp://localhost:61616"/>
+
+也可以使用 ActiveMQ 的命名空间来配置。
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       ...
+       xmlns:amq="http://activemq.apache.org/schema/core"
+       xsi:shemaLocation:"http://activemq.apache.org/schema/core
+                   http://activemq.apache.org/schema/core/activemq-core.xsd">
+	<amq:connectionFaotory id="connectionFactory" brokerURL="tcp://localhost:61616"/>
+</beans>
+```
+
+**声明消息目的地**
+
+使用特定消息代理实现类在 Spring 中声明一个 bean。
+
+```xml
+<!-- 队列 -->
+<bean id="queue" class="org.apache.activemq.command.ActiveMQQueue" c:_="{queueName}"/>
+<!-- 主题 -->
+<bean id="topic" class="org.apache.activemq.command.ActiveMQTopic" c:_="{topicName}"/>
+```
+
+也可以使用 ActiveMQ 的命名空间来配置。
+
+```xml
+<amq:queue id="queue" physicalName="{queueName}"/>
+<amq:topic id="topic" physicalName="{topicNmae}"/>
+```
+
+**使用 JMS 模板**
+
+| Spring 异常                            | JMS 异常                              |
+| -------------------------------------- | ------------------------------------- |
+| DestinationResolutionException         | Spring 特有。无法解析目的地名称。     |
+| IllegalStateException                  | IllegalStateException                 |
+| InvalidClientIDException               | InvalidClientIDException              |
+| InvalidDestinationException            | InvalidSelectorException              |
+| InvalidSelectorException               | InvalidSelectorException              |
+| JmsSecurityException                   | JmsSecurityException                  |
+| ListenerExecutionFailedException       | Spring 特有。监听器方法执行失败。     |
+| MessageConversionException             | Spring 特有。消息转换失败。           |
+| MessageEOFException                    | MessageEOFException                   |
+| MessageFormatException                 | MessageFormatException                |
+| MessageNotReadableException            | MessageNotReadableException           |
+| MessageNotWritableableException        | MessageNotWritableableException       |
+| ResourceAllocationException            | ResourceAllocationException           |
+| SynchedLocalTransactionFailedException | Spring 特有。同步的本地事务不能完成。 |
+| TransactionInprogressException         | TransactionInprogressException        |
+| TransactionRolledBackException         | TransactionRolledBackException        |
+| UncategorizedJmsException              | Spring 特有。当没有其他异常适用。     |
+
+将 JmsTemplate 声明为 bean。其中默认的目的地配置是可选的。也可以把目的地对象装配进来：`p:defaultDestination-ref="{destBean}"`。
+
+```xml
+<bean id="jmsTemplate"
+      class="org.springframework.jms.core.JmsTemplate"
+      c:_="connectionFactory"
+      p:defaultDestinationName="{destName}"/>
+```
+
+生产者代码
+
+```java
+public class Producer {
+    @Autowired
+    private JmsOperations jmsOperations; // JmsTemplate 实现了此接口
+    /**
+     * 发送的时候定义消息的创建逻辑
+     */
+    public void sendMessage(MyObj obj) {
+        jmsOperations.send("dest.name",
+            new MessageCreator() {
+                public Message createMessage(Session session) throws JMSException {
+                	return session.createObjectMessage(obj);
+                }               
+            });
+    }
+    
+    /**
+     * 发送的时候使用转换器
+     */
+    public void sendMessageWithAutoConversion(MyObj obj) {
+        jmsOperations.convertAndSend(obj);
+    }
+}
+```
+
+可以使用 Spring 预置的转换器，也可以实现 MessageConverter 接口自定义一个转换器。
+
+- MappingJacksonMessageConverter：使用 Jackson JSON 库实现消息与 JSON 格式之间的相互转换。
+- MappingJackson2MessageConverter：使用 Jackson2 JSON 库实现消息与 JSON 格式之间的相互转换。
+- MarshallingMessageConverter：使用 JAXB 库实现消息与 XML 格式之间的转换。
+- SimpleMessageConverter：实现 String 与 TextMessage，字节数组与 ByteMessage，Map 与 MapMessage，Serializable 与 ObjectMessage 之间的转换。
+
+消费者代码
+
+```java
+public MyObj receiveMessage() {
+    try {
+        // receive() 会以阻塞的方式收取消息
+        ObjectMessage message = (ObjectMessage) jmsOperations.receive();
+        return (MyObj) message.getObject();
+    } catch (JMSException e) {
+        // ...
+    }
+}
+
+public MyObj receiveMessageWithAutoConversion() {
+    return (MyObj) jmsOperations.receiveAndConvert();
+}
+```
+
+
+
 # 第 18 章 使用 WebSocket 和 STOMP 实现消息功能
 
 # 第 19 章 使用 Spring 发送 Email
