@@ -139,6 +139,20 @@ public MyObj receiveMessageWithAutoConversion() {
 }
 ```
 
+### 创建消息驱动的 POJO
+
+**配置消息监听器**
+
+```xml
+<!-- 首先把 POJO 注册为 bean -->
+<bean id="pojoHandler" class="me.example.PojoHandler"/>
+
+<!-- 把 POJO 声明为消息监听器 -->
+<jms:listener-container connection-factory="connectionFactory">
+    <jms:listener destination="{desName}" ref="pojoHandler" method="{methodName}"/>
+</jms:listener-container>
+```
+
 
 
 # 第 18 章 使用 WebSocket 和 STOMP 实现消息功能
