@@ -18,7 +18,7 @@ tags: [操作系统]
 
 # 环境变量
 
-`$ export VAR="test"` 临时变量，重启系统后时效
+`$ export VAR="test"` 临时变量，重启系统后失效。
 
 /etc/environment 是整个系统的环境，/etc/profile 是所有用户的环境。
 
@@ -134,6 +134,8 @@ export JAVA_HOME PATH
 
 ## erlang
 
+**源码编译**
+
 1. 下源码。从官网或 github 下：
     - `wget http://www.erlang.org/download/otp_src_20.3.tar.gz`
     - `git clone https://github.com/erlang/otp.git`
@@ -152,11 +154,17 @@ export JAVA_HOME PATH
 4. 编译 `make`
 5. 安装 `make install`
 6. 设置环境变量 `vi /etc/profile`（`whereis erl` 查看安装目录）
-```
+```shell
 ERL_HOME=/usr/local/erlang
 PATH=$ERL_HOME/bin:$PATH
 export ERL_HOME PATH
 ```
+
+**yum 安装**
+
+1. 安装 epel `yum -y install http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-11.noarch.rpm`
+2. 更新 erlang 仓库 `﻿yum -y install  http://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm`
+3. 安装 erlang `yum install erlang`
 
 ## rabbitmq
 
