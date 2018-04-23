@@ -58,26 +58,6 @@ tags: [Java, Spring]
 
 **使用 JMS 模板**
 
-| Spring 异常                            | JMS 异常                              |
-| -------------------------------------- | ------------------------------------- |
-| DestinationResolutionException         | Spring 特有。无法解析目的地名称。     |
-| IllegalStateException                  | IllegalStateException                 |
-| InvalidClientIDException               | InvalidClientIDException              |
-| InvalidDestinationException            | InvalidSelectorException              |
-| InvalidSelectorException               | InvalidSelectorException              |
-| JmsSecurityException                   | JmsSecurityException                  |
-| ListenerExecutionFailedException       | Spring 特有。监听器方法执行失败。     |
-| MessageConversionException             | Spring 特有。消息转换失败。           |
-| MessageEOFException                    | MessageEOFException                   |
-| MessageFormatException                 | MessageFormatException                |
-| MessageNotReadableException            | MessageNotReadableException           |
-| MessageNotWritableableException        | MessageNotWritableableException       |
-| ResourceAllocationException            | ResourceAllocationException           |
-| SynchedLocalTransactionFailedException | Spring 特有。同步的本地事务不能完成。 |
-| TransactionInprogressException         | TransactionInprogressException        |
-| TransactionRolledBackException         | TransactionRolledBackException        |
-| UncategorizedJmsException              | Spring 特有。当没有其他异常适用。     |
-
 将 JmsTemplate 声明为 bean。其中默认的目的地配置是可选的。也可以把目的地对象装配进来：`p:defaultDestination-ref="{destBean}"`。
 
 ```xml
@@ -149,9 +129,36 @@ public MyObj receiveMessageWithAutoConversion() {
 
 <!-- 把 POJO 声明为消息监听器 -->
 <jms:listener-container connection-factory="connectionFactory">
-    <jms:listener destination="{desName}" ref="pojoHandler" method="{methodName}"/>
+    <jms:listener destination="{destName}" ref="pojoHandler" method="{methodName}"/>
 </jms:listener-container>
 ```
+
+### 使用基于消息的 RPC
+
+**服务端**
+
+```xml
+<bean id="myService" class="me.example.MyServiceImpl"/>
+<bean id="myServiceExporter" class="org.springframework.jms.remoting.JmsInvokerServiceExporter">
+	<property name="service" ref="myService"/>
+    <property name="serviceInterface" value="me.example.MyService"/>
+</bean>
+<jms:listener-container connection-factory="connectionFactory">
+	<jms:listener destination="{destName}" ref="myServiceExporter"/>
+</jms:listener-container>
+```
+
+**客户端**
+
+```xml
+<bean id="myService" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
+	<property name="connectionFactory" ref="connectionFactory"/>
+    <property name="queueName" value="{destName}"/>
+    <property name="serviceInterface" value="me.example.MyService"/>
+</bean>
+```
+
+## 使用 AMQP 实现消息功能
 
 
 
