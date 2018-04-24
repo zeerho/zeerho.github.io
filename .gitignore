@@ -10,4 +10,5 @@ public/
 themes/next/
 
 # Vim 附属文件
-*.swp
+[._]*.s[a-w][a-z]
+*~
