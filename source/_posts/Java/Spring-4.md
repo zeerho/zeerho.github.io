@@ -34,7 +34,7 @@ tags: [Java, Spring]
        xmlns:amq="http://activemq.apache.org/schema/core"
        xsi:shemaLocation:"http://activemq.apache.org/schema/core
                    http://activemq.apache.org/schema/core/activemq-core.xsd">
-	<amq:connectionFaotory id="connectionFactory" brokerURL="tcp://localhost:61616"/>
+	<amq:connectionFactory id="connectionFactory" brokerURL="tcp://localhost:61616"/>
 </beans>
 ```
 
@@ -160,7 +160,31 @@ public MyObj receiveMessageWithAutoConversion() {
 
 ## 使用 AMQP 实现消息功能
 
+### 配置 Spring 支持 AMQP 消息
 
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/rabbit
+		http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+	<!-- 默认 5672 端口，用户名密码均为 guest -->
+	<rabbit:connecttion-factory id="connectionFactory"
+		host="{host}" port="{port}" username="{user}" password="{pwd}"/>
+</beans>
+```
+
+rabbit 命名空间里用来声明队列、exchange 和 binding 的元素：
+
+|元素               |作用                  |
+|:------------------|:---------------------|
+|`<queue>`          |队列                  |
+|`<fanout-exchange>`|fanout 类型的 exchange|
+|`<header-exchange>`|header 类型的 exchange|
+|`<topic-exchange>` |topic 类型的 exchange |
+|`<direct-exchange>`|direct 类型的 exchange|
 
 # 第 18 章 使用 WebSocket 和 STOMP 实现消息功能
 
