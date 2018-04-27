@@ -171,20 +171,80 @@ public MyObj receiveMessageWithAutoConversion() {
 		http://www.springframework.org/schema/rabbit
 		http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
 	<!-- 默认 5672 端口，用户名密码均为 guest -->
-	<rabbit:connecttion-factory id="connectionFactory"
+	<rabbit:connection-factory id="connectionFactory"
 		host="{host}" port="{port}" username="{user}" password="{pwd}"/>
 </beans>
 ```
 
 rabbit 命名空间里用来声明队列、exchange 和 binding 的元素：
 
-|元素               |作用                  |
-|:------------------|:---------------------|
-|`<queue>`          |队列                  |
-|`<fanout-exchange>`|fanout 类型的 exchange|
-|`<header-exchange>`|header 类型的 exchange|
-|`<topic-exchange>` |topic 类型的 exchange |
-|`<direct-exchange>`|direct 类型的 exchange|
+|元素                             |作用                         |
+|:--------------------------------|:----------------------------|
+|`<queue>`                        |队列                         |
+|`<fanout-exchange>`              |fanout 类型的 exchange       |
+|`<header-exchange>`              |header 类型的 exchange       |
+|`<topic-exchange>`               |topic 类型的 exchange        |
+|`<direct-exchange>`              |direct 类型的 exchange       |
+|`<bindings><binding/></bindings>`|exchange 和队列之间的 binding|
+
+以上配置元素要与 `<admin>` 一起使用，它会创建一个 RabbitMQ 管理组件，用来自动创建上述元素声明的对象。
+
+### 使用 RabbitTemplate 发送消息
+
+```xml
+<!-- exchange 和 routing-key 可为空 -->
+<rabbit:template id="rabbitTemplate"
+    connection-factory="connectionFactory"
+    exchange="${exchangeName}"
+    routing-key="${routingKey}" />
+```
+
+```java
+public class MyRabbitMQClient {
+    @Autowired
+    private RabbitTemplate rabbit;
+
+    public void send(MyObj obj) {
+        //exchangeName 和 routingKey 缺省为上面配置的值
+        rabbit.convertAndSend("{exchangeName}", "{routingKey}", obj);
+    }
+}
+```
+
+### 接受 AMQP 消息
+
+#### 使用 RabbitTemplate 来接受消息
+
+```java
+Message msg = rabbit.receive("{queueName}");
+//或
+MyObj obj = rabbit.receiveAndConvert("{queueName}");
+```
+
+其中 {queueName} 也可以在 rabbitTemplate 中注入默认值。
+
+队列中无消息时会立即返回 null，所以要自行管理轮询的频率等细节。
+
+#### 定义消息驱动的 AMQP POJO
+
+```java
+@Component
+public class MyObjHandler {
+    public void handleMyObj(MyObj obj) {
+        //TODO
+    }
+}
+```
+
+```xml
+<!-- 以下元素都来自 rabbit 命名空间 -->
+<listener-container connection-factory="connectionFactory">
+    <!-- 多个 queueName 用逗号分隔 -->
+    <listener ref="myObjListener" method="handleMyObj" queueNames="${queueName}"/>
+    <!-- 也可以用 queue 的 beanId 来引用 -->
+    <listener ref="myObjListener" method="handleMyObj" queues="${queueId}"/>
+</listener-container>
+```
 
 # 第 18 章 使用 WebSocket 和 STOMP 实现消息功能
 
