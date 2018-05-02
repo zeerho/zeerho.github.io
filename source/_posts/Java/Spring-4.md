@@ -248,6 +248,138 @@ public class MyObjHandler {
 
 # 第 18 章 使用 WebSocket 和 STOMP 实现消息功能
 
+## 使用 Spring 的低层级 WebSocket API
+
+需要引入 spring-websocket 模块。
+
+需要继承 `WebSocketHandler` 接口，或继承 `AbstractWebSocketHandler` 类。
+
+进行配置，让 Spring 把消息转发给处理类。
+
+```java
+@EnableWebSocket
+public class WebSocketConfig implements WebSocketConfigurer {
+    @Override
+    public void registerWebSocketHandlers(WebSocketHandlerRegister registry) {
+        registry.addHandler(exampleHandler(), "/example");
+        //用 sockJS 在不支持 websocket 环境下的模拟 websocket
+        //registry.addHandler(exampleHandler(), "/example").withSockJS();
+    }
+
+    @Bean
+    public ExampleHandler exampleHandler() {
+        return new ExampleHandler();
+    }
+}
+```
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:websocket="http://www.springframework.org/schema/websocket"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/websocket
+        http://www.springframework.org/schema/websocket/spring-websocket.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <websocket:handlers>
+        <websocket:mapping handler="macroHandler" path="/marco" />
+    </websocket:handlers>
+
+    <bean id="exampleHandler" class="me.example.ExampleHandler"/>
+
+</beans>
+```
+
+## 启用 STOMP 消息功能
+
+```java
+@Configuration
+@EnableWebSocketMessageBroker
+public class WebSocketStompConfig extends AbstractWebSocketMessageBrokerConfigurer {
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        //客户端在发布或订阅消息前要连接到此端点
+        registry.addEndpoint("/example").withSockJS();
+    }
+
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        //以下前缀会路由到 {@link SimpleBrokerMessageHandler}，这是一个模拟了 STOMP 消息代理的、基于内存的消息代理
+        registry.enableSimpleBroker("/queue", "/topic");
+        //以下前缀会路由到 {@link @MessageMapping} 注解的方法中
+        registry.setApplicationDestinationPrefixes("/app");
+        //以下前缀会路由到 STOMP 代理中
+        registry.enableStompBrokerRelay("/topic", "/queue");
+            //.setRelayHost("");//也可以额外设置一些参数
+            //...
+    }
+}
+```
+
+### 处理来自客户端的 STOMP 消息
+
+```java
+@Controller
+public class ExampleController {
+    @MessageMapping("/example")
+    public void handleExample(Example example) {
+        //...
+    }
+}
+```
+
+Spring 4.0 提供了几个消息转换器
+
+- `ByteArrayMessageConverter`：application/octet-stream <-> byte[]
+- `MappingJackson2MessageConverter`：application/json <-> Java 对象
+- `StringMessageConverter`：text/plain <-> String
+
+**处理订阅**
+
+```java
+@SubscribeMapping({"/subs"})
+public Example handleSubscription() {
+    return new Example();
+}
+```
+
+`@SubscribeMapping` 的主要应用场景是请求-回应模式。这种模式跟 HTTP GET 的请求-响应模式很像，不过是异步的。
+
+### 发送消息到客户端
+
+**在处理消息之后发送消息**
+
+```java
+/**
+ * 发送一条返回消息到指定目的地，所有订阅该目的地的客户端可以获取这条返回消息
+ */
+@MessageMapping("/example")
+@SendTo("/custom/dest") //不加这个注解的话默认会发到 /topic/example
+public Example handleExample(Example incoming) {
+    Example outgoing = new Example();
+    outgoing.setMessage("blahblah");
+    return outgoing;
+}
+
+/**
+ * 返回消息会直接发给客户端，而不会经过消息代理。
+ * 也可以添加 {@code SendTo} 注解，这样就会经过消息代理。
+ */
+@SubscribeMapping("/subs")
+public Example handleSubscription() {
+    Example outgoing = new Example();
+    outgoing.setMessage("blahblah");
+    return outgoing;
+}
+```
+
+**在应用的任意地方发送消息**
+
+
+
 # 第 19 章 使用 Spring 发送 Email
 
 # 第 20 章 使用 JMX 管理 Spring Bean
