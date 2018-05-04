@@ -12,6 +12,50 @@ tags: [Java, Spring]
 
 # 第 1 章 Spring 之旅
 
+## xml 扫描的大致流程
+
+**精简版**
+
+1. `BeanDefinitionReader#loadBeanDefinitions`
+    1. `DocumentLoader#loadDocument` 得到 `Document` 对象
+    2. `BeanDefinitionDocumentReader#registerBeanDefinitions`
+        1. 对于每一层 `beans` 标签，都创建一个 `BeanDefinitionParserDelegate`，因而这个 delegate 也可以形成嵌套结构
+        2. 解析这层 `beans` 标签下的配置内容
+            1. 对于当前命名空间下的元素，直接用当前的 delegate 来解析
+            2. 对于其他命名空间下的元素，调用 `NamespaceHanlderResolver#resolve` 来获取命名空间对应的 `NamespaceHandler`。然后调用 `NamespaceHandler#parse` 来解析这个命名空间下的所有元素
+               有两种方式来实现命名空间的解析逻辑：
+                1. 直接实现 `NamespaceHandler` 接口
+                2. 实现 `NamespaceHandlerSupport` 抽象类，在 `init` 方法中注册自定义的 `BeanDefinitionParser` 和 `BeanDefinitionDecorator`，具体的解析逻辑会被委托给这些解析类。命名空间下的每一个元素对应一个解析类。
+
+**详细版**
+
+1. `BeanDefinitionReader#loadBeanDefinitions` 从指定资源或位置加载 bean 定义。`XmlBeanDefinitionReader` 是 xml 对应的实现。
+    1. 使用 `DocumentLoader` 把 xml 资源加载成 `org.w3c.dom.Document`。`DocumentLoader` 是加载 xml 的策略接口，默认实现为 `DefaultDocumentLoader`。
+    2. 调用 `BeanDefinitionDocumentReader#registerBeanDefinitions` 注册 bean 定义。
+        - 调用这个方法的时候，会传入 `XmlReaderContext`，其中包含了 `Resource`、`ProblemReporter`、`ReaderEventListener`、`SourceExtractor`、`XmlBeanDefinitionReader`、`NamespaceHandlerResolver`。
+2. `BeanDefinitionDocumentReader` 是用来注册 bean 定义的 SPI，默认实现为 `DefaultBeanDefinitionDocumentReader`。
+    1. 调用 `BeanDefinitionParserDelegate#isDefaultNamespace` 判断当前节点是否为默认的命名空间（无命名空间或命名空间为 `beans`），若是的话，判断 `profile` 属性是否符合。
+    2. 使用 `BeanDefinitionParserDelegate` 来负责解析 bean 定义。
+        - 此类保存了 `beans` 标签中定义的一些属性，供后续的 bean 解析器来使用。
+        - 因为 `beans` 标签是可嵌套的，所以 `BeanDefinitionParserDelegate` 也是可嵌套的，对于子节点未配置的属性，缺省为父节点的属性。
+        - 此类还对外提供了众多解析用的方法，这些方法一方面提供了统一的 API，另一方面也共用了解析过程中的模板代码。
+        - 此类的每一个对象都代表一个命名空间，所以可以继承子类来表示自定义的命名空间，并提供该命名空间下自定义的解析方法。
+    3. 递归解析根节点下的配置。
+        - 解析默认命名空间下的配置，调用 `BeanDefinitionParserDelegate#parseDefaultElement`。其中包括 `import`、`alias`、`bean`、`beans`，后续可能会扩展。
+        - 解析其他命名空间下的配置，调用 `BeanDefinitionParserDelegate#parseCustomElement`。
+            1. 取 `XmlReaderContext` 中的 `NamespaceHandlerResolver`，默认实现为 `DefaultNamespaceHandlerResolver`。
+                - `NamespaceHandlerResolver` 中维护了一个配置文件的地址（默认为 META-INF/spring.handlers，查找范围包括类加载器下的所有包），该文件中保存了命名空间和 `NamespaceHandler` 实现类的对应关系。
+            2. 调用 `NamespaceHandlerResolver#resolve` 找到当前命名空间对应的 `NamespaceHandler`。
+            3. 调用 `NamespaceHandler#parse` 来做进一步的解析。
+3. `NamespaceHandler` 有一个抽象实现类 `NamespaceHandlerSupport`，一般通过实现此类来自定义一个 `NamespaceHandler`。
+    - `NamespaceHandlerSupport` 维护了三个 Map，保存了 `BeanDefinitionParser` / `BeanDefinitionDecorator`，分别用来解析直接挂在 `beans` 下的 `bean`、挂在 `bean` 下的 `bean`、`bean` 中的 attribute;
+        - `BeanDefinitionParser`：实际的 bean 解析类，负责解析直接挂在 `beans` 标签下的 bean；
+        - `BeanDefinitionDecorator`：实际的 bean 解析类，负责解析挂在 `bean` 标签下的 bean；
+    - `NamespaceHandlerSupport` 提供了三个抽象方法，分别用来在上述三个 Map 中注册解析类。
+    - 当 `parse` 方法被调用时，根据当前 xml 元素的名称从上述 Map 中找到对应的 `BeanDefinitionParser`，然后调用其 `parse` 方法。
+    - `BeanDefinitionParser` 根据自己的需要，可以调用 `BeanDefinitionParserDelegate#decorateBeanDefinitionIfRequired` 方法，此方法又会调用 `NamespaceHandlerResolver#resolve` -> `NamespaceHandler#decorate`。
+
+
 ## 容器
 
 **Spring 自带了几种容器实现，可归为两种类型：**
