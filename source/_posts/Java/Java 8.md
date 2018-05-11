@@ -76,7 +76,7 @@ Clazz::methodName
 ```
 var1, var2 -> var1.methodName(var2);
 //前提是第一个形参作为目标
-Clazz：methodName
+Clazz:methodName
 ```
 
 **两种多形参的情况依然需要先保证无歧义的前提条件**
