@@ -18,6 +18,8 @@ Tab：Editor-Code Style-Java
 
 编码：Editor-File Encodings
 
+拼写检查：Editor-inspections-Spelling-typo
+
 
 
 # 切换 editor 主题时保留 ide 整体主题

@@ -4,7 +4,7 @@ date: 2017-01-01 09:00:01
 tags: [Java, Spring]
 ---
 
-整理自《Spring实战（第4版）》
+大部分内容整理自《Spring实战（第4版）》
 
 **第 1 部分 Spring 的核心**
 
@@ -249,7 +249,146 @@ Spring 应用系统中开发切面的基础。
 - 在 Java 中进行显式配置；
 - 隐式的 bean 发现机制和自动装配。
 
-## 自动化装配 bean
+## 通过 XML 装配 bean
+
+**创建 XML 配置规范**
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context">
+	<!-- configuration details -->
+</beans>
+```
+
+**声明 <bean>**
+
+```xml
+<bean id="myClass" class="com.demo.MyClass"/>
+```
+
+若不指明 ID，则默认为类名首字母小写 + “#0”。后续声明的同类型实例就是类名首字母小写 + “#1”。
+
+**构造器注入 bean**
+
+```xml
+<bean id="myOutterClass" class="com.demo">
+	<constructor-arg ref="myClass"/>
+</bean>
+```
+
+或使用 c- 命名空间（3.0 中引入）。
+首先在顶部声明命名空间模式。
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="myOutterClass" class="com.demo.MyOutterClass"
+		c:myClass-ref="myClass">
+</beans>
+```
+
+该属性名的结构：
+
+- `c:` c-命名空间前缀
+- `myClass` 构造器参数名
+- `-ref` 注入 bean 引用。去掉此项则注入字面量。
+- `"myClass"` 要注入的 bean ID
+
+由于引用了构造器参数名，所以如果移除构建过程中的调试标志（debug symbol）就无法正常执行了。
+
+替代方案是使用参数在参数列表中的位置信息：
+
+```xml
+<bean id="myOutterClass" class="com.demo.MyOutterClass"
+		c:_0-ref="myClass">
+```
+
+因为 XML 中不允许数字作为属性的第一个字符，所以要添加一个下划线。
+
+若只有一个构造器参数，则可以不用标示参数：
+
+```xml
+<bean id="myOutterClass" class="com.demo.MyOutterClass"
+		c:_-ref="myClass">
+```
+
+**构造器注入字面量**
+
+```xml
+<bean id="myClass" class="com.demo.MyClass">
+	<constructor-arg value="abc" />
+</bean>
+```
+
+**构造器装配集合**
+
+## 通过 Java 代码装配 bean
+
+**创建配置类**
+
+```java
+package com.demo;
+
+@Configuration
+public class MyConfig {
+}
+```
+
+在 web 环境下还需要做以下配置来让 spring 知道配置类的位置。
+
+```xml
+<context-param>
+    <param-name>contextClass</param-name>
+    <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+</context-param>
+<context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>com.example.MyConfiguration</param-value>
+</context-param>
+```
+
+**声明 bean**
+
+```java
+@Bean
+public MyClass myClass() {
+	return new MyClass();
+}
+```
+
+`@Bean` 告诉 Spring 将该方法返回的对象注册为 bean，ID 默认为方法名，也可指定 ID：`@Bean(name="myClass")`。
+
+**借助 JavaConfig 实现注入**
+
+```java
+@Bean
+public MyOutterClass myOutterClass() {
+	return new MyOutterClass(myClass())
+}
+```
+
+这种通过调用方法来引用 bean 的方式有时候可能引起误解，让人以为每次都拿到一个新的对象，而实际上 Spring 的 bean 默认是单例的。
+
+可以换一种方式：
+
+```java
+@Bean
+public MyOutterClass myOutterClass(MyClass myClass) {
+	return new MyOutterClass(myClass);
+}
+```
+
+这种方式一方面不易引起误解，另一方面允许 `myClass` 声明于其他地方。
+
+## 隐式的 bean 发现机制和自动装配
 
 **创建可被发现的 bean**
 
@@ -302,135 +441,24 @@ public class MySpringConfig {
 
 可替换为 Java 依赖注入规范中的 `@Inject`。
 
-## 通过 Java 代码装配 bean
+## 导入和混合配置
 
-**创建配置类**
+javaConfig 导入 javaConfig 和 xml
 
 ```java
-package com.demo;
-
 @Configuration
-public class MyConfig {
+@Import({SubConfig1.class, SubConfig2.class})
+@ImportResource("classpath:test.xml")
+public class BasicConfig {
 }
 ```
 
-**声明 bean**
-
-```java
-@Bean
-public MyClass myClass() {
-	return new MyClass();
-}
-```
-
-`@Bean` 告诉 Spring 将该方法返回的对象注册为 bean，ID 默认为方法名，也可指定 ID：`@Bean(name="myClass")`。
-
-**借助 JavaConfig 实现注入**
-
-```java
-@Bean
-public MyOutterClass myOutterClass() {
-	return new MyOutterClass(myClass())
-}
-```
-
-这种通过调用方法来引用 bean 的方式有时候可能引起误解，让人以为每次都拿到一个新的对象，而实际上 Spring 的 bean 默认是单例的。
-
-可以换一种方式：
-
-```java
-@Bean
-public MyOutterClass myOutterClass(MyClass myClass) {
-	return new MyOutterClass(myClass);
-}
-```
-
-这种方式一方面不易引起误解，另一方面允许 `myClass` 声明于其他地方。
-
-## 通过 XML 装配 bean
-
-**创建 XML 配置规范**
+xml 导入 javaConfig 和 xml
 
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context">
-
-	<!-- configuration details -->
-
-</beans>
+<bean class="me.example.BasicConfig"/>
+<import resource="cdplayer-config.xml"/>
 ```
-
-**声明 <bean>**
-
-```xml
-<bean id="myClass" class="com.demo.MyClass"/>
-```
-
-若不指明 ID，则默认为类名首字母小写+“#0”。后续声明的同类型实例就是类名首字母小写+“#1”。
-
-**构造器注入 bean**
-
-```xml
-<bean id="myOutterClass" class="com.demo">
-	<constructor-arg ref="myClass"/>
-</bean>
-```
-
-或使用 c- 命名空间（3.0 中引入）。
-首先在顶部声明命名空间模式。
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:c="http://www.springframework.org/schema/c"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-	<bean id="myOutterClass" class="com.demo.MyOutterClass"
-		c:myClass-ref="myClass">
-
-</beans>
-```
-
-该属性名的结构：
-
-- `c:` c-命名空间前缀
-- `myClass` 构造器参数名
-- `-ref` 注入 bean 引用。去掉此项则注入字面量。
-- `"myClass"` 要注入的 bean ID
-
-由于引用了构造器参数名，所以如果移除构建过程中的调试标志（debug symbol）就无法正常执行了。
-
-替代方案是使用参数在参数列表中的位置信息：
-
-```xml
-<bean id="myOutterClass" class="com.demo.MyOutterClass"
-		c:_0-ref="myClass">
-```
-
-因为 XML 中不允许数字作为属性的第一个字符，所以要添加一个下划线。
-
-若只有一个构造器参数，则可以不用标示参数：
-
-```xml
-<bean id="myOutterClass" class="com.demo.MyOutterClass"
-		c:_-ref="myClass">
-```
-
-**构造器注入字面量**
-
-```xml
-<bean id="myClass" class="com.demo.MyClass">
-	<constructor-arg value="abc" />
-</bean>
-```
-
-**构造器装配集合**
 
 # 第 3 章 高级装配
 
@@ -654,13 +682,6 @@ Spring 提供了两种运行时求值的方式：
 
 从 Spring 3.1 开始，推荐 `PropertySourcesPlaceholderConfigurer`，它能基于 `Environment` 及其属性源来解析占位符。
 
-```java
-@Bean
-public static PropertySourcesPlaceholderConfigurer placeHolderConfigurer() {
-	return new PropertySourcesPlaceholderConfigurer();
-}
-```
-
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -686,6 +707,11 @@ public class ExpressiveConfig {
 	@Autowired
 	Environment env;
 
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer placeHolderConfigurer() {
+  	return new PropertySourcesPlaceholderConfigurer();
+  }
+
 	@Bean
 	public BlankDisc disc() {
 		return new BlankDisc(
@@ -700,7 +726,7 @@ public class ExpressiveConfig {
 ```java
 public BlankDisc(
 	@Value("${disc.title}") String title,
-	@Value("${disc.artist") String artist) {
+	@Value("${disc.artist}") String artist) {
 	//blabla
 }
 ```
@@ -720,6 +746,10 @@ public BlankDisc(
 - `String[] getActiveProfiles()`
 - `String[] getDefaultProfiles()`
 - `boolean acceptsProfiles(String... profiles)`
+
+**关于 `@PropertySource` 的解析**
+
+`org.springframework.context.annotation.ConfigurationClassParser#doProcessConfigurationClass`
 
 ### 使用 Spring 表达式进行装配
 
@@ -753,14 +783,14 @@ SpEL 的特性包括：
 
 |运算符类型|运算符                              |
 |:---------|:-----------------------------------|
-|算术运算  |+、-、*、/、%、^                    |
+|算术运算  |+、-、\*、/、%、^                   |
 |比较运算  |<、>、==、<=、>=、lt、gt、eq、le、ge|
 |逻辑运算  |and、or、not、\|                    |
 |条件运算  |?: (ternary)、?: (Elvis)            |
 |正则表达式|matches                             |
 
 `#{scoreboard.score > 1000 ? "Winner" : "Loser"}` 三元运算
-`#{disc.title ?: 'Default Title'}` 为 null 的话取默认值
+`#{disc.title ?: 'Default Title'}` 为 null 的话取默认值；`?:` 也可以简写成 `:`
 
 **计算正则表达式**
 

@@ -261,9 +261,11 @@ public class MyObjHandler {
 public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegister registry) {
-        registry.addHandler(exampleHandler(), "/example");
-        //用 sockJS 在不支持 websocket 环境下的模拟 websocket
-        //registry.addHandler(exampleHandler(), "/example").withSockJS();
+        registry.addHandler(exampleHandler(), "/example")
+        //.setHandshakeHandler(null);//可以自定义握手处理类
+        //.addInterceptors(null);//可以自定义拦截器
+          .setAllowedOrigins("*");//若不配置来源白名单的话，默认只允许来自当前域的连接
+        //.withSockJS();//用 sockJS 在不支持 websocket 环境下的模拟 websocket
     }
 
     @Bean

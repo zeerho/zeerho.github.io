@@ -13,48 +13,51 @@ tags: [JavaScript]
 
 ## 标识符和保留字
 
-- 标识符必须以**字符**、**下划线（_）**或**美元符号（$）**开始，后续可以是字母、数字、下划线或美元符。
+- 标识符必须以**字符**、**下划线**或**美元符号（$）**开始，后续可以是字母、数字、下划线或美元符。
 - 出于可移植性和可读性的考虑，通常只用 ASCII 字母和数字来书写标识符。但从技术上来讲，JavaScript 允许标识符中出现 Unicode 字符全集中的字母和数字。ECMAScript 标准也允许在标识符首字符后面出现 Unicode 字符集中的 Mn 类、Mc 类和 Pc 类[^1]。
 
 **JavaScript 保留关键字**
 
-|-|-|-|-|-|-|-|
-|:--|:--|:--|:--|:--|:--|:--|
+|-           |-         |-      |-       |-         |-       |-        |
+|:-----------|:---------|:------|:-------|:---------|:-------|:--------|
 |abstract    |arguments |boolean|break   |byte      |case    |catch    |
-|char        |class*    |const  |continue|debugger  |default |delete   |
-|do          |double    |else   |enum*   |eval      |export* |extends* |
+|char        |class#    |const  |continue|debugger  |default |delete   |
+|do          |double    |else   |enum#   |eval      |export# |extends# |
 |false       |final     |finally|float   |for       |function|goto     |
-|if          |implements|import*|in      |instanceof|int     |interface|
+|if          |implements|import#|in      |instanceof|int     |interface|
 |let         |long      |native |new     |null      |package |private  |
-|protected   |public    |return |short   |static    |super*  |switch   |
+|protected   |public    |return |short   |static    |super#  |switch   |
 |synchronized|this      |throw  |throws  |transient |true    |try      |
-|typeof      |var       |void   |volatile|while     |with    |yield|   |
+|typeof      |var       |void   |volatile|while     |with    |yield    |
 
-*\* 标记的关键字是 ECMAScript5 中新添加的。*
+*`#` 标记的关键字是 ECMAScript5 中新添加的。*
 
 **JavaScript 对象、属性和方法**
+
 应该避免使用 JavaScript 内置的对象、属性和方法的名称作为 Javascript 的变量或函数名
 
-|-|-|-|-|-|
-|:--|:--|:--|:--|:--|
+|-        |-       |-       |-            |-             |
+|:--------|:-------|:-------|:------------|:-------------|
 |Array    |Date    |eval    |function     |hasOwnProperty|
 |Infinity |isFinite|isNaN   |isPrototypeOf|length        |
 |Math     |NaN     |name    |Number       |Object        |
 |prototype|String  |toString|undefined    |valueOf       |
 
 **Java 保留关键字**
+
 JavaScript 经常与 Java 一起使用，应该避免使用一些 Java 对象和属性作为 JavaScript 标识符
 
-|-|-|-|-|-|-|
-|:--|:--|:--|:--|:--|:--|
+|-       |-   |-        |-        |-         |-          |
+|:-------|:---|:--------|:--------|:---------|:----------|
 |getClass|java|JavaArray|javaClass|JavaObject|JavaPackage|
 
 **Windows 保留关键字**
+
 JavaScript 可以在 HTML 外部使用。它可在许多其他应用程序中作为编程语言使用。
 在 HTML 中，必须（为了可移植性，也应该这么做）避免使用 HTML 和 Windows 对象和属性的名称作为 Javascript 的变量及函数名
 
-|-|-|-|-|-|
-|:--|:--|:--|:--|:--|
+|-             |-                 |-          |-                 |-                 |
+|:-------------|:-----------------|:----------|:-----------------|:-----------------|
 |alert         |all               |anchor     |anchors           |area              |
 |assign        |blur              |button     |checkbox          |clearInterval     |
 |clearTimeout  |clientInformation |close      |closed            |confirm           |
@@ -74,15 +77,17 @@ JavaScript 可以在 HTML 外部使用。它可在许多其他应用程序中作
 |textarea      |top               |unescape   |untaint           |window            |
 
 **HTML 事件句柄**
+
 应该避免使用 HTML 事件句柄的名称作为 Javascript 的变量及函数名。
 
-|-|-|-|-|
-|:--|:--|:--|:--|
+|-        |-         |-          |-          |
+|:--------|:---------|:----------|:----------|
 |onblur   |onclick   |onerror    |onfocus    |
 |onkeydown|onkeypress|onkeyup    |onmouseover|
 |onload   |onmouseup |onmousedown|onsubmit   |
 
 **非标准 JavaScript**
+
 除了保留关键字，在 JavaScript 实现中也有一些非标准的关键字。
 一个实例是 `const` 关键字，用于定义变量。 一些 js 引擎把 `const` 当作 `var` 的同义词。另一些引擎则把 `const` 当作只读变量的定义。
 `const` 是 js 的扩展。js 引擎支持它用在 Firefox 和 Chrome 中。但是它并不是 JavaScript 标准 ES3 或 ES5 的组成部分。建议：不要使用它。
@@ -92,9 +97,8 @@ JavaScript 可以在 HTML 外部使用。它可在许多其他应用程序中作
 - js 只有在缺少了分号就无法正确解析代码时才会自动填补分号。有两个例外：
     - 若 `return`、`break` 和 `continue` 后紧跟换行，js 会填补分号；
     - 对于 `++` 和 `--` 运算符，若既可以解释为表达式前缀，又可以解释为后缀，js 会优先解释为前缀；
-- 通常以 (、[、/、+、- 开始的语句较有可能和前一条语句一起解析，保守起见可在此类语句前加分号，这样即使前一条语句结尾的分号被误删了，当前语句也能正常执行。
+- 通常以 `(`、`[`、`/`、`+`、`-` 开始的语句较有可能和前一条语句一起解析，保守起见可在此类语句前加分号，这样即使前一条语句结尾的分号被误删了，当前语句也能正常执行。
 
----
 # 类型、值和变量
 
 - 基本类型：数字、字符串、布尔值、null、undefined。
@@ -123,8 +127,8 @@ JavaScript 可以在 HTML 外部使用。它可在许多其他应用程序中作
 - 若 `\` 后的字符不存在对应的转义字符，则会忽略 `\`，仍解释为该字符本身。
 - 在 ES5 中，字符串可以当作只读数组，使用 charAt() 方法或方括号来访问其中的字符。以 Mozilla 为首的多数浏览器都在 ES5 之前就支持这种特性，除了 IE。
 
-|转义字符|含义|
-|:--|:--|
+|转义字符|含义                               |
+|:-------|:----------------------------------|
 |`\o`    |NUL 字符（\u0000）                 |
 |`\b`    |退格符（\u0008）                   |
 |`\t`    |水平制表符（\u0009）               |
@@ -173,30 +177,30 @@ JavaScript 可以在 HTML 外部使用。它可在许多其他应用程序中作
 
 ## 类型转换
 
-|值|字符串|数字|布尔值|对象|
-|:--|:--|:--|:--|:--|
-|undefined           |"undefined"   |NaN|false|throws TypeError     |
-|null                |"null"        |0  |false|throws TypeError     |
-|~-------------------|~-------------|~--|~----|~--------------------|
-|true                |"true"        |1  |     |new Boolean(true)    |
-|false               |"false"       |0  |     |new Boolean(false)   |
-|~-------------------|~-------------|~--|~----|~--------------------|
-|""                  |              |0  |false|new String("")       |
-|"1.2"               |              |1.2|true |new String("1.2")    |
-|"one"               |              |NaN|true |new String("one")    |
-|~-------------------|~-------------|~--|~----|~--------------------|
-|0                   |"0"           |   |false|new Number(0)        |
-|-0                  |"0"           |   |false|new Number(-0)       |
-|NaN                 |"NaN"         |   |false|new Number(NaN)      |
-|Infinity            |"Infinity"    |   |true |new Number(Infinity) |
-|-Infinity           |"-Infinity"   |   |true |new Number(-Infinity)|
-|1                   |"1"           |   |true |new Number(1)        |
-|~-------------------|~-------------|~--|~----|~--------------------|
-|{}任意对象          |\#1           |\#2|true |                     |
-|[]任意数组          |""            |0  |true |                     |
-|[9]1个数字元素      |"9"           |9  |true |                     |
-|['a']其它数组       |使用join()方法|NaN|true |                     |
-|function(){}任意函数|@             |NaN|true |                     |
+|值                  |字符串        |数字|布尔值|对象                 |
+|:-------------------|:-------------|:---|:-----|:--------------------|
+|undefined           |"undefined"   |NaN |false |throws TypeError     |
+|null                |"null"        |0   |false |throws TypeError     |
+|                    |              |    |      |                     |
+|true                |"true"        |1   |      |new Boolean(true)    |
+|false               |"false"       |0   |      |new Boolean(false)   |
+|                    |              |    |      |                     |
+|""                  |              |0   |false |new String("")       |
+|"1.2"               |              |1.2 |true  |new String("1.2")    |
+|"one"               |              |NaN |true  |new String("one")    |
+|                    |              |    |      |                     |
+|0                   |"0"           |    |false |new Number(0)        |
+|-0                  |"0"           |    |false |new Number(-0)       |
+|NaN                 |"NaN"         |    |false |new Number(NaN)      |
+|Infinity            |"Infinity"    |    |true  |new Number(Infinity) |
+|-Infinity           |"-Infinity"   |    |true  |new Number(-Infinity)|
+|1                   |"1"           |    |true  |new Number(1)        |
+|                    |              |    |      |                     |
+|{}任意对象          |\#1           |\#2 |true  |                     |
+|[]任意数组          |""            |0   |true  |                     |
+|[9]1个数字元素      |"9"           |9   |true  |                     |
+|['a']其它数组       |使用join()方法|NaN |true  |                     |
+|function(){}任意函数|@             |NaN |true  |                     |
 
 
 1. 对象 -> 字符串：
@@ -208,7 +212,7 @@ JavaScript 可以在 HTML 外部使用。它可在许多其他应用程序中作
     - 否则，尝试 toString() 方法，将得到的字符串转为数字。
     - 否则，抛出类型异常。
 
-~-----------------------------------------------
+注意：
 
 - 一个值转换为另一个值并不意味两个值“相等”。比如在期望布尔值的地方使用了 undefined，它将会转换 false，但这并不表明 undefined == false。“==”运算符从不试图将其操作数转换为布尔值。
 - 对于 Boolean()、Number()、String()或 Object()，当不通过 new 调用这些函数时，它们会作为类型转换函数。
@@ -220,58 +224,57 @@ JavaScript 可以在 HTML 外部使用。它可在许多其他应用程序中作
 - 使用 Number() 将字符串转换为数字直接量，只能基于十进制，且不能出现非法的尾随字符。
 - parseInt() 只解析整数，parseFloat() 可解析整数和浮点数。两者都会跳过任意数量的前导空格，并尽可能多地解析字符，并忽略后面无法解析的部分。若第一个非空字符即非数字，则返回 NaN。若字符串前缀为 0x 或 0X，则 parseInt() 将其解释为十六进制数。parseInt() 可接受第二个参数来指定基数，范围 2~36。
 
----
 # 表达式和运算符
 
 ## 运算符概述
 
-|运算符|操作|结合性|操作数|类型|
-|:--|:--|:--|:--|:--|
-|++          |前/后增量                   |←|1|lval→num        |
-|--          |前/后增量                   |←|1|lval→num        |
-|-           |求反                        |←|1|num→num         |
-|+           |转换为数字                  |←|1|num→num         |
-|~           |按位求反                    |←|1|int→int         |
-|!           |逻辑非                      |←|1|bool→bool       |
-|delete      |删除属性                    |←|1|lval→bool       |
-|typeof      |检测操作数类型              |←|1|any→str         |
-|void        |返回 undefined 值           |←|1|any→undef       |
-|~-----------|~---------------------------|-|-|~---------------|
-|*、/、%     |乘、除、取余                |→|2|num,num→num     |
-|~-----------|~---------------------------|-|-|~---------------|
-|+、-        |加、减                      |→|2|num,num→num     |
-|+           |字符串拼接                  |→|2|str,str→str     |
-|~-----------|~---------------------------|-|-|~---------------|
-|<<          |左位移                      |→|2|int,int→int     |
-|\>>         |有符号右移                  |→|2|int,int→int     |
-|\>>>        |无符号右移                  |→|2|int,int→int     |
-|~-----------|~---------------------------|-|-|~---------------|
-|<、<=、>、>=|比较数字顺序                |→|2|num,num→bool    |
-|<、<=、>、>=|比较在字母表中的顺序        |→|2|str,str→bool    |
-|instanceof  |测试对象类                  |→|2|obj,func→bool   |
-|in          |测试属性是否存在            |→|2|str,obj→bool    |
-|~-----------|~---------------------------|-|-|~---------------|
-|==          |判断相等                    |→|2|any,any→bool    |
-|!=          |判断不等                    |→|2|any,any→bool    |
-|===         |判断恒等                    |→|2|any,any→bool    |
-|!==         |判断非恒等                  |→|2|any,any→bool    |
-|~-----------|~---------------------------|-|-|~---------------|
-|&           |按位与                      |→|2|int,int→int     |
-|~-----------|~---------------------------|-|-|~---------------|
-|^           |按位异或                    |→|2|int,int→int     |
-|~-----------|~---------------------------|-|-|~---------------|
-|\|          |按位或                      |→|2|int,int→int     |
-|~-----------|~---------------------------|-|-|~---------------|
-|&&          |逻辑与                      |→|2|any,any→any     |
-|~-----------|~---------------------------|-|-|~---------------|
-|\|\|        |逻辑或                      |→|2|any,any→any     |
-|~-----------|~---------------------------|-|-|~---------------|
-|?:          |条件运算符                  |←|3|bool,any,any→any|
-|~-----------|~---------------------------|-|-|~---------------|
-|=           |变量赋值或对象属性赋值      |→|2|lval,any→any    |
-|*=、/=、%=、+=、-=、&=、^=、\|=、<<=、>>=、>>>=|运算且赋值|→|2|lval,any→any|
-|~-----------|~---------------------------|-|-|~---------------|
-|,           |忽略第一个、返回第二个操作数|→|2|any,any→any     |
+|运算符      |操作                        |结合性|操作数|类型            |
+|:-----------|:---------------------------|:-----|:-----|:---------------|
+|++          |前/后增量                   |←     |1     |lval→num        |
+|--          |前/后增量                   |←     |1     |lval→num        |
+|-           |求反                        |←     |1     |num→num         |
+|+           |转换为数字                  |←     |1     |num→num         |
+|~           |按位求反                    |←     |1     |int→int         |
+|!           |逻辑非                      |←     |1     |bool→bool       |
+|delete      |删除属性                    |←     |1     |lval→bool       |
+|typeof      |检测操作数类型              |←     |1     |any→str         |
+|void        |返回 undefined 值           |←     |1     |any→undef       |
+|            |                            |      |      |                |
+|\*、/、%    |乘、除、取余                |→     |2     |num,num→num     |
+|            |                            |      |      |                |
+|+、-        |加、减                      |→     |2     |num,num→num     |
+|+           |字符串拼接                  |→     |2     |str,str→str     |
+|            |                            |      |      |                |
+|<<          |左位移                      |→     |2     |int,int→int     |
+|\>>         |有符号右移                  |→     |2     |int,int→int     |
+|\>>>        |无符号右移                  |→     |2     |int,int→int     |
+|            |                            |      |      |                |
+|<、<=、>、>=|比较数字顺序                |→     |2     |num,num→bool    |
+|<、<=、>、>=|比较在字母表中的顺序        |→     |2     |str,str→bool    |
+|instanceof  |测试对象类                  |→     |2     |obj,func→bool   |
+|in          |测试属性是否存在            |→     |2     |str,obj→bool    |
+|            |                            |      |      |                |
+|==          |判断相等                    |→     |2     |any,any→bool    |
+|!=          |判断不等                    |→     |2     |any,any→bool    |
+|===         |判断恒等                    |→     |2     |any,any→bool    |
+|!==         |判断非恒等                  |→     |2     |any,any→bool    |
+|            |                            |      |      |                |
+|&           |按位与                      |→     |2     |int,int→int     |
+|            |                            |      |      |                |
+|^           |按位异或                    |→     |2     |int,int→int     |
+|            |                            |      |      |                |
+|\|          |按位或                      |→     |2     |int,int→int     |
+|            |                            |      |      |                |
+|&&          |逻辑与                      |→     |2     |any,any→any     |
+|            |                            |      |      |                |
+|\|\|        |逻辑或                      |→     |2     |any,any→any     |
+|            |                            |      |      |                |
+|?:          |条件运算符                  |←     |3     |bool,any,any→any|
+|            |                            |      |      |                |
+|=           |变量赋值或对象属性赋值      |→     |2     |lval,any→any    |
+|\*=、/=、%=、+=、-=、&=、^=、\|=、<<=、>>=、>>>=|运算且赋值|→|2|lval,any→any|
+|            |                            |      |      |                |
+|,           |忽略第一个、返回第二个操作数|→     |2     |any,any→any     |
 
 
 ## 位运算符
@@ -307,63 +310,54 @@ JavaScript 可以在 HTML 外部使用。它可在许多其他应用程序中作
 |任意字符串            |"string"   |
 |任意函数              |"function" |
 |任意内置对象（非函数）|"object"   |
-|任意宿主对象 |由编译器各自实现的字符串，但不是"undefined"、"boolean"、"number"或"string"|
+|任意宿主对象|由编译器各自实现的字符串，但不是"undefined"、"boolean"、"number"或"string"|
 
-
-
----
 # 函数
 
 ## 函数定义
 
 **函数声明**
+
 ```
 function funcName(params) {/*code*/}
 ```
 
 **函数表达式**
+
 ```
 var x = function(a, b) {return a * b};
-var z = x(1, 2);
 ```
 
 **构造函数**
+
 ```
 var myFunction = new Function("a", "b", "return a * b");
-var x = myFunction(4, 3);
 ```
+
 但一般不使用构造函数。
 
 **函数提升（Hoisting）**
-“提升”是 JavaScript 默认将当前作用域提升到前面去的的行为。
+
+“提升”是 JavaScript 默认将当前作用域提升到前面去的行为。
 “提升”应用在变量的声明与函数的声明，但不应用于变量和函数的赋值。
 因此，函数可以在声明之前调用。
-“提升”实在 js 引擎预编译的时候进行的，即运行前。
-
-**自调用函数**
-函数表达式可以 "自调用"。
-自调用表达式会自动调用。
-如果表达式后面紧跟 `()` ，则会自动调用。
-不能自调用声明的函数。
-通过添加括号，来说明它是一个函数表达式：
-```
-(function () {
-    var x = "Hello!!";      // 我将调用自己
-})();
-```
-以上函数实际上是一个匿名自我调用的函数 (没有函数名)。
+“提升”是在 js 引擎预编译的时候进行的，即运行前。
 
 **函数是对象**
+
 在 JavaScript 中使用 typeof 操作符判断函数类型将返回 "function" 。
 但是 JavaScript 函数描述为一个对象更加准确。
 JavaScript 函数有 属性 和 方法。
 arguments.length 属性返回函数调用过程接收到的参数个数：
+
 ```
 function myFunction(a, b) {
     return arguments.length;
 }
 ```
+
 `toString()` 方法将函数作为一个字符串返回:
+
 ```
 function myFunction(a, b) {
     return a * b;
@@ -371,16 +365,54 @@ function myFunction(a, b) {
 var txt = myFunction.toString();
 ```
 
+## 函数自调
+
+### 即调函数 IIFE
+
+> Immediately-Invoked Function Expression
+
+**为什么需要 IIFE**
+
+由于 js 在作用域方面比较薄弱，只有全局作用域和方法作用域，直到 ES6 才有块作用域，所以只能通过将逻辑封装到函数声明中来实现作用域隔离。
+
+很多时候，我们需要执行一段逻辑，而这段逻辑很可能只需要执行一次，那么让这段逻辑的方法名和里面变量名去占用全局的命名空间就很不划算，这时候就需要使用 IIFE。
+
+函数表达式可以 "自调用"。
+自调用表达式会自动调用。
+如果表达式后面紧跟 `()` ，则会自动调用。
+不能自调用声明的函数。
+通过添加括号，来说明它是一个函数表达式：
+
+```
+(function () {
+    var x = "Hello!!";
+})();
+
+//实际上只要想办法把函数声明转换成表达式就行
+(function() {
+    var x = "Hello!";
+}());
+//再比如
+!function() {
+    var x = "Hello!";
+}();
+```
+
+虽然各种把函数声明转换成表达式的方式都能生效，但是性能会有差别。
+
+js 引擎为了提升执行速度，在函数声明的时候只会做简单的语法分析，然后在函数执行的时候再做进一步的处理。对于自调函数显然应该直接做完整的处理。然而由于 js 引擎是通过符号特征来识别自调函数的（比如 `(function`），而有些引擎漏掉了一些不常见的特征，从而导致使用这些语法把函数声明转换成表达式的时候引擎不会把它当成自调函数来做优化，因而影响性能。
+
 ## 函数参数
 
 **函数显式参数(Parameters)与隐式参数(Arguments)**
+
 > 显示参数在函数定义时给出，相当于形参。
 > 隐式参数在函数调用时传递，相当于实参。
 
 **参数规则**
+
 JavaScript 函数定义时显式参数没有指定数据类型。
 JavaScript 函数对隐式参数没有进行类型检测。
 JavaScript 函数对隐式参数的个数没有进行检测。
 
----
 [^1]:Unicode 对其所有字符做了分类，这种分类用“通用类别值”表示，这里的“Mn”、“Mc”和“Pc”分别表示基字符的修改中出现的非间距字符、基字符的修改中影响了基字符标识位的宽度的间距字符、连接两个字符的连接符或标点符号。

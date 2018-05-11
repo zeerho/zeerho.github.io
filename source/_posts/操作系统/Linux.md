@@ -36,11 +36,11 @@ non-login shell：在图形界面启动一个 terminal，或者执行 /bin/bash�
 可以修改 shell 来模拟交互登录式的动作：
 
 ```sh
-#!/path/to/my_sh -ilex
-#e 一旦出错就退出当前 shell
-#i 交互式
-#l 登录式
-#x 显示所执行的每条命令
+ #!/path/to/my_sh -ilex
+ #e 一旦出错就退出当前 shell
+ #i 交互式
+ #l 登录式
+ #x 显示所执行的每条命令
 ```
 
 login shell 读取文件的顺序是：
@@ -55,7 +55,6 @@ non-login shell 每次启动 shell 都会读取：
 
 1. ~/.bashrc
 
----
 # 挂载/卸载
 
 `df -h` 查看挂载情况
@@ -63,7 +62,6 @@ non-login shell 每次启动 shell 都会读取：
 `mount {file_system}` 挂载 
 `eject` 弹出，UI 中挂载也消失，且无法直接再用`mount`命令挂载回来
 
----
 # 软件安装
 
 ## JDK
@@ -101,33 +99,19 @@ export JAVA_HOME PATH
 ## mysql
 
 1. 下载 RPM包
-
    `wget https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm`
-
 2. 安装 RPM 包
-
    `yum localinstall mysql57-community-release-el7-9.noarch`
-
 3. 安装 mysql
-
    `yum install mysql-community-server`
-
 4. 查看自动生成的随机密码
-
    `grep 'temporary password' /var/log/mysqld.log`
-
 5. 启动、查看 mysql service
-
    `service mysqld start`
-
    `service mysqld status`
-
 6. 安全相关设置
-
    `mysql_secure_installation`
-
 7. 登录成功后修改密码强度限制（测试环境）
-
    1. `set global validate_password_policy=0;`
    2. `set global validate_password_length=4;`
    3. `set password=password('root')` 测试环境换个简单的密码
@@ -199,69 +183,44 @@ APT 的底层包是 dpkg，dpkg 会把 .deb 文件放在 /var/cache/apt/archives
 ## yum
 
 `yum search {keyword}`
-
 根据关键字搜索软件包
 
 `yum list`
-
 列出可安装包
 
 `yum list [updates|installed|{name}|extras]`
-
 列出可更新包|已安装包|指定包|所有已安装但不在 Yum Repository 中的包
 
 `yum info`
-
 列出所有软件包信息
 
 `yum info [updates|installed|{name}|extras]`
-
 列出可更新包|已安装包|指定包|所有已安装但不在 Yum Repository 中的包的信息
 
 `yum provides {name}`
-
 列出软件包提供哪些文件
-
  
 
 `yum clean packages`
-
 清除缓存目录(/var/cache/yum)下的软件包
-
 `yum clean headers`
-
 清除缓存目录(/var/cache/yum)下的 headers
-
 `yum clean oldheaders`
-
 清除缓存目录(/var/cache/yum)下旧的 headers
-
 `yum clean, yum clean all` (= `yum clean packages`;` yum clean oldheaders`)
-
 清除缓存目录(/var/cache/yum)下的软件包及旧的headers
 
 
-
 `yum update` 升级系统
-
 `yum install {name}` 安装指定软件包
-
 `yum update {name}` 升级指定软件包
-
 `yum remove {name}` 卸载指定软件
-
 `yum grouplist` 查看系统中已经安装的和可用的软件组，可用的可以安装
-
-` yum grooupinstall {name}` 安装上一个命令显示的可用的软件组中的一个
-
-` yum grooupupdate {name}` 更新指定软件组的软件包
-
+`yum grooupinstall {name}` 安装上一个命令显示的可用的软件组中的一个
+`yum grooupupdate {name}` 更新指定软件组的软件包
 `yum grooupremove {name}` 卸载指定软件组中的软件包
-
 `yum deplist {name}` 查询指定软件包的依赖关系
-
-` yum list yum\* ` 列出所有以yum开头的软件包
-
+`yum list yum\* ` 列出所有以yum开头的软件包
 `yum localinstall {name}` 从硬盘安装rpm包并使用yum解决依赖
 
 # 命令
@@ -275,7 +234,6 @@ concatenate 显示文件内容。
 `cat {file1} [{file2}]...`
 显示一个或多个文件的内容。对于多个文件，会将内容拼接起来显示。
 
----
 **ls**
 
 显示指定目录的内容，缺省参数为当前目录。
@@ -302,7 +260,6 @@ concatenate 显示文件内容。
 `-w` `--width={cols}` 定义屏幕宽度。
 `-X` 按扩展名的字母顺序排序。
 
----
 **cp**
 
 复制文件。
@@ -312,7 +269,6 @@ concatenate 显示文件内容。
 `cp {file1} ... {file2} {dir}`
 将文件复制到指定目录。
 
----
 **mv**
 
 重命名或移动文件。
@@ -322,42 +278,39 @@ concatenate 显示文件内容。
 `mv {file1} ... {file2} {dir}`
 将文件移动到指定目录。
 
----
 **touch**
 
 > 创建文件。若文件已存在则更新时间戳。
 
 `touch {file}`
 
----
 **rm**
 
 > 删除文件。
 
 `rm {file}`
 
----
 **echo**
 
 将它的参数显示到标准输出。
 
 `echo {variable}`
 
----
+
 **cd** 
 
 > 设置当前工作目录。当前工作目录是指进程和 shell 当前所在的工作目录。
 
 `cd {dir}`
 
----
+
 **mkdir**
 
 > 创建新目录。
 
 `mkdir {dir}`
 
----
+
 **rmdir**
 
 > 删除目录，只能删除空目录。
@@ -367,7 +320,7 @@ concatenate 显示文件内容。
 `rm -rf {dir}`
 删除指定目录及其中所有内容。
 
----
+
 **grep**
 
 > 显示文件和输入流中和参数匹配的行。可识别正则表达式。
@@ -375,44 +328,44 @@ concatenate 显示文件内容。
 `grep -[i][v] {keyword} {file}`
 -i 表示不区分大小写，-v 表示反转匹配，即显示所有不匹配的行。
 
----
+
 **less**
 
 > 分屏显示文件内容。空格查看下一屏，b 键查看上一屏，q 键退出。
 `less`命令是`more`命令的增强版，在一些没有`less`命令的 Unix 系统和嵌入式系统中可以使用`more`命令。
 
----
+
 **pwd**
 
 > 输出当前的工作目录名。
 
----
+
 **diff**
 
 > 查看两个文件之间的不同。
 
 `diff {file1} {file2}`
 
----
+
 **file**
 
 > 查看文件的格式信息。
 
 `file {file}`
 
----
+
 **find**
 
 > 查找文件。可以使用模式匹配参数，但必须给模式匹配参数加引号，因为 shell 会在运行命令前展开通配符。
 
 `find {dir} -name {file} -print`
 
----
+
 **locate**
 
 > 在系统创建的文件索引中查找文件。该索引由系统周期性地进行更新。
 
----
+
 **head** 和 **tail**
 
 > 显示文件的前 10 行或后 10 行内容。
@@ -420,19 +373,19 @@ concatenate 显示文件内容。
 `head|tail [-{n}|+{n}][-f] {file}`
 -n 设置显示的行数，+n 设置显示第 n 行开始的内容，-f 设置不停地读取最新内容。
 
----
+
 **sort**
 
 > 将文件内的所有行按照字母顺序快速排序。-n 按照数字顺序排序那些以数字开始的行，-r 反向排序。
 
----
+
 **export**
 
 > 将某个 shell 变量设置为环境变量。
 
 `export {var}`
 
----
+
 **man**
 
 **{command} --help|-h**
@@ -444,7 +397,7 @@ concatenate 显示文件内容。
 `man [-k] {command}`
 获取指定命令的帮助信息，可指定关键词进行查找。
 
----
+
 **{command} > {file}**
 
 **{command} >> {file}**
@@ -464,7 +417,7 @@ concatenate 显示文件内容。
 `>&`将标准输出和标准错误输出重定向到同一个地方。
 `<`将文件内容重定向为命令的标准输入。
 
----
+
 **du**
 
 > 查看文件和目录的磁盘使用空间。
@@ -490,7 +443,7 @@ COMMAND：命令名，进程有可能将其由初始值改为其他。
 `ps w` 显示命令的全名，而非仅显示一行以内的内容。
 `ps {PID}` 显示指定进程的信息，可用 $$ 表示当前 shell 的进程。
 
----
+
 **kill**
 
 向进程发送一个信号。
@@ -503,53 +456,53 @@ COMMAND：命令名，进程有可能将其由初始值改为其他。
 **QUIT** 和 INT 类似, 但由 QUIT 字符(通常是Ctrl-\\)来控制。进程在因收到 QUIT 退出时会产生 core 文件, 在这个意义上类似于一个程序错误信号。
 **TERM** 要求进程自己正常退出，该信号可以被阻塞或处理。
 
----
+
 # 特殊字符
 
-|字符|名称|用途|
-|:--|:--|:--|
-|*|星号|正则表达式，通用字符|
-|.|句点|当前目录，文件/主机名的分隔符|
-|!|感叹号|逻辑非运算符，命令历史|
-|\||管道|命令管道|
-|/|斜线|命令分隔符，搜索命令|
-|\ |反斜线|常量，宏（非目录）|
-|$|美元符号|变量符号，行尾|
-|'|单引号|字符串常量|
-|`|反引号|命令替换|
-|"|双引号|半字符串常量|
-|^|脱字符|逻辑非运算，行头|
-|~|波浪字符|逻辑非运算符，目录快捷方式|
-|#|井号|注释，预处理，替换|
-|[]|方括号|范围|
-|{}|大括号|声明块，范围|
-|_|下划线|空格的简单替代|
+|字符|名称    |用途                         |
+|:---|:-------|:----------------------------|
+|\*  |星号    |正则表达式，通用字符         |
+|.   |句点    |当前目录，文件/主机名的分隔符|
+|!   |感叹号  |逻辑非运算符，命令历史       |
+|\|  |管道    |命令管道                     |
+|/   |斜线    |命令分隔符，搜索命令         |
+|\   |反斜线  |常量，宏（非目录）           |
+|$   |美元符号|变量符号，行尾               |
+|'   |单引号  |字符串常量                   |
+|`   |反引号  |命令替换                     |
+|"   |双引号  |半字符串常量                 |
+|^   |脱字符  |逻辑非运算，行头             |
+|~   |波浪字符|逻辑非运算符，目录快捷方式   |
+|#   |井号    |注释，预处理，替换           |
+|[]  |方括号  |范围                         |
+|{}  |大括号  |声明块，范围                 |
+|_   |下划线  |空格的简单替代               |
+
 控制键 CTRL 通常用 ^ 来表示。
 
----
 # 命令行按键
 
-|按键|操作|
-|:--|:--|
-|CTRL-B|左移光标|
-|CTRL-F|右移光标|
+|按键  |操作                        |
+|:-----|:---------------------------|
+|CTRL-B|左移光标                    |
+|CTRL-F|右移光标                    |
 |CTRL-P|查看上一条命令（或上移光标）|
 |CTRL-N|查看下一条命令（或下移光标）|
-|CTRL-A|移动光标至行首|
-|CTRL-E|移动光标至行尾|
-|CTRL-W|删除前一个词|
-|CTRL-U|删除从光标至行首的内容|
-|CTRL-K|删除从光标至行尾的内容|
-|CTRL-Y|粘贴已删除的文本|
+|CTRL-A|移动光标至行首              |
+|CTRL-E|移动光标至行尾              |
+|CTRL-W|删除前一个词                |
+|CTRL-U|删除从光标至行首的内容      |
+|CTRL-K|删除从光标至行尾的内容      |
+|CTRL-Y|粘贴已删除的文本            |
 
----
+
 # 配置
 
 ## 安装配置文件
+
 kickstart
 /root/anaconda-ks.cfg
 
----
 # 问题
 
 1. `FATAL:Could not read from Boot Medium! System Halted.`
