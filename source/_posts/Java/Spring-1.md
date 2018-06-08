@@ -770,7 +770,7 @@ SpEL 的特性包括：
 **引用 bean、属性和方法**
 
 `#{sgtPeppers}` 引用一个 bean
-`#{sgtPeppers}` bean 的属性
+`#{sgtPeppers.fieldA}` bean 的属性
 `#{artistSelector.selectArtist()}` 调用 bean 的方法
 `#{artistSelector.selectArtist()?.toUpperCase()}` 调用返回值的方法。`?` 会进行判空，为空则直接返回 null，因而不会空指针异常
 
