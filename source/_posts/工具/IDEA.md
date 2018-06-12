@@ -6,7 +6,7 @@ tags: [工具]
 
 # 关键设置
 
-自动补全快捷键：keymap-Main menu-Code Completion-Basic
+自动补全快捷键：keymap-Main menu-Code-Completion-Basic
 
 自动补全取消大小写敏感：Editor-General-Code Completion-Case sensitive completion
 
