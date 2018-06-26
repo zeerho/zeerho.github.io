@@ -279,23 +279,23 @@ Maven 的生命周期与插件相互绑定，用以完成实际的构建任务�
 **表4 site 生命周期阶段与插件目标的绑定关系**
 
 |生命周期阶段|插件目标                 |
-|:---------:|:----------------------:|
-|pre-site   |                        |	
-|site	    |maven-site-plugin:site  |
-|post-site  |       	             |
-|site-deploy|maven-site-plugin:deploy|
+|:----------:|:-----------------------:|
+|pre-site    |                         |	
+|site	       |maven-site-plugin:site   |
+|post-site   |        	               |
+|site-deploy |maven-site-plugin:deploy |
 
 **表5 default 生命周期的内置插件绑定关系及具体任务（打包类型：jar）**
 
-|生命周期阶段	       |插件目标	                        |执行任务                      |
+|生命周期阶段	         |插件目标	                          |执行任务                      |
 |:--------------------:|:----------------------------------:|:----------------------------:|
 |process-resources     |maven-resources-plugin:resources    |复制主资源文件至主输出目录    |
-|compile               |maven-compiler-plugin:compile	    |编译主代码至主输出目录        |
+|compile               |maven-compiler-plugin:compile	      |编译主代码至主输出目录        |
 |process-test-resources|maven-resources-plugin:testResources|复制测试资源文件至测试输出目录|
-|test-compile	       |maven-compiler-plugin:testCompile   |编译测试代码至测试输出目录    |
-|test	               |maven-surefire-plugin:test	        |执行测试用例                  |
-|package	           |maven-jar-plugin:jar	            |创建项目 jar 包               |
-|install	           |maven-install-plugin:install	    |将项目输出构件安装到本地仓库  |
+|test-compile	         |maven-compiler-plugin:testCompile   |编译测试代码至测试输出目录    |
+|test	                 |maven-surefire-plugin:test	        |执行测试用例                  |
+|package	             |maven-jar-plugin:jar	              |创建项目 jar 包               |
+|install	             |maven-install-plugin:install	      |将项目输出构件安装到本地仓库  |
 |deploy	               |maven-deploy-plugin:deploy	        |将项目输出构件部署到远程仓库  |
 
 Maven 核心内置绑定了主要的生命周期阶段与插件的目标。用户也可自定义绑定。

@@ -380,16 +380,16 @@ tags: [工具]
 
 # 参数列表
 
-`:ar[gs]`：显示当前参数列表内容
-`:ar[gs] {argList}`：设置参数列表内容，其中 {argsList} 可以包括文件名、通配符 [^wildcard] 和 shell 命令输出结果（``:ar `{cmd}` ``）
-`:arge[dit] [{name}]`：将 {name} 添加到参数列表并编辑该文件，缺省为当前缓冲区的文件名
-`:arga[dd] [{name}]`：将 {name} 添加到参数列表，缺省为当前缓冲区的文件名
-`:argd {pattern}` `:[range]argd`：按照模式删除参数；按照范围删除参数，参数列表从 1 开始计数，`$` 表示末尾，`%` 表示全部，`.` 或不指定表示当前
-`:[count]n[ext]`：编辑当前之后第 count 个文件
-`:[count]N[ext]` `:[count]prev[ious]`：编辑当前之前第 count 个文件
-`:rew[ind]` `:fir[st]`：编辑第一个文件
-`:la[st]`：编辑最后一个文件
-`:[range]argdo {cmd}`：对参数列表中的文件批量执行命令
+- `:ar[gs]`：显示当前参数列表内容
+- `:ar[gs] {argList}`：设置参数列表内容，其中 {argsList} 可以包括文件名、通配符 [^wildcard] 和 shell 命令输出结果（``:ar `{cmd}` ``）
+- `:arge[dit] [{name}]`：将 {name} 添加到参数列表并编辑该文件，缺省为当前缓冲区的文件名
+- `:arga[dd] [{name}]`：将 {name} 添加到参数列表，缺省为当前缓冲区的文件名
+- `:argd {pattern}` `:[range]argd`：按照模式删除参数；按照范围删除参数，参数列表从 1 开始计数，`$` 表示末尾，`%` 表示全部，`.` 或不指定表示当前
+- `:[count]n[ext]`：编辑当前之后第 count 个文件
+- `:[count]N[ext]` `:[count]prev[ious]`：编辑当前之前第 count 个文件
+- `:rew[ind]` `:fir[st]`：编辑第一个文件
+- `:la[st]`：编辑最后一个文件
+- `:[range]argdo {cmd}`：对参数列表中的文件批量执行命令
 
 [^wildcard]: `*` 匹配 0 个或多个字符，范围仅限指定的目录，不含其子目录（如：`*.js`）；`**` 也匹配 0 个或多个字符，范围包括指定目录及其子目录（如：`**/*.js`）。
 

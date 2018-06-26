@@ -262,10 +262,10 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegister registry) {
         registry.addHandler(exampleHandler(), "/example")
-        //.setHandshakeHandler(null);//可以自定义握手处理类
-        //.addInterceptors(null);//可以自定义拦截器
-          .setAllowedOrigins("*");//若不配置来源白名单的话，默认只允许来自当前域的连接
-        //.withSockJS();//用 sockJS 在不支持 websocket 环境下的模拟 websocket
+        //.setHandshakeHandler(null); //可以自定义握手处理类
+        //.addInterceptors(null);     //可以自定义拦截器
+          .setAllowedOrigins("*");    //若不配置来源白名单的话，默认只允许来自当前域的连接
+        //.withSockJS();              //用 sockJS 在不支持 websocket 环境下的模拟 websocket
     }
 
     @Bean
@@ -301,22 +301,23 @@ public class WebSocketConfig implements WebSocketConfigurer {
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketStompConfig extends AbstractWebSocketMessageBrokerConfigurer {
-    @Override
+  @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        //客户端在发布或订阅消息前要连接到此端点
-        registry.addEndpoint("/example").withSockJS();
+      //客户端在发布或订阅消息前要连接到此端点
+      registry.addEndpoint("/example").withSockJS();
     }
 
-    @Override
+  @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        //以下前缀会路由到 {@link SimpleBrokerMessageHandler}，这是一个模拟了 STOMP 消息代理的、基于内存的消息代理
-        registry.enableSimpleBroker("/queue", "/topic");
-        //以下前缀会路由到 {@link @MessageMapping} 注解的方法中
-        registry.setApplicationDestinationPrefixes("/app");
-        //以下前缀会路由到 STOMP 代理中
-        registry.enableStompBrokerRelay("/topic", "/queue");
-            //.setRelayHost("");//也可以额外设置一些参数
-            //...
+      //以下前缀会路由到 {@link SimpleBrokerMessageHandler}，这是一个模拟了 STOMP 消息代理的、基于内存的消息代理
+      registry.enableSimpleBroker("/queue", "/topic");
+      //以下前缀会路由到 {@link @MessageMapping} 注解的方法中
+      registry.setApplicationDestinationPrefixes("/app");
+      //以下前缀会路由到 STOMP 代理中
+      //STMP 代理中继默认会假设代理监听的是 localhost:61613
+      registry.enableStompBrokerRelay("/topic", "/queue");
+      //.setRelayHost("");//也可以额外设置一些参数
+      //...
     }
 }
 ```
@@ -346,6 +347,18 @@ Spring 4.0 提供了几个消息转换器
 public Example handleSubscription() {
     return new Example();
 }
+```
+
+**Javascript 客户端**
+
+```javascript
+var url = 'http://host:port/contextpath/endpoint';
+var sock = new SockJS(url);
+var stomp = Stomp.over(sock);
+var payload = JSON.stringify({'message':'Marco!'});
+stomp.connect('guest', 'guest', function(frame) {
+  stomp.send("/marco", {}, payload);// 第二个参数是头信息的 map
+});
 ```
 
 `@SubscribeMapping` 的主要应用场景是请求-回应模式。这种模式跟 HTTP GET 的请求-响应模式很像，不过是异步的。
@@ -380,7 +393,101 @@ public Example handleSubscription() {
 
 **在应用的任意地方发送消息**
 
+服务端把消息发布到一个主题上
 
+```java
+@Service
+public class SpittleFeedServiceImpl implements SpittleFeedService {
+  // 配置 Spring 开启 STOMP 时就已经在上下文里创建了这个 bean
+  @Autowired
+  private SimpMessageSendingOperations messaging;
+
+  public void broadcastSpittle(Spittle spittle) {
+    messaging.convertAndSend("/topic/spittlefeed", spittle);
+  }
+}
+```
+
+客户端订阅一个 STOMP 主题
+
+```javascript
+var sock = new SockJS('spittr');
+var stomp = Stomp.over(sock);
+
+stomp.connect('guest', 'guest', function(frame) {
+  stomp.subscribe("/topic/spittlefeed", handleSpittle);
+});
+
+function handleSpittle(incoming) {
+  var spittle = JSON.parse(incoming.body);
+  // do something else
+}
+```
+
+## 为目标用户发送消息
+
+在使用 Spring 和 STOMP 消息功能时，有三种方式利用认证用户：
+
+- `@MessageMapping` 和 `@SubscribeMapping` 标注的方法能使用 `Principal` 来获取认证用户。
+- `@MessageMapping`、`@SubscribeMapping` 和 `@MessageException` 方法返回的值能以消息的形式发送给认证用户。
+- `SimpMessagingTemplate` 能发送消息给特定用户。
+
+### 在控制器中处理用户的消息
+
+客户端订阅一个用户特定的目的地：
+
+```javascript
+stomp.subscribe("/user/queue/notifications", handleNotifications);
+```
+
+在内部，以“/user”作为前缀的目的地会通过 `UserDestinationMessageHandler` 进行处理。它会去掉“/user”前缀，并基于用户会话添加一个后缀，例如把“/user/queue/notifications”的订阅路由到“/queue/notifications-user1234abcd”上。
+
+在服务端把返回消息发布到用户特定的目的地：
+
+```java
+@MessageMapping("/spittle")
+@SendToUser("/queue/notifications")
+public Notification handleSpittle(Principal principal, SpittleForm form) {
+  Spittle spittle = new Spittle(principal.getName(), form.getText(), new Date());
+  spittleRepo.save(spittle);
+  return new Notification("Saved spittle");
+}
+```
+
+如果用户已经认证过的话，会根据 STOMP 帧上的头信息得到 `Principal` 对象。
+
+### 为指定用户发送消息
+
+```java
+@Service
+public class SpittleFeedServiceImpl implements SpittleFeedService {
+  @Autowired
+  private SimpMessagingTemplate messaging;
+  private Pattern pattern = Pattern.compile("\\@(\\S+)");
+
+  public void broadcastSpittle(Spittle spittle) {
+    messaging.convertAndSend("/topic/spittlefeed", spittle);
+    // 发送给指定用户
+    Matcher matcher = pattern.matcher(spittle.getMessage());
+    if (matcher.find()) {
+      String username = matcher.group(1);
+      // 会发到 /user/tom/queue/notifications 上
+      messaging.convertAndSendToUser(username, "/queue/notifications", new Notification("blabla"));
+    }
+  }
+}
+```
+
+## 处理异常信息
+
+```java
+@MessageExceptionHandler({ExceptionA.class, ExceptionB.class}) // 标注处理异常的方法，可指定若干种异常
+@SendToUser("/queue/errors") // 可以将异常信息发送给指定用户
+public SpittleException handleException(Throwable throwable) {
+  logger.error("blabla");
+  return new SpittleException("blabla", throwable);
+}
+```
 
 # 第 19 章 使用 Spring 发送 Email
 
@@ -593,12 +700,12 @@ public ConnectorServerFactoryBean connectorServerFactoryBean() {
 
 ### 添加 Starter 依赖
 
-|Starter|所提供的依赖|
-|:--|:--|
-|spring-boot-starter-actuator|spring-boot-starter、spring-boot-actuator、spring-core|
-|spring-boot-starter-amqp|spring-boot-starter、spring-boot-rabbit、spring-core、spring-tx|
-|spring-boot-starter-aop|spring-boot-starter、spring-aop、AspectJ Runtime、AspectJ Weaver、spring-core|
-|spring-boot-starter-batch|spring-boot-starter、HSQLDB、spring-jdbc、spring-batch-core、spring-core|
+|Starter                     |所提供的依赖                                                                 |
+|:---------------------------|:----------------------------------------------------------------------------|
+|spring-boot-starter-actuator|spring-boot-starter、spring-boot-actuator、spring-core                       |
+|spring-boot-starter-amqp    |spring-boot-starter、spring-boot-rabbit、spring-core、spring-tx              |
+|spring-boot-starter-aop     |spring-boot-starter、spring-aop、AspectJ Runtime、AspectJ Weaver、spring-core|
+|spring-boot-starter-batch   |spring-boot-starter、HSQLDB、spring-jdbc、spring-batch-core、spring-core     |
 
 //TODO
 
