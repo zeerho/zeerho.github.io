@@ -223,6 +223,32 @@ APT 的底层包是 dpkg，dpkg 会把 .deb 文件放在 /var/cache/apt/archives
 `yum list yum\* ` 列出所有以yum开头的软件包
 `yum localinstall {name}` 从硬盘安装rpm包并使用yum解决依赖
 
+## 配置阿里云源
+
+1、用wget下载repo文件
+
+`wget  http://mirrors.aliyun.com/repo/Centos-7.repo`
+
+如果wget命令不生效，说明还没有安装wget工具，输入`yum -y install wget` 回车进行安装。
+
+2、移至源目录
+
+`mv ./Centos-7.repo /etc/yum.repos.d/`
+
+3、备份系统原来的repo文件
+
+`mv CentOs-Base.repo CentOs-Base.repo.bak`
+
+4、替换系统原理的repo文件
+
+`mv Centos-7.repo CentOs-Base.repo`
+
+5、执行yum源更新命令
+
+`yum clean all`
+`yum makecache`
+~~`yum update`~~
+
 # 命令
 
 ## 常用
@@ -503,13 +529,41 @@ COMMAND：命令名，进程有可能将其由初始值改为其他。
 kickstart
 /root/anaconda-ks.cfg
 
+## yum 代理
+
+`sudo vi /etc/yum.conf`
+
+加入
+proxy=http://{host}:{port}
+proxy_username=abc
+proxy_password=123
+## 全局代理
+
+1. `sudo vi /etc/profile`
+2. 加上
+
+```
+http_proxy=http://{user}:{pwd}@{host}:{port}
+export http_proxy
+```
 # 问题
 
-1. `FATAL:Could not read from Boot Medium! System Halted.`
-  解决：虚拟机设置-存储-删除多余的控制器
-2. 参数风格
-  解决：
-      1. 参数用一横的说明后面的参数是字符形式。
-      2. 参数用两横的说明后面的参数是单词形式。
-      3. 参数前有横的是 System V 风格。
-      4. 参数前没有横的是 BSD 风格。
+## `FATAL:Could not read from Boot Medium! System Halted.`
+
+解决：虚拟机设置-存储-删除多余的控制器
+
+## 参数风格
+
+解决：
+
+1. 参数用一横的说明后面的参数是字符形式。
+2. 参数用两横的说明后面的参数是单词形式。
+3. 参数前有横的是 System V 风格。
+4. 参数前没有横的是 BSD 风格。
+
+## Failed to open \EFI\BOOT\grubx64.efi - Not Found
+
+1. 挂载 centos 的 iso，进入 rescue 模式。
+2. `cd /mnt/sysimage/boot/efi/EFI`
+3. `cp centos/grubx64.efi ../boot/`
+4. `reboot`
