@@ -4,6 +4,15 @@ date: 2017-01-01 09:00:00
 tags: [操作系统]
 ---
 
+# 系统安装
+
+## centos7
+
+安装前强制使用 GTP 分区表。
+
+1. 光标移至 `Install CentOS 7`
+2. 按 Tab 键，在下方输入参数
+3. `vmlinuz initrd=initrd
 # 开机流程
 
 1. BIOS：开机主动执行的固件，会识别用户设定的用于启动系统的存储设备。
@@ -554,8 +563,6 @@ export http_proxy
 
 ## 参数风格
 
-解决：
-
 1. 参数用一横的说明后面的参数是字符形式。
 2. 参数用两横的说明后面的参数是单词形式。
 3. 参数前有横的是 System V 风格。
@@ -567,3 +574,7 @@ export http_proxy
 2. `cd /mnt/sysimage/boot/efi/EFI`
 3. `cp centos/grubx64.efi ../boot/`
 4. `reboot`
+
+## vdi 迁移
+
+`VBoxManage internalcommands sethduuid H:\virtualSys\ubuntu.vdi`
