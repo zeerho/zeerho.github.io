@@ -347,7 +347,8 @@ JavaScript 可以在 HTML 外部使用。它可在许多其他应用程序中作
 ES5 中定义了 Object.create() 方法，第一个参数是这个对象的原型，第二个可选参数用以对对象的属性进行描述。
 
 ```js
-var o = Object.create({x:1, y:2})
+var o1 = Object.create({x:1, y:2});
+var o2 = Object.create(null);//创建的对象没有原型，也就是没有任何基础方法，比如 toString() 之类的
 ```
 
 # 函数
