@@ -351,6 +351,206 @@ var o1 = Object.create({x:1, y:2});
 var o2 = Object.create(null);//创建的对象没有原型，也就是没有任何基础方法，比如 toString() 之类的
 ```
 
+## 属性的查询和设置
+
+### 属性访问错误
+
+设置属性会失败的场景：
+
+- o 中的属性 p 是只读的：不能给只读属性重新赋值（`defineProperty()` 方法中有一个例外，可以对可配置的只读属性重新赋值）。
+- o 中的属性 p 是继承属性，且是只读的：不能通过同名自有属性覆盖只读的继承属性。
+- o 中不存在自有属性 p：o 没有使用 setter 方法继承属性 p，并且 o 的可扩展性是 false。如果 o 中不存在 p，且没有 setter 方法可供调用，则 p 一定会添加至 o 中。但如果 o 不是可扩展的，那么在 o 中不能定义新属性。
+
+### 检测属性
+
+- `"x" in o`：包括自有属性和继承属性。
+- `o.hasOwnProperty("x")`：包括自有属性。
+- `o.propertyIsEnumerable("x")`：包括自有属性，且属性是可枚举的。
+- `o.x !== undefined`：同 `in`，但不能区分赋值为 undefined 的属性。
+- `o.x != null`：不区分 null 和 undefined。
+
+## 属性的特性
+
+属性的 4 个特性：值 value、可写性 writable、可枚举性 enumerable、可配置性 configurable。
+存取器属性没有值和可写性，取而代之的是读取 get、写入 set。
+
+ES3 中无法配置这些特性，ES5 中定义了一个“属性描述符”的对象。
+
+```js
+//{value: 1, writable:true, enumerable:true, configurable:true}
+Object.getOwnPropertyDescriptor({x:1}, "x");
+
+//{get:[Function: get x], set:undefined, enumerable:true, configurable:true}
+Object.getOwnPropertyDescriptor({get x(){}}, "x");
+
+//不存在的属性和继承属性
+//undefined
+Object.getOwnPropertyDescriptor({}, "x");
+Object.getOwnPropertyDescriptor({}, "toString");
+
+//创建或修改属性的特性
+var o = {};
+var pd = {value:1, writable:true, enumerble:false, configurable:true};
+Object.defineProperty(o, "x", pd);//创建属性并定义特性
+Object.defineProperty(o, "x", {writable:false});//修改特性
+//多个属性的特性，返回修改后的对象
+var p = Object.defineProperties({}, {
+  x: {value:1, /*...*/},
+  y: {value:2, /*...*/}
+});
+```
+
+任何对 `Object.defineProperty()` 或 `Object.defineProperties()` 违反规则的使用都会抛出类型错误异常：
+
+- 若对象是不可扩展的，则可以编辑已有的自有属性，但不能给它添加新属性。
+- 若属性是不可配置的，则不能修改它的可配置性和可枚举性。
+- 若存取器属性是不可配置的，则不能修改其 getter 和 setter 方法，也不能将它转换为数据属性。
+- 若数据属性是不可配置的，则不能将它转换为存取器属性。
+- 若数据属性是不可配置的，则不能将它的可写性从 false 修改为 true，但可以从 true 改为 false。
+- 若数据属性是不可配置且不可写的，则不能修改它的值。然而可配置但不可写属性的值是可以修改的（实际上是先将它标记为可写，然后修改值，最后转换为不可写）。
+
+## 对象的三个属性
+
+原型、类、可扩展性
+
+### 可扩展性
+
+可扩展性表示是否可以给对象添加新属性。所有内置对象和自定义对象都是显示可扩展的。
+
+- `Object.isExtensible()`：判断对象是否可扩展。
+- `Object.preventExtensions()`：转为不可扩展，然后就无法转回可扩展了。只影响对象本身，依然可以给原型添加属性，此对象仍会继承添加的属性。
+- `Object.seal()`：将对象设置为不可扩展，且所有自有属性都不可配置。已封闭的对象不能解封，可用 `Object.isSealed()` 来检测。
+- `Object.freeze()`：在 seal 的基础上，还将所有自有数据属性置为只读（若存取器属性有 setter 方法则仍能赋值）。可用 `Object.isFrozen()` 来检测。
+
+## 序列化对象
+
+`JSON.stringify()` 和 `JSON.parse()`
+
+# 数组
+
+## 数组遍历
+
+判断数组中的元素
+
+```js
+if (!a[i]); // null、undefined 和不存在的元素
+if (a[i] === undefined); // undefined 和不存在的元素
+if (!(i in a)); // 不存在的元素
+```
+
+由于 for/in 循环会枚举继承的属性，所以对于数组要么不用 for/in 循环，要么手动判断继承的属性。
+
+for/in 循环的遍历顺序不能确定，可以改用传统的 for 循环，或用 ES5 中新增的 forEach() 方法。
+
+```js
+var arr = [1,2,3];
+arr.forEach(function(x) {
+  //operations on the element
+});
+```
+
+## 数组方法
+
+### join
+
+拼接数组元素，默认使用逗号，也可以自定义连接符。是 string.split() 的逆向操作。
+
+### reverse
+
+反转排列。在原数组中反转，而不是新建一个数组。
+
+### sort
+
+默认按字母表顺序排序，必要时会把元素临时转为字符串进行比较。undefined 元素会被排到末尾。
+
+可传入比较函数，若第一个参数应排在前面，则函数应返回小于 0 的数值。
+
+### concat
+
+返回一个**新数组**，其中包含原有的元素和所有入参。若参数是数组，则添加的是其中的每个元素，而不是将该数组整个作为一个元素。
+
+### slice
+
+返回一个**新数组**，该数组是原数组的一部分。
+
+- 两个入参：两个索引，子数组包含了第一个索引的元素到第二个索引前面一个元素。
+- 一个入参：入参表示开始位置，结束位置固定为数组末尾。
+- 入参为负数：表示相对于 0 索引的位置。
+
+### splice
+
+对**原数组**进行删除和插入操作。被操作的元素后面的元素会自动调整位置。返回结果是一个数组，包含了被删除的元素，可能为空数组。
+
+- 第一个参数：删除和插入的起始位置。
+- 第二个参数：删除的元素个数。
+- 第三个开始的所有参数：要插入的元素，若参数为数组，则这个数组本身作为一个元素（这一点与 `concat()` 不同）。
+
+### push 和 pop
+
+在**原数组**的末尾插入和弹出元素。若插入的是数组，则数组本身作为一个元素。
+
+`push()` 返回插入后的数组长度。`pop()` 返回弹出的元素。
+
+### unshift 和 shift
+
+在**原数组**的开始插入和弹出元素。若插入的是数组，则数组本身作为一个元素。
+
+`unshift()` 返回插入后的数组长度。`shift()` 返回弹出的元素。
+
+同时插入多个元素时会一次性插入，而不是一个个插入，也就是说插入后的元素顺序跟参数里的顺序一致。
+
+## ES5 中的数组方法
+
+### forEach
+
+`forEach()` 方法的第一个参数是一个函数。该函数有 3 个参数，依次为：数组元素、元素的索引、数组本身。
+
+`forEach()` 方法只能通过在函数中抛出 `foreach.break` 异常来提前中断。
+
+### map
+
+传入一个映射函数，对每个元素做映射，然后返回一个包含新元素的新数组。
+
+若原数组是稀疏数组，则新数组也是稀疏数组，缺失的元素一样。
+
+### filter
+
+传入一个判断函数，该函数返回 true/false，通过判断的元素会被放入新数组中。
+
+稀疏数组中缺失的元素会被跳过，即返回的数组总是稠密的。
+
+### every 和 some
+
+传入一个判断函数，该函数返回 true/false，对所有元素应用该函数。
+
+- every：仅当所有元素都通过判断时才返回 true。
+- some：当至少有一个元素通过判断时就返回 true。
+
+一旦确认返回值就会直接返回。根据数学上的惯例，对于空数组，every 返回 true，some 返回 false。
+
+### reduce 和 reduceRight
+
+传入的第一个参数是一个组合函数，对数组内的元素进行组合，最终返回一个组合后的值。第二个参数是初始值，缺省为第一个元素。
+
+reduce 是按照索引从低到高，reduceRight 则相反。
+
+### indexOf 和 lasIndexOf
+
+在数组中查找指定元素，返回找到的第一个元素的索引，若未找到则返回 -1。
+
+第二个参数是可选的，它指定开始搜索的位置。
+
+## 数组类型
+
+ES5 中可以使用 `Array.isArray()` 来判断对象是否为数组。ES3 要自行判断：
+
+```js
+var isArray = Function.isArray || function(o) {
+  return typeof o === "object" &&
+    Object.prototype.toString.call(o) === "[object Aray]";
+};
+```
+
 # 函数
 
 ## 函数定义
