@@ -62,9 +62,9 @@ commit 到 Head，并附带备注 "message"
 删除未跟踪的[文件]、[目录]
 - `git reset [--soft|--mixed|--hard] {HEAD~|commit_id}`
 撤销错误的提交。
-    - --soft 表示只回退版本库，不回退暂存区和工作区；
-    - --mixed 为缺省选项，回退版本库和暂存区；
-    - --hard 回退版本库、暂存区和工作区
+    - soft 表示只回退版本库，不回退暂存区和工作区；
+    - mixed 为缺省选项，回退版本库和暂存区；
+    - hard 回退版本库、暂存区和工作区
 
 # 重命名文件
 
@@ -180,38 +180,61 @@ commit 到 Head，并附带备注 "message"
 
 # 跟远程仓库交互
 
-- `git remote`
-    - `git remote [-v]`
-    查看所有远程仓库，`-v` 额外查看远程仓库的地址
-    - `git remote show {remote_name}`
-    查看远程仓库的详细信息
-    - `git remote add {short_name} {url}`
-    添加一个远程仓库，并为其指定一个简称
-    - `git remote rename {old_name} {new_name}`
-    重命名远程仓库的简称
-    - `git remote rm {remote_name}`
-    移除远程仓库
-- `git clone [-b {branch}] {url} [custom_repo_name]`
+## remote
+
+`git remote [-v]`
+查看所有远程仓库，`-v` 额外查看远程仓库的地址
+
+`git remote show {remote_name}`
+查看远程仓库的详细信息
+
+`git remote add {short_name} {url}`
+添加一个远程仓库，并为其指定一个简称
+
+`git remote rename {old_name} {new_name}`
+重命名远程仓库的简称
+
+`git remote rm {remote_name}`
+移除远程仓库
+
+## clone
+
+`git clone [-b {branch}] {url} [custom_repo_name]`
 从服务器上克隆项目，包括所有历史数据。可自定义本地项目的名称，可指明克隆的分支。
-- `git checkout`
-    - `git checkout --track {remote_name}/{remote_branch}`
-    从远程分支检出一个跟踪分支，即可以直接运行 `git push` 和 `git pull` 的分支，本地分支的名字同样为 {remote_branch}
-    - `git checkout -b {branch_name} {remote_name}/{remote_branch}`
-    从远程分支检出一个跟踪分支，并自定义本地分支名
-- `git fetch {remote_name}`
+
+## checkout
+
+`git checkout --track {remote_name}/{remote_branch}`
+从远程分支检出一个跟踪分支，即可以直接运行 `git push` 和 `git pull` 的分支，本地分支的名字同样为 {remote_branch}
+
+`git checkout -b {branch_name} {remote_name}/{remote_branch}`
+从远程分支检出一个跟踪分支，并自定义本地分支名
+
+## fetch & pull
+
+`git fetch {remote_name}`
 将远程仓库中的数据抓取到本地，更新的是跟踪分支的代码。
-- `git pull`
+
+`git pull`
 获取（fetch）并合并（merge）远程仓库的改动至本地
-- `git push`
-    - `git push [-f] {remote_name} {branch_name}`
-    上传到远程仓库 的 {branch_name} 分支，`-f` 表示不做检查强制重写
-    - `git push {remote_name} :{branch_name}` `git push origin --delete {branch_name}`
-    删除远程分支
-    - `git push {remote_name} [tag_name]`
-    上传标签
-    - `git push {remote_name} --tags`
-    上传所有标签
-- `git branch -r`
+
+## push
+
+`git push [-f] {remote_name} {branch_name}`
+上传到远程仓库 的 {branch_name} 分支，`-f` 表示不做检查强制重写
+
+`git push {remote_name} :{branch_name}` `git push origin --delete {branch_name}`
+删除远程分支
+
+`git push {remote_name} [tag_name]`
+上传标签
+
+`git push {remote_name} --tags`
+上传所有标签
+
+## branch
+
+`git branch -r`
 查看远程分支
 
 # 分支
