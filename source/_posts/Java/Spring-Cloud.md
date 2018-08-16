@@ -1,6 +1,6 @@
 ---
-title: Spring Boot
-date: 2018-07-10 12:00:00
+title: Spring-Cloud
+date: 2018-08-10 12:00:00
 tags: [Java, Spring]
 ---
 
@@ -13,27 +13,6 @@ tags: [Java, Spring]
 |Camden         |[1.4.x, 1.5.x]|
 |Brixton        |[1.3.x, 1.4.x]|
 |Angel          |1.2.x         |
-
-# Spring Boot 预置的依赖
-
-位于 `spring-boot-dependencies-{version}.pom` 文件中。可在用户的 pom 中重写特定依赖的版本。
-
-# 属性加载顺序
-
-按以下顺序优先级由高到低。
-
-1. 命令行参数。
-2. SPRING_APPLICATION_JSON 中的属性。这是以 JSON 格式配置在系统环境变量中的内容。
-3. java:comp/env 中的 JNDI 属性。
-4. Java 的系统属性，可以通过 `System.getProperties()` 获得的内容。
-5. 操作系统的环境变量。
-6. 通过 `random.*` 配置的随机属性。
-7. 位于当前应用 jar 包之外，针对不同 `{profile}` 环境的配置文件内容。例如 `application-{profile}.properties` 或是 YAML 定义的配置文件。
-8. 位于当前应用 jar 包之内，针对不同 `{profile}` 环境的配置文件内容。例如 `application-{profile}.properties` 或是 YAML 定义的配置文件。
-9. 位于当前应用 jar 包之外的 `application.properties` 和 YAML 配置内容。
-10. 位于当前应用 jar 包之内的 `application.properties` 和 YAML 配置内容。
-11. 在 `@Configuration` 注解修改的类中，通过 `@PropertySource` 注解定义的属性。
-12. 应用默认属性，使用 `SpringApplication.setDefaultProperties` 定义的内容。
 
 # actuator
 
