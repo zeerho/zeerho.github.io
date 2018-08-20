@@ -1759,25 +1759,25 @@ public class WebSocketConfig implements WebSocketConfigurer {
 ```java
 @Configuration
 @EnableWebSocketMessageBroker
-public class WebSocketStompConfig extends AbstractWebSocketMessageBrokerConfigurer {
+public class WebSocketStompConfig implements WebSocketMessageBrokerConfigurer {
   @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) {
-      //客户端在发布或订阅消息前要连接到此端点
-      registry.addEndpoint("/example").withSockJS();
-    }
+  public void registerStompEndpoints(StompEndpointRegistry registry) {
+    //客户端在发布或订阅消息前要连接到此端点
+    registry.addEndpoint("/example").withSockJS();
+  }
 
   @Override
-    public void configureMessageBroker(MessageBrokerRegistry registry) {
-      //以下前缀会路由到 {@link SimpleBrokerMessageHandler}，这是一个模拟了 STOMP 消息代理的、基于内存的消息代理
-      registry.enableSimpleBroker("/queue", "/topic");
-      //以下前缀会路由到 {@link @MessageMapping} 注解的方法中
-      registry.setApplicationDestinationPrefixes("/app");
-      //以下前缀会路由到 STOMP 代理中
-      //STMP 代理中继默认会假设代理监听的是 localhost:61613
-      registry.enableStompBrokerRelay("/topic", "/queue");
-      //.setRelayHost("");//也可以额外设置一些参数
-      //...
-    }
+  public void configureMessageBroker(MessageBrokerRegistry registry) {
+    //以下前缀会路由到 {@link SimpleBrokerMessageHandler}，这是一个模拟了 STOMP 消息代理的、基于内存的消息代理
+    registry.enableSimpleBroker("/queue", "/topic");
+    //以下前缀会路由到 {@link @MessageMapping} 注解的方法中
+    registry.setApplicationDestinationPrefixes("/app");
+    //以下前缀会路由到 STOMP 代理中
+    //STOMP 代理中继默认会假设代理监听的是 localhost:61613
+    registry.enableStompBrokerRelay("/topic", "/queue");
+    //.setRelayHost("");//也可以额外设置一些参数
+    //...
+  }
 }
 ```
 

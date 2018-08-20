@@ -10,6 +10,8 @@ tags: [Java]
 
 *参考并摘自 [developerWorks-传递表达式（pass-through lambdas）的替代方案](https://www.ibm.com/developerworks/cn/java/j-java8idioms5/index.html)。*
 
+<!-- more -->
+
 ### 使用方法引用增加代码可读性
 
 若 lamda 中没有做实际的操作，而仅仅是将参数传递给了另一个方法，则最好将 lamda 替换为方法引用。
