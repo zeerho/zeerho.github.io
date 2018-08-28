@@ -1719,7 +1719,7 @@ public class MyObjHandler {
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
     @Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegister registry) {
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(exampleHandler(), "/example")
         //.setHandshakeHandler(null); //可以自定义握手处理类
         //.addInterceptors(null);     //可以自定义拦截器
@@ -1905,7 +1905,7 @@ stomp.subscribe("/user/queue/notifications", handleNotifications);
 
 ```java
 @MessageMapping("/spittle")
-@SendToUser("/queue/notifications")
+@SendToUser("/queue/notifications") // 会发布到 /queue/notifications-user1234abcd
 public Notification handleSpittle(Principal principal, SpittleForm form) {
   Spittle spittle = new Spittle(principal.getName(), form.getText(), new Date());
   spittleRepo.save(spittle);
