@@ -6,6 +6,15 @@ tags: [Java]
 
 # Lamda
 
+## 形式
+
+`(param) -> expression` 或 `(param) -> { statements; }`
+
+其中
+
+- 参数的类型可以省略（必须同时（不）省略），前提是可以根据上下文推断出类型。
+- 参数名称不能跟当前作用域内的变量冲突。
+
 ## 将 lamda 表达式替换为方法引用
 
 *参考并摘自 [developerWorks-传递表达式（pass-through lambdas）的替代方案](https://www.ibm.com/developerworks/cn/java/j-java8idioms5/index.html)。*

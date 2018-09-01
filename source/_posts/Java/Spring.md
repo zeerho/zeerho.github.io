@@ -59,9 +59,9 @@ tags: [Java, Spring]
 **Spring 自带了几种容器实现，可归为两种类型：**
 
 1. bean 工厂
-bean factories，由 `org.springframework.beans.factory.BeanFactory` 接口定义。
+由 `org.springframework.beans.factory.BeanFactory` 接口定义。
 2. 应用上下文
-application 由 `org.springframework.context.ApplicationContext` 接口定义，基于 BeanFactory 之上构建，并提供面向应用的服务。
+由 `org.springframework.context.ApplicationContext` 接口定义，基于 BeanFactory 之上构建，并提供面向应用的服务。
 
 **bean 工厂太低级，通常选用应用上下文。**
 
@@ -73,66 +73,60 @@ application 由 `org.springframework.context.ApplicationContext` 接口定义，
 - `FileSystemXmlApplicationContext` 读取文件系统下的一个或多个 XML 配置文件并加载上下文定义。
 - `XmlWebApplicationContext` 读取 Web 应用下的一个或多个 XML 配置文件并装载上下文定义。
 
-*黑体为类，其余为接口或抽象类。有一部分因多重实现而导致的重复。*
+**`AbstractRefreshableWebApplicationContext` 和 `GenericWebApplicationContext`**
 
-- ApplicationContext
-  - ConfigurableApplicationContext, WebApplicationContext
-    - ConfigurablePortletApplicationContext
-      - **StaticPortletApplicationContext**
-      - AbstractRefreshablePortletApplicationContext
-        - **XmlPortletApplicationContext**
-    - ConfigurableWebApplicationContext
-      - **GenericWebApplicationContext**
-      - **StaticWebApplicationContext**
-      - AbstractRefreshableWebApplicationContext
-        - **XmlWebApplicationContext**
-        - **GroovyWebApplicationContext**
-        - **AnnotationConfigWebApplicationContext**
-  - ConfigurableApplicationContext
-    - AbstractApplicationContext
-      - **GenericApplicationContext**
-        - **GenericXmlApplicationContext**
-        - **StaticAppliationContext**
-          - **StaticPortletApplicationContext**
-          - **StaticWebApplicationContext**
-        - **GenericWebApplicationContext**
-        - **ResourceAdapterApplicationContext**
-        - **GenericGroovyApplicationContext**
-        - **AnnotationConfigApplicationContext**
-      - AbstractRefreshableApplicationContext
-        - AbstractRefreshableApplicationContext
-          - AbstractXmlApplicationContext
-            - **FileSystemXmlApplicationContext**
-            - **ClassPathXmlApplicationContext**
-          - AbstractRefreshablePortletApplicationContext
-            - **XmlPortletApplicationContext**
-          - AbstractRefreshableWebApplicationContext
-            - **XmlWebApplicationContext**
-            - **GroovyWebApplicationContext**
-            - **AnnotationConfigWebApplicationContext**
-        - **AnnotationConfigWebApplicationContext**
-  - WebApplicationContext
-    - **StubWebApplicationContext**
-    - AbstractRefreshablePortletApplicationContext
-      - **XmlPortletApplicationContext**
+前者是传统的 web 上下文，通过 web.xml 与 ServletContext 沟通，支持指定“contextClass”和“contextConfigLocation”参数。
+
+后者供 Spring 3.1 的 `WebApplicationInitializer` 使用，通过 Servlet 3.0 新增的 `ServletContext#addServlet` 方法与 ServletContext 沟通，不允许存在 web.xml。
+
+### refresh
+
+ConfigurableApplicationContext#refresh()
+
+1. prepareRefresh()：
 
 ## bean 的生命周期
 
+以下内容基于 v5.0.8.RELEASE
+
 实例化过程发生在 BeanFactory 中。
 
-1. **若容器注册了 `InstantiationAwareBeanPostProcessor` 接口，则调用其 `postProcessBeforeInstantiation()` 方法。**
-1. Spring 通过构造函数或工厂方法对 bean 进行实例化。
-1. **若容器注册了 `InstantiationAwareBeanPostProcessor` 接口，则调用其 `postProcessAfterInstantiation()` 方法。**
-4. **准备设置配置的属性，先调用 `InstantiationAwareBeanPostProcessor` 接口的 `postProcessPropertyValues()` 方法。**
-2. 根据配置设置属性。
-3. 若 bean 实现了 `BeanNameAware` 接口，Spring 将调用 `setBeanName()` 接口方法。
-4. 若 bean 实现了 `BeanFactoryAware` 接口，Spring 将调用 `setBeanFactory()` 接口方法，将 BeanFactory 容器实例传入。
-5. 若 bean 实现了 `ApplicationContextAware` 接口，Spring 将调用 `setApplicationContext()` 接口方法，将应用上下文的引用传入。
-6. 若 bean 实现了 `BeanPostProcessor` 接口，Spring 将调用它们的 `postProcessBeforeInitialization()` 方法。
-7. 若 bean 实现了 `InitializingBean` 接口，Spring 将调用它们的 `afterPropertiesSet()` 方法。类似地，如果 bean 使用 `init-method` 声明了初始化方法，该方法也会被调用。
-8. 若 bean 实现了 `BeanPostProcessor` 接口，Spring 将调用它们的 `postProcessAfterInitialization()` 方法。
-9. 此时，bean 已经准备就绪，将一直驻留在应用上下文中，直到该应用上下文被销毁。
-10. 若 bean 实现了 `DisposableBean` 接口，Spring 将调用它的 `destroy()` 接口方法。同样，若 bean 使用 `destroy-method` 声明了销毁方法，该方法也会被调用。
+2. `BeanFactoryPostProcessor` -> `PostProcessBeanFactory`。
+5. `InstantiationAwareBeanPostProcessor` -> `postProcessBeforeInstantiation()`。若返回非 null 则跳到 23.。
+6. 实例化 bean。
+  1. 若 bean 为单例，从 `FactoryBean` 缓存中查找实例。
+  2. 若上一步无结果，则进行实例化：
+    1. 判断类的访问权限。
+    2. 若 bean 定义了 supplier，则从 supplier 获取实例。
+    3. 若 bean 定义了工厂方法，则从工厂方法获取实例。
+    4. `SmartInstantiationAwareBeanPostProcessor` -> `determineCandidateConstructors` 确定构造方法。
+    5. 若上一步得到了构造方法，则执行注入并利用该构造方法实例化。否则使用默认构造方法实例化。
+7. `MergedBeanDefinitionPostProcessor` -> `postProcessMergedBeanDefinition`。
+8. 根据一些条件尝试解决循环引用的问题。
+7. `InstantiationAwareBeanPostProcessor` -> `postProcessAfterInstantiation()`。
+9. 解析待注入的属性，保存至 `MutablePropertyValues`。
+10. `InstantiationAwareBeanPostProcessor` -> `postProcessPropertyValues()`。
+11. 进行实际的属性注入。
+10. `BeanNameAware` -> `setBeanName()`。
+11. `BeanClassLoaderAware` -> `setBeanClassLoader()`。
+12. `BeanFactoryAware` -> `setBeanFactory()`。
+13. `EnvironmentAware` -> `setEnvironment()`。
+14. `EmbeddedValueResolverAware` -> `setEmbeddedValueResolverAware()`。
+15. `ResourceLoaderAware` -> `setResourceLoader()`（仅当运行在 application context 中时）。
+16. `ApplicationEventPublisherAware` -> `setApplicationEventPublisher()`（仅当运行在 application context 中时）。
+17. `MessageSourceAware` -> `setMessageSource()`（仅当运行在 application context 中时）。
+18. `ApplicationContextAware` -> `setApplicationContext()`（仅当运行在 application context 中时）。
+19. `ServletContextAware` -> `setServletContext()`（仅当运行在 web application context 中时）。
+20. `BeanPostProcessor` -> `postProcessBeforeInitialization()`。
+21. `InitializingBean` -> `afterPropertiesSet()`。
+22. init-method
+23. `BeanPostProcessor` -> `postProcessAfterInitialization()`。
+
+BeanFactory 关闭时：
+
+1. `DestructionAwareBeanPostProcessors` -> `postProcessBeforeDestruction`。
+2. `DisposableBean` -> `destroy()`。
+3. destroy-method
 
 ## Spring 模块
 
@@ -433,7 +427,7 @@ public class MySpringConfig {
 
 **通过注解实现自动装配**
 
-在构造方法、setter 方法或者其他任何方法上使用 `@Autowired`，Spring 会根据方法参数类型传入适当的 bean。
+在任何方法上使用 `@Autowired`，Spring 会根据方法参数类型传入适当的 bean。
 
 若没有匹配的 bean，Spring 会抛出一个异常。可将 `@Autowired` 的 `required` 属性设置为 `false`，从而在匹配不到的时候传入 null，且避免抛出异常。
 
