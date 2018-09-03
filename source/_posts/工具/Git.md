@@ -33,50 +33,51 @@ tags: [工具]
 
 `git add -p` 同交互模式中的 patch。
 
-# 删除文件
+# 提交
+
+- `git commit`
+打开编辑器来撰写 commit 信息
+- `git commit -m "message"`
+commit 到 Head，并附带备注 "message"
+- `git commit -am "message"`
+结合了 add . 和 commit，不适用于新添加的文件
+- `git commit --amend`
+修改最近一次提交，使用当前暂存区做提交，并可以修改提交信息
+
+# 删除
 
 - `git rm [-f] {filename}`
 删除三棵树中的指定文件，若暂存区与版本库中的不同，则需加上 `-f` 参数
 - `git rm [-r] --cached {filename}`
 删除 index 中的文件，保留工作区中的文件，`-r` 表示递归
-- `git clean -[nxfd]` `n` 预览将被删除的文件，不会直接删除；`x` 删除 gitignore 的文件；`f` 未跟踪的文件；`d` 未跟踪的目录
+- `git clean -[nxfd]`
+`n` 预览将被删除的文件，不会直接删除；`x` 删除 gitignore 的文件；`f` 未跟踪的文件；`d` 未跟踪的目录
 
-# 提交文件
-
-- `git commit`
-打开编辑器来撰写 commit 信息，编辑方法同 vi
-- `git commit -m "message"`
-commit 到 Head，并附带备注 "message"
-- `git commit -a -m "message"`
-结合了 add . 和 commit，不适用于新添加的文件
-- `git commit --amend`
-修改最近一次提交，使用当前暂存区做提交，并可以修改提交信息
-
-# 撤销文件
+# 撤销
 
 - `git reset HEAD {file}...`
-撤销某个文件的暂存操作
+用版本库覆盖暂存区
 - `git checkout {file}...`
-撤销对某个文件的修改
+用暂存区覆盖工作区
 - `git clean -[f][d]`
 删除未跟踪的[文件]、[目录]
 - `git reset [--soft|--mixed|--hard] {HEAD~|commit_id}`
-撤销错误的提交。
-    - soft 表示只回退版本库，不回退暂存区和工作区；
-    - mixed 为缺省选项，回退版本库和暂存区；
-    - hard 回退版本库、暂存区和工作区
+重置头指针
+  - soft 只回退版本库，不回退暂存区和工作区；
+  - mixed 缺省选项，回退版本库和暂存区；
+  - hard 回退版本库、暂存区和工作区
 
-# 重命名文件
+# 重命名
 
 - `git mv {file_from} {file_to}`
 相当于依次执行下面两条命令
     - `git rm {file_from}`
     - `git add {file_to}`
 
-# 储藏文件
+# 储藏
 
-- `git stash [save '{message}']`
-储藏当前所有未提交的改动，可附加备注
+- `git stash [--keep-index] [-u] [save '{message}']`
+储藏当前所有未提交的改动，可附加备注；`--keep-index` 表示不储藏暂存区；`-u` 表示储藏未追踪的文件
 - `git stash list`
 列出储藏栈中内容
 - `git stash apply [stash@{n}] [--index]`
@@ -288,8 +289,8 @@ git维护代码分为三部分：“工作区 working directory”、“暂存�
 创建 ssh 密钥
 - `git add .|{filename}`
   跟踪新文件，或把已跟踪的文件放到暂存区，或在合并时把冲突文件标记为已解决
-- `git merge [--no-ff|--squash] {another_branch_name}`
-将指定名称的另一分支合并至当前分支。若出现冲突需要手动解决然后 `git add {file_name}`
+- `git merge [--no-ff|--squash] [-Xours|-Xtheirs] {another_branch_name}`
+将指定名称的另一分支合并至当前分支。若出现冲突需要手动解决然后 `git add {file_name}`。`-Xours|-Xtheirs` 表示若出现冲突则直接使用当前分支/对方分支的内容。`--squash` 表示把对方分支的所有提交合并成一个提交合并过来，然后需要在当前分支上做一个统一的提交。
 - `git gc`
 压缩松散对象
 - `git cherry-pick {SHA-1}`

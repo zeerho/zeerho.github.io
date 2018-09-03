@@ -76,6 +76,12 @@ Editor - Colors Scheme - General - code - Identifier under caret - 勾选 Error 
 
 - `I` foreach
 
+# 内存优化
 
-
+```
+-Xms1024m
+-Xmx2048m
+-XX:ReservedCodeCacheSize=1024m
+-XX:+UseCompressedOops
+```
 

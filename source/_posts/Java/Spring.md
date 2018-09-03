@@ -56,6 +56,8 @@ tags: [Java, Spring]
 
 ## 容器
 
+### 概览
+
 **Spring 自带了几种容器实现，可归为两种类型：**
 
 1. bean 工厂
@@ -79,11 +81,24 @@ tags: [Java, Spring]
 
 后者供 Spring 3.1 的 `WebApplicationInitializer` 使用，通过 Servlet 3.0 新增的 `ServletContext#addServlet` 方法与 ServletContext 沟通，不允许存在 web.xml。
 
-### refresh
+### 容器初始化
 
 ConfigurableApplicationContext#refresh()
 
-1. prepareRefresh()：
+1. `prepareRefresh()`：
+  1. `initPropertyResources()`：将 `StubPropertySource` 替换。
+  2. `ConfigurableEnvironment#validateRequiredProperties()`：校验必需的属性。
+3. `obtainFreshBeanFactory()`：`refreshBeanFactory()`、`getBeanFacotry()` 子类实现这两个方法，刷新并获取工厂。
+4. `prepareBeanFactory()`：在 BeanFactory 中做一些标准配置。
+5. `postProcessBeanFactory()`：留给子类的钩子。
+6. `invokeBeanFactoryPostProcessors()`：调用 `BeanFactoryPostProcessor`。
+7. `registerBeanPostProcessors()`：注册 `BeanPostProcessor`。
+8. `initMessageSource()`：初始化消息源。优先取已有的 “messageSource” bean，否则取 `DelegatingMessageSource`。
+9. `initApplicationEventMulticaster()`：初始化消息广播器。优先取已有的 `applicationEventMulticaster` bean，否则取 `SimpleApplicationEventMulticaster`。
+10. `onRefresh()`：留给子类的钩子，初始化其他特定的 bean。
+11. `registerListeners()`：向事件广播器注册监听器，并将之前囤积的事件广播出去。
+12. `finishBeanFactoryInitialization()`：初始化剩余的单例 bean，除了懒加载的 bean。
+13. `finishRefresh()`：完成刷新，调用 `LifecycleProcessor#onRefresh()`，发布 `ContextRefreshedEvent`。
 
 ## bean 的生命周期
 
