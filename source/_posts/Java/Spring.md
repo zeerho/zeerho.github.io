@@ -81,6 +81,64 @@ tags: [Java, Spring]
 
 后者供 Spring 3.1 的 `WebApplicationInitializer` 使用，通过 Servlet 3.0 新增的 `ServletContext#addServlet` 方法与 ServletContext 沟通，不允许存在 web.xml。
 
+
+### ApplicationContext 主要继承结构及重要方法
+
+                                                      ApplicationContext
+                                /-----------------------------^---------------------------------\
+                           Configurable                                                        Web
+                     /---------/\-----------------------------------------------------------+---/ 
+                 Abstract                                                            ConfigurableWeb
+              /-----^------------------------------------------------\            /---------^-----+-----\
+   AbstractRefreshable                                             Generic    StaticWeb           |     |
+              |                      /-------------+------------+-----^-------+----------+--------+     |
+   AbstractRefreshableConfig AnnotationConfig GenericGroovy GenericXml ResourceAdapter Static GenericWeb|
+           /--^-----------------------------------------------------------------------------------------+
+       AbstractXml                                                                            AbstractRefreshableWeb
+     /-----^-----\                                                                       /--------------^-+------\
+ClassPathXml FileSystemXml                                                        AnnotationConfigWeb GroovyWeb XmlWeb
+
+---
+`ApplicationContext` --> `EnvironmentCapable` `ListableBeanFactory` `HierarchicalBeanFactory` `MessageSource` `ApplicationEventPublisher` `ResourcePatternResolver`
+
+- `getParent()`：获取父上下文。
+- `EnvironmentCapable#getEnvironment()`：获取环境信息。
+- `ListableBeanFactory`
+  - `containsBeanDefinition()`：是否存在某个 bean 定义。
+  - `getBeanNamesForType()`、`getBeansOfType()`：获取指定类型的所有 bean。
+  - `getBeanNamesForAnnotation()`、`getBeansWithAnnotation()`：获取被指定注解标注的 bean。
+  - `findAnnotationOnBean()`：在指定 bean 上查找指定注解。
+- `ApplicationEventPublisher#publishEvent()`：发布事件。
+  - `ResourcePatternResolver#getResources()` `#getResource()`：获取资源。
+
+---
+`ConfigurableApplicationContext` --> `ApplicationContext` `Lifecycle` `closeable`
+
+- `setEnvironment()` `addBeanFactoryPostProcessor()` `addApplicationListener`：加了几个 setter 方法，这是比较重要的三个。
+- `refresh()`：加载或刷新上下文。
+
+---
+`WebApplicationContext`
+
+- `getServletContext()`：获取标准 Servlet API 上下文。
+
+---
+`ConfigurableWebApplicationContext` --> `ConfigurableApplicationContext` `WebAppliationContext`
+
+加了一些 getter setter 方法。
+
+---
+`AbstractRefreshableWebApplicationContext` --> `ConfigurableWebApplicationContext` `ThemeSource` `AbstractRefreshableConfigApplicationContext`
+
+在 `AbstractRefreshableConfigApplicationContext` 的基础上增加了 Web 相关的配置。子类需要实现 `AbstractRefreshableAppliationContext#loadBeanDefinitions()` 来加载 bean 定义。理论上应从 `getConfigLocations()` 返回的路径中加载配置。
+
+向 `ContextLoader` 或 `FrameworkServlet` 传入“contextClass”参数来指明实现类，然后这两个类会自动从“contextConfigLocation`参数中得知配置所在路径。
+
+- `XmlWebApplicationContext`：这是 Web 版本的 `GenericXmlApplicationContext`。从 xml 文件中加载配置。默认路径是 `/WEB-INF/applicationContext.xml`（根上下文）和 `/WEB-INF/test-servlet.xml`（各 servlet 上下文）。可用“contextConfigLocation”参数指定配置路径，支持 Ant 风格的匹配符。
+- `AnnotationConfigWebApplicationContext`：这是 Web 版本的 `AnnotationConfigApplicationContext`。需要用“contextConfigLocation”参数来指明配置类或要扫描的包。
+- `GroovyWebApplicationContext`：这是 Web 版本的 `GenericGroovyApplicationContext`。从 groovy 脚本和/或 xml 文件中加载配置。
+
+
 ### 容器初始化
 
 ConfigurableApplicationContext#refresh()
