@@ -176,7 +176,7 @@ commit 到 Head，并附带备注 "message"
 
 - `git rebase -i {ref}`
 其中 {ref} 为希望重排的提交的父提交。一般只修改提交信息或合并若干提交。若重排提交顺序或修改历史提交中的提交内容，容易发生冲突而需要大量手动解决。
-- `git rebase {branch_to}`
+- `git rebase [-i] {branch_to}`
 将当前分支衍合进目标分支
 
 # 跟远程仓库交互
@@ -205,8 +205,8 @@ commit 到 Head，并附带备注 "message"
 
 ## checkout
 
-`git checkout --track {remote_name}/{remote_branch}`
-从远程分支检出一个跟踪分支，即可以直接运行 `git push` 和 `git pull` 的分支，本地分支的名字同样为 {remote_branch}
+`git checkout [-b {local_branch_name}] --track {remote_repo}/{remote_branch}`
+从远程分支检出一个跟踪分支，即可以直接运行 `git push` 和 `git pull` 的分支，本地分支的名字默认为 {remote_branch}
 
 `git checkout -b {branch_name} {remote_name}/{remote_branch}`
 从远程分支检出一个跟踪分支，并自定义本地分支名
@@ -252,12 +252,10 @@ commit 到 Head，并附带备注 "message"
 创建指定名称的新分支
 - `git checkout {new_branch_name}`
 切换到指定名称的分支
-- `git checkout -b|--orphan {new_branch_name}`
-创建并切换到指定名称的新分支或空白的新分支
-- `git branch -d {branch_name}`
-分支已经合并到主干后删除分支
-- `git branch -D {branch_name}`
-强制删除分支 
+- `git checkout -b|--orphan {new_branch_name} [{start_point}]`
+创建并切换到指定名称的新分支或空白的新分支。可以指定创建点，通常是 commit-id。
+- `git branch [-d|-D] {branch_name}`
+`-d`：分支已经合并到主干后删除分支；`-D`：强制删除。
 - `git branch -u {remote}/{remote_branch} [{local_branch}]`
   `git branch --set-upstream-to={remote}/remote_branch} [{local_branch}]`
 对已有分支绑定跟踪分支
