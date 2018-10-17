@@ -320,7 +320,7 @@ JavaScript 可以在 HTML 外部使用。它可在许多其他应用程序中作
 
 严格模式是 ES5 的一个受限制的子集。与非严格模式的区别：
 
-- 止使用 with 语句。
+- 禁止使用 with 语句。
 - 如果给一个未声明的变量、函数、函数参数、catch 从句参数或全局对象的属性赋值，将抛出一个引用错误异常。（在非严格模式中会给全局对象添加一个属性）
 - 调用的函数（不是方法）中的 this 值是 undefined。（在非严格模式中是全局对象）。可以此判断是否支持严格模式：`var hasStrictMode = (function(){"use strict"; return this === undefined}());`
 - 当通过 `call()` 或 `apply()` 来调用函数时，其中的 this 值就是 `call()` 或 `apply()` 传入的第一个参数（在非严格模式中 null 和 undefined 值被全局对象和转换为对象的非对象值代替）。
@@ -415,9 +415,21 @@ var p = Object.defineProperties({}, {
 
 原型、类、可扩展性
 
+### 原型
+
+- 通过对象直接量创建：Object.prototype。
+- 通过 new 构造函数创建：构造函数的 prototype。
+- 通过 `Object.create()` 创建：使用第一个参数，可以是 null。
+
+在 ES5 中，通过 `Object.getPrototypeOf()` 查询对象的原型。在 ES3 中没有对应的函数，可以通过 `o.constructor.prototype` 来查询原型，但这种方式并不可靠。
+
+通过对象直接量创建的对象和通过 `Object.create()` 创建的对象都含有 constructor 属性，它们的这个属性都指向构造函数 `Object()`。但只有对象直接量创建的对象的原型是 `Object()` 函数的 prototype 属性，而 `Object.create()` 创建的对象往往不是。
+
+要检测 a 对象是否是 b 对象的原型（或在原型链上），应使用 `b.isPrototypeOf(a)`。
+
 ### 可扩展性
 
-可扩展性表示是否可以给对象添加新属性。所有内置对象和自定义对象都是显示可扩展的。
+可扩展性表示是否可以给对象添加新属性。所有内置对象和自定义对象都是显式可扩展的。
 
 - `Object.isExtensible()`：判断对象是否可扩展。
 - `Object.preventExtensions()`：转为不可扩展，然后就无法转回可扩展了。只影响对象本身，依然可以给原型添加属性，此对象仍会继承添加的属性。
@@ -694,7 +706,7 @@ JavaScript 函数对隐式参数的个数没有进行检测。
 
 实参对象 `arguments` 不是一个数组，而是一个对象，只是它的属性碰巧是以数字为索引。
 
-在非严格模式下，`arguments` 中的属性和对应的实参指向的是同一个对象，即修改时两处会同时改变。（ES5 中移除了次特性）
+在非严格模式下，`arguments` 中的属性和对应的实参指向的是同一个对象，即修改时两处会同时改变。（ES5 中移除了此特性）
 
 **callee 和 caller 属性**
 
@@ -713,8 +725,59 @@ JavaScript 函数对隐式参数的个数没有进行检测。
 
 call() 从第二个参数开始依次作为函数的实参。apply() 将函数的所有实参放入一个数组中作为第二个参数。
 
+### bind() 方法
+
+bind() 方法的第 1 个参数是一个对象，它会被作为被绑定方法的 this。从第 2 个参数开始是可选的，它们依次绑定到被绑定方法的入参上。
+
+```js
+var sum = function(x, y) { return x + y + this.z; };
+var newSum = sum.bind({z:3}, 1);
+
+var result = newSum(2);// x=1,y=2,z=3
+```
+
+通常被用来实现科里化。
+
 # 类和模块
 
+## 类和构造函数
+
+构造函数的 prototype 属性被用作新对象的原型。
+
+```js
+//构造函数首字母大写，这是编程约定而不是语法限制。
+function Range(from, to) {
+  this.from = from;
+  this.to = to;
+}
+
+Range.prototype = {
+  includes: function(x) { /*...*/ },
+  foreach: function(f) { /*...*/ },
+  toString: function() { /*...*/ }
+};
+
+var rangeObj = new Range(1, 2);
+```
+
+### 构造函数和类的标识
+
+两个对象是否为同一个类的实例，取决于它们的 prototype 是否指向同一个对象，而不是取决于它们是否从同一个构造函数创建的。
+
+### constructor 属性
+
+因为任何函数都可以作为构造函数，而调用构造函数是需要用到 prototype 属性的，所以每个函数（除 ES5 中的 `Function.bind()`）都自动拥有一个 prototype 属性。该属性包含唯一一个不可枚举属性 constructor，它的值是一个函数对象。
+
+像上述那样显式定义 Range.prototype 的话就不存在 constructor 属性了，需要显式定义。
+
+另一种方式是在预设的 prototype 上添加方法：
+
+```js
+Range.prototype.includes = function(x) { /*...*/ };
+Range.prototype.foreach = function(f) { /*...*/ };
+```
+
+## Javascript 中的 Java 式类继承
 
 # 脚注
 
