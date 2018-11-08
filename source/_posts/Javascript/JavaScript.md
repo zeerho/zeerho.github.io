@@ -939,6 +939,335 @@ String 的 `search()`、`replace()`、`match()` 方法不会用到 lastIndex 属
 - 禁止使用 `this`，因为在非严格模式中，函数可以通过 `this` 访问全局对象。而沙箱系统的一个重要目标就是禁止对全局对象的访问。
 - 禁止使用 `with`，因为会增加静态代码检查的难度。
 - 禁止使用某些全局变量。`window` 和 `document` 对象可以操作浏览器和页面，因而存在隐患。一种方法是完全禁用这些全局对象，提供自定义的一组 API 来进行有限制的操作。另一种方法是在沙箱代码运行的“容器”内定义一个只对外提供安全的标准 DOM API 的 facade 或 proxy。
+- 禁止使用某些属性和方法，以免沙箱中的代码拥有过多权限。包括 `arguments` 的 `caller` 和 `callee` 属性（甚至是 `arguments` 本身）、函数的 `call()` 和 `apply()`，以及 `constructor` 和 `prototype` 属性。
+- 相对于 `.` 运算符访问属性而言，`[]` 中的字符串表达式无法做静态分析。因此，安全子集通常禁止使用方括号，除非里面是数字或字符串直接量。安全子集将 `[]` 替换为全局函数，这些全局函数在存取属性之前会执行运行时检查以确保不会读写那些禁止访问的属性。
+
+一些比较重要的安全子集实现：
+
+- ADsafe：只包含静态检查，使用 JSLint 作为检验器。禁止访问大部分全局变量，并定义了一个 `ADSAFE` 变量，提供了一组安全的 API，包括一些特殊的 DOM 方法。
+- dojox.secure：基于静态检查，静态检查受限于子集范围内。使用标准 DOM API。同时，它包含一个用 JavaScript 实现的检查器。
+- Caja：它定义了两个语言子集。Cajita （小沙盒）是一个与 ADsafe 和 dojox.secure 相似的严格子集。Valija (手提箱或行李箱）范围更广，接近 ECMAScript 5 的严格模式（不含 eval()）。Caja 本身也是一个编译器的名字，可以将一段网页内容转换为一个安全的模块
+- FBJS：它是 JavaScript 的变种，依赖代码转换来保证代码的安全性，转换器同时提供运行时检查，以避免通过 `this` 访问全局对象，并对所有顶层标识符重命名，给它们增加了一个标识模块的前缀。因为这种重命名，任何对全局变量和其他模块的变量的操作都无法进行。FBJS 模拟实现了 DOM API 的一个安全子集。
+- Microsoft Web Sandbox：定义了 JavaScript 的一个更宽泛的子集，包含 HTML 和 CSS，它的代码重写规则非常激进，有效地重新实现了一个安全的 JavaScript 虚拟机，针对不安全的 js 顶层代码进行处理。
+
+## 常量和局部变量
+
+在 js 1.5 及以后版本中可以用 `const` 定义常量。对常量重新赋值会失败但不会报错，重新声明会报错。常量会被提升至函数顶部。`const` 是 js 保留字，所以无需加入版本号。
+
+`const` 类似 Java 中的 `final`，只能保证引用不被修改，不保证引用的对象内部不被修改。
+
+js 1.7 针对没有块级作用域的缺陷增加了 `let` 关键字，由于不是保留字，所以需要手动加入版本号。
+
+这里的版本号指的是 Mozilla 的语言版本。在 Spidermonkey 和 Rhino 解析器和 Firefox Web 浏览器中实现了这些语言版本。
+
+在 Spidermonkey 或 Rhino 中，可以通过命令行选项指定版本，或通过一个内置函数 `version()` 指定。指定的版本号是实际版本号乘以 100。在 Firefox 中，可以在 script 标签中指定版本：`<script type="application/javascript; version=1.8">`。
+
+`let` 4 种使用方式：
+
+- 作为变量声明，和 `var` 一样。
+- 在 for 循环种，作为 `var` 的替代方案。
+- 在语句块中定义一个新变量并显式指定它的作用域。
+- 定义一个在表达式内部作用域中的变量，只在表达式内可用。
+
+其中第 4 种用法：
+
+```js
+//let 语句块
+let x=1, y=2;
+let (x=x+1, y=x+1) {
+  console.log(x+y); //5
+};
+console.log(x+y);   //3
+
+//------------------------
+
+//let 表达式
+let x=1, y=2;
+console.log(let(x=x+1, y=x+2) x+y);//5
+```
+
+`let` 语句中的变量初始化表达式不是语句块的一部分，并且是在作用域外部解析的。
+
+在 ES6 之前，全局变量会自动挂构成顶层对象（比如浏览器中的 window）的属性，反之亦然。ES6 规定，`let`、`const`、`class` 声明的变量不属于顶层对象的属性。
+
+## 解构赋值
+
+Spidermonkey 1.7 实现了一种混合式赋值，即“解构赋值”。
+
+```js
+let [x, y] = [1, 2]; // let x=1, y=2
+let [,x,,y] = [1, 2, 3, 4]; // let x=2, y=4
+
+//解构赋值运算的返回值是右侧的整个数据结构，而不是提取出来的某个值
+let a, b, all;
+all = [a, b] = [1, 2, 3, 4]; // a=1, b=2, all=[1, 2, 3, 4]
+
+//对于数组嵌套的情况，左侧应当是同样格式的嵌套数组
+let [a, [b, c]] = [1, [2, 3], 4]; // a=1, b=2, c=3
+
+//对象
+let {name:a, age:b} = {name: "tom", age: 18};
+console(a + " " + b); // tom 18
+```
+
+左侧多余的变量赋值为 undefined，右侧多余的变量被忽略。
+
+## 迭代
+
+### for/each 循环
+
+for/each 循环是由 E4X 规范（ECMAScript for XML）定义的一种新的循环语句。遍历范围包含继承来的可枚举属性。
+
+```js
+let o = {a: 1, b: 2, c: 3};
+for (let p in o) {
+  console.log(p); // a b c
+}
+for each (let p in o) {
+  console.log(p); // 1 2 3
+}
+
+let arr = ['a', 'b', 'c'];
+for (let p in arr) {
+  console.log(p); // 0, 1, 2
+}
+for each (let p in arr) {
+  console.log(p); // a b c
+}
+```
+
+### 迭代器
+
+- 迭代器必须包含 `next()` 方法，返回集合中的下一个值。
+- 当没有下一个值时，会抛出 `StopIteration`。它是 JavaScript 1.7 中的全局对象的属性。
+
+一般不直接用迭代器，而是用可迭代对象。
+
+- 可迭代对象必须包含 `_iterator_()` 方法，该方法返回一个迭代器。
+- JavaScript 1.7 的 for/in 循环会自动调用 `_iterator_()` 方法，并处理 StopIteration 异常。
+
+JavaScript 1.7 中有一个全局函数 `Iterator()`。
+
+- `Iterator()` 会自动调用参数的 `_iterator_()`，并返回该迭代器。
+- 若参数没有 `_iterator_()` 方法，则会返回参数的一个自定义迭代器。该迭代器每次返回一个包含两个值的数组，第一个元素是属性名，第二个是对应的值。
+  - 该迭代器只对自有属性进行遍历，忽略继承属性。
+  - 如果传入 `Iterator()` 的第二个参数是 true，返回的迭代器只对属性名进行遍历，忽略属性值。
+
+```js
+for (let [k, v] in Iterator({a: 1, b: 2})) {
+  console.log(k + "=" + v); // a=1 b=2
+}
+```
+
+### 生成器
+
+生成器是 JavaScript 1.7 中的特性。
+
+任何使用关键字 `yield` 的函数（哪怕不可达）都称为生成器函数。生成器函数通过 `yield` 返回值，通过 `return` 来终止函数而不带返回值。对生成器函数的调用不是执行函数体本身，而是返回一个生成器对象。
+
+生成器是一个迭代器对象，表示生成器函数当前的执行状态。它有几个方法：
+
+- `next()`：该方法可恢复生成器函数的执行，直到下一条 `yield` 语句，`yield` 的返回值就是 `next()` 的返回值，而 `return` 会使 `next()` 抛出一个 `StopIteration`。
+- `close()`：用来释放生成器对象，相当于在挂起位置执行了 `return`。
+- `send()`：`yield` 是一个表达式而不是语句，也就是说它是可以有值的。`send()` 和 `next()` 一样继续执行生成器，不同的是它可以传入一个参数作为 `yield` 表达式的值。
+- `throw()`：继续执行生成器，可以传入一个参数，`yield` 表达式会将该参数作为异常抛出。
+
+### 数组推导
+
+语法：`[expression for (variable in object) if (condition)]`
+
+数组推导包含三部分：
+
+1. 一个没有循环体的 for/in 或 for/each 循环。其中，变量之前没有 `var` 或 `let`，实际上是使用了隐式的 `let`，因而不会覆盖外部的变量。
+2. 在执行循环获得对象之后，用 if 条件判断，若为 true 则继续。if 判断是可选的。
+3. 将变量用 expression 计算，并将结果插入要创建的数组中。
+
+### 生成器表达式
+
+在 JavaScript 1.8 中，将数组推导中的方括号替换成圆括号就成了一个生成器表达式。该表达式的值是一个生成器对象，而不是数组。
+
+## 函数简写
+
+JavaScript 1.8 中，函数有一种简写形式。如果函数只是计算并返回一个表达式的值，那么可以写成：`function(arg) expression`。
+
+## 多 catch 从句
+
+从 JavaScript 1.5 开始支持
+
+```js
+try {
+  //...
+} catch (e if e instanceof Example) {
+  //...
+} catch (e if e === "blabla") {
+  //...
+} finally {
+  //...
+}
+```
+
+## E4X:ECMAScript for XML
+
+E4X 是 JavaScript 的一个标准扩展。通常用于服务端，大部分客户端还没支持。
+
+# web 浏览器中的 JavaScript
+
+## JavaScript 程序的执行
+
+### 客户端 Javascript 时间线
+
+以下是理想的事件线，但不是所有浏览器都完全实现。
+
+1. 浏览器创建 `Document` 对象，并开始解析页面：在解析 HTML 元素和它们的文本内容后添加 `Element` 对象和 `Text` 节点到文档中。此阶段 `document.readystate` 属性是“loading”。
+2. 当 HTML 解析器遇到没有 `async` 和 `defer` 属性的 `<script>` 元素时，它把元素添加到文档中并执行相应脚本。脚本的执行是同步的，在脚本下载（若需要）和执行时解析器会暂停。因此脚本可以通过 `document.write()` 向输入流写入文本。同步脚本可以看到它自身和之前的文档内容。
+3. 当遇到 `async` 属性的 `<script>` 元素时，会下载脚本并继续解析文档。脚本会在下载完成后尽快执行，但解析器不会为它暂停。异步脚本禁止使用 `document.write()`。它可以看到自身和之前的文档内容。
+4. 当文档解析完成，`document.readystate` 变为“interactive”。
+5. 按出现顺序依次执行所有 `defer` 属性脚本。它能访问完整的文档树，但不能使用 `document.write()`。
+6. 浏览器在 `Document` 对象上触发 `DOMContentLoaded` 事件，标志着程序执行从同步阶段转到了异步事件驱动阶段。此时可能还有异步脚本没有执行完成。
+7. 至此文档已解析完毕，但可能还有其他内容没载入完成，比如图片。当所有内容载入完成、异步脚本执行完成后，`document.readystate` 属性变为“complete”，浏览器触发 `Window` 对象上的 `load` 事件。
+8. 开始调用异步事件。
+
+## 兼容性和互用性
+
+### Internet Explorer 里的条件注释
+
+条件注释不是标准规范，而是 IE5 开始引入的功能，主要用于解决 IE 相关的兼容性问题。
+
+```html
+<!--[if IE 6]>
+只会在 IE6 显示。
+<![endif]-->
+
+<!--[if lte IE 7]>
+在 IE5、6、7 中显示。还可以用 lt、gt、gte。
+<![endif]-->
+
+<!--[if !IE]><-->
+不会在 IE 中显示。
+<!--><![endif]-->
+```
+
+IE 的 JavaScript 解释器也支持条件注释。
+
+```js
+/*@cc_on
+  @if (@_jscript)
+    alert("in IE");//会在 IE 中执行
+  @end
+  @*/
+```
+
+# Window 对象
+
+## 浏览器定位和导航
+
+`Window` 对象和 `Document` 对象的 `location` 属性引用同一个 `Location` 对象，表示当前显示文档的 URL。
+
+`Document` 对象还有一个 `URL` 属性，是文档首次载入后保存文档 URL 的静态字符串。如果定位到文档中的片段标识符，`Location` 对象会相应更新，而 `document.URL` 则不会。
+
+### 解析 URL
+
+`window.location` 引用的是 `Location` 对象，表示当前显示文档的 URL。
+
+`location.href` 是一个字符串形式的 URL。
+
+`Location` 对象的 `toString()` 返回 `href` 的值。
+
+`Location` 对象还有其他属性：`protocol`、`host`、`hostname`、`port`、`pathname`、`search`，分别表示 URL 的各部分。
+
+`Location` 对象的 `hash` 属性（若存在的话）返回 URL 中的片段标识符部分。`search` 属性返回问号之后的 URL（含问号）。
+
+### 载入新的文档
+
+在 `Location` 对象中：
+
+- `assign()` 使窗口载入指定 URL 的文档。
+- `replace()` 类似 `assign()`，只是在载入新文档之前会从浏览历史中删除当前文档。
+- 另一种更传统的跳转方法是把新的 URL 赋给 location` 属性。
+- `reload()` 重现载入当前文档。
+
+## 浏览历史
+
+`window.history` 属性引用的是 `History` 对象。`History.length` 表示浏览历史列表中的元素数量。出于安全考虑，脚本不能访问已保存的 URL，否则任意脚本都能窥探浏览历史。
+
+`back()` 和 `forward()` 跟浏览器的后退、前进一样。`go()` 接受一个整数参数，在历史列表中向前（正整数）或向后（负整数）跳跃指定页数。
+
+如果窗口包含多个子窗口（比如 `<iframe>`），子窗口的历史会按时间顺序穿插在主窗口的历史中。
+
+## 浏览器和屏幕信息
+
+### Navigator 对象
+
+`window.nevigator` 引用的是包含浏览器厂商和版本信息的 `Navigator` 对象（此名字是为了纪念 Netscapte Nevigator 浏览器）。
+
+- `appName`：Web 浏览器的全称。在 IE 中是“Microsoft Internet Explorer”，在其他浏览器中通常是“Netscape”。
+- `appVersion`：通常以数字开始，跟着包含浏览器厂商和版本信息的详细字符串。字符串没有标准格式，不能直接用来判断浏览器的类型。
+- `userAgent`：浏览器在 `USER-AGENT` 头部中发送的字符串。
+- `platform`：运行浏览器的操作系统的字符串。
+- `onLine`：若存在的话表示浏览器当前是否连接到网络。
+- `geolocation`：用于确定用户地理位置。
+- `javaEnabled()`：非标准方法，判断浏览器是否可以运行 Java 小程序。
+- `cookieEnable()`：非标准方法，判断浏览器是否可以保存永久的 cookie。当 cookie 配置为“视具体情况而定”时可能返回不正确的值。
+
+### Screen 对象
+
+- `width`、`height`：以像素为单位的窗口大小。
+- `availWidth`、`availHeight`：实际可用的大小。
+- `colorDepth`：显示的 BPP（bits-per-pixel）值，典型的值是 16、24、32。
+
+## 对话框
+
+- `alert()`：提示框。
+- `confirm()`：确认框，返回布尔值。
+- `prompt()`：提示输入框，返回用户输入的字符串。
+- `showModalDialog()`：显示一个包含 HTML 格式的“模态对话框”，可以给它传入参数，以及从对话框里返回值。
+
+## 错误处理
+
+`Window.onerror` 的值是一个事件处理程序。由于历史原因，它接受三个字符串参数而不是一个事件对象。
+
+1. 描述错误的一条消息。
+2. 引发错误的 js 代码所在文档的 URL 的字符串。
+3. 文档中发生错误的行数。
+4. 返回 false，表示它通知浏览器事件处理程序已经处理了错误，即浏览器不应该显示错误消息。但由于历史原因，Firefox 里的错误处理程序必须返回 true 来表示它已经处理了错误。
+
+## 多窗口和窗体
+
+### 打开和关闭窗口
+
+`Window.open()` 有 4 个可选参数：
+
+1. 新窗口中文档的 URL，若省略或为空字符串，则会使用 about:blank。
+2. 新窗口的名字。若指定的是已存在的窗口名字，则会直接使用该窗口。若省略会使用 `_blank`。
+  - 只有设置了“允许导航”（allowed to navigator）（HTML5 术语）的页面才行。当且仅当窗口包含的文档是同源的，或是此脚本打开了那个窗口（包括递归打开），脚本才能只通过名字来指定存在的窗口。
+  - 若两个窗口是内嵌关系，那它们的脚本可以互相导航。此时可以用保留的名字 `_top` 和 `_parent` 来获取彼此的上下文。
+3. 以逗号分隔的列表，包含大小和各种属性。若省略则会用一个默认的大小，而且带有一整组标准的 UI 组件，即菜单栏、状态栏、工具栏等。这个参数是非标准的。
+4. 一个布尔值，只在第二个参数命名的是一个存在的窗口时才有用，声明了由第一个参数指定的 URL 是应该替换掉窗口浏览历史的当前条目（true），还是应该在历史中创建一个新的条目（false），后者是默认值。
+
+返回值是代表命名或新创建的窗口的 `Window` 对象。该对象的 `opener` 属性引用的是调用 `open` 方法的那个窗口。
+
+### 窗体之间的关系
+
+顶级窗口或标签的 `parent` 和 `top` 属性引用的是自身。
+
+`<iframe>` 元素由 `contentWindow` 属性，引用的是该窗体对象。反过来，窗体的 `window.frameElement` 属性引用的是相应的 `<iframe>` 元素对象。顶级窗口对象的 `frameElement` 属性为 null。
+
+通常用另一种方式来获取其他窗体对象。
+
+每个 `Window` 对象都有一个 `frames` 属性，包含了该窗口所包含的窗口或窗体的 `Window` 对象（而不是 `<iframe>` 对象）。
+
+```js
+//第二个子窗体的第三个子窗体。
+var w1 = frames[1].frames[2];
+//兄弟窗体
+var w2 = parent.frames[1];
+//通过 <iframe> 元素的 name 或 id 来索引
+var w3 = frames["f1"];
+```
+
+实际上 `frames` 属性引用的是 `window` 本身，也就是说 `window` 本身就是一个由子窗体对象组成的数组。不过通过 `frames` 来引用会显得清楚一点。
+
+# 脚本化文档
 
 # 脚注
 

@@ -236,7 +236,7 @@ DTD 可被成行地声明于 XML 文档中，也可作为一个外部引用。
 ## 属性
 
 在 DTD 中，属性通过 ATTLIST 声明来进行声明：
-`<!ATTLIST element-name attribute-name attribute-type attribute-value>`
+`<!ATTLIST {element-name} {attribute-name} attribute-type attribute-value>`
 DTD 实例：
 `<!ATTLIST payment type CDATA "check">`
 XML 实例：
