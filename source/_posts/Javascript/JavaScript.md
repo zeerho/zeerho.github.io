@@ -1269,6 +1269,20 @@ var w3 = frames["f1"];
 
 # 脚本化文档
 
+## 文档结构和遍历
+
+### 作为节点树的文档
+
+`Document`、`Element`、`Text` 对象都是 `Node` 对象。`Node` 定义了以下属性：
+
+- `parentNode`：若无父节点则为 null。
+- `childNodes`：只读的类数组对象（`NodeList`）。
+- `firstChild`、`lastChild`
+- `nextSibling`、`previousSibling`
+- `NodeType`：节点类型。9：Document，1：Element，3：Text，8：Comment，11：DocumentFragment。
+- `NodeValue`：Text 节点或 Comment 节点的文本内容。
+- `nodeName`：元素的标签名，大写。
+
 # 脚注
 
 [^1]:Unicode 对其所有字符做了分类，这种分类用“通用类别值”表示，这里的“Mn”、“Mc”和“Pc”分别表示基字符的修改中出现的非间距字符、基字符的修改中影响了基字符标识位的宽度的间距字符、连接两个字符的连接符或标点符号。

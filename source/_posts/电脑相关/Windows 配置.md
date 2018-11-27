@@ -13,5 +13,11 @@ tags: [电脑相关]
 
 设置 - 设备 - 鼠标和触摸板 - 当我悬停在非活动窗口上方时对其进行滚动
 
+# pl/sql 无限试用
 
+卸载后删除注册表
+
+1. `regedit`
+2. `HKEY_CURRENT_USER/Software/Allround Automations`
+3. `HKEY_CURRENT_USER/Software/Microsoft/Security`
 
