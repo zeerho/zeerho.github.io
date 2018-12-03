@@ -265,7 +265,7 @@ test(clo)
 //test() clos //错误！
 test() { /*blabla*/ }
 test clos
-test() clos
+test { /*blabla*/ }
 ```
   
 

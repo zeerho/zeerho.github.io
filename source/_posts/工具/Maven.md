@@ -14,6 +14,8 @@ tags: [工具]
 
 若要使打包得到的 .jar 中包含 main 方法（即为可执行 .jar），需要借助 `maven-shade-plugin`，配置该插件如下：
 
+<!-- more -->
+
 ```XML
 <plugin>
     <groupId>org.apache.maven.plugins</groupId>
@@ -43,10 +45,11 @@ maven 中下载的插件都在 `~\.m2\repository\org\apache\maven` 文件夹内�
 `-DskipTests` :不执行测试用例，但编译测试用例类生成相应的class文件至target/test-classes下。
 `-Dmaven.test.skip=true` :不执行测试用例，也不编译测试用例类。
 
----
+
 # 依赖的配置
 
 *“[...]”表示可选*
+
 ```XML
 <project>
     <modelVersion>...</modelVersion>
@@ -84,50 +87,44 @@ maven 中下载的插件都在 `~\.m2\repository\org\apache\maven` 文件夹内�
     ...
 </project>
 ```
+
 - groupId、artifactId 和 version：依赖的基本坐标。
 - type：依赖的类型，对应于项目坐标定义的 packaging。通常不声明，默认为 jar。
-- scope：依赖的范围。用来控制依赖与不同 classpath 的关系。具体见[表1](#table1)。
+- scope：依赖的范围。用来控制依赖与不同 classpath 的关系。详见“依赖范围与 classpath 的关系”。
     - compile：编译依赖范围。默认值。对编译、测试、运行有效。
     - test：测试依赖范围。对测试有效。
     - provided：已提供依赖范围。对编译、测试有效。
     - runtime：运行时依赖范围。对测试、运行有效。
-    - import(Maven2.0.9及以上)：导入依赖范围。<span id="returnFromImportScope"></span>[详见这里](#importScope)
-    - system：系统依赖范围。同 provided，但是使用system范围的依赖时必须通过 systemPath 元素显示指定依赖文件路径。由于不是通过 Maven 仓库解析，且往往与本机系统绑定，可能造成构建的不可移植。systemPath 元素可引用环境变量，如：
-```
-<dependency>
-    <groupId>javax.sql</groupId>
-    <artifactId>jdbc-stdext</artifactId>
-    <version>2.0</version>
-    <scope>system</scope>
-    <systemPath>${java.home}/lib/rt.jar</systemPath>
-</dependency>
-```    
+    - import(Maven2.0.9及以上)：从另一个 `<dependencyManagement>` 导入依赖范围。
+    - system：系统依赖范围。同 provided，但是必须通过 `systemPath` 元素显式指定依赖文件路径。由于不是通过 Maven 仓库解析，且往往与本机系统绑定，可能造成构建的不可移植。`systemPath` 元素可引用环境变量，如：`<systemPath>${java.home}/lib/rt.jar</systemPath>`。
 - optional：标记依赖是否可选，若为true则该依赖不会被传递。
 - exclusions：排除传递性依赖。
 
-**<span id="table1">表1</span> 依赖范围与classpath的关系**
-|依赖范围（scope）|编译|测试|运行|
-|:--------------:|:-:|:--:|:--:|
-|compile	     |1  |1	  |1   |
-|test	         |-  |1	  |-   |
-|provided	     |1  |1	  |-   |
-|runtime	     |-  |1   |1   |
-|system	         |1  |1	  |-   |
+**依赖范围与 classpath 的关系**
 
-**表2 依赖范围影响传递性依赖**
+|依赖范围（scope）|编译|测试|运行|
+|:---------------:|:--:|:--:|:--:|
+|compile	        |1   |1	  |1   |
+|test	            |-   |1	  |-   |
+|provided	        |1   |1	  |-   |
+|runtime	        |-   |1   |1   |
+|system	          |1   |1	  |-   |
+
+**依赖范围影响传递性依赖**
+
 |第一依赖\第一依赖|compile |test|provided|runtime |
 |:---------------:|:-----: |:--:|:------:|:------:|
 |compile          |compile |-   |-       |runtime |
 |test             |test    |-   |-       |test    |
 |provided         |provided|-   |provided|provided|
-|runtime	      |runtime |-   |-       |runtime |
+|runtime	        |runtime |-   |-       |runtime |
 
 `mvn dependency:list`：查看当前项目的已解析依赖。
 `mvn dependency:tree`：查看当前项目的依赖树。
 `mvn dependency:analyze`：分析当前项目的依赖树。其中“Used undeclared dependencies”指项目中使用到的，但未显式声明的依赖；“Unused declared dependencies”指项目中未使用的，但显式声明的依赖。该命令只会分析编译阶段（包括主代码和测试代码）用到的依赖，一些测试和运行时需要的依赖它发现不了，因此需要经过仔细分析再决定是否删除未使用的依赖。
-`mvn dependency:list -->C:/list.txt`：将结果输出到指定文件。其它两条命令同理。
+`mvn dependency:list --> C:/list.txt`：将结果输出到指定文件。其它两条命令同理。
 
----
+
 # 远程仓库、镜像仓库
 
 **远程仓库的配置**
