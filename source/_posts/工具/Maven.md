@@ -4,12 +4,18 @@ date: 2017-01-01 09:00:00
 tags: [工具]
 ---
 
+# 简介
+
+Maven 是一个项目管理工具，包含：
+
+- 一个项目对象模型（Project Object Model）
+- 一组标准集合
+- 一个项目生命周期（Project Lifecycle）
+- 一个依赖管理系统（Dependency Management System）
+- 用来运行定义在生命周期阶段（phase）中插件目标（goal）的逻辑
+
 # 基本步骤
 
-- `mvn clean compile` 编译
-- `mvn clean test` 测试
-- `mvn clean package` 打包为 .jar，可被其他项目引用
-- `mvn clean install` 安装至 maven 的本地 repository 中后，可直接被 maven 项目使用
 - `mvn install:install-file  -Dfile=D:/xxx.jar  -DgroupId=xxx.xxx  -DartifactId=xxx -Dversion=x.x -Dpackaging=jar` 将指定 jar 包安装至本地库
 
 若要使打包得到的 .jar 中包含 main 方法（即为可执行 .jar），需要借助 `maven-shade-plugin`，配置该插件如下：
