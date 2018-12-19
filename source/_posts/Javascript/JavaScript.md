@@ -371,6 +371,26 @@ var o2 = Object.create(null);//创建的对象没有原型，也就是没有任�
 - `o.x !== undefined`：同 `in`，但不能区分赋值为 undefined 的属性。
 - `o.x != null`：不区分 null 和 undefined。
 
+## 属性 getter 和 setter
+
+在 ES5 中，属性值可以由 getter 和 setter 方法来代替，这种属性称为“存取器属性”。
+
+```js
+var o = {
+  $n = 0; // $ 暗示是私有属性
+  get next() {
+    return this.$n++;
+  }
+  set next(n) {
+    if (n >= this.$n) {
+      this.$n = n;
+    } else {
+      throw "blabla";
+    }
+  }
+}
+```
+
 ## 属性的特性
 
 属性的 4 个特性：值 value、可写性 writable、可枚举性 enumerable、可配置性 configurable。

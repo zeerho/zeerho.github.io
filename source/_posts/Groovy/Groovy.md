@@ -16,6 +16,12 @@ tags: [Groovy]
 
 <!-- more -->
 
+# 基础工具
+
+## 编译
+
+groovyc
+
 # 数值和表达式
 
 ## 数值
@@ -178,7 +184,7 @@ GDK 新增的方法：
 
 def start = 1
 def end = 2
-start..finish + 1 // 1 3
+start..end + 1 // 1 3
 ```
 
 - contains：范围中是否包含指定元素。
@@ -199,6 +205,44 @@ print、println、printf
 见 `Console` 类。
 
 # 方法
+
+groovy 具有 MOP 特性：元对象协议（Meta Object Protocol）。
+
+具体来说就是 groovy 允许动态地进行方法调用和属性访问。
+
+## groovy 的方法调用方式
+
+1. 除了类里本身的方法外，编译器会在编译期生成一些方法。
+  1. 对于属性，会生成 getter、setter 方法。
+  2. 实现 `GroovyObject` 接口的方法。
+  3. 为了实现方法调用在运行期动态绑定（而不是 Java 的编译期静态绑定），生成 `$createCallSiteArray()`、`$getCallSiteArray()` 等方法。
+2. 对于绝大部分方法的调用都会被编译器转换为通过 `CallSite` 进行动态调用。
+  1. `CallSite` 接口定义了很多类 `call()` 方法。
+  2. 很多 `CallSite` 的实现类在实例化的时候注入了 `MetaClass` 的实例，然后把方法调用委托给 `MetaClass` 实例。
+3. `MetaClass` 接口类似 `Class` 类，保存了类的元信息，并提供了很多相关方法。
+  - `MetaClass` 有好几个实现类，其中最重要的是 `MetaClassImpl`。
+    1. 在调用方法前会做很多判断，比如是不是闭包调用、闭包调用策略、闭包的 owner 和 delegate 等等。
+    2. 根据传入的调用目标的 `Class`，从 `MetaClassRegistry` 中获取对应的 `MetaClass`。
+      - 这里的获取动作实际上是取 `Class#classValueMap` 字段，从中取 `ClassInfo` 对象，从中取 `Cached
+    3. 把方法调用再委托给实际的 `MetaClass`。
+
+## groovy 的方法动态绑定
+
+groovy 对很多 Java 类进行了扩展，这些扩展的方法实际是存在于几个“类 DGM”类里（详见 `DefaultGroovyMethods#DGM_LIKE_CLASSES`，这些类以下统称“DGM”）。
+
+groovy 将扩展方法“添加”到 Java 类的方式是：将 Java 类和扩展方法的对应关系注册到 `MetaClassRegistry` 中，这样在上一小节所述的动态调用时就能找到这些扩展方法。
+
+`MetaClassRegistry` 的初始化发生在 `GroovySystem` 类第一次被加载时（在静态块里），也可以由用户代码主动初始化（不知道还有没有其他触发点）。
+
+1. 在 groovy 项目本身的编译阶段：
+  1. 使用 `DgmConverter` 为 DGM 中的每个公共静态方法生成一个类，名如 org.codehaus.groovy.runtime.dgm$1。注意，因为发生在编译期，所以生成的是 .class 文件，而不是 .java 文件。
+  2. 将上述每个类的信息写入到 /META-INF/dgminfo 文件中。
+2. 在用户项目中触发了 `MetaClassRegistry` 初始化的时候：
+  1. 加载 dgminfo 文件中的所有信息。
+  2. 创建所有 `CachedClass` 对象，每个对象都包含了它对应的 `Class` 和 `ClassInfo` 等信息。
+  3. 为每个方法（即每个 dgm$1 类）生成一个 `Proxy` 对象，其中存放了类信息（比如类名、方法名、对应的 `CachedClass` 等等）。`Proxy` 继承自 `MetaMethod`。当第一次被调用 `invoke()` 时会加载并实例化上述的 dgm$1 类。（之所以加了这层代理是因为 dgm$1 类太多了，要把类加载和实例化推迟到真正被调用的时候。）
+  4. 构建“类-方法列表”（`CachedClass`-`List<MetaMethod>`）的关联关系（实际上是把方法列表保存到了 `CachedClass` 中的 `ClassInfo` 里）。
+
 
 ## 默认参数
 
@@ -262,9 +306,9 @@ def test(clos) {
 //传统的调用方式
 test(clo)
 //简洁的调用方式（若闭包在实参列表最后，则可以放到括号后面；若实参列表只有闭包，则连括号也可以省略）
-//test() clos //错误！
+//test() clo //错误！
 test() { /*blabla*/ }
-test clos
+test clo
 test { /*blabla*/ }
 ```
   

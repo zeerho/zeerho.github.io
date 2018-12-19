@@ -42,7 +42,7 @@ ssh-keygen -t rsa -C "MyEmail@gmail.com"
 [Hexo 中文文档](https://hexo.io/zh-cn/docs/)
 
 1. 进入用来放博客的文件夹，比如 `C:\workspace\blog` （下面涉及到这个文件夹的地方都要替换为你自己的文件夹）
-2. 在命令行中执行 `npm install -g hexo-cli` 来安装 Hexo
+2. 全局安装 hexo-cli `npm install -g hexo-cli`。
 3. `hexo init` 初始化全部文件（迁移博客时不要执行，会覆盖掉原先的配置等文件）、`npm install`
 4. `hexo g` 生成静态文件
 5. `hexo s` 部署并启动服务

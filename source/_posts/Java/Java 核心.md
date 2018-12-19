@@ -51,6 +51,7 @@ Float：F
 Double：D
 Void：V
 对象：以"L"开头，以";"结尾，中间是用"/" 隔开的包及类名。比如：“Ljava/lang/String;”。如果是嵌套类，则用“$”来表示嵌套。例如 "(Ljava/lang/String;Landroid/os/FileUtils$FileStatus;)Z"。
+数组：在上述描述符前面加上"["，有多少级数组就加多少个"["。
 
 # fork-join
 
@@ -104,3 +105,22 @@ Void：V
 |-s                       |输出内部类型签名                                               |
 |-bootclasspath {pathlist}|指定加载自举类所用的路径，如jre/lib/rt.jar或i18n.jar           |
 |-verbose                 |打印堆栈大小、各方法的locals及args参数，以及class文件的编译版本|
+
+
+# 集合框架
+
+## WeakHashMap
+
+`Entry` 继承自 `WeakReference`，key 是弱引用。
+
+以下方法中会调用 `expungeStaleEntries()` 来清理 key 被 gc 了的 entry：
+
+- `getTable()`
+- `size()`
+- `resize()`
+
+这几个方法是很基础，几乎所有对 Map 的操作都会调用到。如果 Map 长时间不被访问的话依然可能因为 value 不被释放而发生内存泄漏。
+
+# ClassValue
+
+业务代码中经常需要使用 `Map<Class, Object>` 作为缓存来 //TODO
