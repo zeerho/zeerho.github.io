@@ -718,7 +718,7 @@ public ShoppingCart cart() {...}
     <bean id="cart" class="com.demo.ShoppingCart" scope="session">
     	<!-- 默认使用 CGLib 创建目标类的代理 -->
     	<aop:scoped-proxy />
-		<!-- 设置成基于接口的代理 -->
+		  <!-- 设置成基于接口的代理 -->
     	<aop:scoped-proxy proxy-target-class="false" />
     </bean>
 </beans>
@@ -1037,7 +1037,7 @@ public class ConcertConfig {
     http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="concert" />
-	<!-- 启用 AspectJ 自动代理 -->
+	  <!-- 启用 AspectJ 自动代理 -->
     <aop:aspectj-autoproxy />
     <bean class="concert.Audience" />
 </beans>
@@ -1082,7 +1082,7 @@ public class EncoreableIntroducer {
 |`<aop:pointcut>`         |定义一个切点                                                   |
 
 ```xml
-<aop:config>
+<aop:config proxy-target-class="true">
 	<aop:aspect ref="audience">
 		<aop:pointcut
 		  id="performance"
@@ -1102,6 +1102,8 @@ public class EncoreableIntroducer {
 	</aop:aspect>
 </aop:config>
 ```
+
+`proxy-target-class="true"`：使用 CGLIB 创建子类来实现代理（否则使用 java dynamic proxy 基于接口来创建）。具体用哪种方法的判断见 `DefaultAopProxyFactory`。
 
 ## 切面的一些实践细节
 

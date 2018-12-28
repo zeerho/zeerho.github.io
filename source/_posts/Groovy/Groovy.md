@@ -18,9 +18,11 @@ tags: [Groovy]
 
 # 基础工具
 
-## 编译
+编译 groovyc a.groovy
 
-groovyc
+- `-d {directory}`：指定编译输出目录。
+
+运行 groovy a.groovy
 
 # 数值和表达式
 
@@ -54,11 +56,11 @@ groovyc
 'say "hello"!'  // 嵌套
 "say 'hello'!"  // 嵌套
 """hello!"""    // 三引号单行
-"""hello!       // 三引号多行
+"""hello!       // 三引号多行，打印出来也是多行的（即省去了手动加换行符）
 hello again!"""
 ```
 
-单引号中的字符串是字面值，双引号中的 `${}` 中的内容会被求值然后作为字符串的内容。
+单引号中的字符串是字面值，双引号中的 `${}` 中的内容（花括号可省略）会被求值然后作为字符串的内容。
 
 ## 字符串索引和索引段
 
@@ -121,26 +123,28 @@ def matcher1 = '\\abcd' =~ '\\\\(.*)'
 def matcher2 = '\\abcd' =~ /\\(.*)/
 ```
 
-# 列表、映射和范围
+# 容器类
 
 ## 列表
 
-列表是有序的。
+Groovy 的列表是 `List` 的实现，通常是 `ArrayList`。
 
 ```groovy
-def arr1 = [1, 2, 3] // 定义列表
+def arr1 = [1, 2, 3]      // 定义列表
 def arr2 = [1, [2, 3], 4] // 嵌套列表
-def arr3 = ['abc', 1, 2] // 不同类型的元素
+def arr3 = ['abc', 1, 2]  // 不同类型的元素
 
-def ele1 = arr1[0] // 实际上是调用了 List#getAt 方法
-def ele2 = [1, 2][0] // 直接量也可以索引
-def ele3 = [1, 2][-1] // 反向索引
+def ele1 = arr1[0]      // 实际上是调用了 List#getAt 方法
+def eleNull = arr1[3]   // 索引越界得到的是 null，不会抛异常
+def ele2 = [1, 2][0]    // 直接量也可以索引
+def ele3 = [1, 2][-1]   // 反向索引
 def ele4 = [1, 2][0..1] // 使用范围进行索引
 
-arr1[1] = 4 // 赋值操作实际是调用了 List#putAt 方法
-arr1 << 5 // 插入到列表末尾，实际是调用了 List#leftShift 方法
+arr1[1] = 4   // 赋值操作实际是调用了 List#putAt 方法
+arr1[10] = 10 // 索引越界不会抛异常，赋值完 arr1 中共有 11 个元素，中间的都是 null
+arr1 << 5     // 插入到列表末尾，实际是调用了 List#leftShift 方法
 arr1 + [6, 7] // 在列表末尾拼接列表，实际是调用了 List#plus 方法
-arr1 - [7] // 从列表中删除元素，实际是调用了 List#minus 方法
+arr1 - [7]    // 从列表中删除元素，实际是调用了 List#minus 方法
 ```
 
 ## 列表方法
@@ -159,10 +163,21 @@ GDK 新增的方法：
 
 ## 映射
 
+Groovy 的映射是 `Map` 的实现，通常是 `LinkedHashMap`。
+
 ```groovy
-def m = ['a': 1, 'b': 2]
+def m = ['a': '1', 'b': 2] // key 必须是 `String`，value 都是 `Object`
+def n = [a: '1']           // `a` 会被自动转成 `String`
+
 m['a']
 m.a
+
+//容易引起歧义的写法
+def a = 'A'
+def map1 = [ a : '1'] // 实际上 key 是 'a'
+def map2 = [(a): '1'] // 这么写 key 就成了 'A'
+
+m.c = 3 // 添加元素
 ```
 
 ## 映射方法
@@ -174,6 +189,8 @@ GDK 新增的方法：
 - putAt
 
 ## 范围
+
+Groovy 的范围是 `Range` 的实现。
 
 ```groovy
 1..3     // 1 2 3
@@ -215,7 +232,7 @@ groovy 具有 MOP 特性：元对象协议（Meta Object Protocol）。
 1. 除了类里本身的方法外，编译器会在编译期生成一些方法。
   1. 对于属性，会生成 getter、setter 方法。
   2. 实现 `GroovyObject` 接口的方法。
-  3. 为了实现方法调用在运行期动态绑定（而不是 Java 的编译期静态绑定），生成 `$createCallSiteArray()`、`$getCallSiteArray()` 等方法。
+  3. 为了实现方法调用在运行期动态绑定（而不是 Java 的编译期静态绑定），会生成 `$createCallSiteArray()`、`$getCallSiteArray()` 等方法。
 2. 对于绝大部分方法的调用都会被编译器转换为通过 `CallSite` 进行动态调用。
   1. `CallSite` 接口定义了很多类 `call()` 方法。
   2. 很多 `CallSite` 的实现类在实例化的时候注入了 `MetaClass` 的实例，然后把方法调用委托给 `MetaClass` 实例。
@@ -223,7 +240,7 @@ groovy 具有 MOP 特性：元对象协议（Meta Object Protocol）。
   - `MetaClass` 有好几个实现类，其中最重要的是 `MetaClassImpl`。
     1. 在调用方法前会做很多判断，比如是不是闭包调用、闭包调用策略、闭包的 owner 和 delegate 等等。
     2. 根据传入的调用目标的 `Class`，从 `MetaClassRegistry` 中获取对应的 `MetaClass`。
-      - 这里的获取动作实际上是取 `Class#classValueMap` 字段，从中取 `ClassInfo` 对象，从中取 `Cached
+      - 这里的获取动作实际上是取 `Class#classValueMap` 字段，从中取 `ClassInfo` 对象，从中取 `CachedClass`。
     3. 把方法调用再委托给实际的 `MetaClass`。
 
 ## groovy 的方法动态绑定
@@ -253,10 +270,6 @@ def f(p1, p2 = 2, p3 = 3) {
   //...
 }
 ```
-
-## 作用域
-
-方法不能引用当前方法外的变量。
 
 # 流程控制
 
@@ -289,27 +302,76 @@ switch(var) {
 
 ```groovy
 //闭包是 {@code groovy.lang.Closure} 的实例
-//若没有参数，可以省略形参和 ->
-def greeting = "Hello"
-def clo = { param1, param2 -> 
-  print 'example'
-  //对外部变量的引用是在定义时决定的，而不是运行时
-  print '${greeting}!${param1}, ${param2}'
+def clo1 = { param1, param2 ->
+  println param1
+  println param2
 }
 
+//若没有参数，可以省略形参和 `->`
+def clo2 = { print 'hello' }
+
+//没定义形参的话会有个隐含的形参 `it`
+def clo3 = { print "hello ${it}" }
+
+//对外部变量的引用是在定义时决定的，而不是运行时
+def greeting = 'Hello'
+def clo4 = { print "${greeting}!" }
 def test(clos) {
-  //两种调用方式
-  clo.call('a', 'b')
-  clo('c', 'd')
+  def greeting = 'hi'
+  clos.call()
+  //clos() //另一种调用方式
 }
+test(clo4) //打印的是 Hello
 
-//传统的调用方式
+//多种调用方式
 test(clo)
-//简洁的调用方式（若闭包在实参列表最后，则可以放到括号后面；若实参列表只有闭包，则连括号也可以省略）
-//test() clo //错误！
-test() { /*blabla*/ }
-test clo
-test { /*blabla*/ }
+test() clo         //错误！
+test() { /*bla*/ } // 闭包在实参列表最后，可放到括号后面
+test clo           // 实参只有闭包，可省略括号
+test { /*bla*/ }
 ```
   
+# 实践
 
+groovy 代码可以写成类文件或脚本文件。类文件的结构跟 Java 相同。脚本文件的结构有所不同。
+
+假设以下脚本文件名为 a.groovy
+
+```groovy
+def a = '1'
+def f() {
+  //引用不到方法外变量
+  //println a
+  println 'hello'
+}
+```
+
+经 `groovyc a.groovy` 编译后的内容如下
+
+```groovy
+// 生成了文件同名类，继承 `Script`
+public class a extends Script {
+
+  // 这里省略了一些 groovy 实现相关的字段和方法
+
+  // 自动生成的 main 方法
+  // 这里调用的是 `InvokerHelper#runScript` 方法，其中会创建 `Script` 实例，
+  // 并调用该实例的 `run()`
+  public static void main(String... args) {
+      a.$getCallSiteArray()[0].call(InvokerHelper.class, a.class, args);
+  }
+
+  // 此脚本执行时实际执行的内容
+  // 比如变量定义和方法调用，都在这里
+  public Object run() {
+      a.$getCallSiteArray();
+      return "1";
+  }
+
+  // 脚本中定义的方法被定义在类里
+  // 因为脚本里的变量在编译后跑到了 `run()` 里，所以这里引用不到
+  public Object f() {
+      return a.$getCallSiteArray()[1].callCurrent(this, "hello");
+  }
+}
+```
