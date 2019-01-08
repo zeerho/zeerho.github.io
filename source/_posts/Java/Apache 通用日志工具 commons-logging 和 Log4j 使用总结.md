@@ -4,14 +4,14 @@ date: 2017-01-01 09:00:00
 tags: [Java]
 ---
 
-**Apache 为了让众多日志工具有一个相同操作方法，制作了一个通用日志工具包 commos-logging。**
+**Apache 为了让众多日志工具有一个相同操作方法，制作了一个通用日志工具包 commons-logging。**
 
 # Log4j 的架构
 
 Log4j三大板块：日志写入器、日志输出终端、日志布局模式。
 ![](http://img1.51cto.com/attachment/200705/200705091178696293444.png)
-`Logger`类是日志包的核心，`Lgger`的名称大小写敏感，并且名称之间有继承关系——子名由父名做前缀，用点号“.”分隔。
-`Logger`系统中有个根`logger`，是所有`logger`的祖先，它总是存在，且不可通过名字获取，可以通过`Logger.getRootLogger()`获取。
+`Logger` 类是日志包的核心，`Lgger` 的名称大小写敏感，并且名称之间有继承关系——子名由父名做前缀，用点号“.”分隔。
+`Logger` 系统中有个根 `logger`，是所有 `logger` 的祖先，它总是存在，且不可通过名字获取，可以通过 `Logger.getRootLogger()` 获取。
 
 **`Logger` 对象获取方法，具体参考 API 文档**
 `static Logger getLogger(Class clazz)`
@@ -66,36 +66,38 @@ Log4j三大板块：日志写入器、日志输出终端、日志布局模式。
 `Log4j`一般通过配置文件配置使用。配置文件有两种：Java properties和XML。一般选用properties文件来配置，因为简洁易读。
 对`Log4j`的配置就是对`rootLogger`和子`Logger`的配置。主要的配置项为：`rootLogger`、输出终端、输出布局模式。
 所有的配置项须以`log4j`开头。
+
 **log4j.properties**
-```
-##logger的配置###
-#配置根logger
+
+```properties
+ ##logger的配置###
+ # 配置根logger
 log4j.rootLogger=INFO,stdout
-#配置子logger:org.lavasoft（在org.lavasoft包中类的日志在没有指定logger名的情况下使用这个logger）
+ # 配置子logger:org.lavasoft（在org.lavasoft包中类的日志在没有指定logger名的情况下使用这个logger）
 log4j.logger:org.lavasoft=ERROR,file
-#配置子logger:org.lavasoft.test（在org.lavasoft.test包中类的日志在没有指定logger名的情况下使用这个logger）
+ # 配置子logger:org.lavasoft.test（在org.lavasoft.test包中类的日志在没有指定logger名的情况下使用这个logger）
 log4j.logger:org.lavasoft.test=ERROR,file1,stout
 
-## direct log message to stdout ###（标准的终端输出）
-#控制台输出
+ ## direct log message to stdout ###（标准的终端输出）
+ #控制台输出
 log4j.appender.stdout=org.apache.log4j.ConsoleAppender
-#自定义输出布局
+ #自定义输出布局
 log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
-#输出的格式
+ #输出的格式
 log4j.appender.stdout.layout.ConversionPattern=%d{ABSOLUTE} %5p %c{1};%L - %m%n
 
-## direct messages to file ttt.log ###（输入到文件ttt.log的配置）
-#输出到滚动文件
+ ## direct messages to file ttt.log ###（输入到文件ttt.log的配置）
+ #输出到滚动文件
 log4j.appender.file1=org.apache.log4j.RollingFileAppender
-#输出文件最大为10M
+ #输出文件最大为10M
 log4j.appender.file1.MaxFileSize=10MB
-#输出文件最大序号为10
+ #输出文件最大序号为10
 log4j.appender.file1.MaxBackupIndex=10
-#输出文件路径
+ #输出文件路径
 log4j.appender.file1.File=C:/ttt1.log
-#自定义输出布局
+ #自定义输出布局
 log4j.appender.file1.layout=org.apache.log4j.PatternLayout
-#输出格式
+ #输出格式
 log4j.appender.file1.layout.ConversionPattern=%d %-5p [%t] (%13F:%L) %3x - %m%n
 ```
 logger的配置语法为：级别，输入终端1，输出终端2，……

@@ -24,23 +24,22 @@ Maven 是一个项目管理工具，包含：
 
 ```XML
 <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-shade-plugin</artifactId>
-    <version>1.2.1</version>
-    <executions>
-        <execution>
-            <phase>package</phase>
-            <goals>
-                <goal>shade</goal>
-            </goals>
-            <configuration>
-                <transformers>
-                    <transformer implementation =  “org.apache.maven.plugins.shade.resource.ManifestResourceTransformer”>
-                    </transformer>
-                </transformers>
-            </configuration>
-        </execution>
-    </executions>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-shade-plugin</artifactId>
+  <version>1.2.1</version>
+  <executions>
+    <execution>
+      <phase>package</phase>
+      <goals>
+        <goal>shade</goal>
+      </goals>
+      <configuration>
+        <transformers>
+          <transformer implementation=“org.apache.maven.plugins.shade.resource.ManifestResourceTransformer”/>
+        </transformers>
+      </configuration>
+    </execution>
+  </executions>
 </plugin>
 ```
 
@@ -132,6 +131,16 @@ maven 中下载的插件都在 `~\.m2\repository\org\apache\maven` 文件夹内�
 
 
 # 远程仓库、镜像仓库
+
+maven寻找得顺序大致可以理解为：
+
+1. 本地仓库。
+2. 全局应用的私服仓库。
+3. 项目自身的私服仓库。
+4. 中央仓库。
+
+1. 如果在找寻的过程中，如果发现该仓库有镜像设置，则用镜像的地址代替。
+2. 如果仓库的 id 设置成“central”，则该配置会覆盖 maven 默认的中央仓库配置。
 
 **远程仓库的配置**
 
@@ -478,17 +487,17 @@ maven compiler 默认 jdk 版本是 1.5，要更高版本需要手动指定。
 
 ```xml
 <build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.1</version>
-            <configuration>
-                <source>1.8</source>
-                <target>1.8</target>
-            </configuration>
-        </plugin>
-    </plugins>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-compiler-plugin</artifactId>
+      <version>3.1</version>
+      <configuration>
+        <source>1.8</source>
+        <target>1.8</target>
+      </configuration>
+    </plugin>
+  </plugins>
 </build>
 ```
 

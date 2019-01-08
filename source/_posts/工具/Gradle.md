@@ -6,6 +6,28 @@ tags: [工具]
 
 # 命令
 
+## gradle wrapper
+
+项目刚创建时为它生成 gradle wrapper 相关文件。在项目根目录下执行：
+
+- `gradle wrapper [-options]`
+  - `--gradle-version {m.n}` 指定本项目的 gradle 版本。
+  - `--gradle-distribution-url` 指定下载 gradle 的地址。
+
+以后使用 `gradlew` 执行任务就会使用项目指定的版本而不是系统变量中指定的版本。
+
+要更新项目的 gradle wrapper 版本的话，先更新系统里安装的 gradle，然后再执行一次 `gradle wrapper` 任务。但一般不用更新 gradle wrapper。
+
+**`gradle-wrapper.properties` 中的属性**
+
+- `distributionBase` 存放 gradle 包的主目录。
+- `distributionPath` 实际存放 gradle 包的目录，是相对于 `distributionBase` 的相对路径。
+- `zipStoreBase` 类似 `distributionBase`，用于压缩包。
+- `zipStorePath` 类似 `distributionPath`，用于压缩包。
+- `distributionUrl` 压缩包的下载地址（冒号要加反斜杠）。
+
+## gradle 命令
+
 `gradle {taskName} [options]`
 
 - `-i`: 改变日志级别为 INFO
@@ -26,20 +48,44 @@ tags: [工具]
 
 # 常用配置
 
+## build.gradle
+
 配置脚本中的方法一般都在 gradle 项目各子模块的 `org.gradle.api` 包下。相应的实现一般在对应的 `org.gradle.api.internal` 及其子包下。
+
+一个 `build.gradle` 相当于一个 `Project` 对象。
 
 ```groovy
 allprojects {
   repositories {
     maven {
-      url 'theUrl'
+      url '{url}'
+      mavenLocal()
+      // 换成国内镜像，这段可以放在 .gradle/init.gradle 中，实现全局效果
+      url 'http://maven.aliyun.com/nexus/content/repositories/central/'
     }
   }
 }
 
+//----------------------------------------
+// 这个任务可以放在 $GRADLE_USER_HOME/init.gradle 中，从而自定义 gradle wrapper
+task wrapper(type: Wrapper) {
+  gradleVersion = '1.2'
+  distributionUrl = 'http://myenterprise.com/gradle/dists'
+  distributionPath = 'gradle-dists'         
+}
+
+// 定义一个任务
+// 这里 myTask 和闭包都是 `Project#task()` 的参数，
+// 只不过经 gradle 通过 AST 转换而成了特殊的语法。
+task myTask {
+  // codes here
+}
+
+//----------------------------------------
 // java 项目用到的插件
 apply plugin: 'java'
 
+//----------------------------------------
 // 上传至 maven 仓库
 apply plugin: 'maven'
 
@@ -53,6 +99,7 @@ uploadArchives {
   }
 }
 
+//----------------------------------------
 // 默认文件结构跟 maven 一样，也可以自定义
 sourceSets {
   main {
@@ -65,6 +112,31 @@ sourceSets {
   }
 }
 ```
+
+## gradle.properties
+
+```properties
+ # 代理
+systemProp.http.proxyHost=1.2.3.4
+systemProp.http.proxyPort=8002
+systemProp.http.proxyUser=tom
+systemProp.http.proxyPassword=1234
+systemProp.http.nonProxyHosts=1.2.*.*|localhost
+
+systemProp.https.proxyHost=1.2.3.4
+systemProp.https.proxyPort=8002
+systemProp.https.proxyUser=tom
+systemProp.https.proxyPassword=1234
+systemProp.https.nonProxyHosts=1.2.*.*|localhost
+```
+
+# AST 转换
+
+Abstract Syntax Tree
+
+Gradle 中的特殊语法都是通过 AST 转换实现的。将脚本代码贴至 groovyConsole 中然后按 `ctrl+t` 可看到实际的 AST。
+
+见 `org.gradle.groovy.scripts.internal.TaskDefinitionScriptTransformer` 和 `org.gradle.groovy.scripts.internal.AstUtils`。
 
 # 基本元素
 

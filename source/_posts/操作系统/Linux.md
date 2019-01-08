@@ -52,17 +52,98 @@ non-login shell：在图形界面启动一个 terminal，或者执行 /bin/bash�
  #x 显示所执行的每条命令
 ```
 
-login shell 读取文件的顺序是：
+**login shell 读取配置的顺序**
 
 1. /etc/profile
-2. 读到任意一个就忽略后面的
-    1. ~/.bash_profile
-    2. ~/.bash_login
-    3. ~/.profile
+  - -> /etc/inputrc
+  - -> /etc/profile.d/*.sh -> /etc/sysconfig/i18n
+2. 读到任意一个就忽略后面的（注意：调用链括号部分跟上面有重复）
+  1. ~/.bash_profile -> ~/.bashrc -> /etc/bashrc (-> /etc/profile.d/*.sh -> /etc/sysconfig/i18n)
+  2. ~/.bash_login
+  3. ~/.profile
 
-non-login shell 每次启动 shell 都会读取：
+**non-login shell 读取配置的顺序**
 
-1. ~/.bashrc
+1. ~/.bashrc -> /etc/bashrc -> /etc/profile.d/*.sh -> /etc/sysconfig/i18n
+
+**总结：**两者的交点是 ~/.bashrc（用户级）和 /etc/bashrc（系统级）。
+
+## /etc/profile 内容解析
+
+```sh
+ # 根据 UID 决定 PATH 变量要不要含有 sbin 的系统指令目录
+pathmunge () {
+    case ":${PATH}:" in
+        *:"$1":*)
+            ;;
+        *)
+            if [ "$2" = "after" ] ; then
+                PATH=$PATH:$1
+            else
+                PATH=$1:$PATH
+            fi
+    esac
+}
+
+
+ # 根据用户的账号设置此变量内容
+if [ -x /usr/bin/id ]; then
+    if [ -z "$EUID" ]; then
+        # ksh workaround
+        EUID=`/usr/bin/id -u`
+        UID=`/usr/bin/id -ru`
+    fi
+    USER="`/usr/bin/id -un`"
+    LOGNAME=$USER
+    MAIL="/var/spool/mail/$USER"
+fi
+
+ # Path manipulation
+ # 调用前面的 `pathmunge` 函数
+if [ "$EUID" = "0" ]; then
+    pathmunge /usr/sbin
+    pathmunge /usr/local/sbin
+else
+    pathmunge /usr/local/sbin after
+    pathmunge /usr/sbin after
+fi
+
+HOSTNAME=`/usr/bin/hostname 2>/dev/null`
+
+ # 命令历史纪录相关
+HISTSIZE=1000
+if [ "$HISTCONTROL" = "ignorespace" ] ; then
+    export HISTCONTROL=ignoreboth
+else
+    export HISTCONTROL=ignoredups
+fi
+
+export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL
+
+ # By default, we want umask to get set. This sets it for login shell
+ # Current threshold for system reserved uid/gids is 200
+ # You could check uidgid reservation validity in
+ # /usr/share/doc/setup-*/uidgid file
+if [ $UID -gt 199 ] && [ "`/usr/bin/id -gn`" = "`/usr/bin/id -un`" ]; then
+    umask 002
+else
+    umask 022
+fi
+
+ # 调用其他配置
+for i in /etc/profile.d/*.sh /etc/profile.d/sh.local ; do
+    if [ -r "$i" ]; then
+        if [ "${-#*i}" != "$-" ]; then 
+            . "$i"
+        else
+            . "$i" >/dev/null
+        fi
+    fi
+done
+
+unset i
+unset -f pathmunge
+```
 
 # 挂载/卸载
 
