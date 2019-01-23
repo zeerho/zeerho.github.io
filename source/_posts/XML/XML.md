@@ -98,7 +98,7 @@ XML 解析器通常会解析 XML 文档中所有的文本。PCDATA 是相对于 
 - 确保知道编辑器使用什么编码
 - 在编码属性中使用相同的编码
 
-# XML 相关技术
+# XML相关技术
 
 XHTML (可扩展 HTML) 
 > 更严格更纯净的基于 XML 的 HTML 版本。
@@ -143,7 +143,7 @@ SVG (可伸缩矢量图形)
 
 # DTD
 
-[back](#DTD_title)
+[back](#XML相关技术)
 
 ## 介绍
 
@@ -243,27 +243,24 @@ XML 实例：
 `<payment type="check" />`
 
 属性类型(attribute-type)的选项：
-|类型|描述|
-|:--|:--|
-|CDATA|值为字符数据 (character data)|
-|(en1\|en2\|..)|此值是枚举列表中的一个值|
-|ID|值为唯一的 id|
-|IDREF|值为另外一个元素的 id|
-|IDREFS|值为其他 id 的列表|
-|NMTOKEN|值为合法的 XML 名称|
-|NMTOKENS|值为合法的 XML 名称的列表|
-|ENTITY|值是一个实体|
-|ENTITIES|值是一个实体列表|
-|NOTATION|此值是符号的名称|
-|xml:|值是一个预定义的 XML 值|
+
+- `CDATA`: 值为字符数据 (character data)
+- `(en1|en2|..)`: 此值是枚举列表中的一个值
+- `ID`: 值为唯一的 id
+- `IDREF`: 值为另外一个元素的 id
+- `IDREFS`: 值为其他 id 的列表
+- `NMTOKEN`: 值为合法的 XML 名称
+- `NMTOKENS`: 值为合法的 XML 名称的列表
+- `ENTITY`: 值是一个实体
+- `ENTITIES`: 值是一个实体列表
+- `NOTATION`: 此值是符号的名称
+- `xml:`: 值是一个预定义的 XML 值
 
 默认属性值可使用下列值 :
-|值|解释|
-|:--|:--|
-|值|属性的默认值|
-|#REQUIRED|属性值是必需的|
-|#IMPLIED|属性不是必需的|
-|#FIXED value|属性值是固定的|
+
+- `#REQUIRED`: 属性值是必需的
+- `#IMPLIED`: 属性不是必需的
+- `#FIXED value`: 属性值是固定的
 
 
 ## 实体
@@ -290,6 +287,8 @@ XML 实例：
 `<author>&writer;&copyright;</author>`
 
 # XSD
+
+[back](#XML相关技术)
 
 > XML Schema 的作用是定义 XML 文档的合法构建模块，类似 DTD。
 > 

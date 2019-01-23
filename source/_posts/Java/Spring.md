@@ -15,43 +15,43 @@ tags: [Java, Spring]
 **精简版**
 
 1. `BeanDefinitionReader#loadBeanDefinitions`
-    1. `DocumentLoader#loadDocument` 得到 `Document` 对象
-    2. `BeanDefinitionDocumentReader#registerBeanDefinitions`
-        1. 对于每一层 `beans` 标签，都创建一个 `BeanDefinitionParserDelegate`，因而这个 delegate 也可以形成嵌套结构
-        2. 解析这层 `beans` 标签下的配置内容
-            1. 对于当前命名空间下的元素，直接用当前的 delegate 来解析
-            2. 对于其他命名空间下的元素，调用 `NamespaceHanlderResolver#resolve` 来获取命名空间对应的 `NamespaceHandler`。然后调用 `NamespaceHandler#parse` 来解析这个命名空间下的所有元素
-               有两种方式来实现命名空间的解析逻辑：
-                1. 直接实现 `NamespaceHandler` 接口
-                2. 实现 `NamespaceHandlerSupport` 抽象类，在 `init` 方法中注册自定义的 `BeanDefinitionParser` 和 `BeanDefinitionDecorator`，具体的解析逻辑会被委托给这些解析类。命名空间下的每一个元素对应一个解析类。
+  1. `DocumentLoader#loadDocument` 得到 `Document` 对象
+  2. `BeanDefinitionDocumentReader#registerBeanDefinitions`
+1. 对于每一层 `beans` 标签，都创建一个 `BeanDefinitionParserDelegate`，因而这个 delegate 也可以形成嵌套结构
+2. 解析这层 `beans` 标签下的配置内容
+  1. 对于当前命名空间下的元素，直接用当前的 delegate 来解析
+  2. 对于其他命名空间下的元素，调用 `NamespaceHanlderResolver#resolve` 来获取命名空间对应的 `NamespaceHandler`。然后调用 `NamespaceHandler#parse` 来解析这个命名空间下的所有元素
+有两种方式来实现命名空间的解析逻辑：
+    1. 直接实现 `NamespaceHandler` 接口
+    2. 实现 `NamespaceHandlerSupport` 抽象类，在 `init` 方法中注册自定义的 `BeanDefinitionParser` 和 `BeanDefinitionDecorator`，具体的解析逻辑会被委托给这些解析类。命名空间下的每一个元素对应一个解析类。
 
 **详细版**
 
 1. `BeanDefinitionReader#loadBeanDefinitions` 从指定资源或位置加载 bean 定义。`XmlBeanDefinitionReader` 是 xml 对应的实现。
-    1. 使用 `DocumentLoader` 把 xml 资源加载成 `org.w3c.dom.Document`。`DocumentLoader` 是加载 xml 的策略接口，默认实现为 `DefaultDocumentLoader`。
-    2. 调用 `BeanDefinitionDocumentReader#registerBeanDefinitions` 注册 bean 定义。
-        - 调用这个方法的时候，会传入 `XmlReaderContext`，其中包含了 `Resource`、`ProblemReporter`、`ReaderEventListener`、`SourceExtractor`、`XmlBeanDefinitionReader`、`NamespaceHandlerResolver`。
+  1. 使用 `DocumentLoader` 把 xml 资源加载成 `org.w3c.dom.Document`。`DocumentLoader` 是加载 xml 的策略接口，默认实现为 `DefaultDocumentLoader`。
+  2. 调用 `BeanDefinitionDocumentReader#registerBeanDefinitions` 注册 bean 定义。
+    - 调用这个方法的时候，会传入 `XmlReaderContext`，其中包含了 `Resource`、`ProblemReporter`、`ReaderEventListener`、`SourceExtractor`、`XmlBeanDefinitionReader`、`NamespaceHandlerResolver`。
 2. `BeanDefinitionDocumentReader` 是用来注册 bean 定义的 SPI，默认实现为 `DefaultBeanDefinitionDocumentReader`。
-    1. 调用 `BeanDefinitionParserDelegate#isDefaultNamespace` 判断当前节点是否为默认的命名空间（无命名空间或命名空间为 `beans`），若是的话，判断 `profile` 属性是否符合。
-    2. 使用 `BeanDefinitionParserDelegate` 来负责解析 bean 定义。
-        - 此类保存了 `beans` 标签中定义的一些属性，供后续的 bean 解析器来使用。
-        - 因为 `beans` 标签是可嵌套的，所以 `BeanDefinitionParserDelegate` 也是可嵌套的，对于子节点未配置的属性，缺省为父节点的属性。
-        - 此类还对外提供了众多解析用的方法，这些方法一方面提供了统一的 API，另一方面也共用了解析过程中的模板代码。
-        - 此类的每一个对象都代表一个命名空间，所以可以继承子类来表示自定义的命名空间，并提供该命名空间下自定义的解析方法。
-    3. 递归解析根节点下的配置。
-        - 解析默认命名空间下的配置，调用 `BeanDefinitionParserDelegate#parseDefaultElement`。其中包括 `import`、`alias`、`bean`、`beans`，后续可能会扩展。
-        - 解析其他命名空间下的配置，调用 `BeanDefinitionParserDelegate#parseCustomElement`。
-            1. 取 `XmlReaderContext` 中的 `NamespaceHandlerResolver`，默认实现为 `DefaultNamespaceHandlerResolver`。
-                - `NamespaceHandlerResolver` 中维护了一个配置文件的地址（默认为 META-INF/spring.handlers，查找范围包括类加载器下的所有包），该文件中保存了命名空间和 `NamespaceHandler` 实现类的对应关系。
-            2. 调用 `NamespaceHandlerResolver#resolve` 找到当前命名空间对应的 `NamespaceHandler`。
-            3. 调用 `NamespaceHandler#parse` 来做进一步的解析。
+  1. 调用 `BeanDefinitionParserDelegate#isDefaultNamespace` 判断当前节点是否为默认的命名空间（无命名空间或命名空间为 `beans`），若是的话，判断 `profile` 属性是否符合。
+  2. 使用 `BeanDefinitionParserDelegate` 来负责解析 bean 定义。
+    - 此类保存了 `beans` 标签中定义的一些属性，供后续的 bean 解析器来使用。
+    - 因为 `beans` 标签是可嵌套的，所以 `BeanDefinitionParserDelegate` 也是可嵌套的，对于子节点未配置的属性，缺省为父节点的属性。
+    - 此类还对外提供了众多解析用的方法，这些方法一方面提供了统一的 API，另一方面也共用了解析过程中的模板代码。
+    - 此类的每一个对象都代表一个命名空间，所以可以继承子类来表示自定义的命名空间，并提供该命名空间下自定义的解析方法。
+  3. 递归解析根节点下的配置。
+    - 解析默认命名空间下的配置，调用 `BeanDefinitionParserDelegate#parseDefaultElement`。其中包括 `import`、`alias`、`bean`、`beans`，后续可能会扩展。
+    - 解析其他命名空间下的配置，调用 `BeanDefinitionParserDelegate#parseCustomElement`。
+      1. 取 `XmlReaderContext` 中的 `NamespaceHandlerResolver`，默认实现为 `DefaultNamespaceHandlerResolver`。
+        - `NamespaceHandlerResolver` 中维护了一个配置文件的地址（默认为 META-INF/spring.handlers，查找范围包括类加载器下的所有包），该文件中保存了命名空间和 `NamespaceHandler` 实现类的对应关系。
+      2. 调用 `NamespaceHandlerResolver#resolve` 找到当前命名空间对应的 `NamespaceHandler`。
+      3. 调用 `NamespaceHandler#parse` 来做进一步的解析。
 3. `NamespaceHandler` 有一个抽象实现类 `NamespaceHandlerSupport`，一般通过实现此类来自定义一个 `NamespaceHandler`。
-    - `NamespaceHandlerSupport` 维护了三个 Map，保存了 `BeanDefinitionParser` / `BeanDefinitionDecorator`，分别用来解析直接挂在 `beans` 下的 `bean`、挂在 `bean` 下的 `bean`、`bean` 中的 attribute;
-        - `BeanDefinitionParser`：实际的 bean 解析类，负责解析直接挂在 `beans` 标签下的 bean；
-        - `BeanDefinitionDecorator`：实际的 bean 解析类，负责解析挂在 `bean` 标签下的 bean；
-    - `NamespaceHandlerSupport` 提供了三个抽象方法，分别用来在上述三个 Map 中注册解析类。
-    - 当 `parse` 方法被调用时，根据当前 xml 元素的名称从上述 Map 中找到对应的 `BeanDefinitionParser`，然后调用其 `parse` 方法。
-    - `BeanDefinitionParser` 根据自己的需要，可以调用 `BeanDefinitionParserDelegate#decorateBeanDefinitionIfRequired` 方法，此方法又会调用 `NamespaceHandlerResolver#resolve` -> `NamespaceHandler#decorate`。
+  - `NamespaceHandlerSupport` 维护了三个 Map，保存了 `BeanDefinitionParser` / `BeanDefinitionDecorator`，分别用来解析直接挂在 `beans` 下的 `bean`、挂在 `bean` 下的 `bean`、`bean` 中的 attribute;
+    - `BeanDefinitionParser`：实际的 bean 解析类，负责解析直接挂在 `beans` 标签下的 bean；
+    - `BeanDefinitionDecorator`：实际的 bean 解析类，负责解析挂在 `bean` 标签下的 bean；
+  - `NamespaceHandlerSupport` 提供了三个抽象方法，分别用来在上述三个 Map 中注册解析类。
+  - 当 `parse` 方法被调用时，根据当前 xml 元素的名称从上述 Map 中找到对应的 `BeanDefinitionParser`，然后调用其 `parse` 方法。
+  - `BeanDefinitionParser` 根据自己的需要，可以调用 `BeanDefinitionParserDelegate#decorateBeanDefinitionIfRequired` 方法，此方法又会调用 `NamespaceHandlerResolver#resolve` -> `NamespaceHandler#decorate`。
 
 
 ## 容器
@@ -164,41 +164,42 @@ ConfigurableApplicationContext#refresh()
 
 实例化过程发生在 BeanFactory 中。
 
-2. `BeanFactoryPostProcessor` -> `PostProcessBeanFactory`。
-5. `InstantiationAwareBeanPostProcessor` -> `postProcessBeforeInstantiation()`。若返回非 null 则跳到 23.。
-6. 实例化 bean。
+1. `BeanFactoryPostProcessor#postProcessBeanFactory()`。
+2. `InstantiationAwareBeanPostProcessor#postProcessBeforeInstantiation()`。若返回非 null 则跳到 23.。
+3. 实例化 bean。
   1. 若 bean 为单例，从 `FactoryBean` 缓存中查找实例。
   2. 若上一步无结果，则进行实例化：
     1. 判断类的访问权限。
     2. 若 bean 定义了 supplier，则从 supplier 获取实例。
     3. 若 bean 定义了工厂方法，则从工厂方法获取实例。
-    4. `SmartInstantiationAwareBeanPostProcessor` -> `determineCandidateConstructors` 确定构造方法。
+    4. `SmartInstantiationAwareBeanPostProcessor#determineCandidateConstructors()` 确定构造方法。
     5. 若上一步得到了构造方法，则执行注入并利用该构造方法实例化。否则使用默认构造方法实例化。
-7. `MergedBeanDefinitionPostProcessor` -> `postProcessMergedBeanDefinition`。
-8. 根据一些条件尝试解决循环引用的问题。
-7. `InstantiationAwareBeanPostProcessor` -> `postProcessAfterInstantiation()`。
-9. 解析待注入的属性，保存至 `MutablePropertyValues`。
-10. `InstantiationAwareBeanPostProcessor` -> `postProcessPropertyValues()`。
-11. 进行实际的属性注入。
-10. `BeanNameAware` -> `setBeanName()`。
-11. `BeanClassLoaderAware` -> `setBeanClassLoader()`。
-12. `BeanFactoryAware` -> `setBeanFactory()`。
-13. `EnvironmentAware` -> `setEnvironment()`。
-14. `EmbeddedValueResolverAware` -> `setEmbeddedValueResolverAware()`。
-15. `ResourceLoaderAware` -> `setResourceLoader()`（仅当运行在 application context 中时）。
-16. `ApplicationEventPublisherAware` -> `setApplicationEventPublisher()`（仅当运行在 application context 中时）。
-17. `MessageSourceAware` -> `setMessageSource()`（仅当运行在 application context 中时）。
-18. `ApplicationContextAware` -> `setApplicationContext()`（仅当运行在 application context 中时）。
-19. `ServletContextAware` -> `setServletContext()`（仅当运行在 web application context 中时）。
-20. `BeanPostProcessor` -> `postProcessBeforeInitialization()`。
-21. `InitializingBean` -> `afterPropertiesSet()`。
-22. init-method
-23. `BeanPostProcessor` -> `postProcessAfterInitialization()`。
+4. `MergedBeanDefinitionPostProcessor#postProcessMergedBeanDefinition()`。
+5. 根据一些条件尝试解决循环引用的问题。
+6. `InstantiationAwareBeanPostProcessor#postProcessAfterInstantiation()`。
+7. 解析待注入的属性，保存至 `MutablePropertyValues`。
+8. `InstantiationAwareBeanPostProcessor#postProcessPropertyValues()`。
+9. 进行实际的属性注入。
+10. AwareLike 回调
+  1. `BeanNameAware#setBeanName()`。
+  2. `BeanClassLoaderAware#setBeanClassLoader()`。
+  3. `BeanFactoryAware#setBeanFactory()`。
+  4. `EnvironmentAware#setEnvironment()`。
+  5. `EmbeddedValueResolverAware#setEmbeddedValueResolverAware()`。
+  6. `ResourceLoaderAware#setResourceLoader()`（仅当运行在 application context 中时）。
+  7. `ApplicationEventPublisherAware#setApplicationEventPublisher()`（仅当运行在 application context 中时）。
+  8. `MessageSourceAware#setMessageSource()`（仅当运行在 application context 中时）。
+  9. `ApplicationContextAware#setApplicationContext()`（仅当运行在 application context 中时）。
+  10. `ServletContextAware#setServletContext()`（仅当运行在 web application context 中时）。
+11. `BeanPostProcessor#postProcessBeforeInitialization()`。
+12. `InitializingBean#afterPropertiesSet()`。
+13. init-method
+14. `BeanPostProcessor#postProcessAfterInitialization()`。
 
 BeanFactory 关闭时：
 
-1. `DestructionAwareBeanPostProcessors` -> `postProcessBeforeDestruction`。
-2. `DisposableBean` -> `destroy()`。
+1. `DestructionAwareBeanPostProcessors#postProcessBeforeDestruction`。
+2. `DisposableBean#destroy()`。
 3. destroy-method
 
 ## Spring 模块
@@ -1533,6 +1534,53 @@ public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource da
 ```
 
 # 第 12 章 使用 NoSQL 数据库
+
+## 使用 Redis 操作 key-value 数据
+
+### 连接到 Redis
+
+Spring Data Redis 提供四种客户端连接工厂：
+
+- `JedisConnectionFactory`
+- `JredisConnectionFactory`
+- `LettuceConnectionFactory`
+- `SrpConnectionFactory`
+
+```java
+@Bean
+public RedisConnectionFactory redisCF() {
+  JedisConnectionFactory cf = new JedisConnectionFactory();
+  cf.setHostName("redis-server"); // 默认 localhost
+  cf.setPort(7379); // 默认 6379
+  cf.setPassword("abc"); // 默认无密码
+  return cf;
+}
+```
+
+### 使用 RedisTemplate
+
+- `RedisTemplate`
+- `StringRedisTemplate`: 键值都是 String。
+
+- `opsForValue()`: 操作 String 值。
+- `opsForList()`: 操作 list 值。
+- `opsForSet()`: 操作 set 值。
+- `opsForZSet()`: 操作 zset 值。
+- `opsForHash()`: 操作 hash 值。
+- `boundValueOps()`: 绑定 key 然后操作 String 值。
+- `boundListOps()`: 绑定 key 然后操作 list 值。
+- `boundSetOps()`: 绑定 key 然后操作 set 值。
+- `boundZSetOps()`: 绑定 key 然后操作 zset 值。
+- `boundHashOps()`: 绑定 key 然后操作 hash 值。
+
+### 使用 key 和 value 的序列化器
+
+- `GenericToStringSerializer`: 使用 Spring 转换服务。
+- `JacksonJsonRedisSerializer`: 使用 Jackson1，将对象序列化为 JSON。
+- `Jackson2JsonRedisSerializer`: 使用 Jackson2，将对象序列化为 JSON。
+- `JdkSerializationRedisSerializer`: 使用 Java 序列化。
+- `OxmSerializer`: 使用 Spring O/X 映射的编排器（marshaler）和解排器（unmarshaler）实现序列化，用于 xml 序列化。
+- `StringRedisSerializer`: 序列化 String 类型。
 
 # 第 13 章 缓存数据
 

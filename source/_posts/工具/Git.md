@@ -61,17 +61,13 @@ commit 到 Head，并附带备注 "message"
 
 # 撤销
 
-- `git reset HEAD {file}...`
-用版本库覆盖暂存区
-- `git checkout {file}...`
-用暂存区覆盖工作区
-- `git clean -[f][d]`
-删除未跟踪的[文件]、[目录]
-- `git reset [--soft|--mixed|--hard] {HEAD~|commit_id}`
-重置头指针
-  - soft 只回退版本库，不回退暂存区和工作区；
-  - mixed 缺省选项，回退版本库和暂存区；
-  - hard 回退版本库、暂存区和工作区
+- `git reset HEAD {file}...` 用版本库覆盖暂存区
+- `git checkout {file}...` 用暂存区覆盖工作区
+- `git clean -fd` 删除未跟踪的文件和目录
+- `git reset [--soft|--mixed|--hard] {HEAD~|commit_id}` 重置头指针
+  - `soft` 只回退版本库，不回退暂存区和工作区；
+  - `mixed` 缺省选项，回退版本库和暂存区；
+  - `hard` 回退版本库、暂存区和工作区
 
 # 重命名
 
