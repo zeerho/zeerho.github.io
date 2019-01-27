@@ -73,7 +73,8 @@ LISTENER =
 
 # 客户端安装配置
 
-1. 添加环境变量 `TNS_ADMIN`，值为 tnsnames.ora 文件所在路径。如果安装了 ORACLE 并且设置了 `ORACLE_HOME` 环境变量，那么会自动在 `%ORACLE_HOME%/network/admin/` 下查找 tnsnames.ora 文件。
+1. (windows)添加环境变量 `TNS_ADMIN`，值为 tnsnames.ora 文件所在路径。如果安装了 ORACLE 并且设置了 `ORACLE_HOME` 环境变量，那么会自动在 `%ORACLE_HOME%/network/admin/` 下查找 tnsnames.ora 文件。
+2. (linux)添加环境变量 `LD_LIBRARY_PATH=/opt/oracle/instantclient_18_3:$LD_LIBRARY_PATH` 动态链接库。
 2. 添加环境变量 `NLS_LANG = SIMPLIFIED CHINESE_CHINA.ZHS16GBK` （`AMERICAN_AMERICA.US7ASCII` 是 ASCII 编码类型）
 3. 配置 plsql: tools - preferences - connection 
   - Oracle Home=$oracleclient

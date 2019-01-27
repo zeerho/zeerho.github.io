@@ -8,11 +8,20 @@ tags: [操作系统]
 
 ## centos7
 
-安装前强制使用 GTP 分区表。
+常用分区计划：
+
+|挂载点 |大小    |设备类型          |文件系统|
+|:------|:-------|:-----------------|:-------|
+|`/boot`|1024M   |standard Partition|xfs     |
+|`swap` |内存容量|LVM               |swap    |
+|`/`    |剩余    |LVM               |xfs     |
+
+安装前强制使用 GPT 分区表。
 
 1. 光标移至 `Install CentOS 7`
 2. 按 Tab 键，在下方输入参数
-3. `vmlinuz initrd=initrd
+3. `vmlinuz initrd=initrd.img inst.stage2=hd:LABEL=CentOS\x207\x20x86_64 rd.live.check quiet inst.gpt` 关键是 `inst.gpt`。
+
 # 开机流程
 
 1. BIOS：开机主动执行的固件，会识别用户设定的用于启动系统的存储设备。
@@ -237,7 +246,7 @@ export ERL_HOME PATH
 **yum 安装**
 
 1. 安装 epel `yum -y install http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-11.noarch.rpm`
-2. 更新 erlang 仓库 `﻿yum -y install  http://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm`
+2. 更新 erlang 仓库 `yum -y install  http://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm`
 3. 安装 erlang `yum install erlang`
 
 ## rabbitmq
@@ -553,24 +562,24 @@ STAT：进程在内存中的状态。完整状态列表参阅帮助手册。
 TIME：进程占用 CPU 的总时长。
 COMMAND：命令名，进程有可能将其由初始值改为其他。
 
-`ps x` 显示当前用户运行的所有进程。
-`ps ax` 显示系统当前运行的所有进程，包括其他用户的进程。
-`ps u` 显示更详细的进程信息。
-`ps w` 显示命令的全名，而非仅显示一行以内的内容。
-`ps {PID}` 显示指定进程的信息，可用 $$ 表示当前 shell 的进程。
+- `ps x` 显示当前用户运行的所有进程。
+- `ps ax` 显示系统当前运行的所有进程，包括其他用户的进程。
+- `ps u` 显示更详细的进程信息。
+- `ps w` 显示命令的全名，而非仅显示一行以内的内容。
+- `ps {PID}` 显示指定进程的信息，可用 $$ 表示当前 shell 的进程。
 
 
 **kill**
 
 向进程发送一个信号。
 
-`kill [-{SIG}] PID`
-{SIG} 是具体的信号。缺省是 TERM。STOP 表示暂停，CONT 表示继续，INT 或 CTRL-C 表示中断，KILL 表示强行终止。也可使用数字代替信号名。
+`kill [-{SIG}] {PID}`
+{SIG} 是具体的信号。缺省是 `TERM`。`STOP` 表示暂停，`CONT` 表示继续，`INT` 或 `CTRL-C` 表示中断，`KILL` 表示强行终止。也可使用数字代替信号名。
 
-**KILL** 在内核层面立即终止进程，该信号不能被阻塞、处理或忽略。
-**INT** 通知前台进程组终止进程。
-**QUIT** 和 INT 类似, 但由 QUIT 字符(通常是Ctrl-\\)来控制。进程在因收到 QUIT 退出时会产生 core 文件, 在这个意义上类似于一个程序错误信号。
-**TERM** 要求进程自己正常退出，该信号可以被阻塞或处理。
+- `KILL` 在内核层面立即终止进程，该信号不能被阻塞、处理或忽略。
+- `INT` 通知前台进程组终止进程。
+- `QUIT` 和 INT 类似, 但由 QUIT 字符(通常是 `Ctrl-\`)来控制。进程在因收到 QUIT 退出时会产生 core 文件, 在这个意义上类似于一个程序错误信号。
+- `TERM` 要求进程自己正常退出，该信号可以被阻塞或处理。
 
 
 # 特殊字符
