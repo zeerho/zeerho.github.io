@@ -69,12 +69,23 @@ commit 到 Head，并附带备注 "message"
   - `mixed` 缺省选项，回退版本库和暂存区；
   - `hard` 回退版本库、暂存区和工作区
 
+# 反转
+
+- `git revert [--[no-]edit] [-n] [-m parent-number] [-s] [-S[{keyId}]] {commit}...`
+  - `-e` `--edit` 不自动提交反转，让用户先手动编辑提交信息。这是终端的默认参数。
+  - `--no-edit` 自动提交反转。
+  - `-n` `--no-commit` 反转但不自动产生提交。
+  - `-m parent-number` `--mainline parent-number` 用于反转合并提交。
+- `git revert --continue`
+- `git revert --quit`
+- `git revert --abort`
+
 # 重命名
 
 - `git mv {file_from} {file_to}`
 相当于依次执行下面两条命令
-    - `git rm {file_from}`
-    - `git add {file_to}`
+  - `git rm {file_from}`
+  - `git add {file_to}`
 
 # 储藏
 
@@ -174,7 +185,7 @@ commit 到 Head，并附带备注 "message"
     - `--merge`
     - `--boundary`
 
-# 衍合提交
+# 衍合
 
 - `git rebase -i {ref}`
 其中 {ref} 为希望重排的提交的父提交。一般只修改提交信息或合并若干提交。若重排提交顺序或修改历史提交中的提交内容，容易发生冲突而需要大量手动解决。
