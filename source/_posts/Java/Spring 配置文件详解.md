@@ -5,6 +5,7 @@ tags: [Java, Spring]
 ---
 
 # Spring2.5 配置文件详解
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans  
@@ -20,8 +21,7 @@ tags: [Java, Spring]
                         http://www.springframework.org/schema/aop
                         http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
                         http://www.springframework.org/schema/tx
-                        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"
->
+                        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 	<context:annotation-config/>
 	<context:component-scan base-package="com.demo"/>
 	<aop:aspectj-autoproxy/>

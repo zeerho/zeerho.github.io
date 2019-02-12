@@ -379,20 +379,26 @@ Sorter
 # @RunWith 详述
 
 **BlockJUnit4ClassRunner**
-JUnit 的缺省 Runner。不添加 @RunWith 注解时使用的都是这个 Runner。
+
+JUnit 的缺省 Runner。不添加 `@RunWith` 注解时使用的都是这个 Runner。
 
 **Suite**
+
 用来执行分布在多个类中的测试用例。
+
 ```
 @RunWith(Suite.class)
 @SuiteClasses({TestOne.class, TestTwo.class})
 public class TestSuitMain {
 }
 ```
-JUnit 会依次运行 TestOne 和 TestTwo 中的测试用例，而 TestSuitMain 中的内容（包括其构造方法）不会被运行。
+
+JUnit 会依次运行 `TestOne` 和 `TestTwo` 中的测试用例，而 `TestSuitMain` 中的内容（包括其构造方法）不会被运行。
 
 **Parameterized**
-Parameterized 继承自 Suite，从构造参数的角度实现了 Suite 的功能——同一个测试类通过多组构造参数来测试不同场景。
+
+继承自 `Suite`，从构造参数的角度实现了 `Suite` 的功能——同一个测试类通过多组构造参数来测试不同场景。
+
 ```
 @RunWith(Parameterized.class)
 public class TestGenerateParams {
@@ -421,18 +427,24 @@ public class TestGenerateParams {
 	}
 }
 ```
-首先需要用 @Parameters 注解一个静态方法，该方法返回一个至少是二维的数组，即若干组需要用到的构造参数。然后需要一个具有入参的构造方法。Parameterized runner 会依次在上述静态方法返回的数组中取用一组作为构造参数来创建测试类的实例，然后运行。
+
+首先需要用 `@Parameters` 注解一个静态方法，该方法返回一个至少是二维的数组，即若干组需要用到的构造参数。然后需要一个具有入参的构造方法。Parameterized runner 会依次在上述静态方法返回的数组中取用一组作为构造参数来创建测试类的实例，然后运行。
 
 **Categories**
-Categories 继承自 Suite，它不仅可以如 Suite 一样将多个测试用例组合到一起，还可以将这些测试用例自定义分类，并只运行其中特定的某些类。
+
+继承自 `Suite`，它不仅可以如 `Suite` 一样将多个测试用例组合到一起，还可以将这些测试用例自定义分类，并只运行其中特定的某些类。
+
 首先需要定义一些用来对测试用例进行分组的接口
+
 ```
 public interface NormalTests {
 }
 public interface SpecialTests {
 }
 ```
-然后用 @Category 注解对测试类或测试方法进行分类
+
+然后用 `@Category` 注解对测试类或测试方法进行分类
+
 ```
 public class TestA {
     @Category(NormalTests.class)
@@ -458,18 +470,22 @@ public class TestB {
     }
 }
 ```
-最后假如需要将 TestA 和 TestB 组合到一起的话
+
+最后假如需要将 `TestA` 和 `TestB` 组合到一起的话
+
 ```
 @RunWith(Categories.class)
 @SuiteClasses({TestA.class, TestB.class})
-@IncludeCategory(NormalTests.class)//添加若干个此注解来包含若干个指定的测试用例
-@ExcludeCategory(SpecialTests.class)//添加若干个此注解来排除若干个指定的测试用例
+@IncludeCategory(NormalTests.class)  // 添加若干个此注解来包含若干个指定的测试用例
+@ExcludeCategory(SpecialTests.class) // 添加若干个此注解来排除若干个指定的测试用例
 public class TestCategories {
 }
 ```
 
 **Theories**
-Theories 继承自 BlockJUnit4ClassRunner，提供了除 Parameterized 之外的另一种参数测试解决方案。Theories 不再需要使用带有参数的 Constructor 而是接受有参的测试方法，修饰的注解也从 @Test 变成了 @Theory，而参数的提供则变成了使用 @DataPoint 或者 @Datapoints 来修饰的变量，两者的唯一不同是前者代表一个数据后者代表一组数据。Theories 会尝试所有类型匹配的参数作为测试方法的入参（有点排列组合的意思）。
+
+继承自 `BlockJUnit4ClassRunner`，提供了除 `Parameterized` 之外的另一种参数测试解决方案。`Theories` 不再需要使用带有参数的构造方法而是接受有参的测试方法，修饰的注解也从 `@Test` 变成了 `@Theory`，而参数的提供则变成了使用 `@DataPoint` 或者 `@Datapoints` 来修饰的变量，两者的唯一不同是前者代表一个数据后者代表一组数据。Theories 会尝试所有类型匹配的参数作为测试方法的入参（有点排列组合的意思）。
+
 ```
 @RunWith(Theories.class)
 public class TheoriesTest {
@@ -491,13 +507,18 @@ public class TheoriesTest {
 	}
 }
 ```
+
 结果如下：
->   Tony's age is 10
-    Tony's age is 20
-    Jim's age is 10
-    Jim's age is 20
+
+```
+Tony's age is 10
+Tony's age is 20
+Jim's age is 10
+Jim's age is 20
+```
     
-同样使用 @DataPoints 可以获得一样的效果
+同样使用 `@DataPoints` 可以获得一样的效果
+
 ```
 @RunWith(Theories.class)
 public class TheoriesTest {
@@ -513,7 +534,9 @@ public class TheoriesTest {
 	}
 }
 ```
-除此以外 Theories 还可以支持自定义数据提供的方式，需要继承 JUnit 的 ParameterSupplier 类。下面的代码使用 ParameterSupplier 实现上述例子： 
+
+除此以外 `Theories` 还可以支持自定义数据提供的方式，需要继承 JUnit 的 `ParameterSupplier` 类。
+
 ```
 public class NameSupplier extends ParameterSupplier {
 	@Override
