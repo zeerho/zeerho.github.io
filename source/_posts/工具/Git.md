@@ -190,7 +190,7 @@ commit 到 Head，并附带备注 "message"
 - `git rebase -i {ref}`
 其中 {ref} 为希望重排的提交的父提交。一般只修改提交信息或合并若干提交。若重排提交顺序或修改历史提交中的提交内容，容易发生冲突而需要大量手动解决。
 - `git rebase [-i] {branch_to}`
-将当前分支衍合进目标分支
+将当前分支衍合进目标分支。完成后原本分开的两条提交线会合并成一条。
 
 # 跟远程仓库交互
 
@@ -294,26 +294,46 @@ git维护代码分为三部分：“工作区 working directory”、“暂存�
 `git diff --cached|--staged` 3到2的变化
 `git diff HEAD` 3到1的变化
 
+# 合并
+
+`git merge [-n] [--stat] [--no-commit] [--squash] [--[no-]edit] [-s <strategy>] [-X <strategy-option>] [-S[<keyid>]] [--[no-]allow-unrelated-histories] [--[no-]rerere-autoupdate] [-m <msg>] [<commit>…]`
+
+- `--commit` `--no-commit` 合并后是否自动提交。
+- `--edit`/`-e` `--no-edit` 合并后是否打开编辑器（来编辑提交信息）。
+- `--ff` `--no-ff` 是否使用“fast-forward”合并（若可行）。
+- `--ff-only` 若不能“fast-forward”则取消合并。
+- `-S[<keyid>]` `--gpg-sign[=<keyid>]` 对提交做签名。
+- `--log[=<n>]` `--no-log` 将每个被合并的提交转换为单行描述，再将这些描述添加到此次合并的提交信息中。
+- `--squash` `--no-squash` 将待合并的所有提交压缩在一起合并到当前工作区，然后需要手动提交这些改动。跟 `--no-ff` 的区别在于 `--squash` 只是合并内容，不合并提交线。
+- `-Xours|-Xtheirs` 若出现冲突则直接使用当前分支/对方分支的内容。
+- `-m <msg>` 设置此次合并的提交信息（若合并产生一个新提交的话）。
+
+`git merge --abort`
+
+当合并发生冲突且等待用户解决时即处于合并过程中间状态，此时可以 `git merge --abort` 取消合并，冲突文件会回滚至合并操作之前的状态。
+
+对于合并开始时未提交的文件，若合并开始后发生了修改，那么合并取消后这些文件可能无法正常回滚。
+
+`git merge --continue`
+
+合并发生冲突后继续合并流程（通常先解决冲突）。
+
 # 其他
 
 - `ssh-keygen -C myemail -t rsa`
-创建 ssh 密钥
-- `git add .|{filename}`
-  跟踪新文件，或把已跟踪的文件放到暂存区，或在合并时把冲突文件标记为已解决
-- `git merge [--no-ff|--squash] [-Xours|-Xtheirs] {another_branch_name}`
-将指定名称的另一分支合并至当前分支。若出现冲突需要手动解决然后 `git add {file_name}`。`-Xours|-Xtheirs` 表示若出现冲突则直接使用当前分支/对方分支的内容。`--squash` 表示把对方分支的所有提交合并成一个提交合并过来，然后需要在当前分支上做一个统一的提交。
+  创建 ssh 密钥
 - `git gc`
-压缩松散对象
+  压缩松散对象
 - `git cherry-pick {SHA-1}`
-将指定提交的代码引入当前分支
+  将指定提交的代码引入当前分支
 - `{ref}^[n]`
-引用 {ref} 的父提交，或第 n 父提交（只在合并提交时有用）
+  引用 {ref} 的父提交，或第 n 父提交（只在合并提交时有用）
 - `{ref}~[n]`
-引用 {ref} 的第一父提交，或第一父提交的第一父提交……
+  引用 {ref} 的第一父提交，或第一父提交的第一父提交……
 - `{b1}..{b2}`
-在 {branch2} 而不在 {branch1} 中的提交
+  在 {branch2} 而不在 {branch1} 中的提交
 - `{b1} {b2} ^{b3}` `{b1} {b2} --not {b3}`
-在 {b1}、{b2} 而不在 {b3} 中的提交，可比较多个分支的提交差异
+  在 {b1}、{b2} 而不在 {b3} 中的提交，可比较多个分支的提交差异
 - `git blame [-C] [-L m,n] {file}`
   查看文件内容的最近修改者。`-C` 可查看文本行的来源文件（如果该行是复制过来的话）；`-L m,n` 将查看范围限制在第 m ~ n 行
 - `gitk --all` 包括全部分支

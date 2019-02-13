@@ -4,6 +4,30 @@ date: 2017-01-01 09:00:00
 tags: [工具]
 ---
 
+# 常用快捷键
+
+
+编辑代码
+
+- `shift+F6`：重命名
+- `ctrl+alt+l`：格式化代码
+- `ctrl+alt+o`：优化导入类和包
+- `ctrl+d`：复制行
+- `ctrl+y`：删除行
+- `ctrl+F4`：关闭当前编辑面板
+- `ctrl+shift+Up/Down`：代码向上/下移动
+- `ctrl+/`/`ctrl+shift+/`：行注释或块注释
+
+导航
+
+- `ctrl+e`/`ctrl+shift+e`：最近打开/编辑的文件
+- `alt+home`：导航栏
+- `F11`/`shift+F11`：设置/显示书签
+- `ctrl+shift+a`：全局搜索操作和设置
+- `alt+7`：显示类结构
+- `ctrl+w`：选中代码
+- `ctrl+shift+加号或减号`：展开或折叠代码
+
 # 关键设置
 
 自动补全快捷键：keymap-Main menu-Code-Completion-Basic
