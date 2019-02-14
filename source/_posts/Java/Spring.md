@@ -1582,6 +1582,20 @@ public RedisConnectionFactory redisCF() {
 - `OxmSerializer`: 使用 Spring O/X 映射的编排器（marshaler）和解排器（unmarshaler）实现序列化，用于 xml 序列化。
 - `StringRedisSerializer`: 序列化 String 类型。
 
+### Redis Repositories
+
+`EnableRedisRepositories` 开启和配置
+
+`RepositoryComponentProvider` 扫描 `Repository` 的继承或实现。
+
+大致流程
+
+1. `EnableRedisRepositories`
+2. `RepositoryBeanDefinitionRegistrarSupport`
+  1. 将 `EnableRedisRepositories` 里的配置信息包装进 `AnnotationRepositoryConfigurationSource`。
+  2. 由子类负责创建 `RepositoryConfigurationExtension`，里面包含注册仓库过程中的所有自定义的步骤。
+  3. 将上述两个对象交给 `RepositoryConfigurationDelegate`，其中是注册仓库的公共步骤。
+
 # 第 13 章 缓存数据
 
 # 第 14 章 保护方法应用
