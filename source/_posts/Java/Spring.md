@@ -1595,6 +1595,14 @@ public RedisConnectionFactory redisCF() {
   1. 将 `EnableRedisRepositories` 里的配置信息包装进 `AnnotationRepositoryConfigurationSource`。
   2. 由子类负责创建 `RepositoryConfigurationExtension`，里面包含注册仓库过程中的所有自定义的步骤。
   3. 将上述两个对象交给 `RepositoryConfigurationDelegate`，其中是注册仓库的公共步骤。
+3. 给每个 `Repository` 创建对应的 `RedisRepositoryFactoryBean`，负责创建和缓存 `Repository` 实例。
+4. `RedisRepositoryFactoryBean` 把具体的创建动作委托给 `RedisRepositoryFactory`。
+5. `RedisRepositoryFactory` 继承自 `RepositoryFactorySupport`。其中的 `getRepository` 方法负责创建实例和代理。
+6. `getRepository`：
+  1. 创建 `RepositoryInformation`。其中包含仓库的所有信息，包括用户继承的那个 `xxRepository` 接口、用户的实现类、最后创建 `Repository` 实例所基于的类（一般是 `SimpleKeyValueRepository`）。
+7. 切面代理：
+  1. Java8 以上会加入 `DefaultMethodInvokingMethodInterceptor` 负责调用接口中的默认方法。
+  2. 加入 `QueryExecutorMethodInterceptor` 负责把方法调用转发给用户自定义的方法或者 spring 自动生成的方法。
 
 # 第 13 章 缓存数据
 
