@@ -1602,7 +1602,9 @@ public RedisConnectionFactory redisCF() {
   1. 创建 `RepositoryInformation`。其中包含仓库的所有信息，包括用户继承的那个 `xxRepository` 接口、用户的实现类、最后创建 `Repository` 实例所基于的类（一般是 `SimpleKeyValueRepository`）。
 7. 切面代理：
   1. Java8 以上会加入 `DefaultMethodInvokingMethodInterceptor` 负责调用接口中的默认方法。
-  2. 加入 `QueryExecutorMethodInterceptor` 负责把方法调用转发给用户自定义的方法或者 spring 自动生成的方法。
+  2. 加入 `QueryExecutorMethodInterceptor` 负责把方法调用转发给用户自定义的方法或者 spring 自动生成的方法。它的构造方法中使用 `QueryLookupStrategy` 来查找各方法对应的 `RepositoryQuery`。
+    1. `QueryLookupStrategy` 默认实现是 `KeyValueQueryLookupStrategy`，它返回的 `RepositoryQuery` 的实现是 `KeyValuePartTreeQuery`。
+    2. `KeyValuePartTreeQuery` 中创建完 `PartTree` 后使用 `QueryCreator` 创建 `KeyValueQuery`。
 
 # 第 13 章 缓存数据
 
