@@ -564,6 +564,7 @@ git config --global core.quotepath false
 core.quotepath 设为 false 的话，就不会对 0x80 以上的字符进行 quote。中文显示正常。
 
 **乱码情景2**
+
 在 MsysGit 中，使用 `git log` 显示提交的中文 log 乱码。
 
 解决方案：
@@ -595,6 +596,7 @@ export LESSCHARSET=utf-8
 为了方便使用，可以编辑 `/etc/git-completion.bash`，新增一行 `alias ls="ls --show-control-chars"`
 
 **终极解决方案**
+
 终极的解决方案是通过修改 git 和 TortoiseGit 源码实现，有网友这么做了：[让Windows下Git和TortoiseGit支持中文文件名/UTF-8][3] ，也可以直接访问这个开源的 Google 项目：[utf8-git-on-windows][4] 。
 如果不抗拒命令行的话，直接用 Cygwin 来提交Git库。因为 Cygwin 其实是一个在 Windows 平台上的模拟器，它完全模拟 GNU/Linux 的方式运行，所以 Cygwin 中的 Git 是采用 UTF-8 编码来保存中文的。
 
