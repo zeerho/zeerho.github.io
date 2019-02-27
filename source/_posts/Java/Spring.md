@@ -1575,12 +1575,40 @@ public RedisConnectionFactory redisCF() {
 
 ### 使用 key 和 value 的序列化器
 
-- `GenericToStringSerializer`: 使用 Spring 转换服务。
+- `GenericToStringSerializer`: 使用 Spring 转换服务。它本身做 `byte[]` 跟 `String` 的转换。可以设置 `ConversionService` 或 `TypeConverter` 来完成 `String` 跟对象的转换。
 - `JacksonJsonRedisSerializer`: 使用 Jackson1，将对象序列化为 JSON。
 - `Jackson2JsonRedisSerializer`: 使用 Jackson2，将对象序列化为 JSON。
 - `JdkSerializationRedisSerializer`: 使用 Java 序列化。
 - `OxmSerializer`: 使用 Spring O/X 映射的编排器（marshaler）和解排器（unmarshaler）实现序列化，用于 xml 序列化。
 - `StringRedisSerializer`: 序列化 String 类型。
+
+效果概览
+
+```java
+package a.b
+
+@RedisHash("Test")
+public class TestEO {
+  @Id
+  private Long id;
+  private String name;
+  private int age;
+
+  // constructor and getters and setters omitted
+}
+```
+
+```
+// JdkSerializationRedisSerializer
+"\xac\xed..."
+序列化对象的话必须实现 `Serializable` 接口，序列化结果可读性差，一般不用。
+
+// GenericJackson2JsonRedisSerializer
+"{\"@class\":\"a.b.TestEO\",\"id\":1,\"name\":\"Tom\",\"age\":22}"
+
+// Jackson2JsonRedisSerializer
+"{\"id\":1,\"name\":\"Tom\",\"age\":22}"
+```
 
 ### Redis Repositories
 

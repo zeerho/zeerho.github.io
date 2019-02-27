@@ -8,9 +8,52 @@ tags: [工具]
 
 `svn co --depth=empty "{address}"`
 
-update depth:
+`svn update [ops] {path...}`
 
-- working copy
+A  Added
+D  Deleted
+U  Updated
+C  Conflict
+G  Merged
+E  Existed
+R  Replaced
+
+- `-r|--revision {arg}`: `arg` 参数也可以是 `arg1:arg2` 的范围形式。其值为下列之一：
+  - 数字: 版本号
+  - `{日期}`: 提交日期
+  - `HEAD`: 版本库中的最新版本
+  - `BASE`: 工作修订版本（工作区文件所基于的版本）
+  - `COMMITTED`: 工作修订版本之前（包括它本身）的最近一次提交
+  - `PREV`: `COMMITTED` 之前最近的一个修订版本
+- `-N|--non-recursive`: 已弃用; 使用 `--depth=files` 或 `--depth=immediates`。
+- `--depth {arg}`: 限制操作的深度。
+  - `empty`
+  - `files`
+  - `immediates`
+  - `infinity`
+- `--set-depth {arg}`: 设置工作空间的深度。
+  - `exclude`
+  - `empty`
+  - `files`
+  - `immediates`
+  - `infinity`
+- `-q|--quiet`: 只打印概要信息。
+- `--diff3-cmd {arg}`: 用 `arg` 作为合并命令。
+- `--force`: 将未追踪的文件认为是修改。
+- `--ignore-externals`: 忽略外部定义。
+- `--changelist|--cl {arg}`: 仅操作指定修改列表中的文件。
+- `--editor-cmd {arg}`: 使用指定编辑器。
+- `--accept {arg}`: 指定自动合并动作。
+  - `postpone|p`
+  - `working`
+  - `base`
+  - `mine-conflict|mc`
+  - `theirs-conflict|tc`
+  - `mine-full|mf`
+  - `theirs-full|tf`
+  - `edit|e`
+  - `launch|l`
+- `--parents`: 若中间目录不存在的话就自动创建。
 
 # 选项
 

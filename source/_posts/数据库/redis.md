@@ -13,6 +13,11 @@ tags: [数据库]
 
 <!-- more -->
 
+**集群**
+
+1. 查看是否安装 Ruby：`ruby -v`
+2. 安装 Ruby：`apt-get install ruby-full`
+
 # 数据结构
 
 键总是字符串类型，值可以是以下五种类型之一。
@@ -65,10 +70,13 @@ SDS 进行增长操作时，会分配额外的空间。
 
 见 [官方文档](http://redis.io/commands)。可直接后接命令名来查询。
 
+## 数据库
+
 - `redis-cli [-p {port}] shutdown` 关闭服务端。
 - `redis-cli -h {ip} -p {port} -a "mypass"` 登录远程服务端。
 - `flushall` 删除所有库的所有数据。
 - `type {key}` 判断值的类型。
+- `del {key} [{key}...]` 不存在的会被忽略。返回删除的数量。
 
 ## STRING 字符串
 
@@ -375,5 +383,47 @@ set-max-intset-entries 512
 
 # 集群
 
-##
+## 部署
 
+1. 准备目录结构：`~/redis/conf`、`~/redis/data`、`~/redis/log`。
+2. 准备各节点的配置文件：`~/redis/conf/master-6379.conf` 以及 6380、6381。
+3. 配置中至少有以下配置项：
+```
+port 6379
+cluster-enabled yes
+cluster-node-timeout 15000
+cluater-config-file "nodes-6379.conf"
+ # 还有其他单机模式的配置项
+```
+4. 启动所有节点：`redis-server conf/redis-{port}.conf`
+```sh
+cd ./conf
+redis-server ./master-6379.conf &
+redis-server ./master-6380.conf &
+redis-server ./master-6381.conf &
+```
+5. 检查日志：`cat log/redis-{port}.log`
+6. 客户端登录：`redis-cli -p 6379`
+7. 各节点握手：`cluster meet 127.0.0.1 6380`
+8. 分配槽（在 linux 命令行执行而不是 redis-cli 中）：`redis-cli -h 127.0.0.1 -p 6379 cluster addslots {0..5460}`，尽量等分的话是 0..5460、5461..10921、10922..16383。
+9. 可以使用了。
+10. 关闭所有节点
+```sh
+#!/bin/bash
+# 正常关闭
+redis-cli -p 6379 shutdown nosave
+redis-cli -p 6380 shutdown nosave
+redis-cli -p 6381 shutdown nosave
+```
+
+## 节点
+
+- `cluster nodes` 查看集群中的节点。
+- `cluster meet {ip} {port}` 令当前节点与指定节点握手。
+- `cluster info` 查看节点状态信息。
+
+redis 服务器启动时根据配置项 `cluster-enabled=yes|no` 来决定成为集群的一个节点还是处于单机模式的一个普通服务器。
+
+- `cluster addslots slot [slot...]` 向当前节点分配槽。只能一个一个槽地写，不能用通配符或范围符号之类的。
+- `cluster delslots slot [slot...]` 删除槽。
+- `cluster keyslot "{key}"` 计算键属于哪个槽。
