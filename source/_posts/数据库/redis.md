@@ -409,8 +409,8 @@ redis-server ./master-6381.conf &
 9. 可以使用了。
 10. 关闭所有节点
 ```sh
-#!/bin/bash
-# 正常关闭
+ #!/bin/bash
+ # 正常关闭
 redis-cli -p 6379 shutdown nosave
 redis-cli -p 6380 shutdown nosave
 redis-cli -p 6381 shutdown nosave
@@ -418,12 +418,44 @@ redis-cli -p 6381 shutdown nosave
 
 ## 节点
 
+redis 服务器启动时根据配置项 `cluster-enabled=yes|no` 来决定成为集群的一个节点还是处于单机模式的一个普通服务器。
+
 - `cluster nodes` 查看集群中的节点。
 - `cluster meet {ip} {port}` 令当前节点与指定节点握手。
 - `cluster info` 查看节点状态信息。
-
-redis 服务器启动时根据配置项 `cluster-enabled=yes|no` 来决定成为集群的一个节点还是处于单机模式的一个普通服务器。
-
 - `cluster addslots slot [slot...]` 向当前节点分配槽。只能一个一个槽地写，不能用通配符或范围符号之类的。
 - `cluster delslots slot [slot...]` 删除槽。
 - `cluster keyslot "{key}"` 计算键属于哪个槽。
+
+# 客户端
+
+## 客户端通信协议
+
+1. 通信协议在 TCP 协议之上构建。
+2. Redis 制订了 RESP （REdis Serialization Protocol）这种简单高效的协议。
+
+**发送命令格式**
+
+```
+*{参数数量} CRLF
+${参数1的字节数量} CRLF
+{参数1} CRLF
+...
+${参数N的字节数量} CRLF
+{参数N} CRLF
+```
+
+实际传输的格式类似：
+
+```
+*3\r\n$3\r\nSET\r\n$5\r\nhello\r\n
+```
+
+**返回结果格式**
+
+- 状态回复：第一个字节为 `+`。
+- 错误回复：第一个字节为 `-`。
+- 整数回复：第一个字节为 `:`。
+- 字符串回复：第一个字节为 `$`。
+- 多条字符串回复：第一个字节为 `*`。
+

@@ -1557,6 +1557,22 @@ public RedisConnectionFactory redisCF() {
 }
 ```
 
+可以使用 apache 的 common-pool 中的 `GenericObjectPoolConfig` 来配置连接池。也可以用它的子类，来自 jedis 的 `JedisPoolConfig`，里面有一些默认配置。
+
+- `MaxTotal`: 最大连接数。
+- `MaxIdle`: 最大空闲连接数。
+- `MinIdle`: 最小空闲连接数。
+- `blockWhenExhausted`: 连接用尽时调用者是否要等待。
+- `MaxWaitMillis`: 连接耗尽时调用者最大等待时间。`blockWhenExhausted` 为 true 时此项才生效。
+- `jmxEnabled`: jmx 监控。用来通过 jconsole 或 jvisualvm 观察连接池的情况。
+- `minEvictableIdleTimeMillis`: 连接的空闲时间到达此值时会被移除。
+- `numTestsPerEvictionRun`: 做空闲连接检测时每次的采样数。
+- `testOnBorrow`: 从连接池获取连接时是否做有效性检测（ping），无效连接会被移除。
+- `testOnReturn`: 向连接池归还连接时是否做有效性检测（ping），无效连接会被移除。
+- `testWhileIdle`: 从连接池获取连接时是否做空闲检测，空闲超时的连接会被移除。
+- `timeBetweenEvictionRunsMillis`: 空闲连接的检测周期，单位毫秒。
+
+
 ### 使用 RedisTemplate
 
 - `RedisTemplate`
@@ -1632,7 +1648,9 @@ public class TestEO {
   1. Java8 以上会加入 `DefaultMethodInvokingMethodInterceptor` 负责调用接口中的默认方法。
   2. 加入 `QueryExecutorMethodInterceptor` 负责把方法调用转发给用户自定义的方法或者 spring 自动生成的方法。它的构造方法中使用 `QueryLookupStrategy` 来查找各方法对应的 `RepositoryQuery`。
     1. `QueryLookupStrategy` 默认实现是 `KeyValueQueryLookupStrategy`，它返回的 `RepositoryQuery` 的实现是 `KeyValuePartTreeQuery`。
-    2. `KeyValuePartTreeQuery` 中创建完 `PartTree` 后使用 `QueryCreator` 创建 `KeyValueQuery`。
+    2. `KeyValuePartTreeQuery`
+      1. 创建完 `PartTree` 后使用 `QueryCreator` 创建 `KeyValueQuery`。`KeyValueQuery` 中包含了查询条件、排序、偏移量等等稍后查询所需的信息。
+      2. 将 `KeyValueQuery` 和查询方法的实参传给 `doExecute` 方法。该方法用 `keyValueOperations` 执行具体的查询，它又会把执行委托给 `KeyValueAdapter`。
 
 # 第 13 章 缓存数据
 
