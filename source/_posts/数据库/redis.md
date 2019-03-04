@@ -404,7 +404,7 @@ redis-server ./master-6381.conf &
 ```
 5. 检查日志：`cat log/redis-{port}.log`
 6. 客户端登录：`redis-cli -p 6379`
-7. 各节点握手：`cluster meet 127.0.0.1 6380`
+7. 各节点握手：`cluster meet 127.0.0.1 6380`（如果要从其他主机访问集群的话，这里的 IP 要写 IPv4 地址）
 8. 分配槽（在 linux 命令行执行而不是 redis-cli 中）：`redis-cli -h 127.0.0.1 -p 6379 cluster addslots {0..5460}`，尽量等分的话是 0..5460、5461..10921、10922..16383。
 9. 可以使用了。
 10. 关闭所有节点
@@ -425,7 +425,8 @@ redis 服务器启动时根据配置项 `cluster-enabled=yes|no` 来决定成为
 - `cluster info` 查看节点状态信息。
 - `cluster addslots slot [slot...]` 向当前节点分配槽。只能一个一个槽地写，不能用通配符或范围符号之类的。
 - `cluster delslots slot [slot...]` 删除槽。
-- `cluster keyslot "{key}"` 计算键属于哪个槽。
+- `cluster keyslot {key}` 计算键属于哪个槽。
+- `cluster slots` 查看节点与槽的映射关系。
 
 # 客户端
 

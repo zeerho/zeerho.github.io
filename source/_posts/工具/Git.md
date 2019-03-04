@@ -259,6 +259,8 @@ commit 到 Head，并附带备注 "message"
 查看所有分支
 - `git branch -v`
 查看各分支最后一次提交信息
+- `git branch -vv`
+查看各分支最后一次提交信息以及对应的 upstream 分支（若有的话）
 - `git branch --merge|--no-merged`
 查看已/未与当前分支合并的分支
 - `git branch {new_branch_name}`
