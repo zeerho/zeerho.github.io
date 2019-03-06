@@ -196,20 +196,18 @@ commit 到 Head，并附带备注 "message"
 
 ## remote
 
-`git remote [-v]`
-查看所有远程仓库，`-v` 额外查看远程仓库的地址
-
-`git remote show {remote_name}`
-查看远程仓库的详细信息
-
-`git remote add {short_name} {url}`
-添加一个远程仓库，并为其指定一个简称
-
-`git remote rename {old_name} {new_name}`
-重命名远程仓库的简称
-
-`git remote rm {remote_name}`
-移除远程仓库
+- `git remote [-v]`
+  查看所有远程仓库，`-v` 额外查看远程仓库的地址
+- `git remote show {remote_name}`
+  查看远程仓库的详细信息
+- `git remote add {short_name} {url}`
+  添加一个远程仓库，并为其指定一个简称
+- `git remote rename {old_name} {new_name}`
+  重命名远程仓库的简称
+- `git remote rm {remote_name}`
+  移除远程仓库
+- `git remote prune {remote}`
+  清除本地无效的跟踪分支。
 
 ## clone
 
@@ -269,8 +267,10 @@ commit 到 Head，并附带备注 "message"
 切换到指定名称的分支
 - `git checkout -b|--orphan {new_branch_name} [{start_point}]`
 创建并切换到指定名称的新分支或空白的新分支。可以指定创建点，通常是 commit-id。
-- `git branch [-d|-D] {branch_name}`
-`-d`：分支已经合并到主干后删除分支；`-D`：强制删除。
+- `git branch [-d|-D] [-r|--remotes] [{remote}/]{branch_name}`
+  - `-d`：分支已经合并到主干后删除分支；
+  - `-D`：强制删除。
+  - `-r|--remotes`：删除跟踪分支。
 - `git branch -u {remote}/{remote_branch} [{local_branch}]`
   `git branch --set-upstream-to={remote}/remote_branch} [{local_branch}]`
 对已有分支绑定跟踪分支
