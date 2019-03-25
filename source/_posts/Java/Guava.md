@@ -61,3 +61,38 @@ MoreObjects.toStringHelper("MyObject")
 ```
 
 ## ComparisonChain
+
+链式调用进行多个 compare 操作，一旦确定结果就不会进行后续比较。
+
+```java
+@Override
+public int compareTo(T o) {
+  return ComparisionChain.start()
+      .compare(this.aString, that.aString)
+      .compare(this.anInt, that.anInt)
+      //...
+      .result();
+}
+```
+
+## Joiner
+
+用来进行字符串的拼接。此类的实例时不可变的，因此是线程安全的。
+
+```java
+// 首先调用构建方法
+Joiner joiner = Joiner.on(";") // 分隔符
+    .useForNull("bla")         // 拼接过程中用来替换 null
+    .skipNulls();              // 拼接过程中忽略 null，跟上个方法二选一
+// 拼接 Map
+Joiner mapJoiner = Joiner.on(";") // 各 k-v 之间的分隔符
+    .withKeyValueSeparator("=");  // k 和 v 之间的分隔符
+
+String result1 = joiner.join("a", null, "b"); // 进行拼接，有多个重载方法
+Appendable result2 = joiner.appendTo(appendable, iterable); // 将 iterable 依次拼接入 appendable，会加入分隔符，有多个重载方法
+```
+
+## Splitter
+
+分割字符串。可以定制一些分割条件。
+

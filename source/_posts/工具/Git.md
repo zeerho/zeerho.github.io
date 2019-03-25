@@ -300,6 +300,7 @@ git维护代码分为三部分：“工作区 working directory”、“暂存�
 
 `git merge [-n] [--stat] [--no-commit] [--squash] [--[no-]edit] [-s <strategy>] [-X <strategy-option>] [-S[<keyid>]] [--[no-]allow-unrelated-histories] [--[no-]rerere-autoupdate] [-m <msg>] [<commit>…]`
 
+- `--stat` `--no-stat` `-n` 显示/不显示合并的差异数据。
 - `--commit` `--no-commit` 合并后是否自动提交。
 - `--edit`/`-e` `--no-edit` 合并后是否打开编辑器（来编辑提交信息）。
 - `--ff` `--no-ff` 是否使用“fast-forward”合并（若可行）。
