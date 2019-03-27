@@ -293,6 +293,18 @@ Vim 缺省会将以 0 开头的数字解释为八进制。在 vimrc 中加入 `s
 **重排标签页**
 `:tabmove {N}`：当N为0时，当前标签页会被移到开头；若省略了N，则移到末尾；也可鼠标拖动
 
+# quickfix
+
+- `:cw` 打开 quickfix 窗口。
+- `:cl` 列出所有信息。
+- `:cc` 显示详细信息。
+- `:cp` 上一项。
+- `:cn` 下一项。
+- `:copen [n]` 打开 quickfix 窗口，可指定高度。
+- `:cclose` 关闭 quickfix 窗口。
+- `:cold[er]` 切到前一个列表。
+- `:cnew` 切到后一个列表。
+
 # 打开文件
 
 `:pwd`：打印工作目录
@@ -721,7 +733,7 @@ global命令
 
 # 工具
 
-## surroud 插件
+## vim-surroud
 
 `ds` 和 `cs` 命令接受一个 target 作为第一个参数。目前所有的 target 都是单字符的。
 
@@ -901,6 +913,62 @@ global命令
   let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'  " Windows
   ```
 
+## fugitive
+
+- `Ge` `Gsp` `Gvsp` `Gtabe` 查看指定的对象、树、提交或标签。
+- `Gdiff` 查看当前文件工作区到暂存区的差异。
+- `Gstatus` 在新窗口中查看 git status。
+  - `-` add/reset 某个文件的修改。
+  - `=` 展开各个差异块。
+- `Gcommit %` 提交当前文件。
+- `Gblame` git blame
+- `Gmove` git mv 同时会重命名缓冲区。
+- `Gdelete` git rm 同时会删除缓冲区。
+- `0Glog` 通过 quickfix 窗口遍历当前文件历史。
+- `Gread` git checkout -- filename
+- `Gwrite` 将缓冲区写到工作区和暂存区。
+
+`set statusline=%{FugitiveStatusline()}` 在状态栏添加分支信息
+
+## gitgutter
+
+更新频率取决于 vim 的 `updatetime` 选项，默认 4000 ms。
+
+同一文件改动超过 500 处时，会隐藏标记。可设置 `let g:gitgutter_max_signs = 500`
+
+### 快捷键
+
+- `[c` `]c` 在改动块间跳转。
+- `<leader>hp` 预览改动块。
+- `<leader>hs` 暂存改动块。
+- `<leader>hu` 回退改动块。（不是 unstage）
+- 整体开关
+  - `:GitGutterDisable`
+  - `:GitGutterEnable`
+  - `:GitGutterToggle`
+- 缓冲区独立开关
+  - `:GitGutterBufferDisable`
+  - `:GitGutterBufferEnable`
+  - `:GitGutterBufferToggle`
+- 标记开关
+  - `:GitGutterSignsDisable`
+  - `:GitGutterSignsEnable`
+  - `:GitGutterSignsToggle`
+- 行高亮
+  - `:GitGutterLineHighlightsDisable`
+  - `:GitGutterLineHighlightsEnable`
+  - `:GitGutterLineHighlightsToggle`
+
+### 文本对象
+
+- `ic` 改动块中的所有行。
+- `ac` 改动块中的所有行以及后面紧跟的所有空行。
+
+### 折叠
+
+- `:GitGutterFold` 折叠/展开所有未改动的行。
+- `zr` 展开改动块前后 3 行。
+
 # 折叠
 
 ## 折叠相关的 Vim 变量
@@ -1061,3 +1129,112 @@ global命令
 
 `ex:` 和 `Vim:` 前的空格是必需的，`vi:` 和 `vim:` 前的空格可选（为了兼容 3.0 版本）。
 
+# 自定义命令
+
+用户自定义命令必须首字母大写，来避免与内建命令冲突，除了 `:Next`、`:X`，它们不能用于自定义命令。`:Print` 也是内建命令，但因为已废弃所以可以覆盖。
+
+调用命令时可以用缩写，若根据缩写找到的命令不唯一则会报错。内建命令总是优先。
+
+- `:[verbose] com[mand] [{cmd}]` 列出所有用户定义的命令。展示结果前两列的符号：
+  - `!` 该命令带有 `-bang` 属性。
+  - `"` 该命令带有 `-register` 属性。
+  - `b` 该命令仅在当前缓冲区有效。
+  - `verbose` 额外显示命令的定义处。
+  - `{cmd}` 仅展示以 `{cmd}` 开头的命令。
+  - `:filter {subStr} command` 仅展示包含 `{subStr}` 的命令。
+- `:com[mand][!] [{attr}...] {cmd} {rep}` 定义一个命令。名称为 `{cmd}`，命令内容为 `{rep}`（其中可能包含代替换的文本），属性为 `{attr}`。若命令已存在会报错。使用 `!` 强制覆盖已有命令。
+  - 
+- `:delc[ommand] {cmd}` 删除命令。
+- `comc[lear]` 删除所有用户定义命令。
+
+## 替换文本
+
+命令执行前会自动替换命令内容中的 `<...>` 占位符。若要避免被替换，需用 `<lt>` 代替 `<`。
+
+- `<line1>` 命令处理范围的开始行。
+- `<line2>` 命令处理范围的结束行。
+- `<range>` 命令范围这个参数本身的参数个数：0，1，2。
+- `<count>` 传入的计数值。
+- `<bang>` 若命令执行时带有 `!` 则会展开为 `!`，否则不展开。
+- `<mods>` 命令修饰符，若执行时没带则不展开。`:aboveleft`, `:belowright`, `:botright`, `:browse`, `:confirm`, `:hide`, `:keepalt`, `:keepjumps`, `:keepmarks`, `:keeppatterns`, `:leftabove`, `:lockmarks`, `:noswapfile`, `:rightbelow`, `:silent`, `:tab`, `:topleft`, `:verbose`, `:vertical`
+- `<reg>` `<register>` 寄存器，若执行时没带则不展开。
+- `<args>` 命令参数，但不包含计数和寄存器参数。
+- `<lt>` 代表 `<`，用来保留 `<...>` 类文本避免被替换。
+- `<q-{abc}>` 若某个转义序列以“q-”开始，则它整体会被引号包裹起来，作为一个字符串。
+- `<f-args>` 将命令入参根据空格分割成列表然后作为函数入参。`:h <f-args>`
+
+## 命令属性
+
+### 参数处理
+
+- 不显式声明参数。认为是不带参数，若调用时带参数会报错。
+- `-nargs=0` 不带参数，同上。
+- `-nargs=1` 有且仅有一个参数，包括空格。
+- `-nargs=*` >= 0 个参数，空格分隔。
+- `-nargs=?` 0 或 1 个参数。
+- `-nargs=+` >= 1 个参数。
+
+若仅有一个参数，则空格会作为参数的一部分；若有多个参数，空格和 tab 会作为参数间的分隔符。
+
+参数会作为文本传入命令然后解析，而不是作为表达式先解析再传入命令。也就是说若将变量作为实参，那么会在命令定义的作用域内查找该变量，而不是在命令的调用处的作用域内。
+
+### 补全行为
+
+命令的参数默认不会被补全，除非声明下列一个或多个参数。
+
+- `-complete=arglist` 参数列表中的文件名
+- `-complete=augroup` 自动命名组
+- `-complete=buffer` 缓冲区名称
+- `-complete=behave` :behave 子选项
+- `-complete=color` 颜色方案
+- `-complete=command` Ex 命令及其参数
+- `-complete=compiler` 编译器
+- `-complete=cscope` :cscope 子选项
+- `-complete=dir` 目录名
+- `-complete=environment` 环境变量名
+- `-complete=event` 自动命令事件
+- `-complete=expression` Vim 表达式
+- `-complete=file` 文件名和目录名
+- `-complete=file_in_path` “path”中的文件名和目录名
+- `-complete=filetype` 文件类型名
+- `-complete=function` 函数名
+- `-complete=help` 帮助主题
+- `-complete=highlight` 高亮组
+- `-complete=history` :history 子选项
+- `-complete=locale` locale 名 (和 `locale -a` 给出的相同)
+- `-complete=mapclear` 缓冲区参数
+- `-complete=mapping` 映射名
+- `-complete=menu` 菜单
+- `-complete=messages` :messages 子选项
+- `-complete=option` 选项
+- `-complete=packadd` 可选包名
+- `-complete=shellcmd` Shell 命令
+- `-complete=sign` :sign 子选项
+- `-complete=syntax` 语法文件名
+- `-complete=syntime` :syntime 子选项
+- `-complete=tag` 标签
+- `-complete=tag_listfiles` 标签，但敲入 `<C-d>` 时显示文件名
+- `-complete=user` 用户名
+- `-complete=var` 用户变量
+- `-complete=custom,{func}` 用户自定义补全，通过 `{func}` 定义。
+- `-complete=customlist,{func}` 用户自定义补全，通过 `{func}` 定义。
+
+### 范围处理
+
+- `-range` 允许范围，默认当前行
+- `-range=%` 允许范围，默认全文
+- `-range={n}` 计数（默认 n），用法类似 `:3{cmd}`
+- `-count=[{n}]` 计数（默认 n，若不声明则默认 0），用法类似 `:3{cmd}` 或 `:{cmd} 3`
+- `-addr=lines` 将范围应用于行（默认）
+- `-addr=arguments` 将范围应用于参数
+- `-addr=buffers` 将范围应用于缓冲区，包括未加载的
+- `-addr=loaded_buffers` 将范围应用于已加载的缓冲区
+- `-addr=windows`	将范围应用于窗口
+- `-addr=tabs` 将范围应用于标签页
+
+### 特殊情况
+
+- `-bang` 命令接受强制执行 `!`
+- `-bar` 命令接受管道符 `|` 和后续命令。此时命令参数中不允许出现 `|`。同时会检查 `"` 作为注释的开始。
+- `-register` 命令的第一个参数可以是一个可选的寄存器名（类似 `:del`）
+- `-buffer` 命令仅在当前缓冲区可用
