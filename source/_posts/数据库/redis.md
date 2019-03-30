@@ -45,7 +45,7 @@ tags: [数据库]
 
 redis 使用自己的字符串格式：简单动态字符串（simple dynamic string, SDS）。
 
-```
+```c
 struct sdshdr {
   // buf 中已使用的字节数
   int len;
@@ -58,13 +58,152 @@ struct sdshdr {
 
 `buf` 保存的字节数组遵循 c 字符串的惯例，以空字节 '\0' 结尾，为的是方便重用 c 字符串函数库。该空字节不算在 `len` 里。
 
-**空间预分配**
+### SDS 的优点
 
-SDS 进行增长操作时，会分配额外的空间。
+**常数复杂度获取字符串长度**
 
-- 若 SDS 修改后 `len` 小于 1MB，那么 `free` 将分配为等于修改后的 `len`。
-- 若 SDS 修改后 `len` 大于等于 1MB，那么 `free` 将分配到 1MB。
+直接访问 `len` 字段获取长度。而 C 字符串需要遍历整个字符串。
 
+**防止缓冲区溢出**
+
+C 字符串假设用户在拼接字符串前已经检查缓冲区是否会溢出。SDS API 会自动检查和扩展缓冲区尺寸。
+
+**减少修改字符串时的内存重分配**
+
+- 空间预分配：SDS 进行增长操作时，会分配额外的空间。
+  - 若 SDS 修改后 `len` 小于 1MB，那么 `free` 将分配为等于修改后的 `len`。
+  - 若 SDS 修改后 `len` 大于等于 1MB，那么 `free` 将分配到 1MB。
+- 惰性空间释放：SDS 被截短后不会立即释放无用空间，而是由 `free` 字段记录，供后续 SDS 拼接时使用。SDS 也提供了 API 进行真正的空间释放。
+
+**二进制安全**
+
+C 字符串中的字符必须符合某种编码，并且除了结尾外不能存空字节，因此不能存文本之外的数据。SDS 以二进制形式直接存取数据，它以 `len` 字段判断字符串结尾，不对字符串中的内容做任何的假设和处理。
+
+### SDS 主要 API
+
+|函数       |作用                                              |时间复杂度                         |
+|:----------|:-------------------------------------------------|:----------------------------------|
+|sdsnew     |创建包含指定 C 字符串的 SDS                       |O(N), N 为 C 字符串长度            |
+|sdsempty   |创建一个空的 SDS                                  |O(1)                               |
+|sdsfree    |释放 SDS                                          |O(N), N 为 SDS 长度                |
+|sdslen     |已用字节数                                        |O(1)                               |
+|sdsavail   |未用字节数                                        |O(1)                               |
+|sdsdup     |创建一个 SDS 副本                                 |O(N), N 为 SDS 长度                |
+|sdsclear   |清空 SDS 内的字符串内容                           |O(1)                               |
+|sdscat     |将指定 C 字符串拼接到 SDS 末尾                    |O(N), N 为被拼接的 C 字符串长度    |
+|sdscatsds  |将指定 SDS 字符串拼接到 SDS 末尾                  |O(N), N 为被拼接的 SDS 字符串长度  |
+|sdscpy     |用指定 C 字符串覆盖 SDS 内容                      |O(N), N 为被复制 C 字符串长度      |
+|sdsgrowzero|用空字符将 SDS 扩展至指定长度                     |O(N), N 为新增的字节数             |
+|sdsrange   |保留 SDS 给定区间内的数据，其他数据会被覆盖或清除 |O(N), N 为保留的字节数             |
+|sdstrim    |从指定 SDS 中清除所有在指定 C 字符串中出现过的字符|O(N^2), N 为指定 C 字符串长度      |
+|sdscmp     |对比两个 SDS 是否相同                             |O(N), N 为两个 SDS 中较短那个的长度|
+
+
+## 链表
+
+```c
+// adlist.h/listNode
+typedef struct listNode {
+  // 前置节点
+  struct listNode *prev;
+  // 后置节点
+  struct listNode *next;
+  // 节点的值
+  void *value;
+} listNode;
+```
+
+redis 链表特性：
+
+- 双端：是双向链表。
+- 无环
+- 带表头指针、表尾指针、长度计数器：`list` 结构带有表头指针、表尾指针、链表长度计数器。
+- 多态：节点值的类型是 `void*`，可以存放各种类型数据。
+
+## 字典
+
+以哈希表作为实现
+
+```c
+// 哈希表
+// dict.h/dictht
+typedef struct dictht {
+  // 哈希表数组
+  dictEntry **table;
+  // 哈希表大小
+  unsigned long size;
+  // 哈希表大小掩码，用于计算索引值
+  // 总是等于 size - 1
+  unsigned long sizemark;
+  // 已有节点数量
+  unsigned long used;
+} dictht;
+
+// 节点
+// dict.h/dictEntry
+typedef struct dictEntry {
+  // 键
+  void *key;
+  // 值
+  union {
+    void *val;
+    unint64_t u64;
+    int64_t s64;
+  } v;
+  // 指向下个节点
+  struct dictEntry *next;
+} dictEntry;
+
+// 字典
+// dict.h/dict
+typedef struct dict {
+  // 类型特定函数
+  dictType *type;
+  // 私有数据
+  void *privdata;
+  // 哈希表
+  dictht ht[2]; // ht[0] 常用，ht[1] 仅用在 rehash 时
+  // rehash 索引，不在 rehash 时值为 -1
+  long rehashidx;
+} dict;
+```
+
+- 使用 MurmurHash2 算法来计算哈希值。有点是随机分布性好，速度快。
+- 使用链地址法（外部拉链法）解决哈希碰撞问题。
+
+### rehash
+
+1. 为 `ht[1]` 分配空间：
+  - 若是扩展操作，则 `ht[1]` 的大小为第一个大于等于 `ht[0].used * 2` 的 2^n。
+  - 若是收缩操作，则 `ht[1]` 的大小为第一个大于等于 `ht[0].used` 的 2^n。
+2. 将 `ht[0]` 中所有键值对 rehash 到 `ht[1]` 中。
+3. 释放 `ht[0]`，将 `ht[1]` 置为 `ht[0]`，并在 `ht[1]` 新建一张空表。
+
+**哈希表的扩展与收缩**
+
+> 负载因子 = 已存节点数量 / 哈希表大小
+
+满足以下任一条件时会开始哈希表扩展操作：
+
+- 当前未在执行 `BGSAVE` 和 `BGREWRITEAOF`，且负载因子 >= 1。
+- 当前正在执行 `BGSAVE` 和 `BGREWRITEAOF`，且负载因子 >= 5。
+
+以上两个命令会 fork 子进程，而 linux 采用写时复制来优化子进程的效率。提高负载因子会降低子进程产生写的概率，从而优化性能。
+
+满足以下条件时开始哈希表收缩操作：
+
+- 负载因子 <= 0.1。
+
+**渐进式 rehash**
+
+1. 为 `ht[1]` 分配空间，让字典同时持有两个哈希表。
+2. 将字典中的索引计数器变量 `rehashidx` 置为 0，表示 rehash 开始。
+3. 在 rehash 期间，每次对字典执行增删改查时，除了执行该操作外（删该查在两张表操作，增在 `ht[1]`），还会将 `ht[0]` 在 `rehashidx` 位置的所有键值对 rehash 到 `ht[1]` 上，然后 `rehashidx` 加 1。
+4. 最终所有的键值对都完成了 rehash，此时将 `rehashidx` 置为 -1，表示 rehash 结束。
+
+## 跳跃表
+
+`redis.h/zskiplistNode`、`redis.h/zskiplist`
 
 # 命令
 
