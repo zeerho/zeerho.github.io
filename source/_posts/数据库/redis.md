@@ -205,6 +205,32 @@ typedef struct dict {
 
 `redis.h/zskiplistNode`、`redis.h/zskiplist`
 
+## 整数集合
+
+集合的底层实现之一。当集合只包含整数元素，且元素数量不多时，就会使用整数集合作为实现。
+
+`intset.h/intset`
+
+```c
+typedef struct intset {
+  // 编码方式
+  uint32_t encoding;
+  // 集合包含的元素数量
+  uint32_t length;
+  // 保存元素的数组
+  int8_t contents[];
+} intset;
+```
+
+`contents` 数组中的元素由小到大排列，不含重复项。
+
+虽然 `intset` 声明为 `int8_t` 类型，但它的真正类型取决于 `encoding` 的值：
+
+- `INTSET_ENC_INT16`: `int16_t`
+- `INTSET_ENC_INT32`: `int32_t`
+- `INTSET_ENC_INT64`: `int64_t`
+
+
 # 命令
 
 见 [官方文档](http://redis.io/commands)。可直接后接命令名来查询。
