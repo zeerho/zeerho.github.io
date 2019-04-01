@@ -25,9 +25,9 @@ tags: [数据库]
 - `STRING` 可以是字符串、整数或浮点数。
   - 对整个字符串或其中一部分进行操作。
   - 对整数和浮点数进行自增或自减操作。
-- `LIST` 一个链表，链表上每个节点包含一个字符串。
-  - 从链表两端推入或弹出元素。
-  - 根据偏移量对链表进行修剪（trim）。
+- `LIST` 列表，列表上每个节点包含一个字符串。
+  - 从列表两端推入或弹出元素。
+  - 根据偏移量对列表进行修剪（trim）。
   - 读取单个或多个元素；根据值查找或移除元素。
 - `SET` 包含字符串的无序收集器，并且其中的字符串各不相同。
   - 添加、获取、移除单个元素。
@@ -41,7 +41,9 @@ tags: [数据库]
   - 添加、获取、删除单个元素。
   - 根据分值范围或成员来获取元素。
 
-## 字符串
+## 基础数据结构
+
+### 简单动态字符串 SDS
 
 redis 使用自己的字符串格式：简单动态字符串（simple dynamic string, SDS）。
 
@@ -58,7 +60,7 @@ struct sdshdr {
 
 `buf` 保存的字节数组遵循 c 字符串的惯例，以空字节 '\0' 结尾，为的是方便重用 c 字符串函数库。该空字节不算在 `len` 里。
 
-### SDS 的优点
+#### SDS 的优点
 
 **常数复杂度获取字符串长度**
 
@@ -79,7 +81,7 @@ C 字符串假设用户在拼接字符串前已经检查缓冲区是否会溢出
 
 C 字符串中的字符必须符合某种编码，并且除了结尾外不能存空字节，因此不能存文本之外的数据。SDS 以二进制形式直接存取数据，它以 `len` 字段判断字符串结尾，不对字符串中的内容做任何的假设和处理。
 
-### SDS 主要 API
+#### SDS 主要 API
 
 |函数       |作用                                              |时间复杂度                         |
 |:----------|:-------------------------------------------------|:----------------------------------|
@@ -99,7 +101,7 @@ C 字符串中的字符必须符合某种编码，并且除了结尾外不能存
 |sdscmp     |对比两个 SDS 是否相同                             |O(N), N 为两个 SDS 中较短那个的长度|
 
 
-## 链表
+### 链表
 
 ```c
 // adlist.h/listNode
@@ -120,7 +122,7 @@ redis 链表特性：
 - 带表头指针、表尾指针、长度计数器：`list` 结构带有表头指针、表尾指针、链表长度计数器。
 - 多态：节点值的类型是 `void*`，可以存放各种类型数据。
 
-## 字典
+### 字典
 
 以哈希表作为实现
 
@@ -171,7 +173,7 @@ typedef struct dict {
 - 使用 MurmurHash2 算法来计算哈希值。有点是随机分布性好，速度快。
 - 使用链地址法（外部拉链法）解决哈希碰撞问题。
 
-### rehash
+#### rehash
 
 1. 为 `ht[1]` 分配空间：
   - 若是扩展操作，则 `ht[1]` 的大小为第一个大于等于 `ht[0].used * 2` 的 2^n。
@@ -201,11 +203,11 @@ typedef struct dict {
 3. 在 rehash 期间，每次对字典执行增删改查时，除了执行该操作外（删该查在两张表操作，增在 `ht[1]`），还会将 `ht[0]` 在 `rehashidx` 位置的所有键值对 rehash 到 `ht[1]` 上，然后 `rehashidx` 加 1。
 4. 最终所有的键值对都完成了 rehash，此时将 `rehashidx` 置为 -1，表示 rehash 结束。
 
-## 跳跃表
+### 跳跃表
 
 `redis.h/zskiplistNode`、`redis.h/zskiplist`
 
-## 整数集合
+### 整数集合
 
 集合的底层实现之一。当集合只包含整数元素，且元素数量不多时，就会使用整数集合作为实现。
 
@@ -230,6 +232,127 @@ typedef struct intset {
 - `INTSET_ENC_INT32`: `int32_t`
 - `INTSET_ENC_INT64`: `int64_t`
 
+#### 升级
+
+当新添加的元素的类型比现有的所有元素更大时，要对集合进行升级。**不支持降级**
+
+1. 根据新元素的类型，扩展数组大小，并为新元素分配空间。
+2. 将原有元素转换成新元素的类型，并放到正确的位置上，期间保持有序性不变。
+3. 将新元素添加到数组中（既然引起了升级，那么新元素的值必然大于所有元素或小于所有元素，所以直接放到数组开头或末尾）。
+
+优点：
+
+- 节约内存
+- 类型灵活
+
+### 压缩列表
+
+压缩列表是链表和散列表的底层实现之一。当链表只包含少量元素，且每一项要么是小整数值，要么是长度较短的字符串（对于散列表则是少量键值对，键和值都是小整数或短字符串）时，redis 会使用压缩列表。
+
+```
+redis> RPUSH example 1 3 5 "hello"
+(integer) 4
+redis> OBJECT ENCODING example
+"ziplist"
+```
+
+#### 压缩列表的构成
+
+压缩列表内部结构
+
+|字段     |类型      |长度（字节）|用途                                                                |
+|:--------|:---------|:-----------|:-------------------------------------------------------------------|
+|`zlbytes`|`uint32_t`|4           |记录整个压缩列表的字节数：对压缩列表内存重分配或计算 `zlend` 时使用 |
+|`zltail` |`uint32_t`|4           |记录尾节点距离起始地址多少字节，用来直接确定尾节点地址              |
+|`zllen`  |`uint16_t`|2           |记录节点数量：大于 `UINT16_MAX` 时需遍历整个列表才能计算得出真实数量|
+|`entryX` |列表节点  |不定        |压缩列表的各节点，节点长度由节点内容决定                            |
+|`zlend`  |`uint8_t` |1           |特殊值 0xFF，用于标记压缩列表的末端                                 |
+
+节点内部结构
+
+|字段                   |长度（字节）|用途                           |
+|:----------------------|:-----------|:------------------------------|
+|`previous_entry_length`|1 或 5      |前一节点长度                   |
+|`encoding`             |1 或 2 或 5 |记录 `content` 字段的类型和长度|
+|`content`              |不定        |节点内容，字节数组或整数       |
+
+
+## 对象
+
+每个对象都由一个 `redisObject` 结构表示。每个对象内部指向具体实现的数据结构。
+
+```c
+typedef struct redisObject {
+  // 类型
+  unsigned type:4;
+  // 编码
+  unsigned encoding:4;
+  // 指向底层实现数据结构的指针
+  void *ptr;
+  // 其他字段
+} robj;
+```
+
+### 编码和底层实现
+
+|类型          |编码                       |对象                               |
+|:-------------|:--------------------------|:----------------------------------|
+|`REDIS_STRING`|`REDIS_ENCODING_INT`       |用整数值实现的字符串对象           |
+|`REDIS_STRING`|`REDIS_ENCODING_EMBSTR`    |用 `embstr` 编码的 SDS 实现的字符串|
+|`REDIS_STRING`|`REDIS_ENCODING_RAW`       |用 SDS 实现的字符串                |
+|`REDIS_LIST`  |`REDIS_ENCODING_ZIPLIST`   |用压缩列表实现的列表               |
+|`REDIS_LIST`  |`REDIS_ENCODING_LINKEDLIST`|用双端链表实现的列表               |
+|`REDIS_HASH`  |`REDIS_ENCODING_ZIPLIST`   |用压缩列表实现的散列表             |
+|`REDIS_HASH`  |`REDIS_ENCODING_HT`        |用字典实现的散列表                 |
+|`REDIS_SET`   |`REDIS_ENCODING_INTSET`    |用整数集合实现的集合               |
+|`REDIS_SET`   |`REDIS_ENCODING_HT`        |用字典实现的集合                   |
+|`REDIS_ZSET`  |`REDIS_ENCODING_ZIPLIST`   |用压缩列表实现的有序集合           |
+|`REDIS_ZSET`  |`REDIS_ENCODING_SKIPLIST`  |用跳跃表和字典实现的有序集合       |
+
+### 字符串对象
+
+- 保存数据是整数值，且可用 `long` 表示，则 `redisObject.ptr` 会从 `void*` 转成 `long`。
+- 保存数据是字符串，且长度小于等于 44 字节（曾经是 39），则使用 `embstr` 编码。
+  - `raw` 和 `embstr` 一样都使用 `redisObject` 和 `sdshdr` 结构来表示字符串。
+  - `raw` 调用两次内存分配来创建两个结构；`embstr` 调用一次内存分配来分配一块连续的空间依次存放两个结构。
+- 保存数据是字符串，且长度大于 44 字节（曾经是 39），则使用 `raw` 编码。
+
+可以用 `long double` 类型保存的浮点数会被自动转成字符串存储。
+
+某些情况下编码会转换：
+
+- 对象被操作后不再是整数值，则转为 `raw`。
+- `embstr` 是只读的，任何修改都会转为 `raw`。
+
+### 列表对象
+
+同时满足以下条件时使用 `ziplist` 编码，否则用 `linkedlist`：
+
+- 列表中所有字符串对象的长度都小于 64 字节（配置项 `list-max-ziplist-value`）。
+- 列表中的元素数量小于 512 个（配置项 `list-max-ziplist-entries`）。
+
+### 哈希对象
+
+同时满足以下条件时使用 `ziplist` 编码，否则用 `hashtable`：
+
+- 所有键值对的键和值的字符串长度都小于 64 字节（配置项 `hash-max-ziplist-value`）。
+- 键值对数量小于 512 个（配置项 `hash-max-ziplist-entries`）。
+
+### 集合对象
+
+同时满足以下条件时使用 `intset` 编码，否则用 `hashtable`：
+
+- 所有元素都是整数。
+- 元素数量不超过 512 个（配置项 `set-max-intset-entries`）。
+
+### 有序集合对象
+
+同时满足以下条件时使用 `ziplist` 编码，否则用 `skiplist`：
+
+- 元素数量小于 128 个（配置项 `zset-max-ziplist-entries`）。
+- 所有元素成员的长度都小于 64 字节（配置项 `zset-ziplist-value`）。
+
+### 内存回收
 
 # 命令
 
@@ -237,11 +360,22 @@ typedef struct intset {
 
 ## 数据库
 
-- `redis-cli [-p {port}] shutdown` 关闭服务端。
+- `redis-cli [-p {port}] shutdown [nosave]` 关闭服务端。
 - `redis-cli -h {ip} -p {port} -a "mypass"` 登录远程服务端。
 - `flushall` 删除所有库的所有数据。
+
+## 通用
+
 - `type {key}` 判断值的类型。
 - `del {key} [{key}...]` 不存在的会被忽略。返回删除的数量。
+- `object encoding {key}` 查看值对象的编码
+  - `int` 整数
+  - `embstr` embstr 编码的 SDS
+  - `raw` SDS
+  - `linkedlist` 双端链表
+  - `ziplist` 压缩列表
+  - `intset` 整数集合
+  - `skiplist` 跳跃表和字典
 
 ## STRING 字符串
 
@@ -272,6 +406,7 @@ typedef struct intset {
 - `SETBIT {key} {offset} {val}` 将字节串看成是二进制位串，设置 `{offset}` 处的比特值。
 - `BITCOUNT {key} [{start} {stop}]` 统计二进制位串中 1 的数量。可以框定范围。
 - `BITOP {operation} {destKey} {key} [{key}...]` 对若干二进制串执行按位操作（并、或、异或、非），将结果存入 `{destKey}`。
+- `STRLEN {key}` 查看字符串长度。
 
 
 ## LIST 链表
