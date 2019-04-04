@@ -142,7 +142,7 @@ fi
  # 调用其他配置
 for i in /etc/profile.d/*.sh /etc/profile.d/sh.local ; do
     if [ -r "$i" ]; then
-        if [ "${-#*i}" != "$-" ]; then 
+        if [ "${-#*i}" != "$-" ]; then
             . "$i"
         else
             . "$i" >/dev/null
@@ -158,7 +158,7 @@ unset -f pathmunge
 
 `df -h` 查看挂载情况
 `umount {file_system}` 卸载，终端中挂载消失，UI 中挂载仍在
-`mount {file_system}` 挂载 
+`mount {file_system}` 挂载
 `eject` 弹出，UI 中挂载也消失，且无法直接再用`mount`命令挂载回来
 
 # 软件安装
@@ -298,7 +298,7 @@ APT 的底层包是 dpkg，dpkg 会把 .deb 文件放在 /var/cache/apt/archives
 
 `yum provides {name}`
 列出软件包提供哪些文件
- 
+
 
 `yum clean packages`
 清除缓存目录(/var/cache/yum)下的软件包
@@ -422,7 +422,7 @@ concatenate 显示文件内容。
 `echo {variable}`
 
 
-**cd** 
+**cd**
 
 > 设置当前工作目录。当前工作目录是指进程和 shell 当前所在的工作目录。
 

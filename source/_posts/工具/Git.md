@@ -598,6 +598,15 @@ export LESSCHARSET=utf-8
 使用 `ls --show-control-chars` 命令来强制使用控制台字符编码显示文件名，即可查看中文文件名。
 为了方便使用，可以编辑 `/etc/git-completion.bash`，新增一行 `alias ls="ls --show-control-chars"`
 
+**乱码情景4**
+
+使用 `$GIT_HOME/bin/bash.exe` 和 `$GIT_HOME/git-cmd.exe` 执行 `git log` 中文呈乱码，而在 `git-bash.exe` 中不会。
+
+解决方案：
+
+1. 添加环境变量 `LESSCHARSET=utf-8`
+2. 若是在 IDEA 的控制台功能使用上述两个终端软件，则需要在 `设置-Tools-Terminal-Environment Variables` 中添加上述变量。
+
 **终极解决方案**
 
 终极的解决方案是通过修改 git 和 TortoiseGit 源码实现，有网友这么做了：[让Windows下Git和TortoiseGit支持中文文件名/UTF-8][3] ，也可以直接访问这个开源的 Google 项目：[utf8-git-on-windows][4] 。
