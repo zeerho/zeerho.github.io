@@ -90,19 +90,21 @@ commit 到 Head，并附带备注 "message"
 # 储藏
 
 - `git stash [--keep-index] [-u] [save '{message}']`
-储藏当前所有未提交的改动，可附加备注；`--keep-index` 表示不储藏暂存区；`-u` 表示储藏未追踪的文件
+  储藏当前所有未提交的改动，可附加备注；`--keep-index` 表示不储藏暂存区；`-u` 表示储藏未追踪的文件
 - `git stash list`
-列出储藏栈中内容
+  列出储藏栈中内容
 - `git stash apply [stash@{n}] [--index]`
-恢复指定某次的储藏内容中的工作区文件，缺省为最近一次的；`--index` 表示恢复工作区和暂存区文件
+  恢复指定某次的储藏内容中的工作区文件，缺省为最近一次的；`--index` 表示恢复工作区和暂存区文件
 - `git stash drop [stash@{n}] `
-删除储藏
+  删除储藏
 - `git stash clear`
-清除所有储藏
+  清除所有储藏
 - `git stash pop [stash@{n}] [--index]`
-应用并删除储藏
+  应用并删除储藏
 - `git stash branch {branch_name} [stash@{n}]`
-新建一个分支并应用储藏内容，如果没有冲突则会自动删除该储藏
+  新建一个分支并应用储藏内容，如果没有冲突则会自动删除该储藏
+- `git stash show [{stash}]`
+  查看 stash 改动内容。可以接受参数来修改展示方式（同 `git diff`）
 
 # 日志
 
@@ -535,7 +537,7 @@ git config branch.develop.merge refs/heads/develop
 ```
  # 井号表示注释
  # 文件名/目录名中可用正则表达式
- 
+
  # 指定忽略某个文件
 abc.txt
 
