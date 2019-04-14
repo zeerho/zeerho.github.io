@@ -26,7 +26,7 @@ tags: [工具]
   - K：暂时不决定此块，跳转到上一个块。
   - s：将当前块继续分割成小块。
   - e：编辑当前块。
-  - ？：帮助
+  - ?：帮助
 - diff：展示 HEAD 和暂存区之间的区别。
 - quit
 - help
@@ -36,20 +36,27 @@ tags: [工具]
 # 提交
 
 - `git commit`
-打开编辑器来撰写 commit 信息
+  打开编辑器来撰写 commit 信息
 - `git commit -m "message"`
-commit 到 Head，并附带备注 "message"
+  commit 到 Head，并附带备注 "message"
 - `git commit -am "message"`
-结合了 add . 和 commit，不适用于新添加的文件
+  结合了 add . 和 commit，不适用于新添加的文件
 - `git commit --amend`
-修改最近一次提交，使用当前暂存区做提交，并可以修改提交信息
+  修改最近一次提交，使用当前暂存区做提交，并可以修改提交信息
 
 # 删除
 
-- `git rm [-f] {filename}`
-删除三棵树中的指定文件，若暂存区与版本库中的不同，则需加上 `-f` 参数
+- `git rm [-f|--force] [-n] [-r] [--cached] [--ignore-unmatch] [--quiet] [--] {filename}...`
+  删除暂存区和工作区中的指定文件。该文件在三棵树中的内容必须相同，否则要用 `-f` 强制删除暂存区和工作区，或用 `--cached` 删除暂存区（此时暂存区必须要么跟工作区相同，要么跟版本库相同）。
+  - `{filename}` 可以用通配符（要做 shell 转义）
+  - `-f|--force` 强制删除暂存区和工作区中的指定文件（否则要求该文件在三棵树中的内容相同）
+  - `-n|--dry-run` 预览操作结果
+  - `-r` 指定目录做递归删除
+  - `--cached` 只从暂存区删除
+  - `--ignore-unmatch` 若未匹配到文件也不显示错误
+  - `-q|--quiet` 不显示执行结果
 - `git rm [-r] --cached {filename}`
-删除 index 中的文件，保留工作区中的文件，`-r` 表示递归
+  删除 index 中的文件，保留工作区中的文件，`-r` 表示递归
 - `git clean [-d] [-f] [-i] [-n] [-q] [-e <pattern>] [-x | -X] [--] <path>...` 清除未跟踪的文件和目录
   - `-n` 预览将被删除的文件，不会直接删除。
   - `-d` 除了未跟踪的文件外，还删除未跟踪的目录。
