@@ -62,7 +62,7 @@ tags: [工具]
   - `-d` 除了未跟踪的文件外，还删除未跟踪的目录。
   - `-f` `--force` 若未将 `clean.requireForce` 选项置为 false，则不能删除文件和目录，除非带有参数 `-f`/`-n`/`-i`。对于子目录中带有 .git 文件夹的，需要给出两个 `-f` 参数。
   - `-x` 扫描未跟踪文件时无视 .gitignore 和 $GIT_DIR/info/exclude，但仍会考虑 `-e` 参数。
-  - `-X` 仅删除被 git 无视的文件。通常用来在清理的同时保留用户自建的文件。
+  - `-X` 仅删除被 git 忽略的文件。通常用来在清理的同时保留用户自建的文件。
   - `-q` `--quiet` 仅报告错误。
   - `-i` 交互式。
 
@@ -261,28 +261,30 @@ tags: [工具]
 # 分支
 
 - `git branch`
-查看本地分支
+  查看本地分支
 - `git branch -a`
-查看所有分支
+  查看所有分支
 - `git branch -v`
-查看各分支最后一次提交信息
+  查看各分支最后一次提交信息
 - `git branch -vv`
-查看各分支最后一次提交信息以及对应的 upstream 分支（若有的话）
+  查看各分支最后一次提交信息以及对应的 upstream 分支（若有的话）
 - `git branch --merge|--no-merged`
-查看已/未与当前分支合并的分支
-- `git branch {new_branch_name}`
-创建指定名称的新分支
+  查看已/未与当前分支合并的分支
+- `git branch {new_branch_name} [{start_point}]`
+  创建指定名称的新分支，可以指定起始点
 - `git checkout {new_branch_name}`
-切换到指定名称的分支
+  切换到指定名称的分支
 - `git checkout -b|--orphan {new_branch_name} [{start_point}]`
-创建并切换到指定名称的新分支或空白的新分支。可以指定创建点，通常是 commit-id。
+  创建并切换到指定名称的新分支或空白的新分支。可以指定创建点，通常是 commit-id。
+- `git branch -m|-M {old_branch} {new_branch}`
+  重命名分支。`-M` 强制覆盖已存在的 `{new_branch}`。
 - `git branch [-d|-D] [-r|--remotes] [{remote}/]{branch_name}`
   - `-d`：分支已经合并到主干后删除分支；
   - `-D`：强制删除。
   - `-r|--remotes`：删除跟踪分支。
 - `git branch -u {remote}/{remote_branch} [{local_branch}]`
   `git branch --set-upstream-to={remote}/remote_branch} [{local_branch}]`
-对已有分支绑定跟踪分支
+  对已有分支绑定跟踪分支
 
 # 差异比较
 
@@ -361,6 +363,12 @@ unmodified->untracked:remove the file
 ```
 
 # git config
+
+3 个级别：local > global > system
+
+1. local：位于仓库下的 `.git/config`
+2. global：位于 `~/.gitconfig`
+3. system：位于 `{Git 安装目录}/mingw64/etc/gitconfig`
 
 ## user
 
@@ -466,6 +474,10 @@ git config branch.develop.merge refs/heads/develop
  在本地仓库来看，远程仓库的分支引用路径为 `refs/remotes/{branch}`；站在远程仓库的角度来看，这个分支引用路径自然就是 `refs/heads/{branch}`。
  和我们在本地直接执行 `git merge` 是不同的（本地执行 `git merge origin/develop` 则是直接 merge refs/remotes/develop）。
 
+## credential
+
+- `helper` 凭证管理方式。
+  - `store` 明文保存于 `~/.git-credentials`，形如 `http://{user}:{pwd}@example.com/`
 ## other
 `git config --list`
 查看配置信息。其中重复的变量来自不同的配置文件，Git 会采用最后一个。
@@ -482,60 +494,57 @@ git config branch.develop.merge refs/heads/develop
 
 # git tag
 
-- **通用参数**
-    - `{commit}` 某次提交的校验 ID。缺省为 HEAD。
-    - `{object}` 某个对象的校验 ID。缺省为 HEAD。
+*查看标签*
 
-- **查看标签**
-> git tag [-n[{num}]] -l [--contains {commit}] [--points-at {object}] [--column[={options}] | --no-column] [--create-reflog] [--sort={key}] [--format={format}] [--[no-]merged [{commit}]] [{pattern}…]
+- `git tag [-n[{num}]] -l [--contains {commit}] [--points-at {object}] [--column[={options}] | --no-column] [--create-reflog] [--sort={key}] [--format={format}] [--[no-]merged [{commit}]] [{pattern}…]`
+  - `无参数` 查看当前版本库的标签列表。
+  - `-n{num}` 查看所有标签及对应的注释。通过 {num} 来指定显示多少行注释；缺省只显示注释的第一行。若某标签无注释，则显示其对应的提交信息。
+  - `-l {pattern}` 利用通配符对标签名进行过滤。若未给出通配符，则显示所有标签；若给出多个通配符，则标签只要匹配其中之一就会显示。
+  - `--contains {commit}` 只列出指定提交上的标签，缺省为 HEAD。
+  - `--points-at {object}` 只列出指定对象上的标签。
+  - `--column[={options}]` `--no-column` 分别表示“总是”、“总不”以列形式展示标签。只在显示不带注释的标签时有效。其中 {options} 包括：
+    - 以下选项控制开关
+      - `always` 总是以列形式显示。
+      - `never` 总不以列形式显示。
+      - `auto` 若输出到终端，则以列形式显示。
+    - 以下选项控制布局，缺省为`column`。若出现以下任一选项，而上述3个选项未出现，则默认为`always`。
+      - `column` 先填充列，后填充行。
+      - `row` 先填充行，后填充列。
+      - `plain` 显示在一列。
+    - 以下选项可与上述布局选项混合使用，缺省为`nodense`。
+      - `dense` 列宽不相等。
+      - `nodense` 列宽相等。
+  - `--create-reflog` 为标签创建操作记录。
+  - `--sort={key}` 按照 {key} 对显示结果进行升序排列。通过添加`-`前缀来进行降序排列。若指定多个 {key}，则最后一个 {key} 将作为主键。缺省为`tag.sort`的值，否则就按字典顺序。
+  - `--format={format}` A string that interpolates %(fieldname) from the object pointed at by a ref being shown. The format is the same as that of git-for-each-ref(1). When unspecified, defaults to %(refname:strip=2).
+  - `--[no-]merged [{commit}]` Only list tags whose tips are reachable, or not reachable if --no-merged is used, from the specified commit (HEAD if not specified).
 
-    - `无参数` 查看当前版本库的标签列表。
-    - `-n{num}` 查看所有标签及对应的注释。通过 {num} 来指定显示多少行注释；缺省只显示注释的第一行。若某标签无注释，则显示其对应的提交信息。
-    - `-l {pattern}` 利用通配符对标签名进行过滤。若未给出通配符，则显示所有标签；若给出多个通配符，则标签只要匹配其中之一就会显示。
-    - `--contains {commit}` 只列出指定提交上的标签，缺省为 HEAD。
-    - `--points-at {object}` 只列出指定对象上的标签。
-    - `--column[={options}]` `--no-column` 分别表示“总是”、“总不”以列形式展示标签。只在显示不带注释的标签时有效。其中 {options} 包括：
-        - 以下选项控制开关
-            - `always` 总是以列形式显示。
-            - `never` 总不以列形式显示。
-            - `auto` 若输出到终端，则以列形式显示。
-        - 以下选项控制布局，缺省为`column`。若出现以下任一选项，而上述3个选项未出现，则默认为`always`。
-            - `column` 先填充列，后填充行。
-            - `row` 先填充行，后填充列。
-            - `plain` 显示在一列。
-        - 以下选项可与上述布局选项混合使用，缺省为`nodense`。
-            - `dense` 列宽不相等。
-            - `nodense` 列宽相等。
-    - `--create-reflog` 为标签创建操作记录。
-    - `--sort={key}` 按照 {key} 对显示结果进行升序排列。通过添加`-`前缀来进行降序排列。若指定多个 {key}，则最后一个 {key} 将作为主键。缺省为`tag.sort`的值，否则就按字典顺序。
-    - `--format={format}` A string that interpolates %(fieldname) from the object pointed at by a ref being shown. The format is the same as that of git-for-each-ref(1). When unspecified, defaults to %(refname:strip=2).
-    - `--[no-]merged [{commit}]` Only list tags whose tips are reachable, or not reachable if --no-merged is used, from the specified commit (HEAD if not specified).
+**创建标签**
 
-- **创建标签**
-> git tag [-a | -s | -u {keyid}] [-f] [-m {msg} | -F {file}] {tagname} [{commit} | {object}]
+- `git tag [-a | -s | -u {keyid}] [-f] [-m {msg} | -F {file}] {tagname} [{commit} | {object}]`
+  - `无参数` 创建轻量级标签。该标签指向一个提交，无标签创建过程记录。
+  - `-a` 创建一个无签名的、带注释的标签。带注释的标签指向一个标签对象（而不是一个提交），该对象中包含了创建标签时的说明、对应的提交 ID 等信息。
+  - `-s` 创建一个 GnuPG 签名的、带注释的标签，使用默认 e-mail 地址作为公钥/私钥对。
+  - `-u {keyid}` 创建一个 GnuPG 签名的、带注释的标签，使用指定的 {keyid} 作为公钥/私钥对。
+  - `-m {msg}` 若创建的是带注释的标签，则必须使用 `-m {msg}` 参数来创建该标签的注释。若使用了 `-m {msg}` 而未使用 `-a`、`-s` 或 `-u {keyid}`，则会隐含使用 `-a`。
+  - `-F {file}` 读取指定文件的内容作为标签注释。`-F -` 表示从标准输入中读取注释。若使用了 `-F {file}` 而未使用 `-a`、`-s` 或 `-u {keyid}`，则会隐含使用 `-a`。
 
-    - `无参数` 创建轻量级标签。该标签指向一个提交，无标签创建过程记录。
-    - `-a` 创建一个无签名的、带注释的标签。带注释的标签指向一个标签对象（而不是一个提交），该对象中包含了创建标签时的说明、对应的提交 ID 等信息。
-    - `-s` 创建一个 GnuPG 签名的、带注释的标签，使用默认 e-mail 地址作为公钥/私钥对。
-    - `-u {keyid}` 创建一个 GnuPG 签名的、带注释的标签，使用指定的 {keyid} 作为公钥/私钥对。
-    - `-m {msg}` 若创建的是带注释的标签，则必须使用 `-m {msg}` 参数来创建该标签的注释。若使用了 `-m {msg}` 而未使用 `-a`、`-s` 或 `-u {keyid}`，则会隐含使用 `-a`。
-    - `-F {file}` 读取指定文件的内容作为标签注释。`-F -` 表示从标准输入中读取注释。若使用了 `-F {file}` 而未使用 `-a`、`-s` 或 `-u {keyid}`，则会隐含使用 `-a`。
+**删除标签**
 
-- **删除标签**
-> git tag -d {tagname}...
+- `git tag -d {tagname}...`
 
-- **校验标签**
-> git tag -v {tagname}...
+**校验标签**
 
-    - 校验指定标签的 GnuPG 签名。
+- `git tag -v {tagname}...` 校验指定标签的 GnuPG 签名。
 
-- **其他**
-    - `git show {tagname}` 查看指定标签的详细信息。
-    - `git log --decorate` 在查看日志时显示提交对应的标签及其他引用。
-    - `git describe [{commit}]` 将提交显示为一个易记的名字。该名字来自于建立于该提交之上的标签。
-        - 若该提交存在标签，则显示该标签的名字。
-        - 若该提交没有标签，则显示其最近一个存在标签的历史版本的标签名，并以 `{tag}-{num}-g{commit}` 的格式显示。其中 {tag} 是该历史版本的标签名，{num} 是该历史提交与所查提交之间的距离，{commit} 是所查提交的精简 ID。
-        - `--dirty` 加上该参数后，若工作区的文件被修改过，则会在标签名后面显示“-dirty”。
+**其他**
+
+- `git show {tagname}` 查看指定标签的详细信息。
+- `git log --decorate` 在查看日志时显示提交对应的标签及其他引用。
+- `git describe [{commit}]` 将提交显示为一个易记的名字。该名字来自于建立于该提交之上的标签。
+  - 若该提交存在标签，则显示该标签的名字。
+  - 若该提交没有标签，则显示其最近一个存在标签的历史版本的标签名，并以 `{tag}-{num}-g{commit}` 的格式显示。其中 {tag} 是该历史版本的标签名，{num} 是该历史提交与所查提交之间的距离，{commit} 是所查提交的精简 ID。
+  - `--dirty` 加上该参数后，若工作区的文件被修改过，则会在标签名后面显示“-dirty”。
 
 # .gitignore 文件
 

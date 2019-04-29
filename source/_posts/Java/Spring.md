@@ -87,7 +87,7 @@ tags: [Java, Spring]
                                                       ApplicationContext
                                 /-----------------------------^---------------------------------\
                            Configurable                                                        Web
-                     /---------/\-----------------------------------------------------------+---/ 
+                     /---------/\-----------------------------------------------------------+---/
                  Abstract                                                            ConfigurableWeb
               /-----^------------------------------------------------\            /---------^-----+-----\
    AbstractRefreshable                                             Generic    StaticWeb           |     |
@@ -207,31 +207,31 @@ BeanFactory 关闭时：
 **模块分类**
 
 - Spring 核心容器
-	- Beans
-	- Core
-	- Context
-	- Expression
-	- Context support
+  - Beans
+  - Core
+  - Context
+  - Expression
+  - Context support
 - 数据访问与集成
-	- JDBC
-	- Transaction
-	- ORM
-	- OXM
-	- Messaging
-	- JMS
+  - JDBC
+  - Transaction
+  - ORM
+  - OXM
+  - Messaging
+  - JMS
 - Web 与远程调用
-	- Web
-	- Web servlet
-	- Web portlet
-	- WebSocket
+  - Web
+  - Web servlet
+  - Web portlet
+  - WebSocket
 - 面向切面编程
-	- AOP
-	- Aspects
+  - AOP
+  - Aspects
 - Instrumentation
-	- Instrument
-	- Instrument Tomcat
+  - Instrument
+  - Instrument Tomcat
 - 测试
-	- Test
+  - Test
 
 1. Spring 核心容器
 容器是 Spring 框架最核心的部分，管理着 Spring 应用中 bean 的创建、配置和管理。除了 bean 工厂和应用上下文，也提供了许多企业服务，如 E-mail、JNDI 访问、EJB 集成和调度。
@@ -322,11 +322,11 @@ Spring 应用系统中开发切面的基础。
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context">
-	<!-- configuration details -->
+    http://www.springframework.org/schema/context">
+  <!-- configuration details -->
 </beans>
 ```
 
@@ -342,7 +342,7 @@ Spring 应用系统中开发切面的基础。
 
 ```xml
 <bean id="myOutterClass" class="com.demo">
-	<constructor-arg ref="myClass"/>
+  <constructor-arg ref="myClass"/>
 </bean>
 ```
 
@@ -352,12 +352,12 @@ Spring 应用系统中开发切面的基础。
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:c="http://www.springframework.org/schema/c"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans.xsd">
-	<bean id="myOutterClass" class="com.demo.MyOutterClass"
-		c:myClass-ref="myClass">
+  xmlns:c="http://www.springframework.org/schema/c"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <bean id="myOutterClass" class="com.demo.MyOutterClass"
+    c:myClass-ref="myClass">
 </beans>
 ```
 
@@ -374,7 +374,7 @@ Spring 应用系统中开发切面的基础。
 
 ```xml
 <bean id="myOutterClass" class="com.demo.MyOutterClass"
-		c:_0-ref="myClass">
+    c:_0-ref="myClass">
 ```
 
 因为 XML 中不允许数字作为属性的第一个字符，所以要添加一个下划线。
@@ -383,14 +383,14 @@ Spring 应用系统中开发切面的基础。
 
 ```xml
 <bean id="myOutterClass" class="com.demo.MyOutterClass"
-		c:_-ref="myClass">
+    c:_-ref="myClass">
 ```
 
 **构造器注入字面量**
 
 ```xml
 <bean id="myClass" class="com.demo.MyClass">
-	<constructor-arg value="abc" />
+  <constructor-arg value="abc" />
 </bean>
 ```
 
@@ -426,7 +426,7 @@ public class MyConfig {
 ```java
 @Bean
 public MyClass myClass() {
-	return new MyClass();
+  return new MyClass();
 }
 ```
 
@@ -437,7 +437,7 @@ public MyClass myClass() {
 ```java
 @Bean
 public MyOutterClass myOutterClass() {
-	return new MyOutterClass(myClass())
+  return new MyOutterClass(myClass())
 }
 ```
 
@@ -448,7 +448,7 @@ public MyOutterClass myOutterClass() {
 ```java
 @Bean
 public MyOutterClass myOutterClass(MyClass myClass) {
-	return new MyOutterClass(myClass);
+  return new MyOutterClass(myClass);
 }
 ```
 
@@ -487,14 +487,14 @@ public class MySpringConfig {
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:Context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context
-		http://www.springframework.org/schema/context/spring-context.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:Context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:component-scan base-package="com.demo"/>
+  <context:component-scan base-package="com.demo"/>
 
 </beans>
 ```
@@ -534,29 +534,29 @@ xml 导入 javaConfig 和 xml
 @Configuration
 @Profile("dev") //作用于类中所有 bean
 public class ProfileBeanConfig {
-	@Bean
-	@Profile("dev") //作用于单个 bean
-	public MyBean myBean() {
-		return new MyBean();
-	}
+  @Bean
+  @Profile("dev") //作用于单个 bean
+  public MyBean myBean() {
+    return new MyBean();
+  }
 }
 ```
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XHLSchema-instance"
-	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans.xsd"＞
+  xmlns:xsi="http://www.w3.org/2001/XHLSchema-instance"
+  xsi:schemaLocation="
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd"＞
 
-	<beans profile="dev">
-		<bean id="myBean" class="com.demo.MyBean" />
-	</beans>
+  <beans profile="dev">
+    <bean id="myBean" class="com.demo.MyBean" />
+  </beans>
 
-	<beans profile="prod">
-		<bean id="myBean" class="com.demo.MyBean" />
-	</beans>
+  <beans profile="prod">
+    <bean id="myBean" class="com.demo.MyBean" />
+  </beans>
 </beans>
 ```
 
@@ -574,22 +574,22 @@ Spring 在确定激活的 profile 时，依赖两个独立的属性：`spring.pr
 ```xml
 <!-- 为上下文设置默认的 profile -->
 <context-param>
-	<param-name>spring.profiles.default</param-name>
-	<param-value>dev</param-value>
-	<!-- 也可以设置多个 profile -->
-	<!-- <param-value>dev1,dev2</param-value> -->
+  <param-name>spring.profiles.default</param-name>
+  <param-value>dev</param-value>
+  <!-- 也可以设置多个 profile -->
+  <!-- <param-value>dev1,dev2</param-value> -->
 </context-param>
 ...
 <!-- 为 Servlet 设置默认的 profile -->
 <servlet>
-	<servlet-name>dispatcherServlet</servlet-name>
-	<servlet-class>
-		org.springframework.web.servlet.DispatcherServlet
-	</servlet-class>
-	<init-param>
-		<param-name>spring.profiles.default</param-name>
-		<param-value>dev</param-value>
-	</init-param>
+  <servlet-name>dispatcherServlet</servlet-name>
+  <servlet-class>
+    org.springframework.web.servlet.DispatcherServlet
+  </servlet-class>
+  <init-param>
+    <param-name>spring.profiles.default</param-name>
+    <param-value>dev</param-value>
+  </init-param>
 </servlet>
 ```
 
@@ -599,19 +599,19 @@ Spring 在确定激活的 profile 时，依赖两个独立的属性：`spring.pr
 @Bean
 @Conditional(MagicExistsCondition.class)
 public MagicBean magicBean() {
-	return new MagicBean();
+  return new MagicBean();
 }
 ```
 
 ```java
 public class MagicExistsCondition implements Condition {
-	@Override
-	public boolean matches(
-		ConditionContext context,
-		AnnotatedTypedMetadata metadata) {
-		Environment env = context.getEnvironment();
-		return env.containsProperty("magic");
-	}
+  @Override
+  public boolean matches(
+    ConditionContext context,
+    AnnotatedTypedMetadata metadata) {
+    Environment env = context.getEnvironment();
+    return env.containsProperty("magic");
+  }
 }
 ```
 
@@ -649,7 +649,7 @@ public Dessert iceCream() {/*bla*/}
 @Autowired
 @Qualifier("iceCream") //指定 bean 的限定符
 public void setDessert(Dessert dessert) {
-	this.dessert = dessert
+  this.dessert = dessert
 }
 ```
 
@@ -717,10 +717,10 @@ public ShoppingCart cart() {...}
     http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="cart" class="com.demo.ShoppingCart" scope="session">
-    	<!-- 默认使用 CGLib 创建目标类的代理 -->
-    	<aop:scoped-proxy />
-		  <!-- 设置成基于接口的代理 -->
-    	<aop:scoped-proxy proxy-target-class="false" />
+      <!-- 默认使用 CGLib 创建目标类的代理 -->
+      <aop:scoped-proxy />
+      <!-- 设置成基于接口的代理 -->
+      <aop:scoped-proxy proxy-target-class="false" />
     </bean>
 </beans>
 ```
@@ -754,12 +754,12 @@ Spring 提供了两种运行时求值的方式：
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:context="http://www.springframework.org/schema/context"
   xsi:schemaLocation="
-  	http://www.springframework.org/schema/beans
-  	http://www.springframework.org/schema/beans/spring-beans.xsd
-  	http://www.springframework.org/schema/context
-  	http://www.springframework.org/schema/context/spring-context.xsd">
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:property-placeholder
+  <context:property-placeholder
       ignore-resource-not-found="false"
       location="classpath:/com/soundsystem/app.properties" />
 
@@ -770,20 +770,20 @@ Spring 提供了两种运行时求值的方式：
 @Configuration
 @PropertySource("classpath:/com/soundsystem/app.properties")
 public class ExpressiveConfig {
-	@Autowired
-	Environment env;
+  @Autowired
+  Environment env;
 
   @Bean
   public static PropertySourcesPlaceholderConfigurer placeHolderConfigurer() {
-  	return new PropertySourcesPlaceholderConfigurer();
+    return new PropertySourcesPlaceholderConfigurer();
   }
 
-	@Bean
-	public BlankDisc disc() {
-		return new BlankDisc(
-			env.getProperty("disc.title"),
-			env.getProperty("disc.artist"));
-	}
+  @Bean
+  public BlankDisc disc() {
+    return new BlankDisc(
+      env.getProperty("disc.title"),
+      env.getProperty("disc.artist"));
+  }
 }
 ```
 
@@ -791,9 +791,9 @@ public class ExpressiveConfig {
 
 ```java
 public BlankDisc(
-	@Value("${disc.title}") String title,
-	@Value("${disc.artist}") String artist) {
-	//blabla
+  @Value("${disc.title}") String title,
+  @Value("${disc.artist}") String artist) {
+  //blabla
 }
 ```
 
@@ -970,43 +970,43 @@ execution(* concert.Performance.perform(..)) and bean('woodstock')
 //而且依然是用 Spring 基于代理的切面，而不是 AspectJ 的切面。
 @Aspect
 public class Audience {
-	/**
-	 * 这个方法的内容不重要，只是为了给 @Pointcut 提供一个附着点。
-	 * 方法名会作为切点的标识符。这样就可以重用同一个切点。
-	 */
-	@Pointcut("execution(** concert.Performance.perform(..))")
-	public void performance() {}
+  /**
+   * 这个方法的内容不重要，只是为了给 @Pointcut 提供一个附着点。
+   * 方法名会作为切点的标识符。这样就可以重用同一个切点。
+   */
+  @Pointcut("execution(** concert.Performance.perform(..))")
+  public void performance() {}
 
-	/**
-	 * args() 中的参数名要与切点方法中的参数名相匹配
-	 */
-	@Pointcut(
-		"execution(** concert.Performance.performAfterEncore(String)"
-		+ "and args(encoreContent)")
-	public void encore(String encoreContent) {
-		System.out.println("Wow!" + encoreContent);
-	}
+  /**
+   * args() 中的参数名要与切点方法中的参数名相匹配
+   */
+  @Pointcut(
+    "execution(** concert.Performance.performAfterEncore(String)"
+    + "and args(encoreContent)")
+  public void encore(String encoreContent) {
+    System.out.println("Wow!" + encoreContent);
+  }
 
-	@Before("performance()")
-	public void silenceCellPhones() {
-		//blabla
-	}
+  @Before("performance()")
+  public void silenceCellPhones() {
+    //blabla
+  }
 
-	@AfterReturning("performance()")
-	public void applause() {
-		//blabla
-	}
+  @AfterReturning("performance()")
+  public void applause() {
+    //blabla
+  }
 
-	@Around("performance()")
-	public void watchPerformance(ProceedingJoinPoint jp) {
-		try {
-			//blabla
-			jp.proceed();// 需要手动调用切点方法
-			//blabla
-		} catch(Throwable e) {
-			//blabla
-		}
-	}
+  @Around("performance()")
+  public void watchPerformance(ProceedingJoinPoint jp) {
+    try {
+      //blabla
+      jp.proceed();// 需要手动调用切点方法
+      //blabla
+    } catch(Throwable e) {
+      //blabla
+    }
+  }
 }
 ```
 
@@ -1017,10 +1017,10 @@ public class Audience {
 @EnableAspectJAutoProxy //启用 AspectJ 自动代理
 @ComponentScan
 public class ConcertConfig {
-	@Bean
-	public Audience audience() {
-	return new Audience();
-	}
+  @Bean
+  public Audience audience() {
+  return new Audience();
+  }
 }
 ```
 
@@ -1038,7 +1038,7 @@ public class ConcertConfig {
     http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="concert" />
-	  <!-- 启用 AspectJ 自动代理 -->
+    <!-- 启用 AspectJ 自动代理 -->
     <aop:aspectj-autoproxy />
     <bean class="concert.Audience" />
 </beans>
@@ -1049,8 +1049,8 @@ public class ConcertConfig {
 ```java
 @Aspect
 public class EncoreableIntroducer {
-	@DeclareParents(value="concert.Performance+", defaultImpl=DefaultEncoreable.class)
-	public static Encoreable encoreable;
+  @DeclareParents(value="concert.Performance+", defaultImpl=DefaultEncoreable.class)
+  public static Encoreable encoreable;
 }
 ```
 
@@ -1084,23 +1084,23 @@ public class EncoreableIntroducer {
 
 ```xml
 <aop:config proxy-target-class="true">
-	<aop:aspect ref="audience">
-		<aop:pointcut
-		  id="performance"
-		  expression="execution(** concert.Performance.perform(..))" />
-		<aop:before
-		  pointcut-ref="performance"
-		  method="takeSeats" />
-	</aop:aspect>
+  <aop:aspect ref="audience">
+    <aop:pointcut
+      id="performance"
+      expression="execution(** concert.Performance.perform(..))" />
+    <aop:before
+      pointcut-ref="performance"
+      method="takeSeats" />
+  </aop:aspect>
 
-	<!-- 引入 -->
-	<!-- default-impl 也可以换成 delegate-ref="{beanId}" -->
-	<aop:aspect>
-		<aop:declare-parents
-		  types-matching="concert.Performance+"
-		  implement-interface="concert.Encoreable"
-		  default-impl="concert.DefaultEncoreable" />
-	</aop:aspect>
+  <!-- 引入 -->
+  <!-- default-impl 也可以换成 delegate-ref="{beanId}" -->
+  <aop:aspect>
+    <aop:declare-parents
+      types-matching="concert.Performance+"
+      implement-interface="concert.Encoreable"
+      default-impl="concert.DefaultEncoreable" />
+  </aop:aspect>
 </aop:config>
 ```
 
@@ -1228,7 +1228,7 @@ Spring 的事务管理器都是 `PlatformTransactionManager` 的实现。
 
 `PROPAGATION_REQUIRES_NEW`
 
-表示当前方法必须运行在它自己的事务中。如果不存在当前事务，则会启动一个新事务。如果存在当前事务，在该方法执行期间，当前事务会被挂起。如果使用 `JTATransactionManager` 的话，则需要访问 `TransactionManager`。 
+表示当前方法必须运行在它自己的事务中。如果不存在当前事务，则会启动一个新事务。如果存在当前事务，在该方法执行期间，当前事务会被挂起。如果使用 `JTATransactionManager` 的话，则需要访问 `TransactionManager`。
 
 `PROPAGATION_SUPPORTS`
 
@@ -1680,7 +1680,7 @@ public class TestEO {
        xmlns:amq="http://activemq.apache.org/schema/core"
        xsi:shemaLocation:"http://activemq.apache.org/schema/core
                    http://activemq.apache.org/schema/core/activemq-core.xsd">
-	<amq:connectionFactory id="connectionFactory" brokerURL="tcp://localhost:61616"/>
+  <amq:connectionFactory id="connectionFactory" brokerURL="tcp://localhost:61616"/>
 </beans>
 ```
 
@@ -1726,11 +1726,11 @@ public class Producer {
         jmsOperations.send("dest.name",
             new MessageCreator() {
                 public Message createMessage(Session session) throws JMSException {
-                	return session.createObjectMessage(obj);
-                }               
+                  return session.createObjectMessage(obj);
+                }
             });
     }
-    
+
     /**
      * 发送的时候使用转换器
      */
@@ -1786,11 +1786,11 @@ public MyObj receiveMessageWithAutoConversion() {
 ```xml
 <bean id="myService" class="me.example.MyServiceImpl"/>
 <bean id="myServiceExporter" class="org.springframework.jms.remoting.JmsInvokerServiceExporter">
-	<property name="service" ref="myService"/>
+  <property name="service" ref="myService"/>
     <property name="serviceInterface" value="me.example.MyService"/>
 </bean>
 <jms:listener-container connection-factory="connectionFactory">
-	<jms:listener destination="{destName}" ref="myServiceExporter"/>
+  <jms:listener destination="{destName}" ref="myServiceExporter"/>
 </jms:listener-container>
 ```
 
@@ -1798,7 +1798,7 @@ public MyObj receiveMessageWithAutoConversion() {
 
 ```xml
 <bean id="myService" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
-	<property name="connectionFactory" ref="connectionFactory"/>
+  <property name="connectionFactory" ref="connectionFactory"/>
     <property name="queueName" value="{destName}"/>
     <property name="serviceInterface" value="me.example.MyService"/>
 </bean>
@@ -1810,15 +1810,15 @@ public MyObj receiveMessageWithAutoConversion() {
 
 ```xml
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-		http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/rabbit
-		http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
-	<!-- 默认 5672 端口，用户名密码均为 guest -->
-	<rabbit:connection-factory id="connectionFactory"
-		host="{host}" port="{port}" username="{user}" password="{pwd}"/>
+  xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/rabbit
+    http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd">
+  <!-- 默认 5672 端口，用户名密码均为 guest -->
+  <rabbit:connection-factory id="connectionFactory"
+    host="{host}" port="{port}" username="{user}" password="{pwd}"/>
 </beans>
 ```
 
@@ -2161,11 +2161,11 @@ Spring 的 `MBeanExporter` 可以把 Spring bean 导出为 MBean 服务器内的
 ```Java
 @Bean
 public MBeanExporter mbeanExporter(SpittleController spittleController) {
-	MBeanExporter exporter = new MBeanExporter();
-	Map<String, Object> beans = new HashMap<>();
-	beans.put("spitter:name=SpittleController", spittleController);
-	exporter.setBeans(beans);
-	return exporter;
+  MBeanExporter exporter = new MBeanExporter();
+  Map<String, Object> beans = new HashMap<>();
+  beans.put("spitter:name=SpittleController", spittleController);
+  exporter.setBeans(beans);
+  return exporter;
 }
 ```
 
@@ -2190,20 +2190,20 @@ MBean 信息装配器（MBean info assembler）是限制哪些方法和属性将
 ```java
 @Bean
 public MethodNameBasedMBeanInfoAssembler assembler1() {
-	MethodNameBasedInfoAssembler assembler = new MethodNameBasedMBeanInfoAssembler();
-	assembler.setManagedMethods(new String[] {
-		"getSpittlesPerPage", "setSpittlesPerPage"
-	});
-	return assembler;
+  MethodNameBasedInfoAssembler assembler = new MethodNameBasedMBeanInfoAssembler();
+  assembler.setManagedMethods(new String[] {
+    "getSpittlesPerPage", "setSpittlesPerPage"
+  });
+  return assembler;
 }
 
 @Bean
 public MethodExclusionMBeanInfoAssembler assembler2() {
-	MethodExclusionMBeanInfoAssembler assembler = new MethodExclusionMBeanInfoAssembler();
-	assembler.setIgnoreMethods(new String[] {
-		"spittles"
-	});
-	return assembler;
+  MethodExclusionMBeanInfoAssembler assembler = new MethodExclusionMBeanInfoAssembler();
+  assembler.setIgnoreMethods(new String[] {
+    "spittles"
+  });
+  return assembler;
 }
 
 /**
@@ -2211,12 +2211,12 @@ public MethodExclusionMBeanInfoAssembler assembler2() {
  */
 @Bean
 public MBeanExporter mbeanExporter(SpittleController spittleController, MBeanInfoAssembler assembler) {
-	MBeanExporter exporter = new MBeanExporter();
-	Map<String, Object> beans = new HashMap<String, Object>();
-	beans.put("spitter:name=SpittleController", spittleController);
-	exporter.setBeans(beans);
-	exporter.setAssembler(assembler);
-	return exporter;
+  MBeanExporter exporter = new MBeanExporter();
+  Map<String, Object> beans = new HashMap<String, Object>();
+  beans.put("spitter:name=SpittleController", spittleController);
+  exporter.setBeans(beans);
+  exporter.setAssembler(assembler);
+  return exporter;
 }
 ```
 
@@ -2228,8 +2228,8 @@ Spring 的 `InterfaceBasedMBeanInfoAssembler` 是另一种 MBean 信息装配器
 
 ```java
 public interface SpittleControllerManagedOperations {
-	int getSpittlesPerPage();
-	void setSpittlesPerPage(int spittlesPerPage);
+  int getSpittlesPerPage();
+  void setSpittlesPerPage(int spittlesPerPage);
 }
 ```
 
@@ -2238,12 +2238,12 @@ public interface SpittleControllerManagedOperations {
 ```java
 @Bean
 public InterfaceBasedMBeanInfoAssembler assembler() {
-	InterfaceBasedMBeanInfoAssembler assembler = 
-		new InterfaceBasedMBeanInfoAssembler();
-	assembler.setManagedInterfaces(
-		new Class<?>[] {SpittleControllerManagedOperations.class}
-	);
-	return assembler;
+  InterfaceBasedMBeanInfoAssembler assembler =
+    new InterfaceBasedMBeanInfoAssembler();
+  assembler.setManagedInterfaces(
+    new Class<?>[] {SpittleControllerManagedOperations.class}
+  );
+  return assembler;
 }
 ```
 
@@ -2265,19 +2265,19 @@ Spring 还提供另一种装配器 `MetadataMBeanInfoAssembler`，它可以使�
 //objectName 标识了域（Spitter）和 MBean 的名称
 @ManagedResource(objectName="spitter:name=SpittleController")
 public class SpittleController {
-	...
-	//将 spittlesPerPage 暴露为托管属性
-	@ManagedAttribute
-	public void setSpittlesPerPage(int spittlesPerPage) {
-		this.spittlesPerPage = spittlesPerPage;
-	}
+  ...
+  //将 spittlesPerPage 暴露为托管属性
+  @ManagedAttribute
+  public void setSpittlesPerPage(int spittlesPerPage) {
+    this.spittlesPerPage = spittlesPerPage;
+  }
 
-	@ManagedAttribute
-	//不会把属性暴露为 MBean 的托管属性，因为此注解是严格限制方法的。
-	//@ManagedOperation
-	public int getSpittlePerPage() {
-		return spittlePerPage;
-	}
+  @ManagedAttribute
+  //不会把属性暴露为 MBean 的托管属性，因为此注解是严格限制方法的。
+  //@ManagedOperation
+  public int getSpittlePerPage() {
+    return spittlePerPage;
+  }
 }
 ```
 
@@ -2292,15 +2292,15 @@ Spring 提供了 3 种借助 `registrationBehaviorName` 属性来处理 MBean �
 ```java
 @Bean
 pubilc MBeanExporter mbeanExporter(
-	SpittleController spittleController,
-	MBeanInfoAssembler assembler) {
-	MBeanExporter exporter = new MBeanExporter();
-	Map<String, Object> beans = new HashMap<>();
-	beans.put("spitter:name=SpittleController", spittleController);
-	exporter.setBeans(beans);
-	exporter.setAssembler(assembler);
-	exporter.setRegistrationPolicy(RegistrationPolicy.IGNORE_EXISTING);
-	return exporter;
+  SpittleController spittleController,
+  MBeanInfoAssembler assembler) {
+  MBeanExporter exporter = new MBeanExporter();
+  Map<String, Object> beans = new HashMap<>();
+  beans.put("spitter:name=SpittleController", spittleController);
+  exporter.setBeans(beans);
+  exporter.setAssembler(assembler);
+  exporter.setRegistrationPolicy(RegistrationPolicy.IGNORE_EXISTING);
+  return exporter;
 }
 ```
 
@@ -2313,12 +2313,12 @@ pubilc MBeanExporter mbeanExporter(
 ```java
 @Bean
 public ConnectorServerFactoryBean connectorServerFactoryBean() {
-	ConnectorServerFactoryBean csfb =
-		new ConnectorServerFactoryBean();
-	//（可选）绑定到一个 RMI 注册表
-	csfb.setServiceUrl(
-		"service:jmx:rmi://localhost/jndi/rmi://localhost:1099/spitter");
-	return csfb;
+  ConnectorServerFactoryBean csfb =
+    new ConnectorServerFactoryBean();
+  //（可选）绑定到一个 RMI 注册表
+  csfb.setServiceUrl(
+    "service:jmx:rmi://localhost/jndi/rmi://localhost:1099/spitter");
+  return csfb;
 }
 ```
 
@@ -2363,8 +2363,8 @@ compile("org.springframework.boot:spring-boot-starter-actuator")
 
 ```xml
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-actuator</artifactId>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-actuator</artifactId>
 </dependency>
 ```
 

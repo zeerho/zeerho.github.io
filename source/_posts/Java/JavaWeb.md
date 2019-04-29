@@ -26,6 +26,20 @@ tags: [Java]
 
 当上下文的根被请求的时候，它将被调用。这跟 `<welcome-file>` 的方式是不同的，因为这种形式在当任何子目录被请求的时候不会被调用。一般用来处理对于首页的请求。
 
+# 错误代码跳转
+
+```xml
+<error-page>
+  <error-code>404</error-code>
+  <location>/somewhere/404Error.jsp</location>
+</error-page>
+
+<error-page>
+  <exception-type>com.example.ExampleException</exception-type>
+  <location>/somewhere/Error.jsp</location>
+</error-page>
+```
+
 # load-on-startup
 
 1. `load-on-startup` 元素标记容器是否应该在 web 应用程序启动的时候就加载这个 servlet，(实例化并调用其 `init()` 方法)。
