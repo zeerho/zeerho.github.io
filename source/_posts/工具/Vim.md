@@ -847,7 +847,7 @@ global命令
 
 ### 输入格式
 
-- 简单字符串：'abc' 相当于 `a[^a]\{-}b[^b]\{-}c'。
+- 简单字符串：'abc' 相当于 `a[^a]\{-}b[^b]\{-}c`。
 - 正则表达式：按照 vim 的正则规则。
 - 字符串后紧跟 `:{cmd}`：指定打开文件后执行的命令。
 - 切换目录
@@ -903,15 +903,33 @@ global命令
 
 ## fugitive
 
-**对象**
+### 对象 fugitive-objects
 
+- `:` 同 `:Gstatus`
+- `.git/config` 仓库的配置文件
 - `HEAD` .git/HEAD
 - `refs/heads/x` .git/refs/heads/x
-- `@` HEAD 指向的提交
-- `master^` master 的父提交
-- `master:` master 指向的 tree 对象
-- `./master` 工作目录下名为 master 的文件
-- `Makefile` work tree 中名为 Makefile 的文件
+- 当前文件
+  - `:%` 当前文件在暂存区中的对应文件
+  - `@~2:%` 当前文件在 HEAD 的祖父提交中的对应文件
+  - `:1:%` 冲突状态中，当前文件在共同祖先中的对应文件
+  - `:2:#` 冲突状态中，当前文件在目标分支中的对应文件
+- 指定文件名的文件
+  - `./master` 工作目录下名为 master 的文件
+  - `Makefile` 工作区中名为 Makefile 的文件
+  - `@^:Makefile` HEAD 的父提交中名为 Makefile 的文件
+  - `:Makefile` 暂存区中的 Makefile 文件
+  - `!:Makefile` 包含当前文件的提交中的名为 Makefile 的文件
+- 提交
+  - `@` HEAD 指向的提交
+  - `master^` master 的父提交
+  - `master:` master 指向的 tree 对象
+  - `!` 包含当前文件的提交
+- 指定缓冲区中的文件
+  - `:3:#5` 冲突状态中，缓冲区 #5 中文件在被合并分支中对应的文件
+  - `!3^2` 包含缓冲区 #3 中文件的提交的第二父提交
+
+### 命令
 
 **通用**
 
@@ -926,6 +944,8 @@ global命令
   - `-` add/reset 某个文件的修改。
   - `=` 展开各个差异块。
 - `Gdiff` 查看当前文件工作区到暂存区的差异。
+  - `Gsdiff` 横向分割窗口
+  - `Gvdiff` 纵向分割窗口
 - `Gcommit {args}` 提交当前文件，在新窗口中编辑提交信息。
 - `Gmerge {args}` 合并分支，在 quickfix 窗口中列出冲突文件。
 - `Grebase`
@@ -939,13 +959,69 @@ global命令
 
 - `Gfetch {args}` `Gpull {args}` `Gpush {args}`
 
-**日志**
+**历史日志**
 
-- `Gblame`
+- `Gblame [flags]` flags 会被传递给 git-blame。
+  在 blame 窗口可以使用以下热键：
+  - `g?` 帮助
+  - `A` 重置尺寸至作者列
+  - `C` 重置尺寸至提交列
+  - `D` 重置尺寸至日期列
+  - `q` 退出 blame
+  - `gq` 退出 blame 并 `:Gedit` 工作区中的版本（不懂跟 `q` 有什么区别）
+  - `<CR>` 打开光标下的提交
+  - `o` 在水平分割窗口打开提交
+  - `O` 在新标签页打开提交
+  - `p` 在预览窗口打开提交
+  - `-` 在光标下的提交上再做 blame
+  - `~` 在第 [count] 个第一父提交上再做 blame
+  - `P` 在第 [count] 父提交上再做 blame（相当于 HEAD^[count]）
 - `0Glog` 通过 quickfix 窗口遍历当前文件历史。
 - `Glog {args}` 通过 quickfix 窗口浏览提交历史。
   - `--` 查看所有提交，否则查看涉及当前文件的提交。
 - `Gllog {args}` 类似 `Glog`，不过是用 location list。
+
+### 热键
+
+这些热键大多数都能在 `:Gstatus` 窗口和 fugitive 对象窗口使用。
+
+**暂存和撤销**
+
+- `s` stage 光标下的文件或块。
+- `u` unstange 光标下的文件或块。
+- `-` stage/unstage 光标下的文件或块。
+- `<C-N>` 跳到下个文件或块。
+- `<C-P>` 跳到上个文件或块。
+- `X` 放弃光标下的改动，即 checkout 或 clean。
+- `=` 在光标处切换内联差异比较。
+- `<` 在光标处插入内联差异比较。
+- `>` 在光标处移除内联差异比较。
+- `i` 对于未跟踪文件，执行 `git add --intent-to-add`。否则移至下个块并展开内联差异比较
+- `dd` 对光标下的文件执行 `:Gdiff`。
+- `ds` 对光标下的文件执行 `:Gsdiff`。
+- `dv` 对光标下的文件执行 `:Gvdiff`。
+- `P` 对光标下的文件执行 `:Git add --patch` 或 `:Git reset --patch`。
+
+**导航**
+
+- `<CR>` 打开光标下的文件或对象。
+- `o` `gO` 在新窗口中打开光标下的文件或对象。
+- `O` 在新标签页中打开光标下的文件或对象。
+- `~` 相当于 Git 的 `~`。
+- `P` 相当于 Git 的 `^`。
+- `C` 打开包含当前文件的提交。
+- `<C-W>C` 在新窗口中打开包含当前文件的提交。
+
+**提交**
+
+- `cc` 创建提交。
+- `ca` commit --amend 并编辑提交信息。
+- `ce` commit --amend 且不编辑提交信息。
+- `cw` 编辑最近一次提交。
+- `cvc` 带 `-v` 提交。
+- `cva` 带 `-v` amend。
+
+### 其他
 
 `set statusline=%{FugitiveStatusline()}` 在状态栏添加分支信息
 
