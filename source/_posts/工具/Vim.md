@@ -1020,6 +1020,16 @@ global命令
 - `cw` 编辑最近一次提交。
 - `cvc` 带 `-v` 提交。
 - `cva` 带 `-v` amend。
+- `cf` 为光标下的提交创建一个 fixup 提交。
+- `cs` 为光标下的提交创建一个 squash 提交。
+- `cA` 为光标下的提交创建一个 squash 提交并编辑信息。
+
+**Rebase**
+
+- `ri` 执行交互式 rebase，以光标下提交的父提交作为基准。
+- `rf` 执行自动压缩 rebase，以光标下提交的父提交作为基准。
+- `ru` 以 upstream 分支为基准执行交互式 rebase。
+- `rp` 以 push 分支为基准执行交互式 rebase。
 
 ### 其他
 
