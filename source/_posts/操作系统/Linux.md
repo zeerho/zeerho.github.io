@@ -352,14 +352,14 @@ APT 的底层包是 dpkg，dpkg 会把 .deb 文件放在 /var/cache/apt/archives
 
 ## 常用
 
-**cat**
+### cat
 
 concatenate 显示文件内容。
 
 `cat {file1} [{file2}]...`
 显示一个或多个文件的内容。对于多个文件，会将内容拼接起来显示。
 
-**ls**
+### ls
 
 显示指定目录的内容，缺省参数为当前目录。
 
@@ -385,7 +385,7 @@ concatenate 显示文件内容。
 `-w` `--width={cols}` 定义屏幕宽度。
 `-X` 按扩展名的字母顺序排序。
 
-**cp**
+### cp
 
 复制文件。
 
@@ -394,7 +394,7 @@ concatenate 显示文件内容。
 `cp {file1} ... {file2} {dir}`
 将文件复制到指定目录。
 
-**mv**
+### mv
 
 重命名或移动文件。
 
@@ -403,40 +403,40 @@ concatenate 显示文件内容。
 `mv {file1} ... {file2} {dir}`
 将文件移动到指定目录。
 
-**touch**
+### touch
 
 > 创建文件。若文件已存在则更新时间戳。
 
 `touch {file}`
 
-**rm**
+### rm
 
 > 删除文件。
 
 `rm {file}`
 
-**echo**
+### echo
 
 将它的参数显示到标准输出。
 
 `echo {variable}`
 
 
-**cd**
+### cd
 
 > 设置当前工作目录。当前工作目录是指进程和 shell 当前所在的工作目录。
 
 `cd {dir}`
 
 
-**mkdir**
+### mkdir
 
 > 创建新目录。
 
 `mkdir {dir}`
 
 
-**rmdir**
+### rmdir
 
 > 删除目录，只能删除空目录。
 
@@ -446,7 +446,7 @@ concatenate 显示文件内容。
 删除指定目录及其中所有内容。
 
 
-**grep**
+### grep
 
 > 显示文件和输入流中和参数匹配的行。可识别正则表达式。
 
@@ -454,39 +454,66 @@ concatenate 显示文件内容。
 -i 表示不区分大小写，-v 表示反转匹配，即显示所有不匹配的行。
 
 
-**less**
+### less
 
-> 分屏显示文件内容。空格查看下一屏，b 键查看上一屏，q 键退出。
-`less`命令是`more`命令的增强版，在一些没有`less`命令的 Unix 系统和嵌入式系统中可以使用`more`命令。
+分屏显示文件内容。
 
+`less` 命令是 `more` 命令的增强版，在一些没有 `less` 命令的 Unix 系统和嵌入式系统中可以使用 `more` 命令。
 
-**pwd**
+大部分移动命令同 vim，包括标记跳转。
+
+`less [opt] {file}...`
+
+- `-b {bufferSize}` 缓冲区大小。
+- `-e` 文件显示结束后自动离开。
+- `-f` 强制打开特殊文件，如外围设备代号、目录和二进制文件。
+- `-g` 只标识最后搜索的关键词。
+- `-i` 搜索忽略大小写。
+- `-m` 显示类似 `more` 的百分比。
+- `-N` 显示行号。
+- `-o {file}` 将 less 输出内容保存到指定文件。
+- `-Q` 不使用警告音。
+- `-s` 将连续空行显示为一行。
+- `-S` 舍弃行的超长部分。
+- `-x {n}` 将 `{tab}` 显示为 n 个空格。
+
+- `/{str}` `?{str}` 向下/上搜索字符串。
+- `n` `N` 重复/反向重复上一次搜索。
+- `y` `<enter>` 上/下滚一行。
+- `u` `d` 上/下滚半页。
+- `b` `<space>` 上/下滚一页。
+- `<pageup>` `<pagedown>` 向上/下滚一页。
+- `:n` `:p` 下/上一个文件。
+- `Q` 推出 `less`。
+- `h` 帮助。
+
+### pwd
 
 > 输出当前的工作目录名。
 
 
-**diff**
+### diff
 
 > 查看两个文件之间的不同。
 
 `diff {file1} {file2}`
 
 
-**file**
+### file
 
 > 查看文件的格式信息。
 
 `file {file}`
 
 
-**find**
+### find
 
 > 查找文件。可以使用模式匹配参数，但必须给模式匹配参数加引号，因为 shell 会在运行命令前展开通配符。
 
 `find {dir} -name {file} -print`
 
 
-**locate**
+### locate
 
 > 在系统创建的文件索引中查找文件。该索引由系统周期性地进行更新。
 
@@ -499,23 +526,23 @@ concatenate 显示文件内容。
 -n 设置显示的行数，+n 设置显示第 n 行开始的内容，-f 设置不停地读取最新内容。
 
 
-**sort**
+### sort
 
 > 将文件内的所有行按照字母顺序快速排序。-n 按照数字顺序排序那些以数字开始的行，-r 反向排序。
 
 
-**export**
+### export
 
 > 将某个 shell 变量设置为环境变量。
 
 `export {var}`
 
 
-**man**
+### man
 
-**{command} --help|-h**
+### {command} --help|-h
 
-**info {command}**
+### info {command}
 
 > 获取在线帮助。
 
@@ -523,17 +550,17 @@ concatenate 显示文件内容。
 获取指定命令的帮助信息，可指定关键词进行查找。
 
 
-**{command} > {file}**
+### {command} > {file}
 
-**{command} >> {file}**
+### {command} >> {file}
 
-**{command} | {command}**
+### {command} | {command}
 
-**{command} 2> {file}**
+### {command} 2> {file}
 
-**{command} > {file} 2>&1**
+### {command} > {file} 2>&1
 
-**{command} < {file}**
+### {command} < {file}
 
 > `>`将执行结果重定向至文件（缺省为终端屏幕），如果文件不存在，shell 会创建新文件；如果文件存在，shell 会先清空文件内容。bash 中可以通过设置参数`set -C`来防止清空。
 `>>`将执行结果重定向至文件末尾。
@@ -543,21 +570,21 @@ concatenate 显示文件内容。
 `<`将文件内容重定向为命令的标准输入。
 
 
-**du**
+### du
 
 > 查看文件和目录的磁盘使用空间。
 
 `du -sh ./*`
 显示当前目录下所有文件和目录的磁盘使用情况。
 
-**chmod**
+### chmod
 
 `chmod [ops] {xyz} {path}`
 
 - `-R` 对目录内部递归执行。
 - `{xyz}` 依次对应拥有者、拥有者所在组、其他用户。rwx 641。
 
-**chown**
+### chown
 
 `chown [ops] {userOrGroup} {path}`
 

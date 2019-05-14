@@ -605,6 +605,8 @@ Vim 缺省会将以 0 开头的数字解释为八进制。在 vimrc 中加入 `s
 
 ## 模式
 
+`:h perl-patterns`
+
 **全局设置大小写敏感性**
 
 - `set ignorecase|ic` `set noignorecase|noic`: 大小写敏感关/开（会影响自动补全）。
