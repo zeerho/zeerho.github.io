@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Just a repo for documents">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tags">
+<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta property="og:site_name" content="zeerho">
+<meta property="og:description" content="Just a repo for documents">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-05T02:37:10.245Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tags">
+<meta name="twitter:description" content="Just a repo for documents">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/tags/"/>
+
+
+
+
+
+  <title>Java 核心 | zeerho</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zeerho</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/25/Java/Java 核心/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java 核心</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-25T09:00:00+08:00">2018-02-25</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h1><p>基本类型直接存储值，并置于堆栈中。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">基本类型</th>
+<th style="text-align:left">大小</th>
+<th style="text-align:left">最小值</th>
+<th style="text-align:left">最大值</th>
+<th style="text-align:left">包装器类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">Boolean</td>
+</tr>
+<tr>
+<td style="text-align:left">char</td>
+<td style="text-align:left">16</td>
+<td style="text-align:left">Unicode 0</td>
+<td style="text-align:left">Unicode 2^16-1</td>
+<td style="text-align:left">Character</td>
+</tr>
+<tr>
+<td style="text-align:left">byte</td>
+<td style="text-align:left">8</td>
+<td style="text-align:left">-128</td>
+<td style="text-align:left">+127</td>
+<td style="text-align:left">Byte</td>
+</tr>
+<tr>
+<td style="text-align:left">short</td>
+<td style="text-align:left">16</td>
+<td style="text-align:left">-2^15</td>
+<td style="text-align:left">+2^15-1</td>
+<td style="text-align:left">Short</td>
+</tr>
+<tr>
+<td style="text-align:left">int</td>
+<td style="text-align:left">32</td>
+<td style="text-align:left">-2^31</td>
+<td style="text-align:left">+2^31-1</td>
+<td style="text-align:left">Integer</td>
+</tr>
+<tr>
+<td style="text-align:left">long</td>
+<td style="text-align:left">64</td>
+<td style="text-align:left">-2^63</td>
+<td style="text-align:left">+2^63-1</td>
+<td style="text-align:left">Long</td>
+</tr>
+<tr>
+<td style="text-align:left">float</td>
+<td style="text-align:left">32</td>
+<td style="text-align:left">IEEE 754</td>
+<td style="text-align:left">IEEE 754</td>
+<td style="text-align:left">Float</td>
+</tr>
+<tr>
+<td style="text-align:left">double</td>
+<td style="text-align:left">64</td>
+<td style="text-align:left">IEEE 754</td>
+<td style="text-align:left">IEEE 754</td>
+<td style="text-align:left">Double</td>
+</tr>
+<tr>
+<td style="text-align:left">void</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">Void</td>
+</tr>
+</tbody>
+</table>
+<h1 id="初始化与清理"><a href="#初始化与清理" class="headerlink" title="初始化与清理"></a>初始化与清理</h1><h2 id="成员初始化"><a href="#成员初始化" class="headerlink" title="成员初始化"></a>成员初始化</h2><p>类的成员若未在定义的时候初始化，则 Java 会给其赋默认值。而局部变量必须显式赋予初始值。</p>
+<h2 id="初始化顺序"><a href="#初始化顺序" class="headerlink" title="初始化顺序"></a>初始化顺序</h2><ol>
+<li>当类的静态方法/静态域首次被访问时（构造方法也是静态方法），类加载器会查找类路径，定位 xx.class 文件。</li>
+<li>载入 xx.class 文件，创建一个 Class 对象。执行所有有关静态初始化的动作（包括静态子句）。</li>
+<li>当用 new 创建对象时，现在堆上为对象分配足够的空间。</li>
+<li>这块空间会被清零，也就是将对象的成员赋予了默认初始值。</li>
+<li>执行所有出现于字段定义处的初始化动作，以及非静态子句。</li>
+<li>执行构造方法。</li>
+</ol>
+<h1 id="Paths"><a href="#Paths" class="headerlink" title="Paths"></a>Paths</h1><h1 id="JNI-字段描述符"><a href="#JNI-字段描述符" class="headerlink" title="JNI 字段描述符"></a>JNI 字段描述符</h1><p>JNI（JavaNative Interface FieldDescriptors) 字段描述符是一种对函数返回值和参数的编码。</p>
+<p>Boolean：Z<br>Byte：B<br>Char：C<br>Short：S<br>Int：I<br>Long：J<br>Float：F<br>Double：D<br>Void：V<br>对象：以”L”开头，以”;”结尾，中间是用”/“ 隔开的包及类名。比如：“Ljava/lang/String;”。如果是嵌套类，则用“$”来表示嵌套。例如 “(Ljava/lang/String;Landroid/os/FileUtils$FileStatus;)Z”。<br>数组：在上述描述符前面加上”[“，有多少级数组就加多少个”[“。</p>
+<h1 id="fork-join"><a href="#fork-join" class="headerlink" title="fork-join"></a>fork-join</h1><h2 id="fork-join-最佳实践"><a href="#fork-join-最佳实践" class="headerlink" title="fork-join 最佳实践"></a>fork-join 最佳实践</h2><ul>
+<li>调用 <code>join</code> 方法会阻塞调用方，务必在两个子任务都开始后再调用。</li>
+<li>不应该在 <code>RecursiveTask</code> 内部调用 <code>ForkJoinPool.invoke()</code> 方法，而是应该调用 <code>compute</code> 或 <code>fork</code> 方法。只有顺序代码才应该调用 <code>invoke</code> 来启动并行计算。</li>
+<li>只对一个子任务调用 <code>fork</code> 方法，让另一个子任务在当前线程执行。</li>
+<li>如果条件允许的话，最好将任务划分为大量小任务而不是少量大任务，因为 fork-join 框架会使用“工作窃取”机制来实现负载均衡。</li>
+</ul>
+<p>//TODO</p>
+<h1 id="SuppressWarnings"><a href="#SuppressWarnings" class="headerlink" title="@SuppressWarnings"></a>@SuppressWarnings</h1><table>
+<thead>
+<tr>
+<th style="text-align:left">警告取值类型</th>
+<th style="text-align:left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">all</td>
+<td style="text-align:left">all warnings</td>
+</tr>
+<tr>
+<td style="text-align:left">boxing</td>
+<td style="text-align:left">boxing/unboxing operations</td>
+</tr>
+<tr>
+<td style="text-align:left">cast</td>
+<td style="text-align:left">cast operations</td>
+</tr>
+<tr>
+<td style="text-align:left">dep-ann</td>
+<td style="text-align:left">deprecated annotation</td>
+</tr>
+<tr>
+<td style="text-align:left">deprecation</td>
+<td style="text-align:left">deprecation</td>
+</tr>
+<tr>
+<td style="text-align:left">fallthrough</td>
+<td style="text-align:left">missing breaks in switch statements</td>
+</tr>
+<tr>
+<td style="text-align:left">finally</td>
+<td style="text-align:left">finally block that don’t return</td>
+</tr>
+<tr>
+<td style="text-align:left">hiding</td>
+<td style="text-align:left">locals that hide variable</td>
+</tr>
+<tr>
+<td style="text-align:left">incomplete-switch</td>
+<td style="text-align:left">missing entries in a switch statement (enum case)</td>
+</tr>
+<tr>
+<td style="text-align:left">nls</td>
+<td style="text-align:left">non-nls(National Language Support) string literals</td>
+</tr>
+<tr>
+<td style="text-align:left">null</td>
+<td style="text-align:left">null analysis</td>
+</tr>
+<tr>
+<td style="text-align:left">rawtypes</td>
+<td style="text-align:left">un-specific types when using generics on class params</td>
+</tr>
+<tr>
+<td style="text-align:left">restriction</td>
+<td style="text-align:left">usage of discouraged or forbidden references</td>
+</tr>
+<tr>
+<td style="text-align:left">serial</td>
+<td style="text-align:left">missing serialVersionUID field for a serializable class</td>
+</tr>
+<tr>
+<td style="text-align:left">static-access</td>
+<td style="text-align:left">incorrect static access</td>
+</tr>
+<tr>
+<td style="text-align:left">synthetic-access</td>
+<td style="text-align:left">unoptimized access from inner classes</td>
+</tr>
+<tr>
+<td style="text-align:left">unchecked</td>
+<td style="text-align:left">unchecked operations</td>
+</tr>
+<tr>
+<td style="text-align:left">unqualified-field-access</td>
+<td style="text-align:left">field access unqualified</td>
+</tr>
+<tr>
+<td style="text-align:left">unused</td>
+<td style="text-align:left">unused code</td>
+</tr>
+</tbody>
+</table>
+<h1 id="javap"><a href="#javap" class="headerlink" title="javap"></a>javap</h1><table>
+<thead>
+<tr>
+<th style="text-align:left">option</th>
+<th style="text-align:left">meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">-c</td>
+<td style="text-align:left">输出类中各方法的未解析的代码，即构成java字节码的指令</td>
+</tr>
+<tr>
+<td style="text-align:left">-classpath {pathlist}</td>
+<td style="text-align:left">指定javap用来查找类的路径。目录用：分隔</td>
+</tr>
+<tr>
+<td style="text-align:left">-extdirs {dirs}</td>
+<td style="text-align:left">覆盖搜索安装方式扩展的位置，扩展的缺省位置为jre/lib/ext</td>
+</tr>
+<tr>
+<td style="text-align:left">-help</td>
+<td style="text-align:left">输出帮助信息</td>
+</tr>
+<tr>
+<td style="text-align:left">-J{flag}</td>
+<td style="text-align:left">直接将flag传给运行时系统</td>
+</tr>
+<tr>
+<td style="text-align:left">-l</td>
+<td style="text-align:left">输出行及局部变量表</td>
+</tr>
+<tr>
+<td style="text-align:left">-public</td>
+<td style="text-align:left">只显示public类及成员</td>
+</tr>
+<tr>
+<td style="text-align:left">-protected</td>
+<td style="text-align:left">只显示protected和public类及成员。</td>
+</tr>
+<tr>
+<td style="text-align:left">-package</td>
+<td style="text-align:left">只显示包、protected和public类及成员，这是缺省设置</td>
+</tr>
+<tr>
+<td style="text-align:left">-private</td>
+<td style="text-align:left">显示所有的类和成员</td>
+</tr>
+<tr>
+<td style="text-align:left">-s</td>
+<td style="text-align:left">输出内部类型签名</td>
+</tr>
+<tr>
+<td style="text-align:left">-bootclasspath {pathlist}</td>
+<td style="text-align:left">指定加载自举类所用的路径，如jre/lib/rt.jar或i18n.jar</td>
+</tr>
+<tr>
+<td style="text-align:left">-verbose</td>
+<td style="text-align:left">打印堆栈大小、各方法的locals及args参数，以及class文件的编译版本</td>
+</tr>
+</tbody>
+</table>
+<h1 id="集合框架"><a href="#集合框架" class="headerlink" title="集合框架"></a>集合框架</h1><h2 id="WeakHashMap"><a href="#WeakHashMap" class="headerlink" title="WeakHashMap"></a>WeakHashMap</h2><p><code>Entry</code> 继承自 <code>WeakReference</code>，key 是弱引用。</p>
+<p>以下方法中会调用 <code>expungeStaleEntries()</code> 来清理 key 被 gc 了的 entry：</p>
+<ul>
+<li><code>getTable()</code></li>
+<li><code>size()</code></li>
+<li><code>resize()</code></li>
+</ul>
+<p>这几个方法都很基础，几乎所有对 Map 的操作都会调用到。如果 Map 长时间不被访问的话依然可能因为 value 不被释放而发生内存泄漏。</p>
+<h1 id="ClassValue"><a href="#ClassValue" class="headerlink" title="ClassValue"></a>ClassValue</h1><p>业务代码中经常需要使用 <code>Map&lt;Class, Object&gt;</code> 作为缓存来 //TODO</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/12/工具/AutoHotKey/" rel="next" title="AutoHotKey">
+                <i class="fa fa-chevron-left"></i> AutoHotKey
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/01/Java/Spring任务调度和异步执行器/" rel="prev" title="Spring任务调度和异步执行器">
+                Spring任务调度和异步执行器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">zeerho</p>
+              <p class="site-description motion-element" itemprop="description">Just a repo for documents</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ZephyrHuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zephyrhuang21@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#对象"><span class="nav-number">1.</span> <span class="nav-text">对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初始化与清理"><span class="nav-number">2.</span> <span class="nav-text">初始化与清理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#成员初始化"><span class="nav-number">2.1.</span> <span class="nav-text">成员初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化顺序"><span class="nav-number">2.2.</span> <span class="nav-text">初始化顺序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Paths"><span class="nav-number">3.</span> <span class="nav-text">Paths</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JNI-字段描述符"><span class="nav-number">4.</span> <span class="nav-text">JNI 字段描述符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fork-join"><span class="nav-number">5.</span> <span class="nav-text">fork-join</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#fork-join-最佳实践"><span class="nav-number">5.1.</span> <span class="nav-text">fork-join 最佳实践</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SuppressWarnings"><span class="nav-number">6.</span> <span class="nav-text">@SuppressWarnings</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#javap"><span class="nav-number">7.</span> <span class="nav-text">javap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集合框架"><span class="nav-number">8.</span> <span class="nav-text">集合框架</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WeakHashMap"><span class="nav-number">8.1.</span> <span class="nav-text">WeakHashMap</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ClassValue"><span class="nav-number">9.</span> <span class="nav-text">ClassValue</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zeerho</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

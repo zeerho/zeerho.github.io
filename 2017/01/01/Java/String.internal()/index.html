@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Just a repo for documents">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tags">
+<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta property="og:site_name" content="zeerho">
+<meta property="og:description" content="Just a repo for documents">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-05T02:37:10.245Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tags">
+<meta name="twitter:description" content="Just a repo for documents">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/tags/"/>
+
+
+
+
+
+  <title>String.internal() | zeerho</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zeerho</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/Java/String.internal()/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">String.internal()</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="intern-方法"><a href="#intern-方法" class="headerlink" title="intern 方法"></a>intern 方法</h1><blockquote>
+<p>返回字符串对象的规范化表示形式。</p>
+<p>一个初始时为空的字符串池，它由类 String 私有地维护。</p>
+<p>当调用 intern 方法时，如果池已经包含一个等于此 String 对象的字符串（该对象由 <code>equals(Object)</code> 方法确定），则返回池中的字符串。否则，将此 String 对象添加到池中，并且返回此 String 对象的引用。</p>
+<p>它遵循对于任何两个字符串 s 和 t，当且仅当 <code>s.equals(t)</code> 为 true 时，<code>s.intern() == t.intern()</code> 才为 true。</p>
+<p>所有字面值字符串和字符串赋值常量表达式都是内部的。</p>
+<p>返回：</p>
+<p>一个字符串，内容与此字符串相同，但它保证来自字符串池中。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="intern-方法的功能"><a href="#intern-方法的功能" class="headerlink" title="intern 方法的功能"></a>intern 方法的功能</h1><p>JVM 中，字符串引用存于栈中并指向字符串对象，而字符串对象存于两个地方：堆和常量池。其中，JDK1.7 之前，常量池位于方法区中；JDK1.7 开始，常量池位于堆中。</p>
+<p>当声明静态字符串时，如：<code>&quot;ab&quot;</code>、<code>&quot;a&quot;+&quot;b&quot;</code>，会先在字符串池中查找，若无则添加至池中（详见下一节），然后返回池中相应字符串的引用（实际上 <code>&quot;a&quot;+&quot;b&quot;</code> 会被编译器简化为 <code>&quot;ab&quot;</code>）。<br>当用 <code>new String()</code> 或含有变量的拼接字符串进行声明时，如 <code>new String(&quot;a&quot;)+new String(&quot;b&quot;)</code>、<code>&quot;a&quot;+b</code>，字符串 “ab” 不会进入字符串池。<br>当用 <code>new String()</code> 进行声明，且用字符串常量作为构造参数时，会在常量池和堆中生成两个字符串对象。例如：<code>new String(&quot;a&quot;)</code>。</p>
+<h1 id="intern-方法的变化"><a href="#intern-方法的变化" class="headerlink" title="intern 方法的变化"></a>intern 方法的变化</h1><p>JDK1.7 之前和之后的 intern 方法的具体实现有所不同。</p>
+<ul>
+<li>之前：若常量池中已有该字符串，则返回该对象的引用；若常量池中无该字符串，则<strong>在常量池中生成该字符串对象</strong>，再将引用指向它。</li>
+<li>之后：若常量池中已有该字符串，则返回该对象的引用；若常量池中无该字符串，则<strong>在常量池中存入一个引用，该引用指向堆中的原始的字符串对象</strong>。</li>
+</ul>
+<p>intern 方法本身是为了节约字符串占用的内存而存在的，从这一点来说，JDK1.7 的改动进一步优化了内存占用。<br>但是很多人还会把该方法作另一用途，即直接用 <code>==</code> 来判断两个字符串是否相等。JDK1.7 的改动导致这种用途的结果有时会跟之前版本的不同，比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String s = new String(&quot;a&quot;) + new String(&quot;b&quot;);//堆中生成 &quot;ab&quot;</span><br><span class="line">s.intern();//常量池中生成一个引用，指向堆中 &quot;ab&quot; 对象</span><br><span class="line">String t = &quot;ab&quot;;//指向常量池中的内容，根据 JDK 的不同可能是一个引用，也可能是一个对象</span><br><span class="line">System.out.println(s == t);</span><br></pre></td></tr></table></figure></p>
+<p>在 JDK1.7 之前，结果是 false。因为 s 指向一个堆中的对象，t 指向一个常量池中的对象（该对象由 <code>s.intern()</code> 生成）。<br>在 JDK1.7 之后，结果是 true。因为 s 指向一个堆中的对象，<code>s.intern()</code> 在常量池中生成了一个引用，指向堆中的字符串。然后 t 使用了常量池中的引用，从而也指向堆中的字符串。</p>
+<h1 id="intern-方法的实现和限制"><a href="#intern-方法的实现和限制" class="headerlink" title="intern 方法的实现和限制"></a>intern 方法的实现和限制</h1><p>String.intern 方法的大致实现方式是通过 JNI 调用由 C++ 实现的 StringTable 的 intern 方法，其数据结构类似 HashMap，但大小固定，默认为 1009。</p>
+<p>若 StringTable 的空间太小，则会出现大量的 hash 碰撞，进而导致花费大量的时间在某个 hash 值对应的链表中查找指定的字符串。</p>
+<p>JDK1.7 开始可以通过 <code>-XX:StringTableSize=60013</code> 来指定 StringTable 的大小。其中指定的数字最好是一个适当大小的质数，这样可以尽可能地避免因为代码中生成的字符串带有潜在的规律性而导致 hash 值集中在一系列呈周期间隔的值附近，即尽可能避免 hash 碰撞。</p>
+<p>在一些底层方法中若频繁使用字符串，则使用 intern 方法可以有效的提升性能。但需要谨慎评估可能使用的不同内容的字符串数量。若数量极大或难以预估，就必须在代码中加入一个阈值，该阈值须明显低于常量池大小（考虑到程序的其他地方也要用到常量池）。仅当已生成的不同内容的字符串数量低于该阈值时才使用 intern 方法。</p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><ol>
+<li><strong>不要依赖 intern 方法来进行字符串相等的判断</strong>，这样做很容易出错，而且让其他不熟悉这块原理的人难以维护代码。</li>
+<li><strong>不必刻意使用 intern 方法来节省字符串占用的堆空间</strong>。因为若字符串对象较少，则性能提升不大，却增加了维护成本；若<strong>不同内容</strong>的字符串极多，则因为常量池本身有容量上限，会导致性能急剧下降，得不偿失。唯一可以考虑使用 intern 方法的场景是，会生成大量字符串对象，而且确定这些字符串的内容范围不会太大，这样实际上是通过增加一点点调用 intern 方法的时间，来节省大量 gc 的时间。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/01/Java/Quartz/" rel="next" title="Quartz">
+                <i class="fa fa-chevron-left"></i> Quartz
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/01/工具/Subversion/" rel="prev" title="Subversion">
+                Subversion <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">zeerho</p>
+              <p class="site-description motion-element" itemprop="description">Just a repo for documents</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ZephyrHuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zephyrhuang21@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#intern-方法"><span class="nav-number">1.</span> <span class="nav-text">intern 方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#intern-方法的功能"><span class="nav-number">2.</span> <span class="nav-text">intern 方法的功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#intern-方法的变化"><span class="nav-number">3.</span> <span class="nav-text">intern 方法的变化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#intern-方法的实现和限制"><span class="nav-number">4.</span> <span class="nav-text">intern 方法的实现和限制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结论"><span class="nav-number">5.</span> <span class="nav-text">结论</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zeerho</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

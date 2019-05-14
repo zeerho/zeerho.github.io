@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Just a repo for documents">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tags">
+<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta property="og:site_name" content="zeerho">
+<meta property="og:description" content="Just a repo for documents">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-05T02:37:10.245Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tags">
+<meta name="twitter:description" content="Just a repo for documents">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/tags/"/>
+
+
+
+
+
+  <title>字符集和编码 | zeerho</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zeerho</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/字符集和编码/字符集和编码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">字符集和编码</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一些主要编码的区别"><a href="#一些主要编码的区别" class="headerlink" title="一些主要编码的区别"></a>一些主要编码的区别</h1><p>摘自 <a href="https://www.ibm.com/developerworks/cn/java/j-lo-chinesecoding/" target="_blank" rel="noopener">developerWorks-深入分析 Java 中的中文编码问题</a></p>
+<a id="more"></a>
+<ul>
+<li>ASCII 码<br>总共有 128 个，用一个字节的低 7 位表示，0~31 是控制字符如换行回车删除等；32~126 是打印字符，可以通过键盘输入并且能够显示出来。</li>
+<li>ISO-8859-1<br>128 个字符显然是不够用的，于是 ISO 组织在 ASCII 码基础上又制定了一些列标准用来扩展 ASCII 编码，它们是 ISO-8859-1~ISO-8859-15，其中 ISO-8859-1 涵盖了大多数西欧语言字符，所有应用的最广泛。ISO-8859-1 仍然是单字节编码，它总共能表示 256 个字符。</li>
+<li>GB2312<br>它的全称是《信息交换用汉字编码字符集 基本集》，它是双字节编码，总的编码范围是 A1-F7，其中从 A1-A9 是符号区，总共包含 682 个符号，从 B0-F7 是汉字区，包含 6763 个汉字。</li>
+<li>GBK<br>全称叫《汉字内码扩展规范》，是国家技术监督局为 windows95 所制定的新的汉字内码规范，它的出现是为了扩展 GB2312，加入更多的汉字，它的编码范围是 8140~FEFE（去掉 XX7F）总共有 23940 个码位，它能表示 21003 个汉字，它的编码是和 GB2312 兼容的，也就是说用 GB2312 编码的汉字可以用 GBK 来解码，并且不会有乱码。</li>
+<li>GB18030<br>全称是《信息交换用汉字编码字符集》，是我国的强制标准，它可能是单字节、双字节或者四字节编码，它的编码与 GB2312 编码兼容，这个虽然是国家标准，但是实际应用系统中使用的并不广泛。</li>
+<li>UTF-16<br>说到 UTF 必须要提到 Unicode（Universal Code 统一码），ISO 试图想创建一个全新的超语言字典，世界上所有的语言都可以通过这本字典来相互翻译。可想而知这个字典是多么的复杂，关于 Unicode 的详细规范可以参考相应文档。Unicode 是 Java 和 XML 的基础，下面详细介绍 Unicode 在计算机中的存储形式。<br>UTF-16 具体定义了 Unicode 字符在计算机中存取方法。UTF-16 用两个字节来表示 Unicode 转化格式，这个是定长的表示方法，不论什么字符都可以用两个字节表示，两个字节是 16 个 bit，所以叫 UTF-16。UTF-16 表示字符非常方便，每两个字节表示一个字符，这个在字符串操作时就大大简化了操作，这也是 Java 以 UTF-16 作为内存的字符存储格式的一个很重要的原因。</li>
+</ul>
+<h1 id="Unicode-历史"><a href="#Unicode-历史" class="headerlink" title="Unicode 历史"></a>Unicode 历史</h1><table><br>    <tr><br>        <td>国际标准化组织（ISO）</td><br>        <td>统一码联盟</td><br>    </tr><br>    <tr><br>        <td>ISO/IEC 10646 项目，UCS（Universal Character Set, UCS）字符集</td><br>        <td>Unicode 项目，Unicode 字符集</td><br>    </tr><br>    <tr><br>        <td colspan="2" style="text-align:center;">1991 年前后开始合作</td><br>    </tr><br>    <tr><br>        <td colspan="2" style="text-align:center;">从 Unicode 2.0 开始，两者字库和字码基本相同</td><br>    </tr><br></table>
+
+<h1 id="UCS"><a href="#UCS" class="headerlink" title="UCS"></a>UCS</h1><blockquote>
+<p>UCS-2（Universal Character Set coded in 2 octets）用两个字节表示码点。<br>后因需要表示更多字符，提出 UCS-4，用四个字节表示码点。</p>
+</blockquote>
+<ul>
+<li>UCS-2:U+0000 ~ U+FFFF，UCS-4:U+00000000 ~ U+7FFFFFFF。从 Unicode 2.0 开始，ISO 承诺不会替超出 U+10FFFF 的码点赋值，以与统一码联盟的项目保持一致。</li>
+<li>UCS-4 第一字节最高位固定为 0，因而根据第一字节可分为 128 个 group。</li>
+<li>根据第二字节分为 256 个 plane。</li>
+<li>根据第三字节分为 256 个 row。</li>
+<li>根据第四字节分为 256 个 cell。</li>
+<li>group 0 中的 plane 0 称为 BMP（Basic Multilingual Plane）。BMP 中的码点与 UCS-2 相同。</li>
+<li>UCS-2 和 UCS-4 的 BMP 中的 0xD800 ~ 0xDFFF 称为代理区（Surrogate），其中的码点不对应任何字符，仅用来区分某两个字节应解析为 UCS-2 字符还是与相邻的两个字节一起解析为 UCS-4 字符。</li>
+<li>中文范围 4E00-9FA5：CJK 统一表意符号 (CJK Unified Ideographs)</li>
+</ul>
+<h1 id="UTF"><a href="#UTF" class="headerlink" title="UTF"></a>UTF</h1><blockquote>
+<p>UTF（Unicode Transformation Format） 是对 Unicode 字符集的编码方式，有多种。</p>
+</blockquote>
+<h2 id="UTF-8"><a href="#UTF-8" class="headerlink" title="UTF-8"></a>UTF-8</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">Unicode/UCS-4</th>
+<th style="text-align:left">UTF-8</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0000~007F</td>
+<td style="text-align:left">0XXXXXXX</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0080~07FF</td>
+<td style="text-align:left">110XXXXX 10XXXXXX</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0800~FFFF</td>
+<td style="text-align:left">1110XXXX 10XXXXXX 10XXXXXX</td>
+<td style="text-align:left">基本定义范围：0~FFFF</td>
+</tr>
+<tr>
+<td style="text-align:left">1 0000~1F FFFF</td>
+<td style="text-align:left">11110XXX 10XXXXXX 10XXXXXX 10XXXXXX</td>
+<td style="text-align:left">Unicode 6.1定义范围：0~10 FFFF</td>
+</tr>
+<tr>
+<td style="text-align:left">20 0000~3FF FFFF</td>
+<td style="text-align:left">111110XX 10XXXXXX 10XXXXXX 10XXXXXX 10XXXXXX</td>
+<td style="text-align:left">说明：此非 Unicode 编码范围，属于 UCS-4 编码。早期的规范 UTF-8 可以到达 6 字节序列，可以覆盖到 31 位元（通用字符集原来的极限）。尽管如此，2003年11月 UTF-8 被 RFC 3629 重新规范，只能使用原来 Unicode 定义的区域， U+0000 到 U+10FFFF。根据规范，这些字节值将无法出现在合法 UTF-8 序列中。</td>
+</tr>
+<tr>
+<td style="text-align:left">400 0000~7FFF FFFF</td>
+<td style="text-align:left">1111110X 10XXXXXX 10XXXXXX 10XXXXXX 10XXXXXX 10XXXXXX</td>
+<td style="text-align:left">同上</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>确定待编码字符所在的编码范围。</li>
+<li>设对应的模板有 n 个“x”。将字符的编码写成二进制，不足 n 位则在高位补 0。</li>
+<li>将二进制数写入“x”对应的位置。</li>
+</ol>
+<h2 id="UTF-16"><a href="#UTF-16" class="headerlink" title="UTF-16"></a>UTF-16</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">Unicode</th>
+<th style="text-align:left">UTF-16</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0x0000~0xFFFF</td>
+<td style="text-align:left">xxxxxxxx xxxxxxxx</td>
+<td style="text-align:left">此范围内 UFT-16 的编码与 UCS 的编码相同，其中 0xD800~0xDFFF 不对应任何字符</td>
+</tr>
+<tr>
+<td style="text-align:left">0x10000~0x10FFFF</td>
+<td style="text-align:left">110110xx xxxxxxxx 110111xx xxxxxxxx</td>
+<td style="text-align:left">将码点减去 0x10000 后高位补 0 至 20 位，依次对应 20 个“x”</td>
+</tr>
+</tbody>
+</table>
+<p>为了将双字节的编码与四字节的编码区分开，设计者将 0xD800 ~ 0xDFFF 保留下来作为代理区（Surrogate）。由于 BMP 中的对应范围不映射任何字符，故不会产生混淆。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">码点范围</th>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0xD800~0xDB7F</td>
+<td style="text-align:left">High Surrogates</td>
+<td style="text-align:left">高位替代</td>
+</tr>
+<tr>
+<td style="text-align:left">0xDB80~0xDBFF</td>
+<td style="text-align:left">High Private Use Surrogates</td>
+<td style="text-align:left">高位专用替代</td>
+</tr>
+<tr>
+<td style="text-align:left">0xDC00~0xDFFF</td>
+<td style="text-align:left">Low Surrogates</td>
+<td style="text-align:left">低位替代</td>
+</tr>
+</tbody>
+</table>
+<p>高、低为替代分别表示四字节的两个高字节和两个低字节。0xDB80 ~ 0xDBFF 之所以称为高位专用替代，是因为该范围对应的码点范围是平面 15 和平面 16，这两个平面被用作专用区。</p>
+<h2 id="UTF-32"><a href="#UTF-32" class="headerlink" title="UTF-32"></a>UTF-32</h2><p>UCS-4 编码本身就是 UTF-32 的编码。</p>
+<h2 id="字节序"><a href="#字节序" class="headerlink" title="字节序"></a>字节序</h2><ul>
+<li>“大端”（Big Endian, BE）和“小端”（Little Endian, LE）。</li>
+<li>Unicode 固定以字节为单位进行编码，所以需要确定字节序而不是比特序。</li>
+<li>LE 即先读写低字节。</li>
+<li>UTF-8 的编码方式使得它本身可以不带 BOM，而 Unicode 的标准是 UTF-8 可带可不带 BOM。一些程序和平台为了兼容以前的程序，默认使用带 BOM 的 UTF-8。</li>
+</ul>
+<p>Unicode 标准建议用 BOM（Byte Order Mark）来区分字节序，即在传输字节流前，先传输被作为 BOM 的字符“零宽无中断空格”，这些字符在 Unicode 中都是未定义的码位，不应该出现在实际传输中。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">UTF 编码</th>
+<th style="text-align:left">BOM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">UTF-8 without BOM</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:left">UTF-8 with BOM</td>
+<td style="text-align:left">EF BB BF</td>
+</tr>
+<tr>
+<td style="text-align:left">UTF-16LE</td>
+<td style="text-align:left">FF FE</td>
+</tr>
+<tr>
+<td style="text-align:left">UTF-16BE</td>
+<td style="text-align:left">FE FF</td>
+</tr>
+<tr>
+<td style="text-align:left">UTF-32LE</td>
+<td style="text-align:left">FF FE 00 00</td>
+</tr>
+<tr>
+<td style="text-align:left">UTF-32BE</td>
+<td style="text-align:left">00 00 FE FF</td>
+</tr>
+</tbody>
+</table>
+<h1 id="ANSI-和-ASCII"><a href="#ANSI-和-ASCII" class="headerlink" title="ANSI 和 ASCII"></a>ANSI 和 ASCII</h1><p>ASCII（American Standard Code for Information Interchange，美国信息交换标准代码）是基于拉丁字母的一套电脑编码系统，使用一个字节表示一个字符。</p>
+<p>ANSI（American National Standards Institute）从某种角度来说是 ASCII 的超集。它通过为各个国家/语言的编码分别创建一个代码页来使用同一套内码表示不同的字符。由于同一个内码对应了不同代码页上的多个字符，故当一个文本中存在两种及以上的语言字符时无法正确解析。<br>对于 0x00~0x7F 的值，ANSI 使用一个字节，因而兼容 ASCII。对于 0x7F 之后的值，使用两个字节。</p>
+<p>GBK 是对 GB2312 的扩展，而 GB2312 是 ANSI 的一个代码页。</p>
+<h1 id="关于-GBK-编码的-BUG"><a href="#关于-GBK-编码的-BUG" class="headerlink" title="关于 GBK 编码的 BUG"></a>关于 GBK 编码的 BUG</h1><p>新建一个空的文本文件，用记事本打开（必须是 Windows 自带的记事本），只输入“联通”二字保存关闭(输入“1联通”也是联通显示的也是乱码)，再重新打开时将是乱码。</p>
+<p>当 txt 文档中一切字符都在 C0 ≤ AA（第一个字节） ≤ DF，80 ≤ BB（第二个字节） ≤ BF 这个范围时，notepad 无法确认文档的格式，会“猜测”其为 UTF-8。而”联通”就是 C1 AA CD A8，刚好在上面的范围内。因为保存和读取使用的是不同的编码方式，所以不能正常显现。</p>
+<p>记事本默认是以 ANSI 编码保存文本文档的，而正是这种编码存在的 bug 招致了上述怪现象。假如保存时选择 Unicode、Unicode (Big Endian)、UTF-8 编码，就正常了。此外，假如以 ANSI 编码保存含有某些特别符号的文本文档，再次打开后符号也会变成英文问号。</p>
+<h1 id="Unicode-速查"><a href="#Unicode-速查" class="headerlink" title="Unicode 速查"></a>Unicode 速查</h1><h2 id="0x00-0xFF"><a href="#0x00-0xFF" class="headerlink" title="0x00-0xFF"></a>0x00-0xFF</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">-</th>
+<th style="text-align:left">0</th>
+<th style="text-align:left">1</th>
+<th style="text-align:left">2</th>
+<th style="text-align:left">3</th>
+<th style="text-align:left">4</th>
+<th style="text-align:left">5</th>
+<th style="text-align:left">6</th>
+<th style="text-align:left">7</th>
+<th style="text-align:left">8</th>
+<th style="text-align:left">9</th>
+<th style="text-align:left">A</th>
+<th style="text-align:left">B</th>
+<th style="text-align:left">C</th>
+<th style="text-align:left">D</th>
+<th style="text-align:left">E</th>
+<th style="text-align:left">F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">0000</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0010</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0020</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">!</td>
+<td style="text-align:left">“</td>
+<td style="text-align:left">#</td>
+<td style="text-align:left">$</td>
+<td style="text-align:left">%</td>
+<td style="text-align:left">&amp;</td>
+<td style="text-align:left">‘</td>
+<td style="text-align:left">(</td>
+<td style="text-align:left">)</td>
+<td style="text-align:left">*</td>
+<td style="text-align:left">+</td>
+<td style="text-align:left">,</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">.</td>
+<td style="text-align:left">/</td>
+</tr>
+<tr>
+<td style="text-align:left">0030</td>
+<td style="text-align:left">0</td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">3</td>
+<td style="text-align:left">4</td>
+<td style="text-align:left">5</td>
+<td style="text-align:left">6</td>
+<td style="text-align:left">7</td>
+<td style="text-align:left">8</td>
+<td style="text-align:left">9</td>
+<td style="text-align:left">:</td>
+<td style="text-align:left">;</td>
+<td style="text-align:left">&lt;</td>
+<td style="text-align:left">=</td>
+<td style="text-align:left">&gt;</td>
+<td style="text-align:left">?</td>
+</tr>
+<tr>
+<td style="text-align:left">0040</td>
+<td style="text-align:left">@</td>
+<td style="text-align:left">A</td>
+<td style="text-align:left">B</td>
+<td style="text-align:left">C</td>
+<td style="text-align:left">D</td>
+<td style="text-align:left">E</td>
+<td style="text-align:left">F</td>
+<td style="text-align:left">G</td>
+<td style="text-align:left">H</td>
+<td style="text-align:left">I</td>
+<td style="text-align:left">J</td>
+<td style="text-align:left">K</td>
+<td style="text-align:left">L</td>
+<td style="text-align:left">M</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">O</td>
+</tr>
+<tr>
+<td style="text-align:left">0050</td>
+<td style="text-align:left">P</td>
+<td style="text-align:left">Q</td>
+<td style="text-align:left">R</td>
+<td style="text-align:left">S</td>
+<td style="text-align:left">T</td>
+<td style="text-align:left">U</td>
+<td style="text-align:left">V</td>
+<td style="text-align:left">W</td>
+<td style="text-align:left">X</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">Z</td>
+<td style="text-align:left">[</td>
+<td style="text-align:left">\</td>
+<td style="text-align:left">]</td>
+<td style="text-align:left">^</td>
+<td style="text-align:left">_</td>
+</tr>
+<tr>
+<td style="text-align:left">0060</td>
+<td style="text-align:left">`</td>
+<td style="text-align:left">a</td>
+<td style="text-align:left">b</td>
+<td style="text-align:left">c</td>
+<td style="text-align:left">d</td>
+<td style="text-align:left">e</td>
+<td style="text-align:left">f</td>
+<td style="text-align:left">g</td>
+<td style="text-align:left">h</td>
+<td style="text-align:left">i</td>
+<td style="text-align:left">j</td>
+<td style="text-align:left">k</td>
+<td style="text-align:left">l</td>
+<td style="text-align:left">m</td>
+<td style="text-align:left">n</td>
+<td style="text-align:left">o</td>
+</tr>
+<tr>
+<td style="text-align:left">0070</td>
+<td style="text-align:left">p</td>
+<td style="text-align:left">q</td>
+<td style="text-align:left">r</td>
+<td style="text-align:left">s</td>
+<td style="text-align:left">t</td>
+<td style="text-align:left">u</td>
+<td style="text-align:left">v</td>
+<td style="text-align:left">w</td>
+<td style="text-align:left">x</td>
+<td style="text-align:left">y</td>
+<td style="text-align:left">z</td>
+<td style="text-align:left">{</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left">}</td>
+<td style="text-align:left">~</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">0080</td>
+<td style="text-align:left">€</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">‚</td>
+<td style="text-align:left">ƒ</td>
+<td style="text-align:left">„</td>
+<td style="text-align:left">…</td>
+<td style="text-align:left">†</td>
+<td style="text-align:left">‡</td>
+<td style="text-align:left">ˆ</td>
+<td style="text-align:left">‰</td>
+<td style="text-align:left">Š</td>
+<td style="text-align:left">‹</td>
+<td style="text-align:left">Œ</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Ž</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">0090</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">‘</td>
+<td style="text-align:left">’</td>
+<td style="text-align:left">“</td>
+<td style="text-align:left">”</td>
+<td style="text-align:left">•</td>
+<td style="text-align:left">–</td>
+<td style="text-align:left">—</td>
+<td style="text-align:left">˜</td>
+<td style="text-align:left">™</td>
+<td style="text-align:left">š</td>
+<td style="text-align:left">›</td>
+<td style="text-align:left">œ</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">ž</td>
+<td style="text-align:left">Ÿ</td>
+</tr>
+<tr>
+<td style="text-align:left">00A0</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">¡</td>
+<td style="text-align:left">¢</td>
+<td style="text-align:left">£</td>
+<td style="text-align:left">¤</td>
+<td style="text-align:left">¥</td>
+<td style="text-align:left">¦</td>
+<td style="text-align:left">§</td>
+<td style="text-align:left">¨</td>
+<td style="text-align:left">©</td>
+<td style="text-align:left">ª</td>
+<td style="text-align:left">«</td>
+<td style="text-align:left">¬</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">®</td>
+<td style="text-align:left">¯</td>
+</tr>
+<tr>
+<td style="text-align:left">00B0</td>
+<td style="text-align:left">°</td>
+<td style="text-align:left">±</td>
+<td style="text-align:left">²</td>
+<td style="text-align:left">³</td>
+<td style="text-align:left">´</td>
+<td style="text-align:left">µ</td>
+<td style="text-align:left">¶</td>
+<td style="text-align:left">·</td>
+<td style="text-align:left">¸</td>
+<td style="text-align:left">¹</td>
+<td style="text-align:left">º</td>
+<td style="text-align:left">»</td>
+<td style="text-align:left">¼</td>
+<td style="text-align:left">½</td>
+<td style="text-align:left">¾</td>
+<td style="text-align:left">¿</td>
+</tr>
+<tr>
+<td style="text-align:left">00C0</td>
+<td style="text-align:left">À</td>
+<td style="text-align:left">Á</td>
+<td style="text-align:left">Â</td>
+<td style="text-align:left">Ã</td>
+<td style="text-align:left">Ä</td>
+<td style="text-align:left">Å</td>
+<td style="text-align:left">Æ</td>
+<td style="text-align:left">Ç</td>
+<td style="text-align:left">È</td>
+<td style="text-align:left">É</td>
+<td style="text-align:left">Ê</td>
+<td style="text-align:left">Ë</td>
+<td style="text-align:left">Ì</td>
+<td style="text-align:left">Í</td>
+<td style="text-align:left">Î</td>
+<td style="text-align:left">Ï</td>
+</tr>
+<tr>
+<td style="text-align:left">00D0</td>
+<td style="text-align:left">Ð</td>
+<td style="text-align:left">Ñ</td>
+<td style="text-align:left">Ò</td>
+<td style="text-align:left">Ó</td>
+<td style="text-align:left">Ô</td>
+<td style="text-align:left">Õ</td>
+<td style="text-align:left">Ö</td>
+<td style="text-align:left">×</td>
+<td style="text-align:left">Ø</td>
+<td style="text-align:left">Ù</td>
+<td style="text-align:left">Ú</td>
+<td style="text-align:left">Û</td>
+<td style="text-align:left">Ü</td>
+<td style="text-align:left">Ý</td>
+<td style="text-align:left">Þ</td>
+<td style="text-align:left">ß</td>
+</tr>
+<tr>
+<td style="text-align:left">00E0</td>
+<td style="text-align:left">à</td>
+<td style="text-align:left">á</td>
+<td style="text-align:left">â</td>
+<td style="text-align:left">ã</td>
+<td style="text-align:left">ä</td>
+<td style="text-align:left">å</td>
+<td style="text-align:left">æ</td>
+<td style="text-align:left">ç</td>
+<td style="text-align:left">è</td>
+<td style="text-align:left">é</td>
+<td style="text-align:left">ê</td>
+<td style="text-align:left">ë</td>
+<td style="text-align:left">ì</td>
+<td style="text-align:left">í</td>
+<td style="text-align:left">î</td>
+<td style="text-align:left">ï</td>
+</tr>
+<tr>
+<td style="text-align:left">00F0</td>
+<td style="text-align:left">ð</td>
+<td style="text-align:left">ñ</td>
+<td style="text-align:left">ò</td>
+<td style="text-align:left">ó</td>
+<td style="text-align:left">ô</td>
+<td style="text-align:left">õ</td>
+<td style="text-align:left">ö</td>
+<td style="text-align:left">÷</td>
+<td style="text-align:left">ø</td>
+<td style="text-align:left">ù</td>
+<td style="text-align:left">ú</td>
+<td style="text-align:left">û</td>
+<td style="text-align:left">ü</td>
+<td style="text-align:left">ý</td>
+<td style="text-align:left">þ</td>
+<td style="text-align:left">ÿ</td>
+</tr>
+</tbody>
+</table>
+<h1 id="Java-Web-涉及到的编码"><a href="#Java-Web-涉及到的编码" class="headerlink" title="Java Web 涉及到的编码"></a>Java Web 涉及到的编码</h1><p>摘自 <a href="https://www.ibm.com/developerworks/cn/java/j-lo-chinesecoding/" target="_blank" rel="noopener">developerWorks-深入分析 Java 中的中文编码问题</a></p>
+<p>对于使用中文来说，有 I/O 的地方就会涉及到编码，前面已经提到了 I/O 操作会引起编码，而大部分 I/O 引起的乱码都是网络 I/O，因为现在几乎所有的应用程序都涉及到网络操作，而数据经过网络传输都是以字节为单位的，所以所有的数据都必须能够被序列化为字节。在 Java 中数据被序列化必须继承 Serializable 接口。</p>
+<p>这里有一个问题，你是否认真考虑过一段文本它的实际大小应该怎么计算，我曾经碰到过一个问题：就是要想办法压缩 Cookie 大小，减少网络传输量，当时有选择不同的压缩算法，发现压缩后字符数是减少了，但是并没有减少字节数。所谓的压缩只是将多个单字节字符通过编码转变成一个多字节字符。减少的是 <code>String.length()</code>，而并没有减少最终的字节数。例如将“ab”两个字符通过某种编码转变成一个奇怪的字符，虽然字符数从两个变成一个，但是如果采用 UTF-8 编码这个奇怪的字符最后经过编码可能又会变成三个或更多的字节。同样的道理比如整型数字 1234567 如果当成字符来存储，采用 UTF-8 来编码占用 7 个 byte，采用 UTF-16 编码将会占用 14 个 byte，但是把它当成 int 型数字来存储只需要 4 个 byte 来存储。所以看一段文本的大小，看字符本身的长度是没有意义的，即使是一样的字符采用不同的编码最终存储的大小也会不同，所以从字符到字节一定要看编码类型。</p>
+<p>另外一个问题，你是否考虑过，当我们在电脑中某个文本编辑器里输入某个汉字时，它到底是怎么表示的？我们知道，计算机里所有的信息都是以 01 表示的，那么一个汉字，它到底是多少个 0 和 1 呢？我们能够看到的汉字都是以字符形式出现的，例如在 Java 中“淘宝”两个字符，它在计算机中的数值 10 进制是 28120 和 23453，16 进制是 6bd8 和 5d9d，也就是这两个字符是由这两个数字唯一表示的。Java 中一个 char 是 16 个 bit 相当于两个字节，所以两个汉字用 char 表示在内存中占用相当于四个字节的空间。</p>
+<p>这两个问题搞清楚后，我们看一下 Java Web 中那些地方可能会存在编码转换？</p>
+<p>用户从浏览器端发起一个 HTTP 请求，需要存在编码的地方是 URL、Cookie、Parameter。服务器端接受到 HTTP 请求后要解析 HTTP 协议，其中 URI、Cookie 和 POST 表单参数需要解码，服务器端可能还需要读取数据库中的数据，本地或网络中其它地方的文本文件，这些数据都可能存在编码问题，当 Servlet 处理完所有请求的数据后，需要将这些数据再编码通过 Socket 发送到用户请求的浏览器里，再经过浏览器解码成为文本。这些过程如下图所示：</p>
+<p>图 3. 一次 HTTP 请求的编码示例<br><img src="https://www.ibm.com/developerworks/cn/java/j-lo-chinesecoding/image021-lg.png" alt="一次 HTTP 请求的编码示例"></p>
+<p>如上图所示一次 HTTP 请求设计到很多地方需要编解码，它们编解码的规则是什么？下面将会重点阐述一下：</p>
+<h2 id="URL-的编解码"><a href="#URL-的编解码" class="headerlink" title="URL 的编解码"></a>URL 的编解码</h2><p>用户提交一个 URL，这个 URL 中可能存在中文，因此需要编码，如何对这个 URL 进行编码？根据什么规则来编码？有如何来解码？如下图一个 URL：</p>
+<p>图 4.URL 的几个组成部分<br><img src="https://www.ibm.com/developerworks/cn/java/j-lo-chinesecoding/image023.gif" alt="URL 的几个组成部分"></p>
+<p>上图中以 Tomcat 作为 Servlet Engine 为例，它们分别对应到下面这些配置文件中：<br>Port 对应在 Tomcat 的 <code>&lt;Connector port=&quot;8080&quot;/&gt;</code> 中配置，而 Context Path 在 <code>&lt;Context path=&quot;/examples&quot;/&gt;</code> 中配置，Servlet Path 在 Web 应用的 web.xml 中的 <code>&lt;url-pattern&gt;</code> 中配置，PathInfo 是我们请求的具体的 Servlet，QueryString 是要传递的参数，注意这里是在浏览器里直接输入 URL 所以是通过 Get 方法请求的，如果是 POST 方法请求的话，QueryString 将通过表单方式提交到服务器端，这个将在后面再介绍。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;servlet-mapping&gt; </span><br><span class="line">  &lt;servlet-name&gt;junshanExample&lt;/servlet-name&gt; </span><br><span class="line">  &lt;url-pattern&gt;/servlets/servlet/*&lt;/url-pattern&gt; </span><br><span class="line">&lt;/servlet-mapping&gt;</span><br></pre></td></tr></table></figure></p>
+<p>上图中 PathInfo 和 QueryString 出现了中文，当我们在浏览器中直接输入这个 URL 时，在浏览器端和服务端会如何编码和解析这个 URL 呢？为了验证浏览器是怎么编码 URL 的我们选择 FireFox 浏览器并通过 HTTPFox 插件观察我们请求的 URL 的实际的内容，以下是 URL：<code>HTTP://localhost:8080/examples/servlets/servlet/君山?author=君山</code> 在中文 FireFox3.6.12 的测试结果</p>
+<p>图 5. HTTPFox 的测试结果<br><img src="https://www.ibm.com/developerworks/cn/java/j-lo-chinesecoding/image025.jpg" alt="HTTPFox 的测试结果"></p>
+<p>君山的编码结果分别是：e5 90 9b e5 b1 b1，be fd c9 bd，查阅上一届的编码可知，PathInfo 是 UTF-8 编码而 QueryString 是经过 GBK 编码，至于为什么会有“%”？查阅 URL 的编码规范 RFC3986 可知浏览器编码 URL 是将非 ASCII 字符按照某种编码格式编码成 16 进制数字然后将每个 16 进制表示的字节前加上“%”，所以最终的 URL 就成了上图的格式了。</p>
+<p>默认情况下中文 IE 最终的编码结果也是一样的，不过 IE 浏览器可以修改 URL 的编码格式在选项 -&gt; 高级 -&gt; 国际里面的发送 UTF-8 URL 选项可以取消。</p>
+<p>从上面测试结果可知浏览器对 PathInfo 和 QueryString 的编码是不一样的，不同浏览器对 PathInfo 也可能不一样，这就对服务器的解码造成很大的困难，下面我们以 Tomcat 为例看一下，Tomcat 接受到这个 URL 是如何解码的。</p>
+<p>解析请求的 URL 是在 <code>org.apache.coyote.HTTP11.InternalInputBuffer</code> 的 <code>parseRequestLine</code> 方法中，这个方法把传过来的 URL 的 byte[] 设置到 <code>org.apache.coyote.Request</code> 的相应的属性中。这里的 URL 仍然是 byte 格式，转成 char 是在 <code>org.apache.catalina.connector.CoyoteAdapter</code> 的 <code>convertURI</code> 方法中完成的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">convertURI</span><span class="params">(MessageBytes uri, Request request)</span> </span></span><br><span class="line"><span class="function"><span class="keyword">throws</span> Exception </span>&#123; </span><br><span class="line">  ByteChunk bc = uri.getByteChunk(); </span><br><span class="line">  <span class="keyword">int</span> length = bc.getLength(); </span><br><span class="line">  CharChunk cc = uri.getCharChunk(); </span><br><span class="line">  cc.allocate(length, -<span class="number">1</span>); </span><br><span class="line">  String enc = connector.getURIEncoding(); </span><br><span class="line">  <span class="keyword">if</span> (enc != <span class="keyword">null</span>) &#123; </span><br><span class="line">    B2CConverter conv = request.getURIConverter(); </span><br><span class="line">    <span class="keyword">try</span> &#123; </span><br><span class="line">      <span class="keyword">if</span> (conv == <span class="keyword">null</span>) &#123; </span><br><span class="line">        conv = <span class="keyword">new</span> B2CConverter(enc); </span><br><span class="line">        request.setURIConverter(conv); </span><br><span class="line">      &#125; </span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;...&#125; </span><br><span class="line">    <span class="keyword">if</span> (conv != <span class="keyword">null</span>) &#123; </span><br><span class="line">      <span class="keyword">try</span> &#123; </span><br><span class="line">        conv.convert(bc, cc, cc.getBuffer().length - cc.getEnd()); </span><br><span class="line">        uri.setChars(cc.getBuffer(), cc.getStart(), cc.getLength()); </span><br><span class="line">        <span class="keyword">return</span>; </span><br><span class="line">      &#125; <span class="keyword">catch</span> (IOException e) &#123;...&#125; </span><br><span class="line">    &#125; </span><br><span class="line">  &#125; </span><br><span class="line">  <span class="comment">// Default encoding: fast conversion </span></span><br><span class="line">  <span class="keyword">byte</span>[] bbuf = bc.getBuffer(); </span><br><span class="line">  <span class="keyword">char</span>[] cbuf = cc.getBuffer(); </span><br><span class="line">  <span class="keyword">int</span> start = bc.getStart(); </span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123; </span><br><span class="line">    cbuf[i] = (<span class="keyword">char</span>) (bbuf[i + start] &amp; <span class="number">0xff</span>); </span><br><span class="line">  &#125; </span><br><span class="line">  uri.setChars(cbuf, <span class="number">0</span>, length); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的代码中可以知道对 URL 的 URI 部分进行解码的字符集是在 connector 的 <code>&lt;Connector URIEncoding=”UTF-8”/&gt;</code> 中定义的，如果没有定义，那么将以默认编码 ISO-8859-1 解析。所以如果有中文 URL 时最好把 <code>URIEncoding</code> 设置成 UTF-8 编码。</p>
+<p>QueryString 又如何解析？ GET 方式 HTTP 请求的 QueryString 与 POST 方式 HTTP 请求的表单参数都是作为 Parameters 保存，都是通过 <code>request.getParameter</code> 获取参数值。对它们的解码是在 <code>request.getParameter</code> 方法第一次被调用时进行的。<code>request.getParameter</code> 方法被调用时将会调用 <code>org.apache.catalina.connector.Request</code> 的 <code>parseParameters</code> 方法。这个方法将会对 GET 和 POST 方式传递的参数进行解码，但是它们的解码字符集有可能不一样。</p>
+<p>POST 表单的解码将在后面介绍，QueryString 的解码字符集是在哪定义的呢？它本身是通过 HTTP 的 Header 传到服务端的，并且也在 URL 中，是否和 URI 的解码字符集一样呢？</p>
+<p>从前面浏览器对 PathInfo 和 QueryString 的编码采取不同的编码格式不同可以猜测到解码字符集肯定也不会是一致的。的确是这样 QueryString 的解码字符集要么是 Header 中 ContentType 中定义的 Charset 要么就是默认的 ISO-8859-1，要使用 ContentType 中定义的编码就要设置 connector 的 <code>&lt;Connector URIEncoding=”UTF-8” useBodyEncodingForURI=”true”/&gt;</code> 中的 <code>useBodyEncodingForURI</code> 设置为 true。这个配置项的名字有点让人产生混淆，它并不是对整个 URI 都采用 BodyEncoding 进行解码而仅仅是对 QueryString 使用 BodyEncoding 解码，这一点还要特别注意。</p>
+<p>从上面的 URL 编码和解码过程来看，比较复杂，而且编码和解码并不是我们在应用程序中能完全控制的，所以在我们的应用程序中应该尽量避免在 URL 中使用非 ASCII 字符，不然很可能会碰到乱码问题，当然在我们的服务器端最好设置 <code>&lt;Connector/&gt;</code> 中的 <code>URIEncoding</code> 和 <code>useBodyEncodingForURI</code> 两个参数。</p>
+<h2 id="HTTP-Header-的编解码"><a href="#HTTP-Header-的编解码" class="headerlink" title="HTTP Header 的编解码"></a>HTTP Header 的编解码</h2><p>当客户端发起一个 HTTP 请求除了上面的 URL 外还可能会在 Header 中传递其它参数如 Cookie、redirectPath 等，这些用户设置的值很可能也会存在编码问题，Tomcat 对它们又是怎么解码的呢？</p>
+<p>对 Header 中的项进行解码也是在调用 <code>request.getHeader</code> 是进行的，如果请求的 Header 项没有解码则调用 <code>MessageBytes</code> 的 <code>toString</code> 方法，这个方法将从 byte 到 char 的转化使用的默认编码也是 ISO-8859-1，而我们也不能设置 Header 的其它解码格式，所以如果你设置 Header 中有非 ASCII 字符解码肯定会有乱码。</p>
+<p>我们在添加 Header 时也是同样的道理，不要在 Header 中传递非 ASCII 字符，如果一定要传递的话，我们可以先将这些字符用 <code>org.apache.catalina.util.URLEncoder</code> 编码然后再添加到 Header 中，这样在浏览器到服务器的传递过程中就不会丢失信息了，如果我们要访问这些项时再按照相应的字符集解码就好了。</p>
+<h2 id="POST-表单的编解码"><a href="#POST-表单的编解码" class="headerlink" title="POST 表单的编解码"></a>POST 表单的编解码</h2><p>在前面提到了 POST 表单提交的参数的解码是在第一次调用 <code>request.getParameter</code> 发生的，POST 表单参数传递方式与 QueryString 不同，它是通过 HTTP 的 BODY 传递到服务端的。当我们在页面上点击 submit 按钮时浏览器首先将根据 ContentType 的 Charset 编码格式对表单填的参数进行编码然后提交到服务器端，在服务器端同样也是用 ContentType 中字符集进行解码。所以通过 POST 表单提交的参数一般不会出现问题，而且这个字符集编码是我们自己设置的，可以通过 <code>request.setCharacterEncoding(charset)</code> 来设置。</p>
+<p>另外针对 multipart/form-data 类型的参数，也就是上传的文件编码同样也是使用 ContentType 定义的字符集编码，值得注意的地方是上传文件是用字节流的方式传输到服务器的本地临时目录，这个过程并没有涉及到字符编码，而真正编码是在将文件内容添加到 parameters 中，如果用这个编码不能编码时将会用默认编码 ISO-8859-1 来编码。</p>
+<h2 id="HTTP-BODY-的编解码"><a href="#HTTP-BODY-的编解码" class="headerlink" title="HTTP BODY 的编解码"></a>HTTP BODY 的编解码</h2><p>当用户请求的资源已经成功获取后，这些内容将通过 Response 返回给客户端浏览器，这个过程先要经过编码再到浏览器进行解码。这个过程的编解码字符集可以通过 <code>response.setCharacterEncoding</code> 来设置，它将会覆盖 <code>request.getCharacterEncoding</code> 的值，并且通过 Header 的 Content-Type 返回客户端，浏览器接受到返回的 socket 流时将通过 Content-Type 的 charset 来解码，如果返回的 HTTP Header 中 Content-Type 没有设置 charset，那么浏览器将根据 Html 的 <code>&lt;meta HTTP-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=GBK&quot; /&gt;</code> 中的 charset 来解码。如果也没有定义的话，那么浏览器将使用默认的编码来解码。</p>
+<h2 id="其它需要编码的地方"><a href="#其它需要编码的地方" class="headerlink" title="其它需要编码的地方"></a>其它需要编码的地方</h2><p>除了 URL 和参数编码问题外，在服务端还有很多地方可能存在编码，如可能需要读取 xml、velocity 模版引擎、JSP 或者从数据库读取数据等。</p>
+<p>xml 文件可以通过设置头来制定编码格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br></pre></td></tr></table></figure>
+<p>Velocity 模版设置编码格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">services.VelocityService.input.encoding=UTF-8</span><br></pre></td></tr></table></figure>
+<p>JSP 设置编码格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@page contentType=&quot;text/html; charset=UTF-8&quot;%&gt;</span><br></pre></td></tr></table></figure>
+<p>访问数据库都是通过客户端 JDBC 驱动来完成，用 JDBC 来存取数据要和数据的内置编码保持一致，可以通过设置 JDBC URL 来制定如 MySQL：url=”jdbc:mysql://localhost:3306/DB?useUnicode=true&amp;characterEncoding=GBK”。 </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/字符集和编码/" rel="tag"># 字符集和编码</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/01/工具/Maven/" rel="next" title="Maven">
+                <i class="fa fa-chevron-left"></i> Maven
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/01/电脑相关/硬件/" rel="prev" title="硬件">
+                硬件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">zeerho</p>
+              <p class="site-description motion-element" itemprop="description">Just a repo for documents</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ZephyrHuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zephyrhuang21@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一些主要编码的区别"><span class="nav-number">1.</span> <span class="nav-text">一些主要编码的区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unicode-历史"><span class="nav-number">2.</span> <span class="nav-text">Unicode 历史</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UCS"><span class="nav-number">3.</span> <span class="nav-text">UCS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UTF"><span class="nav-number">4.</span> <span class="nav-text">UTF</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#UTF-8"><span class="nav-number">4.1.</span> <span class="nav-text">UTF-8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UTF-16"><span class="nav-number">4.2.</span> <span class="nav-text">UTF-16</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UTF-32"><span class="nav-number">4.3.</span> <span class="nav-text">UTF-32</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字节序"><span class="nav-number">4.4.</span> <span class="nav-text">字节序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ANSI-和-ASCII"><span class="nav-number">5.</span> <span class="nav-text">ANSI 和 ASCII</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关于-GBK-编码的-BUG"><span class="nav-number">6.</span> <span class="nav-text">关于 GBK 编码的 BUG</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unicode-速查"><span class="nav-number">7.</span> <span class="nav-text">Unicode 速查</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-0xFF"><span class="nav-number">7.1.</span> <span class="nav-text">0x00-0xFF</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-Web-涉及到的编码"><span class="nav-number">8.</span> <span class="nav-text">Java Web 涉及到的编码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#URL-的编解码"><span class="nav-number">8.1.</span> <span class="nav-text">URL 的编解码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-Header-的编解码"><span class="nav-number">8.2.</span> <span class="nav-text">HTTP Header 的编解码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POST-表单的编解码"><span class="nav-number">8.3.</span> <span class="nav-text">POST 表单的编解码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-BODY-的编解码"><span class="nav-number">8.4.</span> <span class="nav-text">HTTP BODY 的编解码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它需要编码的地方"><span class="nav-number">8.5.</span> <span class="nav-text">其它需要编码的地方</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zeerho</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

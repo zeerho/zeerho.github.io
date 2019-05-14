@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Just a repo for documents">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tags">
+<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta property="og:site_name" content="zeerho">
+<meta property="og:description" content="Just a repo for documents">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-05T02:37:10.245Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tags">
+<meta name="twitter:description" content="Just a repo for documents">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/tags/"/>
+
+
+
+
+
+  <title>Java 8 | zeerho</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zeerho</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/Java/Java 8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java 8</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Lamda"><a href="#Lamda" class="headerlink" title="Lamda"></a>Lamda</h1><a id="more"></a>
+<h2 id="形式"><a href="#形式" class="headerlink" title="形式"></a>形式</h2><p><code>(param) -&gt; expression</code> 或 <code>(param) -&gt; { statements; }</code></p>
+<p>其中</p>
+<ul>
+<li>参数的类型可以省略（必须同时（不）省略），前提是可以根据上下文推断出类型。</li>
+<li>参数名称不能跟当前作用域内的变量冲突。</li>
+</ul>
+<h2 id="将-lamda-表达式替换为方法引用"><a href="#将-lamda-表达式替换为方法引用" class="headerlink" title="将 lamda 表达式替换为方法引用"></a>将 lamda 表达式替换为方法引用</h2><p><em>参考并摘自 <a href="https://www.ibm.com/developerworks/cn/java/j-java8idioms5/index.html" target="_blank" rel="noopener">developerWorks-传递表达式（pass-through lambdas）的替代方案</a>。</em></p>
+<p>若 lamda 中没有做实际的操作，而仅仅是将参数传递给了另一个方法，则最好将 lamda 替换为方法引用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">e -&gt; System.out.println(e)</span><br><span class="line">替换为</span><br><span class="line">System.out::println</span><br></pre></td></tr></table></figure>
+<h2 id="lamda-表达式中的形参有几种不同的用途："><a href="#lamda-表达式中的形参有几种不同的用途：" class="headerlink" title="lamda 表达式中的形参有几种不同的用途："></a>lamda 表达式中的形参有几种不同的用途：</h2><ul>
+<li>形参作为另一个方法的实参</li>
+<li>形参作为类/对象，并调用其中的方法</li>
+<li>传递一个构造函数</li>
+<li>传递多个实参</li>
+</ul>
+<h3 id="传递形参作为实参"><a href="#传递形参作为实参" class="headerlink" title="传递形参作为实参"></a>传递形参作为实参</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">实例方法的实参</span><br><span class="line">variable -&gt; reference.instanceMethod(variable)</span><br><span class="line">reference::instanceMethod</span><br><span class="line"></span><br><span class="line">静态方法的实参</span><br><span class="line">variable -&gt; Clazz.staticMethod(variable)</span><br><span class="line">Clazz::staticMethod</span><br></pre></td></tr></table></figure>
+<p>其中，<code>this</code> 也可作为实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">variable -&gt; this.instanceMethod(variable)</span><br><span class="line">this::instanceMethod</span><br></pre></td></tr></table></figure></p>
+<h3 id="传递形参作为目标"><a href="#传递形参作为目标" class="headerlink" title="传递形参作为目标"></a>传递形参作为目标</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">variable -&gt; variable.instanceMethod()</span><br><span class="line">Clazz::instanceMethod</span><br></pre></td></tr></table></figure>
+<p><strong>模糊性与方法引用</strong><br>若一个类的一个静态方法和一个兼容的实例方法同名，那么使用方法引用会引起歧义，使得编译失败。<br>比如将 <code>(Integer e) -&gt; e.toString</code> 写为 <code>Integer::toString</code>，由于 Integer 类同时包含静态方法 <code>public static String toString(int i)</code> 和实例方法 <code>public String toString()</code>，所以编译器无法确定该方法引用对应哪个方法。这种情况下只能使用 lamda 表达式来确定唯一的一个方法。</p>
+<h3 id="传递构造函数调用"><a href="#传递构造函数调用" class="headerlink" title="传递构造函数调用"></a>传递构造函数调用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">variable -&gt; new Clazz(variable)</span><br><span class="line">Clazz::new</span><br></pre></td></tr></table></figure>
+<h3 id="传递多个形参"><a href="#传递多个形参" class="headerlink" title="传递多个形参"></a>传递多个形参</h3><p>传递多个形参作为实参<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var1, var2 -&gt; Clazz.methodName(var1, var2)</span><br><span class="line">//前提是形参和实参的顺序相同</span><br><span class="line">Clazz::methodName</span><br></pre></td></tr></table></figure></p>
+<p>分别作为目标和实参<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var1, var2 -&gt; var1.methodName(var2);</span><br><span class="line">//前提是第一个形参作为目标</span><br><span class="line">Clazz:methodName</span><br></pre></td></tr></table></figure></p>
+<p><strong>两种多形参的情况依然需要先保证无歧义的前提条件</strong></p>
+<h1 id="Java-预设的函数式接口"><a href="#Java-预设的函数式接口" class="headerlink" title="Java 预设的函数式接口"></a>Java 预设的函数式接口</h1><p>大致分为 4 类：</p>
+<ul>
+<li>Consumer：有入参，无出参；</li>
+<li>Function：有入参，有出参；<ul>
+<li>Predicate：出参固定为 boolean 的 Function，也可以单独算一类；</li>
+</ul>
+</li>
+<li>Supplier：无入参，有出参。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">接口</th>
+<th style="text-align:left">主要方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Consumer<t></t></td>
+<td style="text-align:left">void accept(T t)</td>
+</tr>
+<tr>
+<td style="text-align:left">BiConsumer<t, u=""></t,></td>
+<td style="text-align:left">void accept(T t, U u)</td>
+</tr>
+<tr>
+<td style="text-align:left">DoubleConsumer</td>
+<td style="text-align:left">void accept(double value)</td>
+</tr>
+<tr>
+<td style="text-align:left">IntConsumer</td>
+<td style="text-align:left">void accept(int value)</td>
+</tr>
+<tr>
+<td style="text-align:left">LongConsumer</td>
+<td style="text-align:left">void accept(long value)</td>
+</tr>
+<tr>
+<td style="text-align:left">ObjDoubleConsumer<t></t></td>
+<td style="text-align:left">void accept(T t, double value)</td>
+</tr>
+<tr>
+<td style="text-align:left">ObjIntConsumer<t></t></td>
+<td style="text-align:left">void accept(T t, int value)</td>
+</tr>
+<tr>
+<td style="text-align:left">ObjLongConsumer<t></t></td>
+<td style="text-align:left">void accept(T t, long value)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">Function<t, r=""></t,></td>
+<td style="text-align:left">R apply(T t)</td>
+</tr>
+<tr>
+<td style="text-align:left">BiFunction<t, u,="" r=""></t,></td>
+<td style="text-align:left">R apply(T t, U u)</td>
+</tr>
+<tr>
+<td style="text-align:left">BinaryOperator<t> extends BiFunction<t,t,t></t,t,t></t></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">DoubleFunction<r></r></td>
+<td style="text-align:left">R apply(double value)</td>
+</tr>
+<tr>
+<td style="text-align:left">DoubleToIntFunction</td>
+<td style="text-align:left">int applyAsInt(double value)</td>
+</tr>
+<tr>
+<td style="text-align:left">DoubleToLongFunction</td>
+<td style="text-align:left">long applyAsLong(double value)</td>
+</tr>
+<tr>
+<td style="text-align:left">IntFunction<r></r></td>
+<td style="text-align:left">R apply(int value)</td>
+</tr>
+<tr>
+<td style="text-align:left">IntToDoubleFunction</td>
+<td style="text-align:left">double applyAsDouble(int value)</td>
+</tr>
+<tr>
+<td style="text-align:left">IntToLongFunction</td>
+<td style="text-align:left">long applyAsLong(int value)</td>
+</tr>
+<tr>
+<td style="text-align:left">LongFunction<r></r></td>
+<td style="text-align:left">R apply(long value)</td>
+</tr>
+<tr>
+<td style="text-align:left">LongToDoubleFunction</td>
+<td style="text-align:left">double applyAsDouble(long value)</td>
+</tr>
+<tr>
+<td style="text-align:left">LongToIntFunction</td>
+<td style="text-align:left">int applyAsInt(long value)</td>
+</tr>
+<tr>
+<td style="text-align:left">ToDoubleBiFunction<t, u=""></t,></td>
+<td style="text-align:left">double applyAsDouble(T t, U u)</td>
+</tr>
+<tr>
+<td style="text-align:left">ToDoubleFunction<t></t></td>
+<td style="text-align:left">double applyAsDouble(T value)</td>
+</tr>
+<tr>
+<td style="text-align:left">ToIntBiFunction<t, u=""></t,></td>
+<td style="text-align:left">int applyAsInt(T t, U u)</td>
+</tr>
+<tr>
+<td style="text-align:left">ToIntFunction<t></t></td>
+<td style="text-align:left">int applyAsInt(T value)</td>
+</tr>
+<tr>
+<td style="text-align:left">ToLongBiFunction<t, u=""></t,></td>
+<td style="text-align:left">long applyAsLong(T t, U u)</td>
+</tr>
+<tr>
+<td style="text-align:left">ToLongFunction<t></t></td>
+<td style="text-align:left">long applyAsLong(T value)</td>
+</tr>
+<tr>
+<td style="text-align:left">UnaryOperator<t> extends Function<t, t=""></t,></t></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">DoubleBinaryOperator</td>
+<td style="text-align:left">double applyAsDouble(double left, double right)</td>
+</tr>
+<tr>
+<td style="text-align:left">DoubleUnaryOperator</td>
+<td style="text-align:left">double applyAsDouble(double operand)</td>
+</tr>
+<tr>
+<td style="text-align:left">IntBinaryOperator</td>
+<td style="text-align:left">int applyAsInt(int left, int right)</td>
+</tr>
+<tr>
+<td style="text-align:left">IntUnaryOperator</td>
+<td style="text-align:left">int applyAsInt(int operand)</td>
+</tr>
+<tr>
+<td style="text-align:left">LongBinaryOperator</td>
+<td style="text-align:left">long applyAsLong(long left, long right)</td>
+</tr>
+<tr>
+<td style="text-align:left">LongUnaryOperator</td>
+<td style="text-align:left">long applyAsLong(long operand)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">Predicate<t></t></td>
+<td style="text-align:left">boolean test(T t)</td>
+</tr>
+<tr>
+<td style="text-align:left">BiPredicate<t, u=""></t,></td>
+<td style="text-align:left">boolean test(T t, U u)</td>
+</tr>
+<tr>
+<td style="text-align:left">DoublePredicate</td>
+<td style="text-align:left">boolean test(double value)</td>
+</tr>
+<tr>
+<td style="text-align:left">IntPredicate</td>
+<td style="text-align:left">boolean test(int value)</td>
+</tr>
+<tr>
+<td style="text-align:left">LongPredicate</td>
+<td style="text-align:left">boolean test(long value)</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">Supplier<t></t></td>
+<td style="text-align:left">T get()</td>
+</tr>
+<tr>
+<td style="text-align:left">BooleanSupplier</td>
+<td style="text-align:left">boolean getAsBoolean()</td>
+</tr>
+<tr>
+<td style="text-align:left">DoubleSupplier</td>
+<td style="text-align:left">double getAsDouble()</td>
+</tr>
+<tr>
+<td style="text-align:left">IntSupplier</td>
+<td style="text-align:left">int getAsInt()</td>
+</tr>
+<tr>
+<td style="text-align:left">LongSupplier</td>
+<td style="text-align:left">long getAsLong()</td>
+</tr>
+</tbody>
+</table>
+<h1 id="中间操作和终端操作"><a href="#中间操作和终端操作" class="headerlink" title="中间操作和终端操作"></a>中间操作和终端操作</h1><table>
+<thead>
+<tr>
+<th style="text-align:left">操作</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">返回类型</th>
+<th style="text-align:left">参数类型</th>
+<th style="text-align:left">函数描述符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">filter</td>
+<td style="text-align:left">中间</td>
+<td style="text-align:left">Stream<t></t></td>
+<td style="text-align:left">Predicate<t></t></td>
+<td style="text-align:left">T -&gt; boolean</td>
+</tr>
+<tr>
+<td style="text-align:left">distinct</td>
+<td style="text-align:left">中间（有状态-无界）</td>
+<td style="text-align:left">Stream<t></t></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">skip</td>
+<td style="text-align:left">中间（有状态-有界）</td>
+<td style="text-align:left">Stream<t></t></td>
+<td style="text-align:left">long</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">limit</td>
+<td style="text-align:left">中间（有状态-有界）</td>
+<td style="text-align:left">Stream<t></t></td>
+<td style="text-align:left">long</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">map</td>
+<td style="text-align:left">中间</td>
+<td style="text-align:left">Stream<r></r></td>
+<td style="text-align:left">Function<t, r=""></t,></td>
+<td style="text-align:left">T -&gt; R</td>
+</tr>
+<tr>
+<td style="text-align:left">flatMap</td>
+<td style="text-align:left">中间</td>
+<td style="text-align:left">Stream<r></r></td>
+<td style="text-align:left">Function<t, stream<r="">&gt;</t,></td>
+<td style="text-align:left">T -&gt; Stream<r></r></td>
+</tr>
+<tr>
+<td style="text-align:left">sorted</td>
+<td style="text-align:left">中间（有状态-无界）</td>
+<td style="text-align:left">Stream<t></t></td>
+<td style="text-align:left">Comparator<t></t></td>
+<td style="text-align:left">(T, T) -&gt; int</td>
+</tr>
+<tr>
+<td style="text-align:left">anyMatch</td>
+<td style="text-align:left">终端</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">Predicate<t></t></td>
+<td style="text-align:left">T -&gt; boolean</td>
+</tr>
+<tr>
+<td style="text-align:left">noneMatch</td>
+<td style="text-align:left">终端</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">Predicate<t></t></td>
+<td style="text-align:left">T -&gt; boolean</td>
+</tr>
+<tr>
+<td style="text-align:left">allMatch</td>
+<td style="text-align:left">终端</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">Predicate<t></t></td>
+<td style="text-align:left">T -&gt; boolean</td>
+</tr>
+<tr>
+<td style="text-align:left">findAny</td>
+<td style="text-align:left">终端</td>
+<td style="text-align:left">Optional<t></t></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">findFirst</td>
+<td style="text-align:left">终端</td>
+<td style="text-align:left">Optional<t></t></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">forEach</td>
+<td style="text-align:left">终端</td>
+<td style="text-align:left">void</td>
+<td style="text-align:left">Consumer<t></t></td>
+<td style="text-align:left">T -&gt; void</td>
+</tr>
+<tr>
+<td style="text-align:left">collect</td>
+<td style="text-align:left">终端</td>
+<td style="text-align:left">R</td>
+<td style="text-align:left">Collector<t, a,="" r=""></t,></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">reduce</td>
+<td style="text-align:left">终端（有状态-有界）</td>
+<td style="text-align:left">Optional<t></t></td>
+<td style="text-align:left">BinaryOperator<t></t></td>
+<td style="text-align:left">(T, T) -&gt; T</td>
+</tr>
+<tr>
+<td style="text-align:left">count</td>
+<td style="text-align:left">终端</td>
+<td style="text-align:left">long</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h1 id="数值流"><a href="#数值流" class="headerlink" title="数值流"></a>数值流</h1><h2 id="原始类型流特化"><a href="#原始类型流特化" class="headerlink" title="原始类型流特化"></a>原始类型流特化</h2><p><code>IntStream Stream#mapToInt(ToIntFunction&lt;T&gt;)</code><br><code>LongStream Stream#mapToLong(ToLongFunction&lt;T&gt;)</code><br><code>DoubleStream Stream#mapToDouble(ToDoubleFunction&lt;T&gt;)</code></p>
+<p>使用 <code>IntStream</code>、<code>LongStream</code>、<code>DoubleStream</code> 中的 <code>range</code> 等方法没有装箱拆箱的开销。</p>
+<p><code>Optional</code> 对应的原始类型：<code>OptionalInt</code>、<code>OptionalLong</code>、<code>OptionalDouble</code></p>
+<h2 id="数值范围"><a href="#数值范围" class="headerlink" title="数值范围"></a>数值范围</h2><p><code>range(m, n)</code>：生成从 m 到 n 的数值流，不含 n。<br><code>rangeClosed(m, n)</code>：生成从 m 到 n 的数值流，含 n。</p>
+<h1 id="收集器"><a href="#收集器" class="headerlink" title="收集器"></a>收集器</h1><h2 id="Collector-接口"><a href="#Collector-接口" class="headerlink" title="Collector 接口"></a><code>Collector</code> 接口</h2><p><code>Collector&lt;T, A, R&gt;</code></p>
+<ul>
+<li><code>T</code>：归约操作针对的元素的类型。</li>
+<li><code>A</code>：容纳归约操作中间结果的累加器的类型。</li>
+<li><code>R</code>：归约操作结束后的最终结果的类型。</li>
+</ul>
+<p><code>characteristics()</code> 方法</p>
+<ul>
+<li><code>UNORDERED</code>：归约结果不受遍历和累积顺序的影响。</li>
+<li><code>CONCURRENT</code>：累加器可以在多线程环境下调用和合并。</li>
+<li><code>INDENTITY_FINISH</code>：不加检查直接将累加器转为最终结果，跳过完成器。</li>
+</ul>
+<h2 id="Collectors"><a href="#Collectors" class="headerlink" title="Collectors"></a><code>Collectors</code></h2><ul>
+<li>归约成集合容器。<ul>
+<li><code>toCollection</code></li>
+<li><code>toList</code>、<code>toUnmodifiableList</code></li>
+<li><code>toSet</code>、<code>toUnmodifiableSet</code></li>
+<li><code>toMap</code>、<code>toUnmodifiableMap</code>、<code>toConcurrentMap</code></li>
+</ul>
+</li>
+<li>拼接字符串<ul>
+<li><code>joining</code></li>
+</ul>
+</li>
+<li>映射<ul>
+<li><code>mapping</code></li>
+<li><code>flatMapping</code></li>
+</ul>
+</li>
+<li>过滤<ul>
+<li><code>filtering</code></li>
+</ul>
+</li>
+<li>统计（另有 <code>Long</code>、<code>Double</code> 版本）<ul>
+<li><code>counting</code></li>
+<li><code>summingInt</code></li>
+<li><code>averagingInt</code></li>
+<li><code>summarizingInt</code></li>
+</ul>
+</li>
+<li>比较<ul>
+<li><code>minBy</code></li>
+<li><code>maxBy</code></li>
+</ul>
+</li>
+<li>分类<ul>
+<li><code>groupingBy</code></li>
+<li><code>groupingByConcurrent</code></li>
+<li><code>partitioningBy</code></li>
+</ul>
+</li>
+<li>其他<ul>
+<li><code>collectingAndThen</code></li>
+<li><code>reducing</code></li>
+</ul>
+</li>
+</ul>
+<h1 id="并行流"><a href="#并行流" class="headerlink" title="并行流"></a>并行流</h1><p>并行流内部使用了默认的 <code>ForkJoinPool</code>，它默认的线程数量就是处理器的数量（<code>Runtime.getRuntime().availableProcessors()</code>）。</p>
+<p>可以通过系统属性来改变线程池大小：<code>System.setProperty(&quot;java.util.concurrent.ForkJoinPool.common.parallelism&quot;, &quot;4&quot;);</code>。</p>
+<h2 id="顺序流和并行流的转换"><a href="#顺序流和并行流的转换" class="headerlink" title="顺序流和并行流的转换"></a>顺序流和并行流的转换</h2><p><code>Stream.parallel()</code>、<code>Stream.sequential()</code></p>
+<p>这两个方法只是修改了流内部的一个标志，流是否并行以最后一次调用的方法为准。</p>
+<h2 id="使用并行流的定性意见"><a href="#使用并行流的定性意见" class="headerlink" title="使用并行流的定性意见"></a>使用并行流的定性意见</h2><ul>
+<li>以测试作为性能评估的最主要方式。</li>
+<li>留意装箱。</li>
+<li>有些操作本身就更适合顺序流，比如依赖元素顺序的操作：<code>limit</code>、<code>findFirst</code> 等。如果不一定要按顺序执行的话，可以调用 <code>Stream.unordered()</code> 方法变成无序流，再进行其他操作。</li>
+<li>单个元素通过流水线的成本越高，并行流占优的可能性越高。</li>
+<li>如果确定数据量较小，那么一般都不用并行流。</li>
+<li>要考虑流背后的数据结构是否易于分解。比如 <code>ArrayList</code> 的拆分效率比 <code>LinkedList</code> 高得多；用 <code>range</code> 工厂方法创建的原始类型流也可以快速分解。</li>
+<li>流自身的特点、以及中间操作修改流的方式，都可能改变分解过程的性能。</li>
+<li>考虑终端操作中合并步骤的代价大小。</li>
+</ul>
+<p>常见流数据源的可并行性</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">源</th>
+<th style="text-align:left">可分解性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ArrayList</td>
+<td style="text-align:left">极佳</td>
+</tr>
+<tr>
+<td style="text-align:left">LinkedList</td>
+<td style="text-align:left">差</td>
+</tr>
+<tr>
+<td style="text-align:left">IntStream.range</td>
+<td style="text-align:left">极佳</td>
+</tr>
+<tr>
+<td style="text-align:left">Stream.iterate</td>
+<td style="text-align:left">差</td>
+</tr>
+<tr>
+<td style="text-align:left">HashSet</td>
+<td style="text-align:left">好</td>
+</tr>
+<tr>
+<td style="text-align:left">TreeSet</td>
+<td style="text-align:left">好</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Spliterator"><a href="#Spliterator" class="headerlink" title="Spliterator"></a>Spliterator</h2><ul>
+<li><code>boolean tryAdvance(Consumer)</code>：按顺序依次使用 <code>Spliterator</code> 中的元素。</li>
+<li><code>Spliterator trySplit()</code>：将一部分元素划分给另一个 <code>Spliterator</code>。</li>
+<li><code>long estimateSize()</code>：估算剩余的元素数量。</li>
+<li><code>int characteristics()</code>：特性集的编码。</li>
+</ul>
+<p><code>Spliterator</code> 的特性</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">特性</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ORDERED</td>
+<td style="text-align:left">元素有既定的顺序</td>
+</tr>
+<tr>
+<td style="text-align:left">DISTINCT</td>
+<td style="text-align:left">对于任意一对遍历过的元素 x 和 y，有 <code>x.equals(y) == false</code></td>
+</tr>
+<tr>
+<td style="text-align:left">SORTED</td>
+<td style="text-align:left">遍历的元素按照预定义的顺序排序</td>
+</tr>
+<tr>
+<td style="text-align:left">SIZED</td>
+<td style="text-align:left">建立自一个已知大小的源，因此 <code>estimate()</code> 返回的是准确值</td>
+</tr>
+<tr>
+<td style="text-align:left">NONNULL</td>
+<td style="text-align:left">遍历的元素不会为 null</td>
+</tr>
+<tr>
+<td style="text-align:left">IMMUTABLE</td>
+<td style="text-align:left">数据源在遍历时不能修改</td>
+</tr>
+<tr>
+<td style="text-align:left">CONCURRENT</td>
+<td style="text-align:left">数据源可被其他线程修改而无需同步</td>
+</tr>
+<tr>
+<td style="text-align:left">SUBSIZED</td>
+<td style="text-align:left">当前 <code>Spliterator</code> 和它所有拆分出来的 <code>Spliterator</code> 都是 SIZED</td>
+</tr>
+</tbody>
+</table>
+<h1 id="默认方法"><a href="#默认方法" class="headerlink" title="默认方法"></a>默认方法</h1><p>解决继承方法冲突的规则（各条规则按优先级依次判断）</p>
+<ol>
+<li>优先级：类/父类 &gt; 接口。前提是类中必须实现了该方法，而不是继承自接口的默认方法。</li>
+<li>优先选择拥有最具体实现的默认方法的接口（即子接口）。</li>
+<li>继承多个接口的类必须显式覆盖、调用期望的方法。</li>
+<li>编译错误。</li>
+</ol>
+<h1 id="CompletableFuture"><a href="#CompletableFuture" class="headerlink" title="CompletableFuture"></a>CompletableFuture</h1><h2 id="常用-API"><a href="#常用-API" class="headerlink" title="常用 API"></a>常用 API</h2><p>工厂方法</p>
+<ul>
+<li><code>supplyAsync</code>：传入一个 <code>Supplier</code>，以此为逻辑构造一个 <code>CompletableFuture</code>。</li>
+<li><code>runAsync</code>：传入一个 <code>Runnable</code>，以此为逻辑构造一个 <code>CompletableFuture</code>。</li>
+<li><code>completedFuture</code>：传入一个值，直接作为结果。</li>
+</ul>
+<p>查询、获取结果</p>
+<ul>
+<li><code>cancel</code></li>
+<li><code>isCancelled</code></li>
+<li><code>isCompletedExceptionally</code></li>
+<li><code>isDone</code>：是否完成（包括正常完成、被取消、异常）。</li>
+<li><code>get</code>：获取结果；可指定超时时间；可中断。</li>
+<li><code>join</code>：获取结果；<strong>不</strong>可指定超时时间；<strong>不</strong>可中断。</li>
+<li><code>getNow</code>：传入一个默认值。若尚无结果，则返回默认值。</li>
+<li><code>obtrudeValue</code>：强制设置结果。</li>
+<li><code>obtrudeException</code></li>
+<li><code>allOf</code>：返回一个 <code>CompleteFuture</code>，当传入的若干 <code>CompleteFuture</code> 全部完成时，该 <code>CompleteFuture</code> 也完成。</li>
+<li><code>anyOf</code>：返回一个 <code>CompleteFuture</code>，当传入的若干 <code>CompleteFuture</code> 任一完成时，该 <code>CompleteFuture</code> 也完成。</li>
+</ul>
+<p>完成</p>
+<ul>
+<li><code>complete</code>：传入一个值作为结果，并将 <code>CompletableFuture</code> 转入完成状态。</li>
+<li><code>completeExceptionally</code>：传入一个异常作为结果，并将 <code>CompleteFuture</code> 转入完成状态。</li>
+<li><code>completeAsync</code>：传入一个 <code>Supplier</code> 和 <code>Executor</code>（可选），从 <code>Supplier</code> 获取结果。</li>
+<li><code>orTimeout</code>：若超时未完成，会在获取结果时抛出 <code>TimoutException</code>。</li>
+<li><code>completeOnTimeout</code>：传入一个值，若超时未完成，则用该值作为结果。</li>
+</ul>
+<p>函数式构造</p>
+<ul>
+<li>每个方法分为三个版本：<ul>
+<li><code>thenXXX</code>：同步版本。在当前异步线程中进行后续操作。</li>
+<li><code>thenXXXAsync</code>：异步版本。在另一个异步线程中进行后续操作。</li>
+<li><code>thenXXXAysnc</code>：异步版本。上一个方法的重载方法，传入一个 <code>Executor</code> 作为另一个异步线程的来源。</li>
+</ul>
+</li>
+<li>串行<ul>
+<li>以下方法分别传入一个函数式接口（<code>Function</code>、<code>Consumer</code>、<code>Runnable</code>）。在当前 <code>CompleteFuture</code> 完成后对结果执行函数式接口，并将执行结果放在新的 <code>CompleteFuture</code> 中返回出来。<ul>
+<li><code>thenApply</code></li>
+<li><code>thenAccept</code></li>
+<li><code>thenRun</code></li>
+<li><code>thenCompose</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>并行<ul>
+<li>以下方法分别传入一个 <code>CompletionStage</code> 和一个函数式接口（<code>BiFunction</code>、<code>BiConsumer</code>、<code>Runnable</code>)。在当前和传入的 <code>CompletionStage</code> 都完成后，以两者的结果为入参执行上述函数式接口。<ul>
+<li><code>thenCombine</code></li>
+<li><code>thenAcceptBoth</code></li>
+<li><code>runAfterBoth</code></li>
+</ul>
+</li>
+<li>以下方法分别传入一个 <code>CompletionStage</code> 和一个函数式接口（<code>Function</code>、<code>Consumer</code>、<code>Runnable</code>)。在当前和传入的 <code>CompletionStage</code> 任意一个完成后，以它的结果为入参执行上述函数式接口。<ul>
+<li><code>applyToEither</code></li>
+<li><code>acceptEither</code></li>
+<li><code>runAfterEither</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>回调</p>
+<ul>
+<li><code>whenComplete</code></li>
+<li><code>handle</code></li>
+<li><code>exceptionally</code></li>
+</ul>
+<h2 id="使用定制的执行器"><a href="#使用定制的执行器" class="headerlink" title="使用定制的执行器"></a>使用定制的执行器</h2><p><code>CompleteFuture</code> 默认使用 <code>ForkJoinPool.commonPool()</code> 作为执行器。若该线程池不支持并行，则使用 <code>ThreadPerTaskExecutor</code>（每个任务新建一个线程）。</p>
+<p>也可以传入自己定制的 <code>Executor</code>。</p>
+<p><strong>线程池的大小</strong></p>
+<p>根据《Java并发编程实战》</p>
+<blockquote>
+<p>Nthreads = Ncpu <em> Ucpu </em> (1 + W / C)</p>
+</blockquote>
+<ul>
+<li>Nthreads：线程池中的线程数量。</li>
+<li>Ncpu：处理器的核心数量。通过 <code>Runtime.getRuntime().availableProcessors()</code> 得到。</li>
+<li>Ucpu：期望的 cpu 利用率，(0, 1]。</li>
+<li>W / C：等待时间/计算时间。</li>
+</ul>
+<h2 id="并行流和-CompletableFuture-的取舍"><a href="#并行流和-CompletableFuture-的取舍" class="headerlink" title="并行流和 CompletableFuture 的取舍"></a>并行流和 CompletableFuture 的取舍</h2><p>并行流的使用更简洁；<code>CompletableFuture</code> 对于线程池的控制更灵活。</p>
+<ul>
+<li>如果进行的是计算密集型操作，且没有 I/O，则推荐并行流，因为这种情况下没必要创建比处理器内核更多的线程。</li>
+<li>在相反的情况下，<code>CompletableFuture</code> 可以根据实际情况调整线程数。而并行流由于流的延迟特性，会很难判断到底在哪里发生了等待。</li>
+</ul>
+<h1 id="日期和时间-API"><a href="#日期和时间-API" class="headerlink" title="日期和时间 API"></a>日期和时间 API</h1><p>面向用户 <code>LocalDate</code> <code>LocalTime</code> <code>LocalDateTime</code> <code>ZoneDateTime</code></p>
+<p>面向机器 <code>Instant</code></p>
+<p>时间跨度</p>
+<ul>
+<li><code>Duration</code>：秒、纳秒的尺度。</li>
+<li><code>Period</code>：年月日的尺度。</li>
+</ul>
+<p>复杂的时间操作 <code>TemporalAdjuster</code></p>
+<ul>
+<li><code>dayOfWeekInMonth</code>：创建一个新日期，值为同一个月中的每一周的第几天。</li>
+<li><code>firstDayOfMonth</code>：创建一个新日期，值为当月的第一天。</li>
+<li><code>firstDayOfNextMonth</code>：创建一个新日期，值为下月的第一天。</li>
+<li><code>firstDayOfNextYear</code>：创建一个新日期，值为明年的第一天。</li>
+<li><code>firstDayOfYear</code>：创建一个新日期，值为当年的第一天。</li>
+<li><code>firstInMonth</code>：创建一个新日期，值为同一个月中，第一个符合星期几要求的值。</li>
+<li><code>lastDayOfMonth</code>：创建一个新日期，值为当月的最后一天。</li>
+<li><code>lastDayOfNextMonth</code>：创建一个新日期，值为下月的最后一天。</li>
+<li><code>lastDayOfNextYear</code>：创建一个新日期，值为明年的最后一天。</li>
+<li><code>lastDayOfYear</code>：创建一个新日期，值为当年的最后一天。</li>
+<li><code>lastInMonth</code>：创建一个新日期，值为同一个月中，最后一个符合星期几要求的值。</li>
+<li><code>next</code>/<code>previous</code>：创建一个新日期，值为之前/之后第一个符合星期几要求的日期。</li>
+<li><code>nextOrSame</code>/<code>previousOrSame</code>：创建一个新日期，值为之前/之后第一个符合星期几要求的日期。若当前日期符合条件，则直接返回当前日期。</li>
+</ul>
+<p>格式化</p>
+<ul>
+<li><code>DateTimeFormatter</code></li>
+<li><code>DateTimeFormatterBuilder</code></li>
+</ul>
+<p>时区</p>
+<ul>
+<li><code>ZoneId</code></li>
+<li><code>ZoneOffset</code></li>
+</ul>
+<h1 id="函数式编程相关"><a href="#函数式编程相关" class="headerlink" title="函数式编程相关"></a>函数式编程相关</h1><h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><ul>
+<li>接受至少一个函数作为参数</li>
+<li>返回一个函数</li>
+</ul>
+<h2 id="科里化"><a href="#科里化" class="headerlink" title="科里化"></a>科里化</h2><blockquote>
+<p>f(x, y) = (g(x))(y)</p>
+</blockquote>
+<h1 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h1><h2 id="重复注解"><a href="#重复注解" class="headerlink" title="重复注解"></a>重复注解</h2><p>Java 8 的重复注解实际上是一个语法糖</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//首先声明一个注解容器</span></span><br><span class="line"><span class="meta">@interface</span> Authors &#123;</span><br><span class="line">  Author[] value();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//然后声明需要重复的注解</span></span><br><span class="line"><span class="meta">@Repeatable</span>(Authors.class) <span class="comment">// 容纳重复注解的容器注解</span></span><br><span class="line"><span class="meta">@interface</span> Author &#123;</span><br><span class="line">  <span class="function">String <span class="title">name</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//最后使用注解</span></span><br><span class="line"><span class="meta">@Author</span>(name = <span class="string">"tom"</span>)</span><br><span class="line"><span class="meta">@Author</span>(name = <span class="string">"ben"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>Class</code> 类新增了一个方法用来获取重复注解：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class#getAnnotationsByType(Class&lt;?&gt; clazz);</span><br></pre></td></tr></table></figure>
+<h2 id="类型注解"><a href="#类型注解" class="headerlink" title="类型注解"></a>类型注解</h2><p>Java 8 开始，注解可以应用于任何类型，包括 <code>new</code>、类型转换、<code>instance of</code>、泛型类型参数、<code>implements</code>、<code>throws</code>。</p>
+<p>Java 8 之前，类型推断依赖于从上下文推断出来的目标类型。从 Java 8 开始，目标类型包括向方法传递的参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//假设有以下方法</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">doWithList</span><span class="params">(List&lt;String&gt; list)</span> </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//之前的写法</span></span><br><span class="line">doWithList(Collections.&lt;String&gt;emptyList());</span><br><span class="line"></span><br><span class="line"><span class="comment">//之后的写法</span></span><br><span class="line">doWithList(Collections.emptyList());</span><br></pre></td></tr></table></figure>
+<h1 id="类库的更新"><a href="#类库的更新" class="headerlink" title="类库的更新"></a>类库的更新</h1><h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><p>新增的方法：</p>
+<ul>
+<li><code>Map</code>：<ul>
+<li><code>getOrDefault</code>、<code>forEach</code>、<code>merge</code>、<code>putIfAbsent</code>、<code>remove(key, value)</code>、<code>replace</code>、<code>replaceAll</code></li>
+<li><code>compute</code>：根据原有的 key-val 计算新的 val，根据新的 val 是否为 null 来删除、新增/替换 entry。返回新 val（若新 val 非 null）或 null。</li>
+<li><code>computeIfAbsent</code>：若原 val 为 null，则根据 key 计算新 val。若新 val 非 null，则 put。返回新 val（若发生了 put）或原 val。</li>
+<li><code>computeIfPresent</code>：若原 val 非 null，则根据 key 计算新 val。根据新 val 是否为 null 来删除、替换 entry。返回新 val（若发生了替换）或 null。</li>
+</ul>
+</li>
+<li><code>Iterable</code>：<code>forEach</code>、<code>spliterator</code></li>
+<li><code>Iterator</code>：<code>forEachRemaining</code></li>
+<li><code>Collection</code>：<code>removeIf</code>、<code>stream</code>、<code>parallelStream</code></li>
+<li><code>List</code>：<code>replaceAll</code>、<code>sort</code></li>
+<li><code>BitSet</code>：<code>stream</code></li>
+</ul>
+<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><h3 id="数值操作"><a href="#数值操作" class="headerlink" title="数值操作"></a>数值操作</h3><p>Atomic 相关数字类型新增的方法：</p>
+<ul>
+<li><code>getAndUpdate</code>：基于当前值用给定方法计算新值并更新，返回变更之前的值。</li>
+<li><code>updateAndGet</code>：基于当前值用给定方法计算新值并更新，返回变更之后的值。</li>
+<li><code>getAndAccumulate</code>：基于当前值和传入值用给定方法计算新值并更新，返回变更之前的值。</li>
+<li><code>accumulateAndGet</code>：基于当前值和传入值用给定方法计算新值并更新，返回变更之后的值。</li>
+</ul>
+<p>如果多个线程需要频繁更新且很少读取，推荐使用 <code>XXXAdder</code>、<code>XXXAcumulator</code>。</p>
+<h3 id="ConcurrentHashMap"><a href="#ConcurrentHashMap" class="headerlink" title="ConcurrentHashMap"></a>ConcurrentHashMap</h3><p>在 Java8 中，当 bucket 过于臃肿时，会动态的转换为排序树。这种转换仅当键值可比较时才会发生。</p>
+<p>新增 3 种操作：</p>
+<ul>
+<li><code>forEach</code></li>
+<li><code>reduce</code></li>
+<li><code>search</code>：对每个 entry 执行指定函数，直到该函数返回非空值。</li>
+</ul>
+<p>每种操作支持 4 种形式：</p>
+<ul>
+<li>使用键和值：<code>forEach</code>、<code>reduce</code>、<code>search</code>。</li>
+<li>使用键：<code>forEachKey</code>、<code>reduceKeys</code>、<code>searchKeys</code>。</li>
+<li>使用值：<code>forEachValue</code>、<code>reduceValues</code>、<code>searchValues</code>。</li>
+<li>使用 <code>Map.Entry</code>：<code>forEachEntry</code>、<code>reduceEntries</code>、<code>searchEntries</code>。</li>
+</ul>
+<p>这些操作不会对 ConcurrentHashMap 上锁。</p>
+<p>使用时需要指定一个并发阈值。当 map 的大小小于该阈值时，操作会顺序执行。传入 1 开启基于通用线程池的最大并行。传入 Long.MAX_VALUE 以单线程执行。</p>
+<p>新增了 <code>mappingCount</code> 方法用于统计映射的数目，它返回 long，而原有的 <code>size</code> 方法返回 int。</p>
+<p>新增了 <code>KeySet</code> 方法返回 ConcurrentHashMap 的一个视图。</p>
+<h3 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a>Arrays</h3><p>新增 4 个方法：</p>
+<ul>
+<li><code>parallelSort</code>：并发排序。</li>
+<li><code>setAll</code>、<code>parallelSetAll</code>：基于元素的索引计算元素值并设置。</li>
+<li><code>parallelPrefix</code>：通过并发的方式，用传入的方法对数组每个元素进行累积。</li>
+</ul>
+<h3 id="Number-和-Math"><a href="#Number-和-Math" class="headerlink" title="Number 和 Math"></a>Number 和 Math</h3><p><code>Number</code> 新增方法：</p>
+<ul>
+<li>静态方法：<code>sum</code>、<code>min</code>、<code>max</code>。</li>
+<li><code>Integer</code>、<code>Long</code>：处理无符号数：<code>compareUnsigned</code>、<code>divideUnsigned</code>、<code>remainderUnsigned</code>、<code>toUnsignedLong</code>。</li>
+<li><code>Integer</code>、<code>Long</code>：将字符解析为无符号数：<code>parseUnsignedInt</code>、<code>parseUnsignedLong</code>。</li>
+<li><code>Byte</code>、<code>Short</code>、<code>Integer</code>：将原值视为无符号数进行转换：<code>toUnsignedInt</code>、<code>toUnsignedLong</code>。</li>
+<li><code>Double</code>、<code>Float</code>：检查参数是否为有限浮点数。</li>
+<li><code>Boolean</code>：执行 and、or 和 xor 操作：<code>logicalAnd</code>、<code>logicalOr</code>、<code>logicalXor</code>。</li>
+<li><code>BigInteger</code>：将 <code>BigInteger</code> 转换为基础类型，若发生信息丢失会抛出算术异常：<code>byteValueExact</code>、<code>shortValueExact</code>、<code>intValueExact</code>、<code>longValueExact</code>。</li>
+</ul>
+<p><code>Math</code> 新增方法：</p>
+<ul>
+<li>若操作发生溢出会抛出算术异常：<code>addExact</code>、<code>subtractExact</code>、<code>multipleExact</code>、<code>incrementExact</code>、<code>decrementExact</code>、<code>negateExact</code>、<code>toIntExact</code>。</li>
+<li><code>floorMod</code>、<code>floorDiv</code>、<code>nextDown</code>。</li>
+</ul>
+<h2 id="Files"><a href="#Files" class="headerlink" title="Files"></a>Files</h2><p>现在可以用文件直接产生流：</p>
+<ul>
+<li><code>Files.list</code>：生成指定目录中所有条目构成的 <code>Stream&lt;Path&gt;</code>，非递归。</li>
+<li><code>Files.walk</code>：同上，不过是递归的，可设定递归深度；遍历依照深度优先。</li>
+<li><code>Files.find</code>：递归遍历一个目录找到符合条件的条目，生成一个 <code>Stream&lt;Path&gt;</code> 对象。</li>
+</ul>
+<h2 id="Reflection"><a href="#Reflection" class="headerlink" title="Reflection"></a>Reflection</h2><p>除了为支撑注解机制变化而做的改变之外，还新增了可以查询方法参数的 API。比如可以使用 <code>Parameter</code> 类查询方法参数的名称和修饰符。</p>
+<h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><p>新增方法 <code>join</code>，用指定分隔符拼接字符串。</p>
+<h1 id="Lambda-表达式和-JVM-字节码"><a href="#Lambda-表达式和-JVM-字节码" class="headerlink" title="Lambda 表达式和 JVM 字节码"></a>Lambda 表达式和 JVM 字节码</h1><h2 id="匿名类"><a href="#匿名类" class="headerlink" title="匿名类"></a>匿名类</h2><ul>
+<li>编译器会为每个匿名类生成一个 .class 文件。每个 .class 文件在使用前都要加载和验证，会影响启动性能。</li>
+<li>每个匿名类会为类或接口产生一个新的子类型，让 JVM 运行时性能调优更困难。</li>
+</ul>
+<h2 id="字节码"><a href="#字节码" class="headerlink" title="字节码"></a>字节码</h2><p>查看类文件的字节码和常量池：<code>javap -c -v {ClassName}</code></p>
+<p>lambda 表达式会被编译成 <code>invokedynamic</code> 指令。</p>
+<blockquote>
+<p>invokedynamic 指令（<em>引自《Java8 实战》附录 D.3</em>）<br>字节码指令 <code>invokedynamic</code> 最初被 jdk7 引入，用于支持运行于 JVM 上的动态类型语言。执行方法调用时，<code>invokedynamic</code> 提供了更高层的抽象，使得一部分逻辑可以依据动态语言的特征来决定调用目标。<br>JVM 首次执行 <code>invokedynamic</code> 时会查询一个 <code>bootstrap</code> 方法，该方法实现了依赖语言的逻辑，可以决定选择哪一个进行调用。<code>bootstrap</code> 方法返回一个链接调用点（linked call site）。当前后两次调用的是同一个方法时，不必重新选择调用的方法。调用点自身包含了一定的逻辑，可以判断何时进行重新链接。</p>
+</blockquote>
+<p><code>invokedynamic</code> 命令将 lambda 转换字节码的动作推迟到了运行时。这种设计的优点：</p>
+<ul>
+<li>源代码到字节码的转换由高层的策略变成了纯粹的实现细节。它现在可以动态地改变，保留了未来优化的余地，并保持了字节码的后向兼容性。</li>
+<li>没有额外的开销，没有额外的字段，不需要进行静态初始化。</li>
+<li>对无状态非捕获型 lambda，可以创建 lambda 对象进行缓存。</li>
+<li>没有额外的性能开销，仅在 lambda 首次被调用时需要转换。之后的调用都能直接使用之前链接的实现。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/01/工具/Git/" rel="next" title="Git">
+                <i class="fa fa-chevron-left"></i> Git
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/01/Java/Java Web Services/" rel="prev" title="Java Web Services">
+                Java Web Services <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">zeerho</p>
+              <p class="site-description motion-element" itemprop="description">Just a repo for documents</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ZephyrHuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zephyrhuang21@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Lamda"><span class="nav-number">1.</span> <span class="nav-text">Lamda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#形式"><span class="nav-number">1.1.</span> <span class="nav-text">形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将-lamda-表达式替换为方法引用"><span class="nav-number">1.2.</span> <span class="nav-text">将 lamda 表达式替换为方法引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lamda-表达式中的形参有几种不同的用途："><span class="nav-number">1.3.</span> <span class="nav-text">lamda 表达式中的形参有几种不同的用途：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传递形参作为实参"><span class="nav-number">1.3.1.</span> <span class="nav-text">传递形参作为实参</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传递形参作为目标"><span class="nav-number">1.3.2.</span> <span class="nav-text">传递形参作为目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传递构造函数调用"><span class="nav-number">1.3.3.</span> <span class="nav-text">传递构造函数调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传递多个形参"><span class="nav-number">1.3.4.</span> <span class="nav-text">传递多个形参</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-预设的函数式接口"><span class="nav-number">2.</span> <span class="nav-text">Java 预设的函数式接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#中间操作和终端操作"><span class="nav-number">3.</span> <span class="nav-text">中间操作和终端操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数值流"><span class="nav-number">4.</span> <span class="nav-text">数值流</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原始类型流特化"><span class="nav-number">4.1.</span> <span class="nav-text">原始类型流特化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数值范围"><span class="nav-number">4.2.</span> <span class="nav-text">数值范围</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#收集器"><span class="nav-number">5.</span> <span class="nav-text">收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Collector-接口"><span class="nav-number">5.1.</span> <span class="nav-text">Collector 接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Collectors"><span class="nav-number">5.2.</span> <span class="nav-text">Collectors</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#并行流"><span class="nav-number">6.</span> <span class="nav-text">并行流</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#顺序流和并行流的转换"><span class="nav-number">6.1.</span> <span class="nav-text">顺序流和并行流的转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用并行流的定性意见"><span class="nav-number">6.2.</span> <span class="nav-text">使用并行流的定性意见</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spliterator"><span class="nav-number">6.3.</span> <span class="nav-text">Spliterator</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#默认方法"><span class="nav-number">7.</span> <span class="nav-text">默认方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CompletableFuture"><span class="nav-number">8.</span> <span class="nav-text">CompletableFuture</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用-API"><span class="nav-number">8.1.</span> <span class="nav-text">常用 API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用定制的执行器"><span class="nav-number">8.2.</span> <span class="nav-text">使用定制的执行器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并行流和-CompletableFuture-的取舍"><span class="nav-number">8.3.</span> <span class="nav-text">并行流和 CompletableFuture 的取舍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#日期和时间-API"><span class="nav-number">9.</span> <span class="nav-text">日期和时间 API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数式编程相关"><span class="nav-number">10.</span> <span class="nav-text">函数式编程相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#高阶函数"><span class="nav-number">10.1.</span> <span class="nav-text">高阶函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#科里化"><span class="nav-number">10.2.</span> <span class="nav-text">科里化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#注解"><span class="nav-number">11.</span> <span class="nav-text">注解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#重复注解"><span class="nav-number">11.1.</span> <span class="nav-text">重复注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型注解"><span class="nav-number">11.2.</span> <span class="nav-text">类型注解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类库的更新"><span class="nav-number">12.</span> <span class="nav-text">类库的更新</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#集合"><span class="nav-number">12.1.</span> <span class="nav-text">集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发"><span class="nav-number">12.2.</span> <span class="nav-text">并发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数值操作"><span class="nav-number">12.2.1.</span> <span class="nav-text">数值操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ConcurrentHashMap"><span class="nav-number">12.2.2.</span> <span class="nav-text">ConcurrentHashMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Arrays"><span class="nav-number">12.2.3.</span> <span class="nav-text">Arrays</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Number-和-Math"><span class="nav-number">12.2.4.</span> <span class="nav-text">Number 和 Math</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Files"><span class="nav-number">12.3.</span> <span class="nav-text">Files</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reflection"><span class="nav-number">12.4.</span> <span class="nav-text">Reflection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String"><span class="nav-number">12.5.</span> <span class="nav-text">String</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lambda-表达式和-JVM-字节码"><span class="nav-number">13.</span> <span class="nav-text">Lambda 表达式和 JVM 字节码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#匿名类"><span class="nav-number">13.1.</span> <span class="nav-text">匿名类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字节码"><span class="nav-number">13.2.</span> <span class="nav-text">字节码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zeerho</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

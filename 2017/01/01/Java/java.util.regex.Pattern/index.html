@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Just a repo for documents">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tags">
+<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta property="og:site_name" content="zeerho">
+<meta property="og:description" content="Just a repo for documents">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-05T02:37:10.245Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tags">
+<meta name="twitter:description" content="Just a repo for documents">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/tags/"/>
+
+
+
+
+
+  <title>java.util.regex.Pattern | zeerho</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zeerho</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/Java/java.util.regex.Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java.util.regex.Pattern</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>A compiled representation of a regular expression. </p>
+<p>A regular expression, specified as a string, must first be compiled into an instance of this class. The resulting pattern can then be used to create a Matcher object that can match arbitrary character sequences against the regular expression. All of the state involved in performing a match resides in the matcher, so many matchers can share the same pattern. </p>
+<p>A typical invocation sequence is thus<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Pattern p = Pattern.compile(<span class="string">"a*b"</span>);</span><br><span class="line">Matcher m = p.matcher(<span class="string">"aaaaab"</span>);</span><br><span class="line"><span class="keyword">boolean</span> b = m.matches();</span><br></pre></td></tr></table></figure></p>
+<p>A matches method is defined by this class as a convenience for when a regular expression is used just once. This method compiles an expression and matches an input sequence against it in a single invocation. The statement<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> b = Pattern.matches(<span class="string">"a*b"</span>, <span class="string">"aaaaab"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>is equivalent to the three statements above, <strong>though for repeated matches it is less efficient since it does not allow the compiled pattern to be reused</strong>.<br>Instances of this class <strong>are immutable and are safe for use by multiple concurrent threads</strong>. Instances of the Matcher class are not safe for such use. </p>
+<p>Summary of regular-expression constructs<br>Construct Matches </p>
+<p>Characters<br>|characters|description|<br>|:–|:–|<br>|x     | The character x|<br>|\\   | The backslash character|<br>|\0n   | The character with octal value 0n (0 &lt;= n &lt;= 7)|<br>|\0nn  | The character with octal value 0nn (0 &lt;= n &lt;= 7)|<br>|\0mnn | The character with octal value 0mnn (0 &lt;= m &lt;= 3, 0 &lt;= n &lt;= 7)|<br>|\xhh  | The character with hexadecimal value 0xhh|<br>|\uhhhh| The character with hexadecimal value 0xhhhh|<br>|\t    | The tab character (‘\u0009’)|<br>|\n    | The newline (line feed) character (‘\u000A’)|<br>|\r    | The carriage-return character (‘\u000D’)|<br>|\f    | The form-feed character (‘\u000C’) 换页符|<br>|\a    | The alert (bell) character (‘\u0007’)|<br>|\e    | The escape character (‘\u001B’)|<br>|\cx   | The control character corresponding to x| </p>
+<p>Character classes<br><code>[abc]</code> a, b, or c (simple class)<br><code>[^abc]</code> Any character except a, b, or c (negation)<br><code>[a-zA-Z]</code> a through z or A through Z, inclusive (range)<br><code>[a-d[m-p]]</code> a through d, or m through p: [a-dm-p] (union)<br><code>[a-z&amp;&amp;[def]]</code> d, e, or f (intersection)<br><code>[a-z&amp;&amp;[^bc]]</code> a through z, except for b and c: [ad-z] (subtraction)<br><code>[a-z&amp;&amp;[^m-p]]</code> a through z, and not m through p: <a href="subtraction">a-lq-z</a> </p>
+<p>Predefined character classes<br><code>.</code> Any character (may or may not match line terminators)<br><code>\d</code> A digit: [0-9]<br><code>\D</code> A non-digit: [^0-9]<br><code>\s</code> A whitespace character: [ \t\n\x0B\f\r]<br><code>\S</code> A non-whitespace character: [^\s]<br><code>\w</code> A word character: [a-zA-Z_0-9]<br><code>\W</code> A non-word character: [^\w] </p>
+<p>POSIX character classes (US-ASCII only)<br>\p{Lower} A lower-case alphabetic character: [a-z]<br>\p{Upper} An upper-case alphabetic character:[A-Z]<br>\p{ASCII} All ASCII:[\x00-\x7F]<br>\p{Alpha} An alphabetic character:[\p{Lower}\p{Upper}]<br>\p{Digit} A decimal digit: [0-9]<br>\p{Alnum} An alphanumeric character:[\p{Alpha}\p{Digit}]<br>\p{Punct} Punctuation: One of !”#$%&amp;’()*+,-./:;&lt;=&gt;?@[]^_`{|}~<br>\p{Graph} A visible character: [\p{Alnum}\p{Punct}]<br>\p{Print} A printable character: [\p{Graph}\x20]<br>\p{Blank} A space or a tab: [ \t]<br>\p{Cntrl} A control character: [\x00-\x1F\x7F]<br>\p{XDigit} A hexadecimal digit: [0-9a-fA-F]<br>\p{Space} A whitespace character: [ \t\n\x0B\f\r] </p>
+<p>java.lang.Character classes (simple java character type)<br>\p{javaLowerCase} Equivalent to java.lang.Character.isLowerCase()<br>\p{javaUpperCase} Equivalent to java.lang.Character.isUpperCase()<br>\p{javaWhitespace} Equivalent to java.lang.Character.isWhitespace()<br>\p{javaMirrored} Equivalent to java.lang.Character.isMirrored() </p>
+<p>Classes for Unicode blocks and categories<br>\p{InGreek} A character in the Greek block (simple block)<br>\p{Lu} An uppercase letter (simple category)<br>\p{Sc} A currency symbol<br>\P{InGreek} Any character except one in the Greek block (negation)<br>[\p{L}&amp;&amp;[^\p{Lu}]]  Any letter except an uppercase letter (subtraction) </p>
+<p>Boundary matchers<br>^ The beginning of a line<br>$ The end of a line<br>\b A word boundary<br>\B A non-word boundary<br>\A The beginning of the input<br>\G The end of the previous match<br>\Z The end of the input but for the final terminator, if any<br>\z The end of the input </p>
+<p>Greedy quantifiers<br>X? X, once or not at all<br>X* X, zero or more times<br>X+ X, one or more times<br>X{n} X, exactly n times<br>X{n,} X, at least n times<br>X{n,m} X, at least n but not more than m times </p>
+<p>Reluctant quantifiers<br>X?? X, once or not at all<br>X*? X, zero or more times<br>X+? X, one or more times<br>X{n}? X, exactly n times<br>X{n,}? X, at least n times<br>X{n,m}? X, at least n but not more than m times </p>
+<p>Possessive quantifiers<br>X?+ X, once or not at all<br>X*+ X, zero or more times<br>X++ X, one or more times<br>X{n}+ X, exactly n times<br>X{n,}+ X, at least n times<br>X{n,m}+ X, at least n but not more than m times </p>
+<p>Logical operators<br>XY X followed by Y<br>X|Y Either X or Y<br>(X) X, as a capturing group </p>
+<p>Back references<br>\n Whatever the nth capturing group matched </p>
+<p>Quotation<br>\ Nothing, but quotes the following character<br>\Q Nothing, but quotes all characters until \E<br>\E Nothing, but ends quoting started by \Q </p>
+<p>Special constructs (non-capturing)<br>(?:X) X, as a non-capturing group<br>(?idmsux-idmsux)  Nothing, but turns match flags i d m s u x on - off<br>(?idmsux-idmsux:X)   X, as a non-capturing group with the given flags i d m s u x on - off<br>(?=X) X, via zero-width positive lookahead<br>(?!X) X, via zero-width negative lookahead<br>(?&lt;=X) X, via zero-width positive lookbehind<br>(?&lt;!X) X, via zero-width negative lookbehind<br>(?&gt;X) X, as an independent, non-capturing group </p>
+<hr>
+<p>Backslashes, escapes, and quoting<br>The backslash character (‘\’) serves to introduce escaped constructs, as defined in the table above, as well as to quote characters that otherwise would be interpreted as unescaped constructs. Thus the expression \ matches a single backslash and { matches a left brace. </p>
+<p>It is an error to use a backslash prior to any alphabetic character that does not denote an escaped construct; these are reserved for future extensions to the regular-expression language. A backslash may be used prior to a non-alphabetic character regardless of whether that character is part of an unescaped construct. </p>
+<p>Backslashes within string literals in Java source code are interpreted as required by the Java Language Specification as either Unicode escapes or other character escapes. It is therefore necessary to double backslashes in string literals that represent regular expressions to protect them from interpretation by the Java bytecode compiler. The string literal “\b”, for example, matches a single backspace character when interpreted as a regular expression, while “\b” matches a word boundary. The string literal “(hello)“ is illegal and leads to a compile-time error; in order to match the string (hello) the string literal “\(hello\)” must be used. </p>
+<p>Character Classes<br>Character classes may appear within other character classes, and may be composed by the union operator (implicit) and the intersection operator (&amp;&amp;). The union operator denotes a class that contains every character that is in at least one of its operand classes. The intersection operator denotes a class that contains every character that is in both of its operand classes. </p>
+<p>The precedence of character-class operators is as follows, from highest to lowest: </p>
+<p>1     Literal escape     \x<br>2     Grouping […]<br>3     Range a-z<br>4     Union [a-e][i-u]<br>5     Intersection [a-z&amp;&amp;[aeiou]] </p>
+<p>Note that a different set of metacharacters are in effect inside a character class than outside a character class. For instance, the regular expression . loses its special meaning inside a character class, while the expression - becomes a range forming metacharacter. </p>
+<p>Line terminators<br>A line terminator is a one- or two-character sequence that marks the end of a line of the input character sequence. The following are recognized as line terminators: </p>
+<p>A newline (line feed) character (‘\n’),<br>A carriage-return character followed immediately by a newline character (“\r\n”),<br>A standalone carriage-return character (‘\r’),<br>A next-line character (‘\u0085’),<br>A line-separator character (‘\u2028’), or<br>A paragraph-separator character (‘\u2029).<br>If UNIX_LINES mode is activated, then the only line terminators recognized are newline characters. </p>
+<p>The regular expression . matches any character except a line terminator unless the DOTALL flag is specified. </p>
+<p>By default, the regular expressions ^ and $ ignore line terminators and only match at the beginning and the end, respectively, of the entire input sequence. If MULTILINE mode is activated then ^ matches at the beginning of input and after any line terminator except at the end of input. When in MULTILINE mode $ matches just before a line terminator or the end of the input sequence. </p>
+<p>Groups and capturing<br>Capturing groups are numbered by counting their opening parentheses from left to right. In the expression ((A)(B(C))), for example, there are four such groups: </p>
+<p>1     ((A)(B(C)))<br>2     (A)<br>3     (B(C))<br>4     (C) </p>
+<p>Group zero always stands for the entire expression. </p>
+<p>Capturing groups are so named because, during a match, each subsequence of the input sequence that matches such a group is saved. The captured subsequence may be used later in the expression, via a back reference, and may also be retrieved from the matcher once the match operation is complete. </p>
+<p>The captured input associated with a group is always the subsequence that the group most recently matched. If a group is evaluated a second time because of quantification then its previously-captured value, if any, will be retained if the second evaluation fails. Matching the string “aba” against the expression (a(b)?)+, for example, leaves group two set to “b”. All captured input is discarded at the beginning of each match. </p>
+<p>Groups beginning with (? are pure, non-capturing groups that do not capture text and do not count towards the group total. </p>
+<p>Unicode support<br>This class is in conformance with Level 1 of Unicode Technical Standard #18: Unicode Regular Expression Guidelines, plus RL2.1 Canonical Equivalents. </p>
+<p>Unicode escape sequences such as \u2014 in Java source code are processed as described in \u00A73.3 of the Java Language Specification. Such escape sequences are also implemented directly by the regular-expression parser so that Unicode escapes can be used in expressions that are read from files or from the keyboard. Thus the strings “\u2014” and “\u2014”, while not equal, compile into the same pattern, which matches the character with hexadecimal value 0x2014. </p>
+<p>Unicode blocks and categories are written with the \p and \P constructs as in Perl. \p{prop} matches if the input has the property prop, while \P{prop} does not match if the input has that property. Blocks are specified with the prefix In, as in InMongolian. Categories may be specified with the optional prefix Is: Both \p{L} and \p{IsL} denote the category of Unicode letters. Blocks and categories can be used both inside and outside of a character class. </p>
+<p>The supported categories are those of The Unicode Standard in the version specified by the Character class. The category names are those defined in the Standard, both normative and informative. The block names supported by Pattern are the valid block names accepted and defined by UnicodeBlock.forName. </p>
+<p>Categories that behave like the java.lang.Character boolean ismethodname methods (except for the deprecated ones) are available through the same \p{prop} syntax where the specified property has the name javamethodname. </p>
+<p>Comparison to Perl 5<br>The Pattern engine performs traditional NFA-based matching with ordered alternation as occurs in Perl 5. </p>
+<p>Perl constructs not supported by this class: </p>
+<p>The conditional constructs (?{X}) and (?(condition)X|Y), </p>
+<p>The embedded code constructs (?{code}) and (??{code}),</p>
+<p>The embedded comment syntax (?#comment), and </p>
+<p>The preprocessing operations \l \u, \L, and \U. </p>
+<p>Constructs supported by this class but not by Perl: </p>
+<p>Possessive quantifiers, which greedily match as much as they can and do not back off, even when doing so would allow the overall match to succeed. </p>
+<p>Character-class union and intersection as described above.</p>
+<p>Notable differences from Perl: </p>
+<p>In Perl, \1 through \9 are always interpreted as back references; a backslash-escaped number greater than 9 is treated as a back reference if at least that many subexpressions exist, otherwise it is interpreted, if possible, as an octal escape. In this class octal escapes must always begin with a zero. In this class, \1 through \9 are always interpreted as back references, and a larger number is accepted as a back reference if at least that many subexpressions exist at that point in the regular expression, otherwise the parser will drop digits until the number is smaller or equal to the existing number of groups or it is one digit. </p>
+<p>Perl uses the g flag to request a match that resumes where the last match left off. This functionality is provided implicitly by the Matcher class: Repeated invocations of the find method will resume where the last match left off, unless the matcher is reset. </p>
+<p>In Perl, embedded flags at the top level of an expression affect the whole expression. In this class, embedded flags always take effect at the point at which they appear, whether they are at the top level or within a group; in the latter case, flags are restored at the end of the group just as in Perl. </p>
+<p>Perl is forgiving about malformed matching constructs, as in the expression <em>a, as well as dangling brackets, as in the expression abc], and treats them as literals. This class also accepts dangling brackets but is strict about dangling metacharacters like +, ? and </em>, and will throw a PatternSyntaxException if it encounters them. </p>
+<p>For a more precise description of the behavior of regular expression constructs, please see Mastering Regular Expressions, 3nd Edition, Jeffrey E. F. Friedl, O’Reilly and Associates, 2006. </p>
+<p>Since:<br>1.4<br>Version:<br>%I%, %E%<br>Author:<br>Mike McCloskey<br>Mark Reinhold<br>JSR-51 Expert Group<br>See Also:<br>java.lang.String.split(String, int)<br>java.lang.String.split(String)<br>@spec<br>JSR-51</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/01/备忘/错误记录/" rel="next" title="错误记录">
+                <i class="fa fa-chevron-left"></i> 错误记录
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/01/Java/XStream/" rel="prev" title="XStream">
+                XStream <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">zeerho</p>
+              <p class="site-description motion-element" itemprop="description">Just a repo for documents</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ZephyrHuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zephyrhuang21@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zeerho</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

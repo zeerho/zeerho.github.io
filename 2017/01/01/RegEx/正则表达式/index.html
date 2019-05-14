@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Just a repo for documents">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tags">
+<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta property="og:site_name" content="zeerho">
+<meta property="og:description" content="Just a repo for documents">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-05T02:37:10.245Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tags">
+<meta name="twitter:description" content="Just a repo for documents">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/tags/"/>
+
+
+
+
+
+  <title>正则表达式 | zeerho</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zeerho</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/RegEx/正则表达式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">正则表达式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="特殊字符（元字符）"><a href="#特殊字符（元字符）" class="headerlink" title="特殊字符（元字符）"></a>特殊字符（元字符）</h1><p>元字符具有特殊含义，若要匹配元字符的字面值，须用 <code>\</code> 转义。</p>
+<h2 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h2><ul>
+<li><code>\</code>: 将下一个字符标记为或特殊字符、或原义字符、或向后引用、或八进制转义符。</li>
+<li><code>|</code>: 指明两项之间的一个选择。</li>
+</ul>
+<h2 id="位置"><a href="#位置" class="headerlink" title="位置"></a>位置</h2><ul>
+<li><code>^</code>: 行的开始处，除非在方括号表达式中使用，此时它表示不接受该字符集合。若设置了 RegExp 对象的 Multiline 属性，则也匹配换行符之后的内容。</li>
+<li><code>$</code>: 行的结尾处。如果设置了 RegExp 对象的 Multiline 属性，则也匹配换行符之前的内容。</li>
+<li><code>\b</code>: 匹配一个单词边界，也就是指单词和空格间的位置。例如， <code>er\b</code> 可以匹配”never”中的”er”，但不能匹配”verb”中的”er”。</li>
+<li><code>\B</code>: 匹配非单词边界。<code>er\B</code> 能匹配”verb”中的”er”，但不能匹配”never”中的”er”。</li>
+</ul>
+<h2 id="限制符"><a href="#限制符" class="headerlink" title="限制符"></a>限制符</h2><ul>
+<li><code>?</code>：<ul>
+<li>匹配前面的子表达式零次或一次。</li>
+<li>跟在数量限制符后面时表示非贪婪匹配，即尽可能少地匹配字符。</li>
+</ul>
+</li>
+<li><code>+</code>: 匹配前面的子表达式一次或多次。</li>
+<li><code>*</code>: 匹配前面的子表达式零次或多次。</li>
+<li><code>{</code>: 标记限定符表达式的开始。<ul>
+<li><code>{n}</code>: n 次。</li>
+<li><code>{n,}</code>: 至少 n 次。</li>
+<li><code>{n,m}</code>: 至少 n 次，至多 m 次。</li>
+</ul>
+</li>
+</ul>
+<h2 id="符号"><a href="#符号" class="headerlink" title="符号"></a>符号</h2><ul>
+<li><code>.</code>: 匹配除换行符 ‘\n’ 之外的任何单字符。使用 <code>[.\n]</code> 来包含 <code>\n</code>。</li>
+<li><code>\cx</code>: 匹配由 x 指明的控制字符。例如， <code>\cM</code> 匹配一个 Control-M 或回车符。x 的值必须为 A-Z 或 a-z 之一。否则，将 <code>c</code> 视为一个原义的 ‘c’ 字符。</li>
+<li><code>\d</code>: 匹配一个数字字符。等价于 <code>[0-9]</code>。</li>
+<li><code>\D</code>: 匹配一个非数字字符。等价于 <code>[^0-9]</code>。</li>
+<li><code>\f</code>: 匹配一个换页符。等价于 <code>\x0c</code> 和 <code>\cL</code>。</li>
+<li><code>\n</code>: 匹配一个换行符。等价于 <code>\x0a</code> 和 <code>\cJ</code>。</li>
+<li><code>\r</code>: 匹配一个回车符。等价于 <code>\x0d</code> 和 <code>\cM</code>。</li>
+<li><code>\s</code>: 匹配任何空白字符，包括空格、制表符、换页符等等。等价于 <code>[ \f\n\r\t\v]</code>。</li>
+<li><code>\S</code>: 匹配任何非空白字符。等价于 <code>[^ \f\n\r\t\v]</code>。</li>
+<li><code>\t</code>: 匹配一个制表符。等价于 <code>\x09</code> 和 <code>\cI</code>。</li>
+<li><code>\v</code>: 匹配一个垂直制表符。等价于 <code>\x0b</code> 和 <code>\cK</code>。</li>
+<li><code>\w</code>: 匹配包括下划线的任何单词字符。等价于 <code>[A-Za-z0-9_]</code>。</li>
+<li><code>\W</code>: 匹配任何非单词字符。等价于 <code>[^A-Za-z0-9_]</code>。</li>
+<li><code>\xn</code>: 匹配 n，其中 n 为十六进制转义值。十六进制转义值必须为确定的两个数字长。例如，<code>\x41</code> 匹配 “A”。<code>\x041</code> 则等价于 ‘\x04’ &amp; “1”。正则表达式中可以使用 ASCII 编码。</li>
+<li><code>\{num}</code>: 匹配 num，其中 num 是一个正整数。对所获取的匹配的引用。例如，<code>(.)\1</code> 匹配两个连续的相同字符。</li>
+<li><code>\n</code>: 标识一个八进制转义值或一个向后引用。如果 <code>\n</code> 之前至少 n 个获取的子表达式，则 n 为向后引用。否则，如果 n 为八进制数字 (0-7)，则 n 为一个八进制转义值。</li>
+<li><code>\nm</code>: 标识一个八进制转义值或一个向后引用。如果 <code>\nm</code> 之前至少有 nm 个获得子表达式，则 nm 为向后引用。如果 <code>\nm</code> 之前至少有 n 个获取，则 n 为一个后跟文字 m 的向后引用。如果前面的条件都不满足，若 n 和 m 均为八进制数字 (0-7)，则 <code>\nm</code> 将匹配八进制转义值 nm。</li>
+<li><code>\nml</code>: 如果 n 为八进制数字 (0-3)，且 m 和 l 均为八进制数字 (0-7)，则匹配八进制转义值 nml。</li>
+<li><code>\un</code>: 匹配 n，其中 n 是一个用四个十六进制数字表示的 Unicode 字符。例如， <code>\u00A9</code> 匹配版权符号。</li>
+</ul>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><ul>
+<li><code>()</code>: 标记一个子表达式的开始和结束位置。子表达式可以获取供以后使用。</li>
+<li><code>[xyz]</code>: 字符集合。匹配所包含的任意一个字符。例如， <code>[abc]</code> 可以匹配 “plain” 中的 ‘a’。</li>
+<li><code>[^xyz]</code>: 负值字符集合。匹配未包含的任意字符。例如， <code>[^abc]</code> 可以匹配 “plain” 中的’p’、’l’、’i’、’n’。</li>
+<li><code>[a-z]</code>: 字符范围。匹配指定范围内的任意字符。例如，<code>[a-z]</code> 可以匹配 ‘a’ 到 ‘z’ 范围内的任意小写字母字符。</li>
+<li><code>[^a-z]</code>: 负值字符范围。匹配任何不在指定范围内的任意字符。例如，<code>[^a-z]</code> 可以匹配任何不在 ‘a’ 到 ‘z’ 范围内的任意字符。</li>
+</ul>
+<h2 id="大小写转换"><a href="#大小写转换" class="headerlink" title="大小写转换"></a>大小写转换</h2><p>只在部分正则实现中可用。</p>
+<ul>
+<li><code>\L</code>: 把 <code>\L</code> 和 <code>\E</code> 之间的字符全部转为小写。</li>
+<li><code>\U</code>: 把 <code>\U</code> 和 <code>\E</code> 之间的字符全部转为大写。</li>
+<li><code>\E</code>: 结束 <code>\L</code> 或 <code>\U</code> 转换。</li>
+<li><code>\l</code>: 把下一个字符转为小写。</li>
+<li><code>\u</code>: 把下一个字符转为大写。</li>
+</ul>
+<h1 id="环视"><a href="#环视" class="headerlink" title="环视"></a>环视</h1><p>向前查找和向后查找本身是有返回结果的，只是字节长度固定为 0，所以又称零宽（zero-width）操作。</p>
+<ul>
+<li><code>(?:pattern)</code>: 匹配 pattern 但不获取匹配结果，不会暂存供以后使用。通常跟 <code>\|</code> 配合使用。例如， <code>industr(?:y\|ies)</code> 就是一个比 <code>industry\|industries</code> 更简略的表达式。</li>
+<li><code>(?=pattern)</code>: （正）向前查找。在匹配 pattern 的地方向前查找字符串。<ul>
+<li>非获取匹配。</li>
+<li>不消耗字符。也就是说，在一个匹配发生后，下次搜索从 pattern 开始，而不是从它之后开始。</li>
+</ul>
+</li>
+<li><code>(?&lt;=pattern)</code>: （正）向后查找。在匹配 pattern 的地方向后查找字符串。其余同“向前查找”。</li>
+<li><code>(?!pattern)</code>: （负）向前查找，在<strong>不</strong>匹配 pattern 的地方向前查找字符串。<ul>
+<li>非获取匹配。</li>
+<li>不消耗字符，也就是说，在一个匹配发生后，下次搜索从 pattern 开始，而不是从它之后开始。</li>
+</ul>
+</li>
+<li><code>(?&lt;!pattern)</code>: （负）向后查找。在<strong>不</strong>匹配 pattern 的地方向后查找字符串。其余同“向前查找”。</li>
+<li><code>(?&gt;pattern)</code>: 固化分组。当该分组内的pattern匹配成功后，引擎进行对整个字符串进行回溯时不会对固化分组的内容进行回溯。换句话说，当固化分组中的pattern匹配成功后，它所有的备份状态都会被放弃，故不能被回溯。</li>
+</ul>
+<h1 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h1><h2 id="回溯引用条件"><a href="#回溯引用条件" class="headerlink" title="回溯引用条件"></a>回溯引用条件</h2><p><code>(?(ref)true-exp|false-exp)</code></p>
+<ul>
+<li><code>ref</code>: 一个回溯引用，不用写 <code>\</code>。</li>
+<li><code>true-exp</code>: 若回溯引用存在的话就匹配此模式。</li>
+<li><code>false-exp</code>: 若回溯引用不存在的话就匹配此模式。可选。</li>
+</ul>
+<h2 id="前后查找条件"><a href="#前后查找条件" class="headerlink" title="前后查找条件"></a>前后查找条件</h2><p><code>(?(?=exp)true-exp|false-exp)</code></p>
+<ul>
+<li><code>(?=exp)</code> 环视条件，可换成其他类型的环视。</li>
+<li><code>true-exp</code>: 若环视条件满足的话就匹配此模式。</li>
+<li><code>false-exp</code>: 若环视条件不满足的话就匹配此模式。可选。</li>
+</ul>
+<h1 id="运算符优先级"><a href="#运算符优先级" class="headerlink" title="运算符优先级"></a>运算符优先级</h1><p>正则表达式从左到右进行计算，并遵循优先级顺序。</p>
+<p>相同优先级的从左到右进行运算，不同优先级的运算先高后低。以下列表从最高到最低说明了各种正则表达式运算符的优先级顺序：</p>
+<ol>
+<li><code>\</code>: 转义符</li>
+<li><code>()</code>, <code>(?:)</code>, <code>(?=)</code>, <code>[]</code>: 圆括号和方括号</li>
+<li><code>*</code>, <code>+</code>, <code>?</code>, <code>{n}</code>, <code>{n,}</code>, <code>{n,m}</code>: 限定符</li>
+<li><code>^</code>, <code>$</code>, 任何元字符、任何字符: 定位点和序列（即：位置和顺序）</li>
+<li><code>|</code>: 替换，”或”操作</li>
+</ol>
+<p>字符具有高于替换运算符的优先级，使得 <code>m|food</code> 匹配”m”或”food”。若要匹配”mood”或”food”，请使用括号创建子表达式，从而产生 <code>(m|f)ood</code>。</p>
+<h1 id="常用表达式"><a href="#常用表达式" class="headerlink" title="常用表达式"></a>常用表达式</h1><p><code>(&lt;(\d)&gt;[^&lt;]*&lt;)(?!\2)(?(1)[^&lt;]*&gt;)</code> 前后名称不一致的标签（标签名要根据实际情况修改一下）。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/RegEx/" rel="tag"># RegEx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/01/工具/IDEA/" rel="next" title="IDEA">
+                <i class="fa fa-chevron-left"></i> IDEA
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/01/Java/Apache 通用日志工具 commons-logging 和 Log4j 使用总结/" rel="prev" title="Apache 通用日志工具 commons-logging 和 Log4j 使用总结">
+                Apache 通用日志工具 commons-logging 和 Log4j 使用总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">zeerho</p>
+              <p class="site-description motion-element" itemprop="description">Just a repo for documents</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ZephyrHuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zephyrhuang21@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#特殊字符（元字符）"><span class="nav-number">1.</span> <span class="nav-text">特殊字符（元字符）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑"><span class="nav-number">1.1.</span> <span class="nav-text">逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位置"><span class="nav-number">1.2.</span> <span class="nav-text">位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#限制符"><span class="nav-number">1.3.</span> <span class="nav-text">限制符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#符号"><span class="nav-number">1.4.</span> <span class="nav-text">符号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合"><span class="nav-number">1.5.</span> <span class="nav-text">集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大小写转换"><span class="nav-number">1.6.</span> <span class="nav-text">大小写转换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环视"><span class="nav-number">2.</span> <span class="nav-text">环视</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#条件判断"><span class="nav-number">3.</span> <span class="nav-text">条件判断</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#回溯引用条件"><span class="nav-number">3.1.</span> <span class="nav-text">回溯引用条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前后查找条件"><span class="nav-number">3.2.</span> <span class="nav-text">前后查找条件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运算符优先级"><span class="nav-number">4.</span> <span class="nav-text">运算符优先级</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用表达式"><span class="nav-number">5.</span> <span class="nav-text">常用表达式</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zeerho</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

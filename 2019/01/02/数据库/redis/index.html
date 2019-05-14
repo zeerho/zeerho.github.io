@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Just a repo for documents">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tags">
+<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta property="og:site_name" content="zeerho">
+<meta property="og:description" content="Just a repo for documents">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-05T02:37:10.245Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tags">
+<meta name="twitter:description" content="Just a repo for documents">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/tags/"/>
+
+
+
+
+
+  <title>redis | zeerho</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zeerho</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/02/数据库/redis/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">redis</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-02T09:00:00+08:00">2019-01-02</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><ol>
+<li>解压后 <code>make</code>。</li>
+<li><code>make</code> 后在 <code>$REDIS_HOME/src</code> 目录下会有服务端 redis-server 和客户端 redis-cli。</li>
+<li>启动服务。<code>./redis-server [pathToConfig]</code> 可指定配置文件，缺省用默认配置 <code>$REDIS_HOME/redis.conf</code>。</li>
+<li>启动客户端。<code>./redis-cli</code> 然后开始与服务端交互。</li>
+</ol>
+<a id="more"></a>
+<p><strong>集群</strong></p>
+<ol>
+<li>查看是否安装 Ruby：<code>ruby -v</code></li>
+<li>安装 Ruby：<code>apt-get install ruby-full</code></li>
+</ol>
+<h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><p>键总是字符串类型，值可以是以下五种类型之一。</p>
+<ul>
+<li><code>STRING</code> 可以是字符串、整数或浮点数。<ul>
+<li>对整个字符串或其中一部分进行操作。</li>
+<li>对整数和浮点数进行自增或自减操作。</li>
+</ul>
+</li>
+<li><code>LIST</code> 列表，列表上每个节点包含一个字符串。<ul>
+<li>从列表两端推入或弹出元素。</li>
+<li>根据偏移量对列表进行修剪（trim）。</li>
+<li>读取单个或多个元素；根据值查找或移除元素。</li>
+</ul>
+</li>
+<li><code>SET</code> 包含字符串的无序收集器，并且其中的字符串各不相同。<ul>
+<li>添加、获取、移除单个元素。</li>
+<li>检查一个元素是否存在。</li>
+<li>计算交集、并集、差集。</li>
+<li>从集合中随机获取元素。</li>
+</ul>
+</li>
+<li><code>HASH</code> 包含键值对的无序散列表。值可以是字符串或数字。<ul>
+<li>添加、获取、移除单个键值对。</li>
+<li>获取所有键值对。</li>
+</ul>
+</li>
+<li><code>ZSET</code> 字符串成员与浮点数分值（IEEE 754 双精度浮点数）之间的有序映射，元素的排列顺序由分值的大小决定。<ul>
+<li>添加、获取、删除单个元素。</li>
+<li>根据分值范围或成员来获取元素。</li>
+</ul>
+</li>
+</ul>
+<h2 id="基础数据结构"><a href="#基础数据结构" class="headerlink" title="基础数据结构"></a>基础数据结构</h2><h3 id="简单动态字符串-SDS"><a href="#简单动态字符串-SDS" class="headerlink" title="简单动态字符串 SDS"></a>简单动态字符串 SDS</h3><p>redis 使用自己的字符串格式：简单动态字符串（simple dynamic string, SDS）。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sdshdr</span> &#123;</span></span><br><span class="line">  <span class="comment">// buf 中已使用的字节数</span></span><br><span class="line">  <span class="keyword">int</span> len;</span><br><span class="line">  <span class="comment">// buf 中未使用的字节数</span></span><br><span class="line">  <span class="keyword">int</span> <span class="built_in">free</span>;</span><br><span class="line">  <span class="comment">// 字节数组，用于保存字符串</span></span><br><span class="line">  <span class="keyword">char</span> buf[];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>buf</code> 保存的字节数组遵循 c 字符串的惯例，以空字节 ‘\0’ 结尾，为的是方便重用 c 字符串函数库。该空字节不算在 <code>len</code> 里。</p>
+<h4 id="SDS-的优点"><a href="#SDS-的优点" class="headerlink" title="SDS 的优点"></a>SDS 的优点</h4><p><strong>常数复杂度获取字符串长度</strong></p>
+<p>直接访问 <code>len</code> 字段获取长度。而 C 字符串需要遍历整个字符串。</p>
+<p><strong>防止缓冲区溢出</strong></p>
+<p>C 字符串假设用户在拼接字符串前已经检查缓冲区是否会溢出。SDS API 会自动检查和扩展缓冲区尺寸。</p>
+<p><strong>减少修改字符串时的内存重分配</strong></p>
+<ul>
+<li>空间预分配：SDS 进行增长操作时，会分配额外的空间。<ul>
+<li>若 SDS 修改后 <code>len</code> 小于 1MB，那么 <code>free</code> 将分配为等于修改后的 <code>len</code>。</li>
+<li>若 SDS 修改后 <code>len</code> 大于等于 1MB，那么 <code>free</code> 将分配到 1MB。</li>
+</ul>
+</li>
+<li>惰性空间释放：SDS 被截短后不会立即释放无用空间，而是由 <code>free</code> 字段记录，供后续 SDS 拼接时使用。SDS 也提供了 API 进行真正的空间释放。</li>
+</ul>
+<p><strong>二进制安全</strong></p>
+<p>C 字符串中的字符必须符合某种编码，并且除了结尾外不能存空字节，因此不能存文本之外的数据。SDS 以二进制形式直接存取数据，它以 <code>len</code> 字段判断字符串结尾，不对字符串中的内容做任何的假设和处理。</p>
+<h4 id="SDS-主要-API"><a href="#SDS-主要-API" class="headerlink" title="SDS 主要 API"></a>SDS 主要 API</h4><table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:left">作用</th>
+<th style="text-align:left">时间复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">sdsnew</td>
+<td style="text-align:left">创建包含指定 C 字符串的 SDS</td>
+<td style="text-align:left">O(N), N 为 C 字符串长度</td>
+</tr>
+<tr>
+<td style="text-align:left">sdsempty</td>
+<td style="text-align:left">创建一个空的 SDS</td>
+<td style="text-align:left">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left">sdsfree</td>
+<td style="text-align:left">释放 SDS</td>
+<td style="text-align:left">O(N), N 为 SDS 长度</td>
+</tr>
+<tr>
+<td style="text-align:left">sdslen</td>
+<td style="text-align:left">已用字节数</td>
+<td style="text-align:left">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left">sdsavail</td>
+<td style="text-align:left">未用字节数</td>
+<td style="text-align:left">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left">sdsdup</td>
+<td style="text-align:left">创建一个 SDS 副本</td>
+<td style="text-align:left">O(N), N 为 SDS 长度</td>
+</tr>
+<tr>
+<td style="text-align:left">sdsclear</td>
+<td style="text-align:left">清空 SDS 内的字符串内容</td>
+<td style="text-align:left">O(1)</td>
+</tr>
+<tr>
+<td style="text-align:left">sdscat</td>
+<td style="text-align:left">将指定 C 字符串拼接到 SDS 末尾</td>
+<td style="text-align:left">O(N), N 为被拼接的 C 字符串长度</td>
+</tr>
+<tr>
+<td style="text-align:left">sdscatsds</td>
+<td style="text-align:left">将指定 SDS 字符串拼接到 SDS 末尾</td>
+<td style="text-align:left">O(N), N 为被拼接的 SDS 字符串长度</td>
+</tr>
+<tr>
+<td style="text-align:left">sdscpy</td>
+<td style="text-align:left">用指定 C 字符串覆盖 SDS 内容</td>
+<td style="text-align:left">O(N), N 为被复制 C 字符串长度</td>
+</tr>
+<tr>
+<td style="text-align:left">sdsgrowzero</td>
+<td style="text-align:left">用空字符将 SDS 扩展至指定长度</td>
+<td style="text-align:left">O(N), N 为新增的字节数</td>
+</tr>
+<tr>
+<td style="text-align:left">sdsrange</td>
+<td style="text-align:left">保留 SDS 给定区间内的数据，其他数据会被覆盖或清除</td>
+<td style="text-align:left">O(N), N 为保留的字节数</td>
+</tr>
+<tr>
+<td style="text-align:left">sdstrim</td>
+<td style="text-align:left">从指定 SDS 中清除所有在指定 C 字符串中出现过的字符</td>
+<td style="text-align:left">O(N^2), N 为指定 C 字符串长度</td>
+</tr>
+<tr>
+<td style="text-align:left">sdscmp</td>
+<td style="text-align:left">对比两个 SDS 是否相同</td>
+<td style="text-align:left">O(N), N 为两个 SDS 中较短那个的长度</td>
+</tr>
+</tbody>
+</table>
+<h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// adlist.h/listNode</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> &#123;</span></span><br><span class="line">  <span class="comment">// 前置节点</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> *<span class="title">prev</span>;</span></span><br><span class="line">  <span class="comment">// 后置节点</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> *<span class="title">next</span>;</span></span><br><span class="line">  <span class="comment">// 节点的值</span></span><br><span class="line">  <span class="keyword">void</span> *value;</span><br><span class="line">&#125; listNode;</span><br></pre></td></tr></table></figure>
+<p>redis 链表特性：</p>
+<ul>
+<li>双端：是双向链表。</li>
+<li>无环</li>
+<li>带表头指针、表尾指针、长度计数器：<code>list</code> 结构带有表头指针、表尾指针、链表长度计数器。</li>
+<li>多态：节点值的类型是 <code>void*</code>，可以存放各种类型数据。</li>
+</ul>
+<h3 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h3><p>以哈希表作为实现</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 哈希表</span></span><br><span class="line"><span class="comment">// dict.h/dictht</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictht</span> &#123;</span></span><br><span class="line">  <span class="comment">// 哈希表数组</span></span><br><span class="line">  dictEntry **table;</span><br><span class="line">  <span class="comment">// 哈希表大小</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> size;</span><br><span class="line">  <span class="comment">// 哈希表大小掩码，用于计算索引值</span></span><br><span class="line">  <span class="comment">// 总是等于 size - 1</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> sizemark;</span><br><span class="line">  <span class="comment">// 已有节点数量</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> used;</span><br><span class="line">&#125; dictht;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 节点</span></span><br><span class="line"><span class="comment">// dict.h/dictEntry</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> &#123;</span></span><br><span class="line">  <span class="comment">// 键</span></span><br><span class="line">  <span class="keyword">void</span> *key;</span><br><span class="line">  <span class="comment">// 值</span></span><br><span class="line">  <span class="keyword">union</span> &#123;</span><br><span class="line">    <span class="keyword">void</span> *val;</span><br><span class="line">    <span class="keyword">unint64_t</span> u64;</span><br><span class="line">    <span class="keyword">int64_t</span> s64;</span><br><span class="line">  &#125; v;</span><br><span class="line">  <span class="comment">// 指向下个节点</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125; dictEntry;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 字典</span></span><br><span class="line"><span class="comment">// dict.h/dict</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dict</span> &#123;</span></span><br><span class="line">  <span class="comment">// 类型特定函数</span></span><br><span class="line">  dictType *type;</span><br><span class="line">  <span class="comment">// 私有数据</span></span><br><span class="line">  <span class="keyword">void</span> *privdata;</span><br><span class="line">  <span class="comment">// 哈希表</span></span><br><span class="line">  dictht ht[<span class="number">2</span>]; <span class="comment">// ht[0] 常用，ht[1] 仅用在 rehash 时</span></span><br><span class="line">  <span class="comment">// rehash 索引，不在 rehash 时值为 -1</span></span><br><span class="line">  <span class="keyword">long</span> rehashidx;</span><br><span class="line">&#125; dict;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用 MurmurHash2 算法来计算哈希值。有点是随机分布性好，速度快。</li>
+<li>使用链地址法（外部拉链法）解决哈希碰撞问题。</li>
+</ul>
+<h4 id="rehash"><a href="#rehash" class="headerlink" title="rehash"></a>rehash</h4><ol>
+<li>为 <code>ht[1]</code> 分配空间：<ul>
+<li>若是扩展操作，则 <code>ht[1]</code> 的大小为第一个大于等于 <code>ht[0].used * 2</code> 的 2^n。</li>
+<li>若是收缩操作，则 <code>ht[1]</code> 的大小为第一个大于等于 <code>ht[0].used</code> 的 2^n。</li>
+</ul>
+</li>
+<li>将 <code>ht[0]</code> 中所有键值对 rehash 到 <code>ht[1]</code> 中。</li>
+<li>释放 <code>ht[0]</code>，将 <code>ht[1]</code> 置为 <code>ht[0]</code>，并在 <code>ht[1]</code> 新建一张空表。</li>
+</ol>
+<p><strong>哈希表的扩展与收缩</strong></p>
+<blockquote>
+<p>负载因子 = 已存节点数量 / 哈希表大小</p>
+</blockquote>
+<p>满足以下任一条件时会开始哈希表扩展操作：</p>
+<ul>
+<li>当前未在执行 <code>BGSAVE</code> 和 <code>BGREWRITEAOF</code>，且负载因子 &gt;= 1。</li>
+<li>当前正在执行 <code>BGSAVE</code> 和 <code>BGREWRITEAOF</code>，且负载因子 &gt;= 5。</li>
+</ul>
+<p>以上两个命令会 fork 子进程，而 linux 采用写时复制来优化子进程的效率。提高负载因子会降低子进程产生写的概率，从而优化性能。</p>
+<p>满足以下条件时开始哈希表收缩操作：</p>
+<ul>
+<li>负载因子 &lt;= 0.1。</li>
+</ul>
+<p><strong>渐进式 rehash</strong></p>
+<ol>
+<li>为 <code>ht[1]</code> 分配空间，让字典同时持有两个哈希表。</li>
+<li>将字典中的索引计数器变量 <code>rehashidx</code> 置为 0，表示 rehash 开始。</li>
+<li>在 rehash 期间，每次对字典执行增删改查时，除了执行该操作外（删该查在两张表操作，增在 <code>ht[1]</code>），还会将 <code>ht[0]</code> 在 <code>rehashidx</code> 位置的所有键值对 rehash 到 <code>ht[1]</code> 上，然后 <code>rehashidx</code> 加 1。</li>
+<li>最终所有的键值对都完成了 rehash，此时将 <code>rehashidx</code> 置为 -1，表示 rehash 结束。</li>
+</ol>
+<h3 id="跳跃表"><a href="#跳跃表" class="headerlink" title="跳跃表"></a>跳跃表</h3><p><code>redis.h/zskiplistNode</code>、<code>redis.h/zskiplist</code></p>
+<h3 id="整数集合"><a href="#整数集合" class="headerlink" title="整数集合"></a>整数集合</h3><p>集合的底层实现之一。当集合只包含整数元素，且元素数量不多时，就会使用整数集合作为实现。</p>
+<p><code>intset.h/intset</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">intset</span> &#123;</span></span><br><span class="line">  <span class="comment">// 编码方式</span></span><br><span class="line">  <span class="keyword">uint32_t</span> encoding;</span><br><span class="line">  <span class="comment">// 集合包含的元素数量</span></span><br><span class="line">  <span class="keyword">uint32_t</span> length;</span><br><span class="line">  <span class="comment">// 保存元素的数组</span></span><br><span class="line">  <span class="keyword">int8_t</span> contents[];</span><br><span class="line">&#125; intset;</span><br></pre></td></tr></table></figure>
+<p><code>contents</code> 数组中的元素由小到大排列，不含重复项。</p>
+<p>虽然 <code>intset</code> 声明为 <code>int8_t</code> 类型，但它的真正类型取决于 <code>encoding</code> 的值：</p>
+<ul>
+<li><code>INTSET_ENC_INT16</code>: <code>int16_t</code></li>
+<li><code>INTSET_ENC_INT32</code>: <code>int32_t</code></li>
+<li><code>INTSET_ENC_INT64</code>: <code>int64_t</code></li>
+</ul>
+<h4 id="升级"><a href="#升级" class="headerlink" title="升级"></a>升级</h4><p>当新添加的元素的类型比现有的所有元素更大时，要对集合进行升级。<strong>不支持降级</strong></p>
+<ol>
+<li>根据新元素的类型，扩展数组大小，并为新元素分配空间。</li>
+<li>将原有元素转换成新元素的类型，并放到正确的位置上，期间保持有序性不变。</li>
+<li>将新元素添加到数组中（既然引起了升级，那么新元素的值必然大于所有元素或小于所有元素，所以直接放到数组开头或末尾）。</li>
+</ol>
+<p>优点：</p>
+<ul>
+<li>节约内存</li>
+<li>类型灵活</li>
+</ul>
+<h3 id="压缩列表"><a href="#压缩列表" class="headerlink" title="压缩列表"></a>压缩列表</h3><p>压缩列表是链表和散列表的底层实现之一。当链表只包含少量元素，且每一项要么是小整数值，要么是长度较短的字符串（对于散列表则是少量键值对，键和值都是小整数或短字符串）时，redis 会使用压缩列表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; RPUSH example 1 3 5 &quot;hello&quot;</span><br><span class="line">(integer) 4</span><br><span class="line">redis&gt; OBJECT ENCODING example</span><br><span class="line">&quot;ziplist&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="压缩列表的构成"><a href="#压缩列表的构成" class="headerlink" title="压缩列表的构成"></a>压缩列表的构成</h4><p>压缩列表内部结构</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">字段</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">长度（字节）</th>
+<th style="text-align:left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>zlbytes</code></td>
+<td style="text-align:left"><code>uint32_t</code></td>
+<td style="text-align:left">4</td>
+<td style="text-align:left">记录整个压缩列表的字节数：对压缩列表内存重分配或计算 <code>zlend</code> 时使用</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>zltail</code></td>
+<td style="text-align:left"><code>uint32_t</code></td>
+<td style="text-align:left">4</td>
+<td style="text-align:left">记录尾节点距离起始地址多少字节，用来直接确定尾节点地址</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>zllen</code></td>
+<td style="text-align:left"><code>uint16_t</code></td>
+<td style="text-align:left">2</td>
+<td style="text-align:left">记录节点数量：大于 <code>UINT16_MAX</code> 时需遍历整个列表才能计算得出真实数量</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>entryX</code></td>
+<td style="text-align:left">列表节点</td>
+<td style="text-align:left">不定</td>
+<td style="text-align:left">压缩列表的各节点，节点长度由节点内容决定</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>zlend</code></td>
+<td style="text-align:left"><code>uint8_t</code></td>
+<td style="text-align:left">1</td>
+<td style="text-align:left">特殊值 0xFF，用于标记压缩列表的末端</td>
+</tr>
+</tbody>
+</table>
+<p>节点内部结构</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">字段</th>
+<th style="text-align:left">长度（字节）</th>
+<th style="text-align:left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>previous_entry_length</code></td>
+<td style="text-align:left">1 或 5</td>
+<td style="text-align:left">前一节点长度</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>encoding</code></td>
+<td style="text-align:left">1 或 2 或 5</td>
+<td style="text-align:left">记录 <code>content</code> 字段的类型和长度</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>content</code></td>
+<td style="text-align:left">不定</td>
+<td style="text-align:left">节点内容，字节数组或整数</td>
+</tr>
+</tbody>
+</table>
+<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><p>每个对象都由一个 <code>redisObject</code> 结构表示。每个对象内部指向具体实现的数据结构。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisObject</span> &#123;</span></span><br><span class="line">  <span class="comment">// 类型</span></span><br><span class="line">  <span class="keyword">unsigned</span> type:<span class="number">4</span>;</span><br><span class="line">  <span class="comment">// 编码</span></span><br><span class="line">  <span class="keyword">unsigned</span> encoding:<span class="number">4</span>;</span><br><span class="line">  <span class="comment">// 指向底层实现数据结构的指针</span></span><br><span class="line">  <span class="keyword">void</span> *ptr;</span><br><span class="line">  <span class="comment">// 其他字段</span></span><br><span class="line">&#125; robj;</span><br></pre></td></tr></table></figure>
+<h3 id="编码和底层实现"><a href="#编码和底层实现" class="headerlink" title="编码和底层实现"></a>编码和底层实现</h3><table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">编码</th>
+<th style="text-align:left">对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>REDIS_STRING</code></td>
+<td style="text-align:left"><code>REDIS_ENCODING_INT</code></td>
+<td style="text-align:left">用整数值实现的字符串对象</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>REDIS_STRING</code></td>
+<td style="text-align:left"><code>REDIS_ENCODING_EMBSTR</code></td>
+<td style="text-align:left">用 <code>embstr</code> 编码的 SDS 实现的字符串</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>REDIS_STRING</code></td>
+<td style="text-align:left"><code>REDIS_ENCODING_RAW</code></td>
+<td style="text-align:left">用 SDS 实现的字符串</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>REDIS_LIST</code></td>
+<td style="text-align:left"><code>REDIS_ENCODING_ZIPLIST</code></td>
+<td style="text-align:left">用压缩列表实现的列表</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>REDIS_LIST</code></td>
+<td style="text-align:left"><code>REDIS_ENCODING_LINKEDLIST</code></td>
+<td style="text-align:left">用双端链表实现的列表</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>REDIS_HASH</code></td>
+<td style="text-align:left"><code>REDIS_ENCODING_ZIPLIST</code></td>
+<td style="text-align:left">用压缩列表实现的散列表</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>REDIS_HASH</code></td>
+<td style="text-align:left"><code>REDIS_ENCODING_HT</code></td>
+<td style="text-align:left">用字典实现的散列表</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>REDIS_SET</code></td>
+<td style="text-align:left"><code>REDIS_ENCODING_INTSET</code></td>
+<td style="text-align:left">用整数集合实现的集合</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>REDIS_SET</code></td>
+<td style="text-align:left"><code>REDIS_ENCODING_HT</code></td>
+<td style="text-align:left">用字典实现的集合</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>REDIS_ZSET</code></td>
+<td style="text-align:left"><code>REDIS_ENCODING_ZIPLIST</code></td>
+<td style="text-align:left">用压缩列表实现的有序集合</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>REDIS_ZSET</code></td>
+<td style="text-align:left"><code>REDIS_ENCODING_SKIPLIST</code></td>
+<td style="text-align:left">用跳跃表和字典实现的有序集合</td>
+</tr>
+</tbody>
+</table>
+<h3 id="字符串对象"><a href="#字符串对象" class="headerlink" title="字符串对象"></a>字符串对象</h3><ul>
+<li>保存数据是整数值，且可用 <code>long</code> 表示，则 <code>redisObject.ptr</code> 会从 <code>void*</code> 转成 <code>long</code>。</li>
+<li>保存数据是字符串，且长度小于等于 44 字节（曾经是 39），则使用 <code>embstr</code> 编码。<ul>
+<li><code>raw</code> 和 <code>embstr</code> 一样都使用 <code>redisObject</code> 和 <code>sdshdr</code> 结构来表示字符串。</li>
+<li><code>raw</code> 调用两次内存分配来创建两个结构；<code>embstr</code> 调用一次内存分配来分配一块连续的空间依次存放两个结构。</li>
+</ul>
+</li>
+<li>保存数据是字符串，且长度大于 44 字节（曾经是 39），则使用 <code>raw</code> 编码。</li>
+</ul>
+<p>可以用 <code>long double</code> 类型保存的浮点数会被自动转成字符串存储。</p>
+<p>某些情况下编码会转换：</p>
+<ul>
+<li>对象被操作后不再是整数值，则转为 <code>raw</code>。</li>
+<li><code>embstr</code> 是只读的，任何修改都会转为 <code>raw</code>。</li>
+</ul>
+<h3 id="列表对象"><a href="#列表对象" class="headerlink" title="列表对象"></a>列表对象</h3><p>同时满足以下条件时使用 <code>ziplist</code> 编码，否则用 <code>linkedlist</code>：</p>
+<ul>
+<li>列表中所有字符串对象的长度都小于 64 字节（配置项 <code>list-max-ziplist-value</code>）。</li>
+<li>列表中的元素数量小于 512 个（配置项 <code>list-max-ziplist-entries</code>）。</li>
+</ul>
+<h3 id="哈希对象"><a href="#哈希对象" class="headerlink" title="哈希对象"></a>哈希对象</h3><p>同时满足以下条件时使用 <code>ziplist</code> 编码，否则用 <code>hashtable</code>：</p>
+<ul>
+<li>所有键值对的键和值的字符串长度都小于 64 字节（配置项 <code>hash-max-ziplist-value</code>）。</li>
+<li>键值对数量小于 512 个（配置项 <code>hash-max-ziplist-entries</code>）。</li>
+</ul>
+<h3 id="集合对象"><a href="#集合对象" class="headerlink" title="集合对象"></a>集合对象</h3><p>同时满足以下条件时使用 <code>intset</code> 编码，否则用 <code>hashtable</code>：</p>
+<ul>
+<li>所有元素都是整数。</li>
+<li>元素数量不超过 512 个（配置项 <code>set-max-intset-entries</code>）。</li>
+</ul>
+<h3 id="有序集合对象"><a href="#有序集合对象" class="headerlink" title="有序集合对象"></a>有序集合对象</h3><p>同时满足以下条件时使用 <code>ziplist</code> 编码，否则用 <code>skiplist</code>：</p>
+<ul>
+<li>元素数量小于 128 个（配置项 <code>zset-max-ziplist-entries</code>）。</li>
+<li>所有元素成员的长度都小于 64 字节（配置项 <code>zset-ziplist-value</code>）。</li>
+</ul>
+<h3 id="内存回收"><a href="#内存回收" class="headerlink" title="内存回收"></a>内存回收</h3><h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><p>见 <a href="http://redis.io/commands" target="_blank" rel="noopener">官方文档</a>。可直接后接命令名来查询。</p>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><ul>
+<li><code>redis-cli [-p {port}] shutdown [nosave]</code> 关闭服务端。</li>
+<li><code>redis-cli -h {ip} -p {port} -a &quot;mypass&quot;</code> 登录远程服务端。</li>
+<li><code>flushall</code> 删除所有库的所有数据。</li>
+</ul>
+<h2 id="通用"><a href="#通用" class="headerlink" title="通用"></a>通用</h2><ul>
+<li><code>type {key}</code> 判断值的类型。</li>
+<li><code>del {key} [{key}...]</code> 不存在的会被忽略。返回删除的数量。</li>
+<li><code>object encoding {key}</code> 查看值对象的编码<ul>
+<li><code>int</code> 整数</li>
+<li><code>embstr</code> embstr 编码的 SDS</li>
+<li><code>raw</code> SDS</li>
+<li><code>linkedlist</code> 双端链表</li>
+<li><code>ziplist</code> 压缩列表</li>
+<li><code>intset</code> 整数集合</li>
+<li><code>skiplist</code> 跳跃表和字典</li>
+</ul>
+</li>
+</ul>
+<h2 id="STRING-字符串"><a href="#STRING-字符串" class="headerlink" title="STRING 字符串"></a>STRING 字符串</h2><p>字符串可以存储的值的类型：</p>
+<ul>
+<li>字节串</li>
+<li>整数</li>
+<li>浮点数</li>
+</ul>
+<p>有需要的时候 Redis 会将整数转换成浮点数。整数的取值范围和系统的长整数相同（32 位/64 位系统分别是 32 位/64 位 有符号整数）。浮点数的取值范围与 IEEE 754 标准的双精度浮点数相同。</p>
+<ul>
+<li><code>GET {key}</code> 获取字符串值。若值不是字符串则返回一个错误。</li>
+<li><code>SET {key} {val} [expiration {EX} seconds|{PX} milliseconds] [NX|XX]</code> 设置字符串。会覆盖原有值，且无视原有值的类型。<ul>
+<li>2.6.12 版本开始支持以下选项：</li>
+<li><code>EX</code> 过期时间（秒）。</li>
+<li><code>PX</code> 过期时间（毫秒）。</li>
+<li><code>NX</code> 仅新增值。</li>
+<li><code>XX</code> 仅更新值。</li>
+</ul>
+</li>
+<li><code>INCR {key}</code> 加 1。返回加后的字符串。</li>
+<li><code>DECR {key}</code> 减 1。返回减后的字符串。</li>
+<li><code>INCRBY {key} {int}</code> 加上指定整数。返回加后的字符串。</li>
+<li><code>DECRBY {key} {int}</code> 减去指定整数。返回减后的字符串。</li>
+<li><code>INCRBY {key} {float}</code> 加上指定浮点数，返回加后的字符串。</li>
+<li><code>APPEND {key} {val}</code> 在当前值的末尾追加新值。</li>
+<li><code>GETRANGE {key} {start} {stop}</code> 返回由范围内的字符组成的子串，包括范围首尾。</li>
+<li><code>SETRANGE {key} {offset} {val}</code> 将 <code>{offset}</code> 开始的子串设定值。</li>
+<li><code>GETBIT {key} {offset}</code> 将字节串看成是二进制位串，返回 <code>{offset}</code> 处的比特值。</li>
+<li><code>SETBIT {key} {offset} {val}</code> 将字节串看成是二进制位串，设置 <code>{offset}</code> 处的比特值。</li>
+<li><code>BITCOUNT {key} [{start} {stop}]</code> 统计二进制位串中 1 的数量。可以框定范围。</li>
+<li><code>BITOP {operation} {destKey} {key} [{key}...]</code> 对若干二进制串执行按位操作（并、或、异或、非），将结果存入 <code>{destKey}</code>。</li>
+<li><code>STRLEN {key}</code> 查看字符串长度。</li>
+</ul>
+<h2 id="LIST-链表"><a href="#LIST-链表" class="headerlink" title="LIST 链表"></a>LIST 链表</h2><ul>
+<li><code>LPUSH/RPUSH {key} {val} [{val}...]</code> 推入链表左/右端。返回链表当前长度（包含此次推入的元素）。</li>
+<li><code>LRANGE {key} {start} {stop}</code> 返回指定索引范围内的元素（包含 <code>{stop}</code>）。若 <code>{start}</code> 大于链表末尾，则返回空表；若 <code>{stop}</code> 大于链表末尾，则把它当作链表末尾的索引来处理。负数表示从末尾开始反向索引。</li>
+<li><code>LINDEX {key} {idx}</code> 返回指定索引的元素。负数表示反向索引。若索引越界，则返回 nil。</li>
+<li><code>LTRIM {key} {start} {stop}</code> 只保留范围内的元素（包含 <code>{stop}</code>）。</li>
+<li><code>LPOP/RPOP {key}</code> 弹出左/右端的一个元素。当 <code>{key}</code> 不存在时返回 nil。</li>
+</ul>
+<p>阻塞式命令</p>
+<ul>
+<li><code>BLPOP/BRPOP {key} [{key}...] {timeout}</code> 从第一个非空链表中弹出左/右端元素，若无可弹元素则等待。</li>
+<li><code>RPOPLPUSH {srcKey} {destKey}</code> 弹出列表 A 的右端元素并推入列表 B 的左端，然后返回该元素。</li>
+<li><code>BRPOPLPUSH {srcKey} {destKey}</code> 弹出列表 A 的右端元素并推入列表 B 的左端，然后返回该元素。若无可弹元素则等待。</li>
+</ul>
+<h2 id="SET-集合"><a href="#SET-集合" class="headerlink" title="SET 集合"></a>SET 集合</h2><ul>
+<li><code>SADD {key} {member} [{member}...]</code> 加入元素。返回本次操作真正新增的元素个数。</li>
+<li><code>SREM {key} {member} [{member}...]</code> 删除指定元素。返回本次操作真正删除的元素个数。</li>
+<li><code>SMEMBERS {key}</code> 返回集合中所有元素。</li>
+<li><code>SISMEMBER {key} {member}</code> 集合中是否包含指定元素。若包含返回 1；若不包含或 <code>{key}</code> 不存在返回 0。</li>
+<li><code>SCARD {key}</code> 集合包含元素的数量。</li>
+<li><code>SRANDMEMBER {key} [count]</code> 从集合中随机返回一个或多个元素。<code>count</code> 为负数时结果可能会重复，反之不会。</li>
+<li><code>SPOP {key}</code> 随机删除一个元素，返回该元素。</li>
+<li><code>SMOVE {srcKey} {destKey} {item}</code> 从集合 A 中删除指定元素并移至集合 B 中。若转移成功则返回 1，否则 0。</li>
+</ul>
+<h2 id="HASH-散列"><a href="#HASH-散列" class="headerlink" title="HASH 散列"></a>HASH 散列</h2><ul>
+<li><code>HSET {key} {field} {value}</code> 加入键值对。若 <code>{field}</code> 是新的则返回 1；若 <code>{field}</code> 已存在则返回 0。</li>
+<li><code>HGET {key} {field}</code> 返回指定键的值。若 <code>{key}</code> 或 <code>{field}</code> 不存在则返回 nil。</li>
+<li><code>HGETALL {key}</code> 返回散列中所有键值对。若 <code>{key}</code> 不存在则返回空表。</li>
+<li><code>HDEL {key} {field} [{field}...]</code> 删除指定键的键值对。返回实际被删除的键值对数量。</li>
+<li><code>HMGET {key} {field} [{field}...]</code> 获取若干键的值。</li>
+<li><code>HMSET {key} {field} {val} [{field} {val}...]</code> 加入若干键值对。</li>
+<li><code>HLEN {key}</code> 返回键值对数量。</li>
+<li><code>HEXISTS {key} {field}</code> 给定键是否存在。</li>
+<li><code>HKEYS {key}</code> 获取散列中的所有键。</li>
+<li><code>HVALS {key}</code> 获取散列中的所有值。</li>
+<li><code>HGETALL {key}</code> 获取散列包含的所有键值对。</li>
+<li><code>HINCRBY {key} {field} {increment}</code> 将指定键的值加上某整数。</li>
+<li><code>HINCRBYFLOAT {key} {field} {increment}</code> 将指定键的值加上某浮点数。</li>
+</ul>
+<h2 id="ZSET-有序集合"><a href="#ZSET-有序集合" class="headerlink" title="ZSET 有序集合"></a>ZSET 有序集合</h2><ul>
+<li><code>ZADD {key} [NX|XX] [CH] [INCR] {score} {member} [{score} {member} ...]</code> 添加带有指定分值的成员。<ul>
+<li><code>NX</code> 只新增，不更新已有的元素。</li>
+<li><code>XX</code> 不新增，只更新已有的元素。</li>
+<li><code>CH</code> 更改返回值的含义。本来是返回实际新增元素的数量，现在改为被修改元素的数量（包括新增的和分值产生变化的）。</li>
+<li><code>INCR</code> 此时 <code>zadd</code> 相当于 <code>zincby</code>，而且只能指定一组 <code>{score}</code> <code>{member}</code>。</li>
+</ul>
+</li>
+<li><code>ZREM {key} {member} [{member}...]</code> 删除指定元素，返回被删除的数量。</li>
+<li><code>ZINCBY {key} {inc} {member}</code> 将指定元素加上指定分值。</li>
+<li><code>ZSCORE {key} {member}</code> 返回指定元素的分值。</li>
+<li><code>ZCOUNT {key} {min} {max}</code> 返回 <code>{min}</code> 和 <code>{max}</code> 之间的成员数量，包含两端。</li>
+<li><code>ZRANK {key} {member}</code> 返回指定元素在集合中的排名，第一个元素排名 0。</li>
+<li><code>ZRANGE {key} {start} {end} [WITHSCORES]</code> 返回索引范围内的元素。按照分值由低到高排列，相同分值的按照字母顺序排列。<ul>
+<li><code>WITHSCORES</code> 连带返回对应的分值。</li>
+</ul>
+</li>
+<li><code>ZRANGEBYSCORE {key} {min} {max} [WITHSOCRES] [LIMIT {offset} {count}]</code> 返回分值介于 <code>{min}</code> 和 <code>{max}</code> 之间的所有成员，默认包含两端。<ul>
+<li>限定的分值前加上 <code>(</code> 表示开区间。如：<code>ZRANGEBYSCORE zs (1 3</code>。</li>
+<li><code>{min}</code> 和 <code>{max}</code> 分别可以是 <code>-inf</code> 和 <code>+inf</code>。</li>
+<li><code>WITHSCORES</code> 连带返回对应的分值。</li>
+<li><code>LIMIT {offset} {count}</code> 取指定区间内从 <code>{offset}</code> 开始的 <code>{count}</code> 个成员。<code>{count}</code> 为负数时表示不限制数量。</li>
+</ul>
+</li>
+<li><code>ZREMRANGEBYRANK {key} {start} {end}</code> 移除排名在指定范围内的成员。</li>
+<li><code>ZREMRANGEBYSCORE {key} {min} {max}</code> 移除分值在指定范围内的成员。</li>
+<li><code>ZINTERSTORE {destKey} {keyCount} {key} [{key}...] [WEIGHTS {weight} [{weight}...]] [AGGREGATE SUM|MIN|MAX]</code> 对指定的若干有序集合求交集，结果存至 <code>{destKey}</code>（若该键值已存在则会被覆盖）。结果中各成员的分值默认是各集合中的总和。<ul>
+<li><code>{keyCount}</code> 求交集的集合的数量。</li>
+<li><code>WEIGHTS {weight} [{weight}...]</code> 指定各集合的分值的权重（用来计算交集中的分值），默认为 1。</li>
+<li><code>AGGREGATE SUM|MIN|MAX</code> 指定如何计算结果集合中的分值，默认是求和。</li>
+</ul>
+</li>
+<li><code>ZUNIONSTORE {destKey} {keyCount} {key} [{key}...] [WEIGHTS {weight} [{weight}...]] [AGGREGATE SUM|MIN|MAX]</code> 对指定的若干有序集合求并集，结果存至 <code>{destKey}</code>（若该键值已存在则会被覆盖）。结果中各成员的分值默认是各集合中的总和。<ul>
+<li><code>{keyCount}</code> 求并集的集合的数量。</li>
+<li><code>WEIGHTS {weight} [{weight}...]</code> 指定各集合的分值的权重（用来计算交集中的分值），默认为 1。</li>
+<li><code>AGGREGATE SUM|MIN|MAX</code> 指定如何计算结果集合中的分值，默认是求和。</li>
+</ul>
+</li>
+<li><code>ZCARD {key}</code> 返回指定集合的基数。</li>
+</ul>
+<p><strong>部分命令有逆序版本</strong></p>
+<ul>
+<li><code>ZREVRANK</code></li>
+<li><code>ZREVRANGE</code></li>
+<li><code>ZREVRANGEBYSCORE</code></li>
+</ul>
+<h2 id="发布和订阅"><a href="#发布和订阅" class="headerlink" title="发布和订阅"></a>发布和订阅</h2><ul>
+<li><code>SUBSCRIBE {channel} [{channel}...]</code> 订阅若干个频道。</li>
+<li><code>PSUBSCRIBE {pattern} [{pattern}...]</code> 订阅与给定模式匹配的所有频道。</li>
+<li><code>UNSUBSCRIBE [{channel}...]</code> 退订若干个频道。若未指定频道，则退订所有频道。</li>
+<li><code>PUNSUBSCRIBE [{pattern}...]</code> 退订与给定模式匹配的频道。若未指定模式，则退订所有频道。</li>
+<li><code>PUBLISH {channel} {msg}</code> 向指定频道发送消息。</li>
+</ul>
+<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><ul>
+<li><code>SORT {srcKey} [BY pattern] [LIMIT {offset} {count}] [GET {pattern} [GET {pattern}...]] [ASC|DESC] [ALPHA] [STORE {destKey}]</code> 对指定列表、集合或有序集合排序，然后返回或存储排序结果。<ul>
+<li><code>BY {pattern}</code> 以外键来排序。将 <code>{srcKey}</code> 中的成员替换至 <code>{pattern}</code> 中第一个 <code>*</code> 号，然后以替换后的 <code>{pattern}</code> 键对应的值来排序。可以跟 <code>GET</code> 选项配合，指定一个不存在的 <code>{pattern}</code>，从而只是做关联查询而不做排序。<ul>
+<li><code>BY {pattern}-&gt;{field}</code> 使用 <code>{pattern}</code> 对应的散列中的指定字段的值（而不是 <code>{pattern}</code> 对应的值）。</li>
+</ul>
+</li>
+<li><code>LIMIT {offset} {count}</code> 把结果限制为 <code>{offset}</code> 开始的 <code>{count}</code> 个成员。</li>
+<li><code>GET {pattern}</code> 指定返回的结果（而不是排序后的 <code>{srcKey}</code> 的值）。跟 <code>BY {pattern}</code> 一样的替换方式，返回若干个 <code>{pattern}</code> 对应的值。<ul>
+<li><code>GET {pattern}-&gt;{field}</code> 同 <code>BY {pattern}-&gt;{field}</code>。</li>
+</ul>
+</li>
+<li><code>ASC|DESC</code> 升序/降序（默认升序）。</li>
+<li><code>ALPHA</code> 按照字母表顺序而不是数字顺序。</li>
+<li><code>STORE {destKey}</code> 将排序结果存储至 <code>{destKey}</code>，并返回存储的成员数量（而不是排序后的列表）。通常是跟 <code>EXPIRE</code> 命令结合，实现排序结果的缓存。</li>
+</ul>
+</li>
+</ul>
+<h2 id="过期时间"><a href="#过期时间" class="headerlink" title="过期时间"></a>过期时间</h2><ul>
+<li><code>PERSIST {key}</code> 移除过期时间。</li>
+<li><code>TTL {key}</code> 查看距离过期还有多少秒。</li>
+<li><code>PTTL {key}</code> 查看距离过期还有多少毫秒（&gt;= Redis 2.6）。</li>
+<li><code>EXPIRE {key} {seconds}</code> 在指定秒后过期。</li>
+<li><code>EXPIREAT {key} {timeStamp}</code> 在指定 UNIX 时间点过期。</li>
+<li><code>PEXPIREAT {key} {timeStamp}</code> 在指定毫秒级 UNIX 时间点过期（&gt;= Redis 2.6）。</li>
+</ul>
+<h1 id="数据安全和性能保障"><a href="#数据安全和性能保障" class="headerlink" title="数据安全和性能保障"></a>数据安全和性能保障</h1><h2 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h2><h3 id="快照持久化"><a href="#快照持久化" class="headerlink" title="快照持久化"></a>快照持久化</h3><p><strong>配置</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">save 60 1000</span><br><span class="line">stop-writes-on-bgsave-error no</span><br><span class="line">rdbcompression yes</span><br><span class="line">dbfilename dump.rdb # 快照文件名</span><br><span class="line">dir ./ # 快照文件存至此目录下</span><br></pre></td></tr></table></figure>
+<p>快照保存的数据是截止至快照开始时间点的。快照开始创建到完成创建之间的数据不在其内。</p>
+<p><strong>创建方法</strong></p>
+<ul>
+<li>向 Redis 发送 <code>BGSAVE</code> 命令。<br>Redis 会 fork 一个子进程来处理快照操作。</li>
+<li>向 Redis 发送 <code>SAVE</code> 命令。<br>Redis 在快照创建完毕之前不会响应任何命令。通常只在没有足够内存进行 <code>BGSAVE</code> 时才这样做。</li>
+<li>当满足配置的条件时。<br><code>save 60 1000</code> 表示“距上次快照超过 60 秒且期间至少有 1000 次写入”。可以配置多个 <code>save</code> 选项。任意一个条件满足时都会触发 <code>BGSAVE</code>。</li>
+<li>当 Redis 通过 <code>SHUTDOWN</code> 命令接收到关闭服务器请求时，或收到标准 <code>TERM</code> 信号时，会执行 <code>SAVE</code>，并在完成后关闭服务器。</li>
+<li>当一台 Redis 服务器连接另一台 Redis 服务器，并向对方发送 <code>SYNC</code> 命令来开始一次复制操作时。<br>若主服务器目前没有在执行 <code>BGSAVE</code> 也不是刚刚执行完 <code>BGSAVE</code>，则主服务器会开始 <code>BGSAVE</code>。</li>
+</ul>
+<p><strong>性能</strong></p>
+<p>Redis 占用的内存越多，<code>BGSAVE</code> 创建子进程所用的时间就越多。<code>SAVE</code> 节约了创建子进程的时间，并且由于没有子进程争抢资源，快照会快一点，但是会阻塞来自客户端的指令。</p>
+<h3 id="AOF持久化"><a href="#AOF持久化" class="headerlink" title="AOF持久化"></a>AOF持久化</h3><blockquote>
+<p>只追加文件（append-only file）</p>
+</blockquote>
+<p><strong>配置</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">appendonly no|yes</span><br><span class="line">appendfsync everysec</span><br><span class="line">no-appendfsync-on-rewrite no</span><br><span class="line">auto-aof-rewrite-percentage 100</span><br><span class="line">auto-aof-rewrite-min-size 64mb</span><br><span class="line">dir ./</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>appendfsync</code><ul>
+<li><code>always</code> 每个 Redis 写命令都同步写入硬盘。<br>系统崩溃时损失最小，但对硬盘性能和固态硬盘寿命有较大损耗。</li>
+<li><code>everysec</code> 每秒执行一次同步。<br>性能损耗很小，系统崩溃时最多损失一秒的数据。硬盘写入忙时 Redis 会自动放慢自己的写入速度。</li>
+<li><code>no</code> 由操作系统决定何时同步。<br>完全不影响 Redis 性能，但系统崩溃时无法确定损失的数据大小。若硬盘写入速度不够快会占满缓冲区，导致 Redis 写入操作被阻塞。</li>
+</ul>
+</li>
+</ul>
+<h3 id="重写-压缩AOF文件"><a href="#重写-压缩AOF文件" class="headerlink" title="重写/压缩AOF文件"></a>重写/压缩AOF文件</h3><ul>
+<li><code>BGREWRITEAOF</code> 命令 Redis 创建子进程来移除 AOF 中的冗余命令。</li>
+<li><code>auto-aof-rewrite-percentage</code> <code>auto-aof-rewrite-min-size</code> 整两个配置是“且”关系，指定了自动执行 <code>BGREWRITEAOF</code> 的条件：当 AOF 文件增大百分比（(当前大小 - 上次大小) / 上次大小）大于某值且 AOF 文件大小大于指定值时。</li>
+</ul>
+<h2 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h2><h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salveof &#123;host&#125; &#123;port&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>SLAVEOF no one</code> 命令从服务器停止接受数据更新。</li>
+<li><code>SLAVEOF {host} {port}</code> 命令从服务器开始接受数据更新。</li>
+</ul>
+<h3 id="复制过程"><a href="#复制过程" class="headerlink" title="复制过程"></a>复制过程</h3><ol>
+<li>主：等待命令。<br>从：连接主服务器并发送 <code>SYNC</code> 命令。</li>
+<li>主：开始 <code>BGSAVE</code>，并用缓冲区来记录此刻开始接收到的写命令。<br>从：根据配置来决定是使用现有数据来响应客户端请求还是向客户端返回错误。</li>
+<li>主：<code>BGSAVE</code> 完毕，向从服务器发送快照文件，发送期间继续用缓冲区记录写命令。<br>从：丢弃原有数据，载入收到的快照文件。</li>
+<li>主：快照发送完毕，开始发送缓冲区里的写命令。<br>从：快照载入完毕，开始正常接收命令。</li>
+<li>主：缓冲区发送完毕，此刻开始每执行一个写命令就发送给从服务器相同的命令。<br>从：执行主服务器发来的所有写命令，包括来自缓冲区的和实时的。</li>
+</ol>
+<p><strong>不能配置主主复制，两个互为主服务器的实例会持续占用资源来不断尝试通信，并且客户端从不同实例得到的数据可能不同甚至为空。</strong></p>
+<h2 id="处理系统故障"><a href="#处理系统故障" class="headerlink" title="处理系统故障"></a>处理系统故障</h2><h3 id="验证快照文件和-AOF-文件"><a href="#验证快照文件和-AOF-文件" class="headerlink" title="验证快照文件和 AOF 文件"></a>验证快照文件和 AOF 文件</h3><ul>
+<li><code>redis-check-aof --fix {file}</code> 找出第一个出错的命令并删除此后的所有命令。一般删除的都是 AOF 末尾不完整的写命令。</li>
+<li><code>redis-check-dump {file}</code></li>
+</ul>
+<h3 id="更换主服务器"><a href="#更换主服务器" class="headerlink" title="更换主服务器"></a>更换主服务器</h3><ol>
+<li>登录从服务器，并打开 <code>redis-cli</code>。</li>
+<li><code>SAVE</code> 保存快照，然后 <code>QUIT</code> 退出 <code>redis-cli</code>。</li>
+<li><code>scp /path/on/slave/dump.rdb {newMasterIP}:/path/on/master/dump.rdb</code> 把快照发送至新的主服务器。</li>
+<li>登录新的主服务器。</li>
+<li><code>sudo /etc/init.d/redis-server start</code> 启动 redis。</li>
+<li><code>exit</code> 退回到从服务器。</li>
+<li><code>redis-cli</code></li>
+<li><code>slaveof {newMasterIP} {port}</code> redis 连接新的主服务器。</li>
+</ol>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><ul>
+<li><code>WATCH {key}</code>: 若从 <code>WATCH</code> 到 <code>EXEC</code> 的时间内被监视的键发生变化则在执行 <code>EXEC</code> 时会返回一个错误。</li>
+<li><code>UNWATCH</code>: 在 <code>WATCH</code> 之后、<code>MULTI</code> 之前重置连接。</li>
+<li><code>MULTI</code>: 开始事务。</li>
+<li><code>EXEC</code>: 提交事务。</li>
+<li><code>DISCARD</code>: 在 <code>MULTI</code> 之后、<code>EXEC</code> 之前重置连接（包括取消 <code>WATCH</code> 和清空已入队的命令）。</li>
+</ul>
+<h2 id="流水线"><a href="#流水线" class="headerlink" title="流水线"></a>流水线</h2><p>可以用 <code>MULTI/EXEC</code> 包裹多个命令来使用流水线从而减少通信次数、提高性能。但事务本身也会消耗资源，并可能导致其他命令被延迟执行。</p>
+<p>通常客户端中会有 <code>pipeline()</code> 方法，它根据入参来决定是否使用事务流水线。</p>
+<h2 id="关于性能的其他注意事项"><a href="#关于性能的其他注意事项" class="headerlink" title="关于性能的其他注意事项"></a>关于性能的其他注意事项</h2><ul>
+<li><code>redis-benchmark -c 1 -q</code> 使用 redis 附带的测试工具来测试各命令的性能极限。<ul>
+<li><code>-q</code> 简化输出结果。</li>
+<li><code>-c 1</code> 使用一个客户端来测试。默认使用 50 个客户端。</li>
+</ul>
+</li>
+</ul>
+<p>不同的实际性能可能对应的问题</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">性能或错误</th>
+<th style="text-align:left">可能的原因</th>
+<th style="text-align:left">解决方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">50%~60%</td>
+<td style="text-align:left">未使用流水线</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:left">25%~30%</td>
+<td style="text-align:left">每个/组命令都创建了新连接</td>
+<td style="text-align:left">重用连接</td>
+</tr>
+<tr>
+<td style="text-align:left">返回错误“Cannot assign requested address”</td>
+<td style="text-align:left">每个/组命令都创建了新连接</td>
+<td style="text-align:left">重用连接</td>
+</tr>
+</tbody>
+</table>
+<h1 id="降低内存占用"><a href="#降低内存占用" class="headerlink" title="降低内存占用"></a>降低内存占用</h1><h2 id="短结构"><a href="#短结构" class="headerlink" title="短结构"></a>短结构</h2><p>redis 会将体积较小的数据用压缩列表的结构存储，从而降低内存占用。具体的阈值配置如下。</p>
+<p>对于体积较大的压缩列表进行操作反而会降低性能，因此要选取合适的阈值。</p>
+<p>若整数集合的所有成员都可解释为十进制整数，且都在平台的有符号整数范围内，且成员数量少于阈值，那么会以有序整数数组的方式存储。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> # 链表</span><br><span class="line">list-max-ziplist-entries 512 # 压缩列表允许包含的最大元素数量</span><br><span class="line">list-max-ziplist-value 64 # 压缩列表每个节点的最大体积（字节）</span><br><span class="line"></span><br><span class="line"> # 散列</span><br><span class="line">hash-max-ziplist-entries 512</span><br><span class="line">hash-max-ziplist-value 64</span><br><span class="line"></span><br><span class="line"> # 有序集合</span><br><span class="line">zset-max-ziplist-entries 128</span><br><span class="line">zset-max-ziplist-value 64</span><br><span class="line"></span><br><span class="line"> # 整数集合</span><br><span class="line">set-max-intset-entries 512</span><br></pre></td></tr></table></figure>
+<p>同种数据结构的限制条件中任一被突破时，redis 会把压缩列表转换为其他结构，占用的内存也相应增加。</p>
+<h1 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h1><h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><ol>
+<li>准备目录结构：<code>~/redis/conf</code>、<code>~/redis/data</code>、<code>~/redis/log</code>。</li>
+<li>准备各节点的配置文件：<code>~/redis/conf/master-6379.conf</code> 以及 6380、6381。</li>
+<li><p>配置中至少有以下配置项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">port 6379</span><br><span class="line">cluster-enabled yes</span><br><span class="line">cluster-node-timeout 15000</span><br><span class="line">cluater-config-file &quot;nodes-6379.conf&quot;</span><br><span class="line"> # 还有其他单机模式的配置项</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动所有节点：<code>redis-server conf/redis-{port}.conf</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ./conf</span><br><span class="line">redis-server ./master-6379.conf &amp;</span><br><span class="line">redis-server ./master-6380.conf &amp;</span><br><span class="line">redis-server ./master-6381.conf &amp;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>检查日志：<code>cat log/redis-{port}.log</code></p>
+</li>
+<li>客户端登录：<code>redis-cli -p 6379</code></li>
+<li>各节点握手：<code>cluster meet 127.0.0.1 6380</code>（如果要从其他主机访问集群的话，这里的 IP 要写 IPv4 地址）</li>
+<li>分配槽（在 linux 命令行执行而不是 redis-cli 中）：<code>redis-cli -h 127.0.0.1 -p 6379 cluster addslots {0..5460}</code>，尽量等分的话是 0..5460、5461..10921、10922..16383。</li>
+<li>可以使用了。</li>
+<li>关闭所有节点<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">#!/bin/bash</span></span><br><span class="line"> <span class="comment"># 正常关闭</span></span><br><span class="line">redis-cli -p 6379 shutdown nosave</span><br><span class="line">redis-cli -p 6380 shutdown nosave</span><br><span class="line">redis-cli -p 6381 shutdown nosave</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h2><p>redis 服务器启动时根据配置项 <code>cluster-enabled=yes|no</code> 来决定成为集群的一个节点还是处于单机模式的一个普通服务器。</p>
+<ul>
+<li><code>cluster nodes</code> 查看集群中的节点。</li>
+<li><code>cluster meet {ip} {port}</code> 令当前节点与指定节点握手。</li>
+<li><code>cluster info</code> 查看节点状态信息。</li>
+<li><code>cluster addslots slot [slot...]</code> 向当前节点分配槽。只能一个一个槽地写，不能用通配符或范围符号之类的。</li>
+<li><code>cluster delslots slot [slot...]</code> 删除槽。</li>
+<li><code>cluster keyslot {key}</code> 计算键属于哪个槽。</li>
+<li><code>cluster slots</code> 查看节点与槽的映射关系。</li>
+</ul>
+<h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><h2 id="客户端通信协议"><a href="#客户端通信协议" class="headerlink" title="客户端通信协议"></a>客户端通信协议</h2><ol>
+<li>通信协议在 TCP 协议之上构建。</li>
+<li>Redis 制订了 RESP （REdis Serialization Protocol）这种简单高效的协议。</li>
+</ol>
+<p><strong>发送命令格式</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">*&#123;参数数量&#125; CRLF</span><br><span class="line">$&#123;参数1的字节数量&#125; CRLF</span><br><span class="line">&#123;参数1&#125; CRLF</span><br><span class="line">...</span><br><span class="line">$&#123;参数N的字节数量&#125; CRLF</span><br><span class="line">&#123;参数N&#125; CRLF</span><br></pre></td></tr></table></figure>
+<p>实际传输的格式类似：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*3\r\n$3\r\nSET\r\n$5\r\nhello\r\n</span><br></pre></td></tr></table></figure>
+<p><strong>返回结果格式</strong></p>
+<ul>
+<li>状态回复：第一个字节为 <code>+</code>。</li>
+<li>错误回复：第一个字节为 <code>-</code>。</li>
+<li>整数回复：第一个字节为 <code>:</code>。</li>
+<li>字符串回复：第一个字节为 <code>$</code>。</li>
+<li>多条字符串回复：第一个字节为 <code>*</code>。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/01/Java/Ehcache/" rel="next" title="Ehcache">
+                <i class="fa fa-chevron-left"></i> Ehcache
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/07/Java/日志/" rel="prev" title="日志">
+                日志 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">zeerho</p>
+              <p class="site-description motion-element" itemprop="description">Just a repo for documents</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ZephyrHuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zephyrhuang21@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据结构"><span class="nav-number">2.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础数据结构"><span class="nav-number">2.1.</span> <span class="nav-text">基础数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单动态字符串-SDS"><span class="nav-number">2.1.1.</span> <span class="nav-text">简单动态字符串 SDS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SDS-的优点"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">SDS 的优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SDS-主要-API"><span class="nav-number">2.1.1.2.</span> <span class="nav-text">SDS 主要 API</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链表"><span class="nav-number">2.1.2.</span> <span class="nav-text">链表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字典"><span class="nav-number">2.1.3.</span> <span class="nav-text">字典</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rehash"><span class="nav-number">2.1.3.1.</span> <span class="nav-text">rehash</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳跃表"><span class="nav-number">2.1.4.</span> <span class="nav-text">跳跃表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整数集合"><span class="nav-number">2.1.5.</span> <span class="nav-text">整数集合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#升级"><span class="nav-number">2.1.5.1.</span> <span class="nav-text">升级</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩列表"><span class="nav-number">2.1.6.</span> <span class="nav-text">压缩列表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#压缩列表的构成"><span class="nav-number">2.1.6.1.</span> <span class="nav-text">压缩列表的构成</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象"><span class="nav-number">2.2.</span> <span class="nav-text">对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编码和底层实现"><span class="nav-number">2.2.1.</span> <span class="nav-text">编码和底层实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串对象"><span class="nav-number">2.2.2.</span> <span class="nav-text">字符串对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列表对象"><span class="nav-number">2.2.3.</span> <span class="nav-text">列表对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希对象"><span class="nav-number">2.2.4.</span> <span class="nav-text">哈希对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合对象"><span class="nav-number">2.2.5.</span> <span class="nav-text">集合对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有序集合对象"><span class="nav-number">2.2.6.</span> <span class="nav-text">有序集合对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内存回收"><span class="nav-number">2.2.7.</span> <span class="nav-text">内存回收</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令"><span class="nav-number">3.</span> <span class="nav-text">命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">3.1.</span> <span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通用"><span class="nav-number">3.2.</span> <span class="nav-text">通用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STRING-字符串"><span class="nav-number">3.3.</span> <span class="nav-text">STRING 字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LIST-链表"><span class="nav-number">3.4.</span> <span class="nav-text">LIST 链表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SET-集合"><span class="nav-number">3.5.</span> <span class="nav-text">SET 集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HASH-散列"><span class="nav-number">3.6.</span> <span class="nav-text">HASH 散列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZSET-有序集合"><span class="nav-number">3.7.</span> <span class="nav-text">ZSET 有序集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布和订阅"><span class="nav-number">3.8.</span> <span class="nav-text">发布和订阅</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序"><span class="nav-number">3.9.</span> <span class="nav-text">排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过期时间"><span class="nav-number">3.10.</span> <span class="nav-text">过期时间</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据安全和性能保障"><span class="nav-number">4.</span> <span class="nav-text">数据安全和性能保障</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#持久化"><span class="nav-number">4.1.</span> <span class="nav-text">持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#快照持久化"><span class="nav-number">4.1.1.</span> <span class="nav-text">快照持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF持久化"><span class="nav-number">4.1.2.</span> <span class="nav-text">AOF持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重写-压缩AOF文件"><span class="nav-number">4.1.3.</span> <span class="nav-text">重写/压缩AOF文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制"><span class="nav-number">4.2.</span> <span class="nav-text">复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">4.2.1.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制过程"><span class="nav-number">4.2.2.</span> <span class="nav-text">复制过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理系统故障"><span class="nav-number">4.3.</span> <span class="nav-text">处理系统故障</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#验证快照文件和-AOF-文件"><span class="nav-number">4.3.1.</span> <span class="nav-text">验证快照文件和 AOF 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更换主服务器"><span class="nav-number">4.3.2.</span> <span class="nav-text">更换主服务器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务"><span class="nav-number">4.4.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流水线"><span class="nav-number">4.5.</span> <span class="nav-text">流水线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于性能的其他注意事项"><span class="nav-number">4.6.</span> <span class="nav-text">关于性能的其他注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#降低内存占用"><span class="nav-number">5.</span> <span class="nav-text">降低内存占用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#短结构"><span class="nav-number">5.1.</span> <span class="nav-text">短结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集群"><span class="nav-number">6.</span> <span class="nav-text">集群</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#部署"><span class="nav-number">6.1.</span> <span class="nav-text">部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#节点"><span class="nav-number">6.2.</span> <span class="nav-text">节点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#客户端"><span class="nav-number">7.</span> <span class="nav-text">客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端通信协议"><span class="nav-number">7.1.</span> <span class="nav-text">客户端通信协议</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zeerho</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

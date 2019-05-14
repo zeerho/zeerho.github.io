@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Just a repo for documents">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tags">
+<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta property="og:site_name" content="zeerho">
+<meta property="og:description" content="Just a repo for documents">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-05T02:37:10.245Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tags">
+<meta name="twitter:description" content="Just a repo for documents">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/tags/"/>
+
+
+
+
+
+  <title>Jaxb annotation | zeerho</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zeerho</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/Java/Jaxb annotation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Jaxb annotation</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Jaxb-处理-Java-对象和-xml-之间转换常用的-annotation"><a href="#Jaxb-处理-Java-对象和-xml-之间转换常用的-annotation" class="headerlink" title="Jaxb 处理 Java 对象和 xml 之间转换常用的 annotation"></a>Jaxb 处理 Java 对象和 xml 之间转换常用的 annotation</h1><ul>
+<li>@XmlType</li>
+<li>@XmlElement</li>
+<li>@XmlRootElement</li>
+<li>@XmlAttribute</li>
+<li>@XmlAccessorType</li>
+<li>@XmlAccessorOrder</li>
+<li>@XmlTransient</li>
+<li>@XmlJavaTypeAdapter</li>
+</ul>
+<h1 id="常用-annotation-使用说明"><a href="#常用-annotation-使用说明" class="headerlink" title="常用 annotation 使用说明"></a>常用 annotation 使用说明</h1><h2 id="XmlType"><a href="#XmlType" class="headerlink" title="@XmlType"></a>@XmlType</h2><p><code>@XmlType</code> 用在 class 类的注解，常与 <code>@XmlRootElement</code>，<code>@XmlAccessorType</code> 一起使用。它有三个属性：<em>name</em>、<em>propOrder</em>、<em>namespace</em>。如：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@XmlType(name = "basicStruct", propOrder = &#123;</span><br><span class="line">    "intValue",</span><br><span class="line">    "stringArray",</span><br><span class="line">    "stringValue"</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>在使用 <code>@XmlType</code> 的 <em>propOrder</em> 属性时，必须列出 JavaBean 对象中的所有属性，否则会报错。</p>
+<h2 id="XmlElement"><a href="#XmlElement" class="headerlink" title="@XmlElement"></a>@XmlElement</h2><p><code>@XmlElement</code> 将 Java 对象的属性映射为 xml 的节点，在使用 <code>@XmlElement</code> 时，可通过 <em>name</em> 属性指定 java 对象属性在 xml 中显示的名称，缺省值为 bean 中的属性名。如：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@XmlElement(name="Address")　　</span><br><span class="line">private String yourAddress;</span><br></pre></td></tr></table></figure></p>
+<h2 id="XmlRootElement"><a href="#XmlRootElement" class="headerlink" title="@XmlRootElement"></a>@XmlRootElement</h2><p><code>@XmlRootElement</code> 用于类级别的注解，对应 xml 的根元素，常与 <code>@XmlType</code> 和 <code>@XmlAccessorType</code> 一起使用。如：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@XmlType</span><br><span class="line">@XmlAccessorType(XmlAccessType.FIELD)</span><br><span class="line">@XmlRootElement</span><br><span class="line">public class Address &#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="XmlAttribute"><a href="#XmlAttribute" class="headerlink" title="@XmlAttribute"></a>@XmlAttribute</h2><p><code>@XmlAttribute</code> 用于把 java 对象的属性映射为 xml 的属性，并可通过 name 属性为生成的 xml 属性指定别名。如：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@XmlAttribute(name="Country")</span><br><span class="line">private String state;</span><br></pre></td></tr></table></figure></p>
+<h2 id="XmlAccessorType"><a href="#XmlAccessorType" class="headerlink" title="@XmlAccessorType"></a>@XmlAccessorType</h2><p><code>@XmlAccessorType</code> 用于指定由 java 对象生成 xml 文件时对 java 对象属性的访问方式。常与 <code>@XmlRootElement</code>、<code>@XmlType</code> 一起使用。它的属性值是 <code>XmlAccessType</code> 的4个枚举值，分别为：</p>
+<ul>
+<li>XmlAccessType.FIELD：java 对象中的所有成员变量</li>
+<li>XmlAccessType.PROPERTY：java 对象中所有通过 getter/setter 方式访问的成员变量</li>
+<li>XmlAccessType.PUBLIC_MEMBER：java对象中所有的 public 访问权限的成员变量和通过 getter/setter 方式访问的成员变量</li>
+<li>XmlAccessType.NONE：java 对象的所有属性都不映射为 xml 的元素</li>
+</ul>
+<p>注意：@XmlAccessorType 的默认访问级别是 XmlAccessType.PUBLIC_MEMBER，因此，如果 java 对象中的 private 成员变量设置了 public 权限的 getter/setter 方法，就不要在 private变量上使用 <code>@XmlElement</code> 和 <code>@XmlAttribute</code> 注解，否则在由 java 对象生成 xml 时会报同一个属性在 java 类里存在两次的错误。同理，如果 <code>@XmlAccessorType</code> 的访问权限为 XmlAccessType.NONE，如果在 java 的成员变量上使用了 <code>@XmlElement</code> 或 <code>@XmlAttribute</code> 注解，这些成员变量依然可以映射到 xml 文件。</p>
+<h2 id="XmlAccessorOrder"><a href="#XmlAccessorOrder" class="headerlink" title="@XmlAccessorOrder"></a>@XmlAccessorOrder</h2><p><code>@XmlAccessorOrder</code> 用于对 java 对象生成的 xml 元素进行排序。它有两个属性值：</p>
+<ul>
+<li>AccessorOrder.ALPHABETICAL：对生成的 xml 元素按字母书序排序</li>
+<li>XmlAccessOrder.UNDEFINED：不排序</li>
+</ul>
+<h2 id="XmlTransient"><a href="#XmlTransient" class="headerlink" title="@XmlTransient"></a>@XmlTransient</h2><p><code>@XmlTransient</code> 用于标示在由 java 对象映射 xml 时，忽略此属性。即在生成的 xml 文件中不出现此元素。</p>
+<h2 id="XmlJavaTypeAdapter"><a href="#XmlJavaTypeAdapter" class="headerlink" title="@XmlJavaTypeAdapter"></a>@XmlJavaTypeAdapter</h2><p><code>@XmlJavaTypeAdapter</code> 常用在转换比较复杂的对象时，如 map 类型或者格式化日期等。使用此注解时，需要自己写一个 adapter 类继承 XmlAdapter 抽象类，并实现里面的方法。</p>
+<p><code>@XmlJavaTypeAdapter(value=xxx.class)</code>，value 为自己定义的 adapter 类。<br>　　XmlAdapter如下：<br>　　<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public abstract class XmlAdapter&lt;ValueType,BoundType&gt; &#123;</span><br><span class="line">    // Do-nothing constructor for the derived classes.</span><br><span class="line">    protected XmlAdapter() &#123;&#125;</span><br><span class="line">    // Convert a value type to a bound type.</span><br><span class="line">    public abstract BoundType unmarshal(ValueType v);</span><br><span class="line">    // Convert a bound type to a value type.</span><br><span class="line">    public abstract ValueType marshal(BoundType v);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/01/Java/JUnit/" rel="next" title="JUnit">
+                <i class="fa fa-chevron-left"></i> JUnit
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/01/Java/Spring 配置文件详解/" rel="prev" title="Spring 配置文件详解">
+                Spring 配置文件详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">zeerho</p>
+              <p class="site-description motion-element" itemprop="description">Just a repo for documents</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ZephyrHuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zephyrhuang21@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Jaxb-处理-Java-对象和-xml-之间转换常用的-annotation"><span class="nav-number">1.</span> <span class="nav-text">Jaxb 处理 Java 对象和 xml 之间转换常用的 annotation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用-annotation-使用说明"><span class="nav-number">2.</span> <span class="nav-text">常用 annotation 使用说明</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#XmlType"><span class="nav-number">2.1.</span> <span class="nav-text">@XmlType</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XmlElement"><span class="nav-number">2.2.</span> <span class="nav-text">@XmlElement</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XmlRootElement"><span class="nav-number">2.3.</span> <span class="nav-text">@XmlRootElement</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XmlAttribute"><span class="nav-number">2.4.</span> <span class="nav-text">@XmlAttribute</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XmlAccessorType"><span class="nav-number">2.5.</span> <span class="nav-text">@XmlAccessorType</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XmlAccessorOrder"><span class="nav-number">2.6.</span> <span class="nav-text">@XmlAccessorOrder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XmlTransient"><span class="nav-number">2.7.</span> <span class="nav-text">@XmlTransient</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XmlJavaTypeAdapter"><span class="nav-number">2.8.</span> <span class="nav-text">@XmlJavaTypeAdapter</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zeerho</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

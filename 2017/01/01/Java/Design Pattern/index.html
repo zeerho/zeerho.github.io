@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Just a repo for documents">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tags">
+<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta property="og:site_name" content="zeerho">
+<meta property="og:description" content="Just a repo for documents">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-05T02:37:10.245Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tags">
+<meta name="twitter:description" content="Just a repo for documents">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/tags/"/>
+
+
+
+
+
+  <title>Design Pattern | zeerho</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zeerho</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/Java/Design Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Design Pattern</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h1><ul>
+<li>封装变化</li>
+<li>多用组合，少用继承</li>
+<li>针对接口编程，而不是实现</li>
+<li>为交互对象之间的松耦合设计而努力</li>
+<li>类应该对扩展开放，对修改关闭</li>
+<li>依赖抽象，不要依赖具体类</li>
+<li>只和朋友交谈</li>
+<li>别找我，我会找你</li>
+<li>一个类应该只有一个引起变化的原因</li>
+</ul>
+<h1 id="最小知识原则"><a href="#最小知识原则" class="headerlink" title="最小知识原则"></a>最小知识原则</h1><p>对于任何一个对象，应设计成只跟<strong>尽量少</strong>的其他对象进行交互。</p>
+<p>在一个对象的方法内，只应该调用属于以下范围的方法：</p>
+<ul>
+<li>该对象本身</li>
+<li>被当作方法的参数而传递进来的对象</li>
+<li>此方法创建的对象</li>
+<li>该对象持有的组件</li>
+</ul>
+<p>不推荐的方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public float getPrice() &#123;</span><br><span class="line">    Car car = shop.getCar(&quot;BMW&quot;);</span><br><span class="line">    return car.getPrice();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>推荐的方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public float getPrice() &#123;</span><br><span class="line">    return shop.getPrice(&quot;BMW&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>优点：减少对象之间的耦合，减少维护成本。<br>缺点：产生额外的包装类，增加开发时间，降低运行时性能。</p>
+<h1 id="好莱坞原则"><a href="#好莱坞原则" class="headerlink" title="好莱坞原则"></a>好莱坞原则</h1><blockquote>
+<p>别调用我们，我们会调用你。</p>
+</blockquote>
+<p>系统组件之间应形成高低关系，其中高层组件可以决定是否调用低层组件，而低层组件不能调用高层组件。<br>这样使得依赖关系形成单调的趋势，而不是循环依赖。</p>
+<h1 id="策略模式-Strategy"><a href="#策略模式-Strategy" class="headerlink" title="策略模式 Strategy"></a>策略模式 Strategy</h1><blockquote>
+<p>策略模式定义了算法族，分别封装起来，让他们之间可以相互替换，此模式让算法的变化独立于使用算法的客户。</p>
+</blockquote>
+<h1 id="观察者模式-Subject-amp-Observer"><a href="#观察者模式-Subject-amp-Observer" class="headerlink" title="观察者模式 Subject &amp; Observer"></a>观察者模式 Subject &amp; Observer</h1><blockquote>
+<p>定义了对象之间的一对多依赖，这样一来，当一个对象改变状态时，它的所有依赖者都会收到通知并自动更新。</p>
+</blockquote>
+<h1 id="装饰者模式-Decorator"><a href="#装饰者模式-Decorator" class="headerlink" title="装饰者模式 Decorator"></a>装饰者模式 Decorator</h1><blockquote>
+<p>动态地将责任附加到对象上。若要扩展功能，装饰者提供了比继承更有弹性的替代方案。</p>
+</blockquote>
+<h1 id="工厂方法模式-Factory"><a href="#工厂方法模式-Factory" class="headerlink" title="工厂方法模式 Factory"></a>工厂方法模式 Factory</h1><p><strong>工厂方法</strong></p>
+<blockquote>
+<p>使用继承，把对象的创建委托给子类，父类提供抽象的创建方法。</p>
+</blockquote>
+<p><strong>抽象工厂方法</strong></p>
+<blockquote>
+<p>使用组合，向消费者提供一个工厂接口类型，该接口中含有抽象的创建方法。通过向消费者传入具体的工厂接口实现来得到不同的创建方法。这个工厂接口本身通常就使用了工厂方法的设计模式。</p>
+</blockquote>
+<h1 id="单例模式-Singleton"><a href="#单例模式-Singleton" class="headerlink" title="单例模式 Singleton"></a>单例模式 Singleton</h1><blockquote>
+<p>确保一个类只有一个实例，并提供一个全局访问点。</p>
+</blockquote>
+<p>单线程中的简单做法，在多线程中会有并发问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class MyClass &#123;</span><br><span class="line">    private static MyClass myClassSingleton;</span><br><span class="line">    private MyClass() &#123;&#125;</span><br><span class="line">    public static MyClass getInstance() &#123;</span><br><span class="line">        if (myClassSingleton == null) &#123;</span><br><span class="line">            myClassSingleton = new MyClass();</span><br><span class="line">        &#125;</span><br><span class="line">        return myClassSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解决并发问题的简单方法，但在频繁调用的情况下会严重影响性能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class MyClass &#123;</span><br><span class="line">    private static MyClass myClassSingleton;</span><br><span class="line">    private MyClass() &#123;&#125;</span><br><span class="line">    public static synchronized MyClass getInstance() &#123;</span><br><span class="line">        if (myClassSingleton == null) &#123;</span><br><span class="line">            myClassSingleton = new MyClass();</span><br><span class="line">        &#125;</span><br><span class="line">        return myClassSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>“饿汉”模式，在静态初始化器中创建单件，利用 JVM 自身的特性保证了线程安全，在 JVM 加载这个类时就创建了单件实例，从而保证在任何线程访问该实例前就已经创建完毕。<br>若有大量使用概率很低的单例类使用“饿汉”模式，会造成明显的内存浪费。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class MyClass &#123;</span><br><span class="line">    private static MyClass myClassSingleton = new MyClass();//加载类时创建实例</span><br><span class="line">    private MyClass() &#123;&#125;</span><br><span class="line">    public static MyClass getInstance() &#123;</span><br><span class="line">        return myClassSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>“饱汉”模式，只在第一次访问单例时创建单例对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class MyClass &#123;</span><br><span class="line">    //volatile 关键词确保 myClassSingleton 赋值时能立即对所有线程可见。在 Java 1.4 及之前的版本中 volatile 实现有问题。</span><br><span class="line">    private volatile static MyClass myClassSingleton；</span><br><span class="line">    private MyClass() &#123;&#125;</span><br><span class="line">    public static MyClass getInstance() &#123;</span><br><span class="line">        if ( myClassSingleton == null) &#123; //double check 解决多线程并发问题</span><br><span class="line">            synchronized (MyClass.class) &#123;</span><br><span class="line">                if (myClassSingleton == null) &#123;</span><br><span class="line">                    myClassSingleton = new MyClass();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return myClassSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>若程序中使用了多个类加载器（Class Loader），会产生多个单例</strong></p>
+<p><strong>在 Java 1.2 之前，GC 有个 bug，当单例对象只被自身的类所引用时，会被 GC 清理</strong></p>
+<h1 id="命令模式-Command"><a href="#命令模式-Command" class="headerlink" title="命令模式 Command"></a>命令模式 Command</h1><blockquote>
+<p>将“请求”封装成对象，以便使用不同的请求、队列或者日志来参数化其他对象。命令模式也支持可撤销的操作。<br>本质上是在调用者和接收者之间加了一层用于命令的整合、转换、映射，从而实现调用者和接收者之间的解耦。</p>
+</blockquote>
+<h1 id="适配器模式-Adapter"><a href="#适配器模式-Adapter" class="headerlink" title="适配器模式 Adapter"></a>适配器模式 Adapter</h1><blockquote>
+<p>将一个类的接口，转换成客户期望的另一个接口，从而让原本不兼容的类之间可以兼容。</p>
+</blockquote>
+<h1 id="外观模式-Facade"><a href="#外观模式-Facade" class="headerlink" title="外观模式 Facade"></a>外观模式 Facade</h1><blockquote>
+<p>外观模式提供了一个统一的接口，用来方法子系统中的一群接口。外观定义了一个高层接口，让子系统更容易使用</p>
+</blockquote>
+<p>外观模式和适配器模式类似，都是在不同接口方法之间建立映射关系。<br>其中适配器模式着重<strong>转换</strong>，而外观模式着重于<strong>简化</strong>。</p>
+<h1 id="模板方法模式-Template"><a href="#模板方法模式-Template" class="headerlink" title="模板方法模式 Template"></a>模板方法模式 Template</h1><blockquote>
+<p>模板方法模式在一个方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。</p>
+</blockquote>
+<h1 id="迭代器模式-Iterator"><a href="#迭代器模式-Iterator" class="headerlink" title="迭代器模式 Iterator"></a>迭代器模式 Iterator</h1><blockquote>
+<p>迭代器模式提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。</p>
+</blockquote>
+<p>外部迭代器：客户自己通过调用 next 方法进行游走，并在游走的过程中进行处理。<br>内部迭代器：游走过程由迭代器自行完成，客户无法干预，且必须将游走过程中需要处理的逻辑传给迭代器。</p>
+<h1 id="组合模式-Composite"><a href="#组合模式-Composite" class="headerlink" title="组合模式 Composite"></a>组合模式 Composite</h1><blockquote>
+<p>组合模式允许你将对象组合成树形结构来表现“整体/部分”层次结构。组合能让客户以一致的方式处理个别对象以及组合对象。</p>
+</blockquote>
+<h1 id="状态模式-State"><a href="#状态模式-State" class="headerlink" title="状态模式 State"></a>状态模式 State</h1><blockquote>
+<p>状态模式允许对象在内部状态改变时改变它的行为，对象看起来好像修改了它的类。</p>
+</blockquote>
+<p>和策略模式一样，都是在一个接口下用不同的类封装不同的逻辑。区别在于策略模式一般由调用者直接或间接指定某个逻辑；而状态模式在内部进行策略转换。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/01/Java/Google Java 编程风格指南摘要/" rel="next" title="Google Java 编程风格指南摘要">
+                <i class="fa fa-chevron-left"></i> Google Java 编程风格指南摘要
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/01/Java/Freemarker/" rel="prev" title="Freemarker">
+                Freemarker <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">zeerho</p>
+              <p class="site-description motion-element" itemprop="description">Just a repo for documents</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/ZephyrHuang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zephyrhuang21@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设计原则"><span class="nav-number">1.</span> <span class="nav-text">设计原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#最小知识原则"><span class="nav-number">2.</span> <span class="nav-text">最小知识原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#好莱坞原则"><span class="nav-number">3.</span> <span class="nav-text">好莱坞原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#策略模式-Strategy"><span class="nav-number">4.</span> <span class="nav-text">策略模式 Strategy</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#观察者模式-Subject-amp-Observer"><span class="nav-number">5.</span> <span class="nav-text">观察者模式 Subject &amp; Observer</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#装饰者模式-Decorator"><span class="nav-number">6.</span> <span class="nav-text">装饰者模式 Decorator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工厂方法模式-Factory"><span class="nav-number">7.</span> <span class="nav-text">工厂方法模式 Factory</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单例模式-Singleton"><span class="nav-number">8.</span> <span class="nav-text">单例模式 Singleton</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令模式-Command"><span class="nav-number">9.</span> <span class="nav-text">命令模式 Command</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#适配器模式-Adapter"><span class="nav-number">10.</span> <span class="nav-text">适配器模式 Adapter</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#外观模式-Facade"><span class="nav-number">11.</span> <span class="nav-text">外观模式 Facade</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模板方法模式-Template"><span class="nav-number">12.</span> <span class="nav-text">模板方法模式 Template</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迭代器模式-Iterator"><span class="nav-number">13.</span> <span class="nav-text">迭代器模式 Iterator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组合模式-Composite"><span class="nav-number">14.</span> <span class="nav-text">组合模式 Composite</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#状态模式-State"><span class="nav-number">15.</span> <span class="nav-text">状态模式 State</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zeerho</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.0.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
