@@ -48,15 +48,14 @@ ssh-keygen -t rsa -C "MyEmail@gmail.com"
 5. `hexo s` 部署并启动服务
 6. 访问 `localhost:4000`，若以上步骤没问题则能看到 Hexo 的默认页面
 7. 回命令行中按 `Ctrl-C` 来关闭刚才 `hexo s` 启动的本地服务
-8. 配置部署方式。打开刚才的 `C:\workspace\blog`，编辑 _config.yml
+8. 配置部署方式。打开刚才的 `C:\workspace\blog`，编辑 `_config.yml`
 ```
 deploy:
   type: git
   repo: git@github.com:MyName/MyName.github.io.git
   branch: master
 ```
-9. 为了使用 `hexo d` 来部署到 Github 上，需要安装
-`npm install hexo-deployer-git --save`
+9. 为了使用 `hexo d` 来部署到 Github 上，需要安装 `npm install hexo-deployer-git --save`
 
 ### Hexo 主题
 
@@ -69,7 +68,6 @@ deploy:
   1. 打开 `C:\workspace\blog\_config.yml`
   2. 找到 `theme` 字段，改为 `theme: next`，这里的 `next` 对应上面重命名的文件夹名字
 
----
 ## 配置
 
 ### 标签 tags
@@ -94,22 +92,24 @@ comments: false
 
 更灵活的方式是使用相对路径的方式引用图片。
 
-1. 将 _config.yml 中的 post_asset_foler 改为 true。
+1. 将 `_config.yml` 中的 post_asset_foler 改为 true。
 2. 在文档的同级目录下创建同名目录，里面存放图片。
 3. 引用图片 `![](abc.jpg)`
 
----
 ## 发布博文
 
 ### 新建
+
 `hexo new [layout] xxx`
-hexo 会在 _posts 目录下自动新建一个 xxx.md 的文件。若指定了布局模板 layout，则 xxx.md 中会预先填充了该模板的内容。
+
+hexo 会在 `_posts` 目录下自动新建一个 xxx.md 的文件。若指定了布局模板 layout，则 xxx.md 中会预先填充了该模板的内容。
 
 scaffolds 目录下有默认的布局模板。也可以仿照着创建自定义的模板。
 
-或者也可以将已有的 xxx.md 放到 `C:\workspace\blog\source\_posts` 下面。
-也可以在这个目录下面自定义一些文件夹来分门别类地存放。
+或者也可以将已有的 xxx.md 放到 `C:\workspace\blog\source\_posts` 下面。 也可以在这个目录下面自定义一些文件夹来分门别类地存放。
 
 # 问题
 
 遇到 3 个连续的 `{` 时，hexo 解析会报错，详细参考 [这篇文章](!http://mlnote.com/2016/09/03/solved-mathjex-problem/)
+
+`.deploy_git/` 下在初始化的时候会生成 `.git/`，后续发布的就是这里的内容。若没有这个 `.git/` 则发布的是外面的源文件。若手动删除了这个 `.git/`，可以手动 `git init` 一下。

@@ -117,83 +117,83 @@ tags: [工具]
 # 日志
 
 - `git log -p -{n}`
-显示最近 n 次的提交日志，并展开每次提交的内容差异
+  显示最近 n 次的提交日志，并展开每次提交的内容差异
 - `git log --stat`
-仅显示简要的增改行数统计
+  仅显示简要的增改行数统计
 - `git log --shortstat`
-仅显示 `--stat` 中最后的行数修改添加移除的统计
+  仅显示 `--stat` 中最后的行数修改添加移除的统计
 - `git log --name-only`
-仅在提交信息后显示已修改的文件清单
+  仅在提交信息后显示已修改的文件清单
 - `git log --name-status`
-显示新增、修改、删除的文件清单
+  显示新增、修改、删除的文件清单
 - `git log --abbrev-commit`
-仅显示 SHA-1 的前几个字符
+  仅显示 SHA-1 的前几个字符
 - `git log --relative-date`
-使用较短的相对时间显示（如：“2 weeks ago”）
+  使用较短的相对时间显示（如：“2 weeks ago”）
 - `git log --graph`
-显示 ASCII 图形表示的分支合并历史
+  显示 ASCII 图形表示的分支合并历史
 - `git log --pretty`
-使用其他格式显示历史提交信息。可用选项包括 `oneline`、`short`、`full`、`fuller`、`format`（后跟指定格式）
+  使用其他格式显示历史提交信息。可用选项包括 `oneline`、`short`、`full`、`fuller`、`format`（后跟指定格式）
 - `git log [--left-right] {b1}...{b2}`
-只存在于 {b1} 和 {b2} 中的一个，而不同时存在于两者的提交；`--left-right` 会显示每个提交具体在哪个分支中
+  只存在于 {b1} 和 {b2} 中的一个，而不同时存在于两者的提交；`--left-right` 会显示每个提交具体在哪个分支中
 
 `git log [{options}] [{revision_range}] [[\\--] {path}...]`
 
 - {options}
-    - `--follow` 继续显示文件被移动或重命名前的历史，只针对单个文件有效。
-    - `--no-decorate` `--decorate[=short|full|auto|no]`
-    - `--source`
-    - `--use-mailmap`
-    - `--full-diff`
-    - `--log-size`
-    - `-L {start},{end}:{file}`
-    - `-L:{funcname}:{file}`
+  - `--follow` 继续显示文件被移动或重命名前的历史，只针对单个文件有效。
+  - `--no-decorate` `--decorate[=short|full|auto|no]`
+  - `--source`
+  - `--use-mailmap`
+  - `--full-diff`
+  - `--log-size`
+  - `-L {start},{end}:{file}`
+  - `-L:{funcname}:{file}`
 - {revision_range}
 - [\\--] {path}
 - 提交范围限制
-    - `-{number}`
-    - `-n {number}`
-    - `--max-count={number}`
-    - `--skip={number}`
-    - `--since={date}`
-    - `--after={date}`
-    - `--until={date}`
-    - `--before={date}`
-    - `--author={pattern}`
-    - `--committer={pattern}`
-    - `--greg-reflog={pattern}`
-    - `--greg={pattern}`
-    - `--all-match`
-    - `--invert-greg`
-    - `-i` `--regexp-ignore-case`
-    - `--basic-regexp`
-    - `-E` `--extended-regexp`
-    - `-F` `--fixed-strings`
-    - `--perl-regexp`
-    - `--remove-empty`
-    - `--merges`
-    - `--nomerges`
-    - `--min-parents={number}` `--max-parents={number}` `--no-min-parents` `--no-max-parents`
-    - `--first-parent`
-    - `--not`
-    - `--all`
-    - `--branches[={pattern}]`
-    - `--tags[={pattern}]`
-    - `--remotes[={pattern}]`
-    - `--glob={glob-pattern}`
-    - `--exclude={glob-pattern}`
-    - `--reflog`
-    - `--ignore-missing`
-    - `--bisect`
-    - `--stdin`
-    - `--cherry-mark`
-    - `--cherry-pick`
-    - `--left-only`
-    - `--right-only`
-    - `--cherry`
-    - `-g` `--walk-reflogs`
-    - `--merge`
-    - `--boundary`
+  - `-{number}`
+  - `-n {number}`
+  - `--max-count={number}`
+  - `--skip={number}`
+  - `--since={date}`
+  - `--after={date}`
+  - `--until={date}`
+  - `--before={date}`
+  - `--author={pattern}`
+  - `--committer={pattern}`
+  - `--greg-reflog={pattern}`
+  - `--greg={pattern}`
+  - `--all-match`
+  - `--invert-greg`
+  - `-i` `--regexp-ignore-case`
+  - `--basic-regexp`
+  - `-E` `--extended-regexp`
+  - `-F` `--fixed-strings`
+  - `--perl-regexp`
+  - `--remove-empty`
+  - `--merges`
+  - `--nomerges`
+  - `--min-parents={number}` `--max-parents={number}` `--no-min-parents` `--no-max-parents`
+  - `--first-parent`
+  - `--not`
+  - `--all`
+  - `--branches[={pattern}]`
+  - `--tags[={pattern}]`
+  - `--remotes[={pattern}]`
+  - `--glob={glob-pattern}`
+  - `--exclude={glob-pattern}`
+  - `--reflog`
+  - `--ignore-missing`
+  - `--bisect`
+  - `--stdin`
+  - `--cherry-mark`
+  - `--cherry-pick`
+  - `--left-only`
+  - `--right-only`
+  - `--cherry`
+  - `-g` `--walk-reflogs`
+  - `--merge`
+  - `--boundary`
 
 # 衍合
 
@@ -273,24 +273,27 @@ tags: [工具]
 
 # 差异比较
 
-`git diff {source_branch} {target_branch}`
-查看两个分支之间的差异
-`git diff {source_branch}...{target_branch}`
-查看 target 分支与 source 和 target 共同祖先之间的差异
-`git diff`
-暂存区到工作区的变化
-`git diff --cached|--staged`
-版本库到暂存区的变化
-`git diff HEAD`
-版本库到工作区的变化
+- `git diff {branch1} {branch2}`
+  查看两个分支之间的详细差异
+  - `--stat` 概要信息
+  - `-- {path}` 指定文件
+- `git diff {branch1}...{branch2}`
+  查看 branch2 分支与两个分支共同祖先之间的差异
+- `git diff`
+  工作区到暂存区的变化
+- `git diff --cached|--staged`
+  暂存区到版本库的变化
+- `git diff HEAD`
+  工作区到版本库的变化
 
 git维护代码分为三部分：“工作区 working directory”、“暂存区 index”、“版本库 head”（分别标注为1，2，3）。
-`git add` 完成1->2
-`git commit` 完成2->3
-`git commit -a` 两者结合
-`git diff` 2到1的变化
-`git diff --cached|--staged` 3到2的变化
-`git diff HEAD` 3到1的变化
+
+- `git add` 完成1->2
+- `git commit` 完成2->3
+- `git commit -a` 两者结合
+- `git diff` 2到1的变化
+- `git diff --cached|--staged` 3到2的变化
+- `git diff HEAD` 3到1的变化
 
 # 合并
 
@@ -530,9 +533,59 @@ git config branch.develop.merge refs/heads/develop
 
 ## credential
 
-- `helper` 凭证管理方式。
-  - `store` 明文保存于 `~/.git-credentials`，形如 `http://{user}:{pwd}@example.com/`
+各 credential 工具都有 3 个操作：
+
+- `get` 查找匹配的密令。
+- `store` 存储密令。
+- `erase` 删除匹配的密令。
+
+以上操作需要按照特定格式输入参数，如下：
+
+```
+$ git credential-{helper} {operation} (1)
+protocol=https (2)
+host=example.com
+username=tom
+password=abc (3)
+(4)
+
+```
+
+- (1)：{helper} 是具体的 credential 工具，比如 store；{operation} 是 `get`、`store`、`erase` 之一。
+- (2)：协议、主机等参数。
+- (3)：用户名、密码参数可选，取决于是什么操作。
+- (4)：参数输入完毕后连续两个换行表示录入完成。
+
+windows 默认用的是 `manager`（见 `C:\Program Files\Git\mingw64\etc\gitconfig`）。改用其他工具后仍然会从 `manager` 中取密令，要用 `erase` 操作先移除。不知道是不是 bug。
+
+### 静态配置用户名
+
+```
+[credential "https://example.com"]
+  username = tom
+```
+
+### cache
+
+`git config credential.helper 'cache [{opts}]'`
+
+- `--timeout {seconds}` 默认 900.
+- `--socket {path}`
+  通过 {path} 来跟负责缓存的守护进程交互。默认是 `$XDG_CACHE_HOME/git/credential/socket`，除非 `~/.git-credential-cache/` 存在，那就用 `~/.git-credential-cache/socket`
+
+`git credential-cache exit` 手动退出，缓存的密码会消失。
+
+### store
+
+`git config credential.helper 'store [{opts}]'`
+
+明文存储在磁盘上。形如 `http://{user}:{pwd}@example.com/`。
+
+- `--file={path}`
+  指定文件。默认查找 `~/.git-credentials` 和 `$XDG_COFNIG_HOME/git/credentials`。
+
 ## other
+
 `git config --list`
 查看配置信息。其中重复的变量来自不同的配置文件，Git 会采用最后一个。
 

@@ -324,6 +324,45 @@ APT 的底层包是 dpkg，dpkg 会把 .deb 文件放在 /var/cache/apt/archives
 
 ## 配置阿里云源
 
+**ubuntu**
+
+源文件是 `/etc/apt/sources.list`，记录了 apt 所用的包仓库位置。类似的还有 `/etc/apt/sources.list.d/` 下的各种 `.list` 文件。
+
+1. 备份。`sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak`
+2. 查看系统版本信息 `lsb_release -c`。冒号后面是系统代号，后面要用。
+3. 编辑 `sources.list` 文件，将其中内容全删后粘贴以下内容。其中的 `bionic` 是系统代号，要根据实际情况替换。
+```
+deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
+
+deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+
+deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse
+```
+4. 更新软件列表 `sudo apt update`
+
+`sources.list` 文件内容是以下格式。后面的 component 是对软件包的分类。Ubuntu 下是 main、restricted、universe、multiverse。
+
+```
+deb http://{host}/{debian-distribution} component1 component2 component3
+deb-src http://{host}/{debian-distribution} component1 component2 component3
+```
+
+**centos**
+
 1、用wget下载repo文件
 
 `wget  http://mirrors.aliyun.com/repo/Centos-7.repo`
@@ -680,6 +719,7 @@ kickstart
 proxy=http://{host}:{port}
 proxy_username=abc
 proxy_password=123
+
 ## 全局代理
 
 1. `sudo vi /etc/profile`
@@ -689,6 +729,27 @@ proxy_password=123
 http_proxy=http://{user}:{pwd}@{host}:{port}
 export http_proxy
 ```
+
+## 添加到 dock 栏
+
+1. 创建 `.desktop` 文件。
+```
+ #!/usr/bin/env xdg-open
+ [Desktop Entry]
+ Version=1.0
+ Type=Application
+ # 若是脚本且想看到命令行则改为 true
+ Terminal=false
+ # 必须，填启动文件路径，后面可加启动参数
+ Exec=command to run here
+ # 必须，用于搜索和显示
+ Name=visible name here
+ Comment=comment here
+ Icon=icon path here
+```
+2. 添加到桌面。把上述文件移至桌面。
+3. 添加到 dock 栏和 app 搜索。把上述文件移至 `~/.local/share/applications/`。
+
 # 问题
 
 ## `FATAL:Could not read from Boot Medium! System Halted.`
