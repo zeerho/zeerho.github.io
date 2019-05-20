@@ -387,6 +387,163 @@ deb-src http://{host}/{debian-distribution} component1 component2 component3
 `yum makecache`
 ~~`yum update`~~
 
+# 用户/用户组管理
+
+管理用户和用户组的命令基本都是对 `/etc/passwd`、`/etc/group` 和 `/etc/shadow` 进行操作。
+
+## 用户管理
+
+**新增用户**
+
+`useradd [-D] [opts] {newUser}`
+
+- `-D` 变更预设值。
+- `-c {comment}` 备注，会保存在 `/etc/passwd` 的备注栏中。
+- `-d {loginDir}` 用户登录时的初始目录。
+- `-e {effectiveTime}` 账号的有效期限。
+- `-f {effectiveDays}` 密码过期后多少天关闭账号。
+- `-g {mainGroup}` 主用户组，缺省与用户同名。
+- `-G {supplementaryGroup}` 附加组。
+- `-m|-M` 自动建立/不建立用户的登录目录。
+- `-n` 取消建立与用户同名的组。
+- `-r` 建立系统账号。
+- `-s {shell}` 用户登录后使用的 shell。
+- `-u {uid}` 指定用户 ID。
+
+**关于 `adduser` 和 `useradd`**
+
+Ubuntu 中 `useradd` 是一个二进制程序，`adduser` 是一个脚本，是对前者的封装；CentOS 中，`adduser` 是另一个的符号链接。 **一般使用 `useradd`，它在不同发行版中都一样。**
+
+**修改用户信息**
+`usermod [-LU] [opts] {user}`
+
+- `-L|-U` 锁定密码/解锁密码。
+- `-c {comment}` 备注，会保存在 `/etc/passwd` 的备注栏中。
+- `-d {loginDir}` 用户登录时的初始目录。
+- `-e {effectiveTime}` 账号的有效期限。
+- `-f {effectiveDays}` 密码过期后多少天关闭账号。
+- `-g {mainGroup}` 主用户组，缺省与用户同名。
+- `-G {supplementaryGroup}` 附加组，会覆盖已有的附加组。搭配 `-a` 可以新增而不覆盖。
+- `l` 修改用户名。
+- `-s {shell}` 用户登录后使用的 shell。
+- `-u {uid}` 指定用户 ID。
+
+**删除用户**
+
+`userdel [-r] {user}`
+
+- `-r` 连同用户目录一起删除。
+
+**修改密码**
+
+`passwd [opts] {user}`
+
+- `-l` 锁定用户，禁止登录。
+- `-u` 接触锁定。
+- `--stdin` 允许通过标准输入修改密码，比如 `echo "abc" | passwd --stdin tom`。
+- `-d` 可用空密码登录。
+- `-e` 强制该用户下次登录时修改密码。
+- `-S` 显示密码是否被锁定，以及密码所采用的加密算法名称。
+
+## 用户组管理
+
+**查看用户所属的组**
+
+`groups [user]` 若不指定用户则为当前用户。
+
+**创建用户组**
+
+`groupadd [-r] {group}`
+
+- `[-r]` 创建系统用户组，即 GID 小于 500。
+
+**修改用户组**
+
+- `groupmod -n {new} {old}` 修改用户组名，不会改变 GID。
+- `groupmod -g {newGID} {group}` 修改 GID。
+
+**删除用户组**
+
+`groupdel {group}`
+
+若该用户组是某用户的主用户组，则必须先删除该用户，在删除该用户组。
+
+## 用户和用户组之间的操作
+
+**添加用户到用户组/从用户组中删除用户**
+
+- `gpasswd -a {user} -g {group}` 将指定用户添加到指定组。
+- `gpasswd -d {user} -g {group}` 从指定组中删除指定用户。
+
+**修改**
+
+`groupmems [option] [action]`
+
+- option
+  - `-g` 更改为指定组。
+- action
+  - `-a` 指定用户加入组。
+  - `-d` 从组中删除用户。
+  - `-p` 从组中删除所有成员。
+  - `-l` 显示组成员列表。
+
+# sudo
+
+- `sudo -V` 显示版本号
+- `sudo -h` 帮助
+- `sudo -l` 显示当前执行者的权限
+- `sudo -v` 重新验证用户并顺延验证失效时间
+- `sudo -k` 强制在下次执行 `sudo` 时验证密码
+- `sudo [-b] [-u {username}|{#uid}] {cmd}`
+  - `-b` 后台执行此命令
+  - `-u {username}|{#uid}` 用指定用户执行命令。缺省为 root。
+
+赋予 sudo 特权实际上是修改 `/etc/sudoers`。该文件只能用 root 用户通过 `visudo` 来编辑。
+
+`/etc/sudoers` 中包含两类内容：别名定义、授权规则。
+
+**别名定义**
+
+`{aliasType} {name1} = {val1}, {val2}...[: {name2} = {val3}, {val4}...]`
+
+- `{aliasType}` 有以下几种
+  - `Host_Alias` 主机别名
+  - `User_Alias` 用户别名，可以是用户或用户组，若是用户组，前面要加 `%`
+  - `Runas_Alias` runas 别名，即 `sudo` 允许切换至的用户
+  - `Cmnd_Alias` 命令别名
+
+**授权规则**
+
+`{user}|{group} {host}=[({runAs})] [NOPASSWD:] [!]{cmd1}[, {cmd2}...]`
+
+- `{user}|{group}` 授权用户或用户组，用户组前面要加 `%`
+- `{host}` 授权规则对应的主机
+- `({runAs})` 切换到哪些用户/组。缺省为 `(root:root)`。若为 `(ALL)`，即 `(ALL:ALL)`，则可切换到任意用户/组。
+- `NOPASSWD:` 不需要验证密码。
+- `[!]{cmd1}[, {cmd2}...]` 允许执行的命令。`!` 表示禁止执行。为了避免执行到同名命令导致安全问题，应写命令的全路径，执行时同理。可以使用通配符。
+
+```
+ # 井号为注释
+
+ # 默认有这么一行，可以当作参照
+root  ALL=(ALL)  ALL
+
+ # 给指定用户添加 sudo 权限
+tom  ALL=(ALL)  ALL
+
+ # 给指定用户组的所有用户添加 sudo 权限
+%example  ALL=(ALL)  ALL
+
+ # 使用 `sudo` 时不需要输入密码，一般不这样做，不太安全
+ben  ALL=(ALL)  NOPASSWD: ALL
+
+ # 指定可以通过 `sudo` 执行的命令的白名单。
+ # 多个命令之间用 `, ` 分隔。
+ # 命令必须写全路径，执行时也一样。为的是避免其他路径的同名命令被执行。
+ # `!` 表示禁止执行。
+%example  ALL=/sbin/mount /mnt/example, !/sbin/umount /mnt/example
+```
+
 # 命令
 
 ## 常用
