@@ -526,7 +526,21 @@
 <p><code>yum provides {name}</code><br>列出软件包提供哪些文件</p>
 <p><code>yum clean packages</code><br>清除缓存目录(/var/cache/yum)下的软件包<br><code>yum clean headers</code><br>清除缓存目录(/var/cache/yum)下的 headers<br><code>yum clean oldheaders</code><br>清除缓存目录(/var/cache/yum)下旧的 headers<br><code>yum clean, yum clean all</code> (= <code>yum clean packages</code>;<code>yum clean oldheaders</code>)<br>清除缓存目录(/var/cache/yum)下的软件包及旧的headers</p>
 <p><code>yum update</code> 升级系统<br><code>yum install {name}</code> 安装指定软件包<br><code>yum update {name}</code> 升级指定软件包<br><code>yum remove {name}</code> 卸载指定软件<br><code>yum grouplist</code> 查看系统中已经安装的和可用的软件组，可用的可以安装<br><code>yum grooupinstall {name}</code> 安装上一个命令显示的可用的软件组中的一个<br><code>yum grooupupdate {name}</code> 更新指定软件组的软件包<br><code>yum grooupremove {name}</code> 卸载指定软件组中的软件包<br><code>yum deplist {name}</code> 查询指定软件包的依赖关系<br><code>yum list yum\*</code> 列出所有以yum开头的软件包<br><code>yum localinstall {name}</code> 从硬盘安装rpm包并使用yum解决依赖</p>
-<h2 id="配置阿里云源"><a href="#配置阿里云源" class="headerlink" title="配置阿里云源"></a>配置阿里云源</h2><p>1、用wget下载repo文件</p>
+<h2 id="配置阿里云源"><a href="#配置阿里云源" class="headerlink" title="配置阿里云源"></a>配置阿里云源</h2><p><strong>ubuntu</strong></p>
+<p>源文件是 <code>/etc/apt/sources.list</code>，记录了 apt 所用的包仓库位置。类似的还有 <code>/etc/apt/sources.list.d/</code> 下的各种 <code>.list</code> 文件。</p>
+<ol>
+<li>备份。<code>sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</code></li>
+<li>查看系统版本信息 <code>lsb_release -c</code>。冒号后面是系统代号，后面要用。</li>
+<li><p>编辑 <code>sources.list</code> 文件，将其中内容全删后粘贴以下内容。其中的 <code>bionic</code> 是系统代号，要根据实际情况替换。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新软件列表 <code>sudo apt update</code></p>
+</li>
+</ol>
+<p><code>sources.list</code> 文件内容是以下格式。后面的 component 是对软件包的分类。Ubuntu 下是 main、restricted、universe、multiverse。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deb http://&#123;host&#125;/&#123;debian-distribution&#125; component1 component2 component3</span><br><span class="line">deb-src http://&#123;host&#125;/&#123;debian-distribution&#125; component1 component2 component3</span><br></pre></td></tr></table></figure>
+<p><strong>centos</strong></p>
+<p>1、用wget下载repo文件</p>
 <p><code>wget  http://mirrors.aliyun.com/repo/Centos-7.repo</code></p>
 <p>如果wget命令不生效，说明还没有安装wget工具，输入<code>yum -y install wget</code> 回车进行安装。</p>
 <p>2、移至源目录</p>
@@ -537,6 +551,123 @@
 <p><code>mv Centos-7.repo CentOs-Base.repo</code></p>
 <p>5、执行yum源更新命令</p>
 <p><code>yum clean all</code><br><code>yum makecache</code><br><del><code>yum update</code></del></p>
+<h1 id="用户-用户组管理"><a href="#用户-用户组管理" class="headerlink" title="用户/用户组管理"></a>用户/用户组管理</h1><p>管理用户和用户组的命令基本都是对 <code>/etc/passwd</code>、<code>/etc/group</code> 和 <code>/etc/shadow</code> 进行操作。</p>
+<h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><p><strong>新增用户</strong></p>
+<p><code>useradd [-D] [opts] {newUser}</code></p>
+<ul>
+<li><code>-D</code> 变更预设值。</li>
+<li><code>-c {comment}</code> 备注，会保存在 <code>/etc/passwd</code> 的备注栏中。</li>
+<li><code>-d {loginDir}</code> 用户登录时的初始目录。</li>
+<li><code>-e {effectiveTime}</code> 账号的有效期限。</li>
+<li><code>-f {effectiveDays}</code> 密码过期后多少天关闭账号。</li>
+<li><code>-g {mainGroup}</code> 主用户组，缺省与用户同名。</li>
+<li><code>-G {supplementaryGroup}</code> 附加组。</li>
+<li><code>-m|-M</code> 自动建立/不建立用户的登录目录。</li>
+<li><code>-n</code> 取消建立与用户同名的组。</li>
+<li><code>-r</code> 建立系统账号。</li>
+<li><code>-s {shell}</code> 用户登录后使用的 shell。</li>
+<li><code>-u {uid}</code> 指定用户 ID。</li>
+</ul>
+<p><strong>关于 <code>adduser</code> 和 <code>useradd</code></strong></p>
+<p>Ubuntu 中 <code>useradd</code> 是一个二进制程序，<code>adduser</code> 是一个脚本，是对前者的封装；CentOS 中，<code>adduser</code> 是另一个的符号链接。 <strong>一般使用 <code>useradd</code>，它在不同发行版中都一样。</strong></p>
+<p><strong>修改用户信息</strong><br><code>usermod [-LU] [opts] {user}</code></p>
+<ul>
+<li><code>-L|-U</code> 锁定密码/解锁密码。</li>
+<li><code>-c {comment}</code> 备注，会保存在 <code>/etc/passwd</code> 的备注栏中。</li>
+<li><code>-d {loginDir}</code> 用户登录时的初始目录。</li>
+<li><code>-e {effectiveTime}</code> 账号的有效期限。</li>
+<li><code>-f {effectiveDays}</code> 密码过期后多少天关闭账号。</li>
+<li><code>-g {mainGroup}</code> 主用户组，缺省与用户同名。</li>
+<li><code>-G {supplementaryGroup}</code> 附加组，会覆盖已有的附加组。搭配 <code>-a</code> 可以新增而不覆盖。</li>
+<li><code>l</code> 修改用户名。</li>
+<li><code>-s {shell}</code> 用户登录后使用的 shell。</li>
+<li><code>-u {uid}</code> 指定用户 ID。</li>
+</ul>
+<p><strong>删除用户</strong></p>
+<p><code>userdel [-r] {user}</code></p>
+<ul>
+<li><code>-r</code> 连同用户目录一起删除。</li>
+</ul>
+<p><strong>修改密码</strong></p>
+<p><code>passwd [opts] {user}</code></p>
+<ul>
+<li><code>-l</code> 锁定用户，禁止登录。</li>
+<li><code>-u</code> 接触锁定。</li>
+<li><code>--stdin</code> 允许通过标准输入修改密码，比如 <code>echo &quot;abc&quot; | passwd --stdin tom</code>。</li>
+<li><code>-d</code> 可用空密码登录。</li>
+<li><code>-e</code> 强制该用户下次登录时修改密码。</li>
+<li><code>-S</code> 显示密码是否被锁定，以及密码所采用的加密算法名称。</li>
+</ul>
+<h2 id="用户组管理"><a href="#用户组管理" class="headerlink" title="用户组管理"></a>用户组管理</h2><p><strong>查看用户所属的组</strong></p>
+<p><code>groups [user]</code> 若不指定用户则为当前用户。</p>
+<p><strong>创建用户组</strong></p>
+<p><code>groupadd [-r] {group}</code></p>
+<ul>
+<li><code>[-r]</code> 创建系统用户组，即 GID 小于 500。</li>
+</ul>
+<p><strong>修改用户组</strong></p>
+<ul>
+<li><code>groupmod -n {new} {old}</code> 修改用户组名，不会改变 GID。</li>
+<li><code>groupmod -g {newGID} {group}</code> 修改 GID。</li>
+</ul>
+<p><strong>删除用户组</strong></p>
+<p><code>groupdel {group}</code></p>
+<p>若该用户组是某用户的主用户组，则必须先删除该用户，在删除该用户组。</p>
+<h2 id="用户和用户组之间的操作"><a href="#用户和用户组之间的操作" class="headerlink" title="用户和用户组之间的操作"></a>用户和用户组之间的操作</h2><p><strong>添加用户到用户组/从用户组中删除用户</strong></p>
+<ul>
+<li><code>gpasswd -a {user} -g {group}</code> 将指定用户添加到指定组。</li>
+<li><code>gpasswd -d {user} -g {group}</code> 从指定组中删除指定用户。</li>
+</ul>
+<p><strong>修改</strong></p>
+<p><code>groupmems [option] [action]</code></p>
+<ul>
+<li>option<ul>
+<li><code>-g</code> 更改为指定组。</li>
+</ul>
+</li>
+<li>action<ul>
+<li><code>-a</code> 指定用户加入组。</li>
+<li><code>-d</code> 从组中删除用户。</li>
+<li><code>-p</code> 从组中删除所有成员。</li>
+<li><code>-l</code> 显示组成员列表。</li>
+</ul>
+</li>
+</ul>
+<h1 id="sudo"><a href="#sudo" class="headerlink" title="sudo"></a>sudo</h1><ul>
+<li><code>sudo -V</code> 显示版本号</li>
+<li><code>sudo -h</code> 帮助</li>
+<li><code>sudo -l</code> 显示当前执行者的权限</li>
+<li><code>sudo -v</code> 重新验证用户并顺延验证失效时间</li>
+<li><code>sudo -k</code> 强制在下次执行 <code>sudo</code> 时验证密码</li>
+<li><code>sudo [-b] [-u {username}|{uid}] {cmd}</code><ul>
+<li><code>-b</code> 后台执行此命令</li>
+<li><code>-u {username}|{uid}</code> 用指定用户执行命令。缺省为 root。</li>
+</ul>
+</li>
+</ul>
+<p>赋予 sudo 特权实际上是修改 <code>/etc/sudoers</code>。该文件只能用 root 用户通过 <code>visudo</code> 来编辑。</p>
+<p><code>/etc/sudoers</code> 中包含两类内容：别名定义、授权规则。</p>
+<p><strong>别名定义</strong></p>
+<p><code>{aliasType} {name1} = {val1}, {val2}...[: {name2} = {val3}, {val4}...]</code></p>
+<ul>
+<li><code>{aliasType}</code> 有以下几种<ul>
+<li><code>Host_Alias</code> 主机别名</li>
+<li><code>User_Alias</code> 用户别名，可以是用户或用户组，若是用户组，前面要加 <code>%</code></li>
+<li><code>Runas_Alias</code> runas 别名，即 <code>sudo</code> 允许切换至的用户</li>
+<li><code>Cmnd_Alias</code> 命令别名</li>
+</ul>
+</li>
+</ul>
+<p><strong>授权规则</strong></p>
+<p><code>{user}|{group} {host}=[({runAs})] [NOPASSWD:] [!]{cmd1}[, {cmd2}...]</code></p>
+<ul>
+<li><code>{user}|{group}</code> 授权用户或用户组，用户组前面要加 <code>%</code></li>
+<li><code>{host}</code> 授权规则对应的主机</li>
+<li><code>({runAs})</code> 切换到哪些用户/组。缺省为 <code>(root:root)</code>。若为 <code>(ALL)</code>，即 <code>(ALL:ALL)</code>，则可切换到任意用户/组。</li>
+<li><code>NOPASSWD:</code> 不需要验证密码。</li>
+<li><code>[!]{cmd1}[, {cmd2}...]</code> 允许执行的命令。<code>!</code> 表示禁止执行。为了避免执行到同名命令导致安全问题，应写命令的全路径，执行时同理。可以使用通配符。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> # 井号为注释</span><br><span class="line"></span><br><span class="line"> # 默认有这么一行，可以当作参照</span><br><span class="line">root  ALL=(ALL)  ALL</span><br><span class="line"></span><br><span class="line"> # 给指定用户添加 sudo 权限</span><br><span class="line">tom  ALL=(ALL)  ALL</span><br><span class="line"></span><br><span class="line"> # 给指定用户组的所有用户添加 sudo 权限</span><br><span class="line">%example  ALL=(ALL)  ALL</span><br><span class="line"></span><br><span class="line"> # 使用 `sudo` 时不需要输入密码，一般不这样做，不太安全</span><br><span class="line">ben  ALL=(ALL)  NOPASSWD: ALL</span><br><span class="line"></span><br><span class="line"> # 指定可以通过 `sudo` 执行的命令的白名单。</span><br><span class="line"> # 多个命令之间用 `, ` 分隔。</span><br><span class="line"> # 命令必须写全路径，执行时也一样。为的是避免其他路径的同名命令被执行。</span><br><span class="line"> # `!` 表示禁止执行。</span><br><span class="line">%example  ALL=/sbin/mount /mnt/example, !/sbin/umount /mnt/example</span><br></pre></td></tr></table></figure>
 <h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><h2 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h2><h3 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h3><p>concatenate 显示文件内容。</p>
 <p><code>cat {file1} [{file2}]...</code><br>显示一个或多个文件的内容。对于多个文件，会将内容拼接起来显示。</p>
 <h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><p>显示指定目录的内容，缺省参数为当前目录。</p>
@@ -824,6 +955,14 @@
 <li>加上</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http_proxy=http://&#123;user&#125;:&#123;pwd&#125;@&#123;host&#125;:&#123;port&#125;</span><br><span class="line">export http_proxy</span><br></pre></td></tr></table></figure>
+<h2 id="添加到-dock-栏"><a href="#添加到-dock-栏" class="headerlink" title="添加到 dock 栏"></a>添加到 dock 栏</h2><ol>
+<li><p>创建 <code>.desktop</code> 文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env xdg-open</span><br><span class="line">[Desktop Entry]</span><br><span class="line">Version=1.0</span><br><span class="line">Type=Application</span><br><span class="line"># 若是脚本且想看到命令行则改为 true</span><br><span class="line">Terminal=false</span><br><span class="line"># 必须，填启动文件路径，后面可加启动参数</span><br><span class="line">Exec=command to run here</span><br><span class="line"># 必须，用于搜索和显示</span><br><span class="line">Name=visible name here</span><br><span class="line">Comment=comment here</span><br><span class="line">Icon=icon path here</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加到桌面。把上述文件移至桌面。</p>
+</li>
+<li>添加到 dock 栏和 app 搜索。把上述文件移至 <code>~/.local/share/applications/</code>。</li>
+</ol>
 <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="FATAL-Could-not-read-from-Boot-Medium-System-Halted"><a href="#FATAL-Could-not-read-from-Boot-Medium-System-Halted" class="headerlink" title="FATAL:Could not read from Boot Medium! System Halted."></a><code>FATAL:Could not read from Boot Medium! System Halted.</code></h2><p>解决：虚拟机设置-存储-删除多余的控制器</p>
 <h2 id="参数风格"><a href="#参数风格" class="headerlink" title="参数风格"></a>参数风格</h2><ol>
 <li>参数用一横的说明后面的参数是字符形式。</li>
@@ -868,8 +1007,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/01/Java/Java Web Services/" rel="next" title="Java Web Services">
-                <i class="fa fa-chevron-left"></i> Java Web Services
+              <a href="/2017/01/01/Java/Design Pattern/" rel="next" title="Design Pattern">
+                <i class="fa fa-chevron-left"></i> Design Pattern
               </a>
             
           </div>
@@ -878,8 +1017,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/01/01/工具/Maven/" rel="prev" title="Maven">
-                Maven <i class="fa fa-chevron-right"></i>
+              <a href="/2017/01/01/工具/Git/" rel="prev" title="Git">
+                Git <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -957,7 +1096,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -970,7 +1109,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1019,7 +1158,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#系统安装"><span class="nav-number">1.</span> <span class="nav-text">系统安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#centos7"><span class="nav-number">1.1.</span> <span class="nav-text">centos7</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开机流程"><span class="nav-number">2.</span> <span class="nav-text">开机流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环境变量"><span class="nav-number">3.</span> <span class="nav-text">环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#etc-profile-内容解析"><span class="nav-number">3.1.</span> <span class="nav-text">/etc/profile 内容解析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#挂载-卸载"><span class="nav-number">4.</span> <span class="nav-text">挂载/卸载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#软件安装"><span class="nav-number">5.</span> <span class="nav-text">软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK"><span class="nav-number">5.1.</span> <span class="nav-text">JDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chrome"><span class="nav-number">5.2.</span> <span class="nav-text">Chrome</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql"><span class="nav-number">5.3.</span> <span class="nav-text">mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#erlang"><span class="nav-number">5.4.</span> <span class="nav-text">erlang</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rabbitmq"><span class="nav-number">5.5.</span> <span class="nav-text">rabbitmq</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#包管理"><span class="nav-number">6.</span> <span class="nav-text">包管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#apt-get"><span class="nav-number">6.1.</span> <span class="nav-text">apt-get</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#yum"><span class="nav-number">6.2.</span> <span class="nav-text">yum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置阿里云源"><span class="nav-number">6.3.</span> <span class="nav-text">配置阿里云源</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令"><span class="nav-number">7.</span> <span class="nav-text">命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用"><span class="nav-number">7.1.</span> <span class="nav-text">常用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cat"><span class="nav-number">7.1.1.</span> <span class="nav-text">cat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ls"><span class="nav-number">7.1.2.</span> <span class="nav-text">ls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cp"><span class="nav-number">7.1.3.</span> <span class="nav-text">cp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mv"><span class="nav-number">7.1.4.</span> <span class="nav-text">mv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#touch"><span class="nav-number">7.1.5.</span> <span class="nav-text">touch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rm"><span class="nav-number">7.1.6.</span> <span class="nav-text">rm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#echo"><span class="nav-number">7.1.7.</span> <span class="nav-text">echo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cd"><span class="nav-number">7.1.8.</span> <span class="nav-text">cd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mkdir"><span class="nav-number">7.1.9.</span> <span class="nav-text">mkdir</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rmdir"><span class="nav-number">7.1.10.</span> <span class="nav-text">rmdir</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grep"><span class="nav-number">7.1.11.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#less"><span class="nav-number">7.1.12.</span> <span class="nav-text">less</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pwd"><span class="nav-number">7.1.13.</span> <span class="nav-text">pwd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#diff"><span class="nav-number">7.1.14.</span> <span class="nav-text">diff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#file"><span class="nav-number">7.1.15.</span> <span class="nav-text">file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">7.1.16.</span> <span class="nav-text">find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#locate"><span class="nav-number">7.1.17.</span> <span class="nav-text">locate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort"><span class="nav-number">7.1.18.</span> <span class="nav-text">sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#export"><span class="nav-number">7.1.19.</span> <span class="nav-text">export</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#man"><span class="nav-number">7.1.20.</span> <span class="nav-text">man</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#command-–help-h"><span class="nav-number">7.1.21.</span> <span class="nav-text">{command} –help|-h</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#info-command"><span class="nav-number">7.1.22.</span> <span class="nav-text">info {command}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#command-gt-file"><span class="nav-number">7.1.23.</span> <span class="nav-text">{command} &gt; {file}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#command-gt-gt-file"><span class="nav-number">7.1.24.</span> <span class="nav-text">{command} &gt;&gt; {file}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#command-command"><span class="nav-number">7.1.25.</span> <span class="nav-text">{command} | {command}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#command-2-gt-file"><span class="nav-number">7.1.26.</span> <span class="nav-text">{command} 2&gt; {file}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#command-gt-file-2-gt-amp-1"><span class="nav-number">7.1.27.</span> <span class="nav-text">{command} &gt; {file} 2&gt;&amp;1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#command-lt-file"><span class="nav-number">7.1.28.</span> <span class="nav-text">{command} &lt; {file}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#du"><span class="nav-number">7.1.29.</span> <span class="nav-text">du</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chmod"><span class="nav-number">7.1.30.</span> <span class="nav-text">chmod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chown"><span class="nav-number">7.1.31.</span> <span class="nav-text">chown</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程"><span class="nav-number">7.2.</span> <span class="nav-text">进程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特殊字符"><span class="nav-number">8.</span> <span class="nav-text">特殊字符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令行按键"><span class="nav-number">9.</span> <span class="nav-text">命令行按键</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置"><span class="nav-number">10.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装配置文件"><span class="nav-number">10.1.</span> <span class="nav-text">安装配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#yum-代理"><span class="nav-number">10.2.</span> <span class="nav-text">yum 代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局代理"><span class="nav-number">10.3.</span> <span class="nav-text">全局代理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">11.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#FATAL-Could-not-read-from-Boot-Medium-System-Halted"><span class="nav-number">11.1.</span> <span class="nav-text">FATAL:Could not read from Boot Medium! System Halted.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数风格"><span class="nav-number">11.2.</span> <span class="nav-text">参数风格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Failed-to-open-EFI-BOOT-grubx64-efi-Not-Found"><span class="nav-number">11.3.</span> <span class="nav-text">Failed to open \EFI\BOOT\grubx64.efi - Not Found</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vdi-迁移"><span class="nav-number">11.4.</span> <span class="nav-text">vdi 迁移</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#系统安装"><span class="nav-number">1.</span> <span class="nav-text">系统安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#centos7"><span class="nav-number">1.1.</span> <span class="nav-text">centos7</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开机流程"><span class="nav-number">2.</span> <span class="nav-text">开机流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环境变量"><span class="nav-number">3.</span> <span class="nav-text">环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#etc-profile-内容解析"><span class="nav-number">3.1.</span> <span class="nav-text">/etc/profile 内容解析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#挂载-卸载"><span class="nav-number">4.</span> <span class="nav-text">挂载/卸载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#软件安装"><span class="nav-number">5.</span> <span class="nav-text">软件安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK"><span class="nav-number">5.1.</span> <span class="nav-text">JDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chrome"><span class="nav-number">5.2.</span> <span class="nav-text">Chrome</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql"><span class="nav-number">5.3.</span> <span class="nav-text">mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#erlang"><span class="nav-number">5.4.</span> <span class="nav-text">erlang</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rabbitmq"><span class="nav-number">5.5.</span> <span class="nav-text">rabbitmq</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#包管理"><span class="nav-number">6.</span> <span class="nav-text">包管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#apt-get"><span class="nav-number">6.1.</span> <span class="nav-text">apt-get</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#yum"><span class="nav-number">6.2.</span> <span class="nav-text">yum</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置阿里云源"><span class="nav-number">6.3.</span> <span class="nav-text">配置阿里云源</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用户-用户组管理"><span class="nav-number">7.</span> <span class="nav-text">用户/用户组管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#用户管理"><span class="nav-number">7.1.</span> <span class="nav-text">用户管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户组管理"><span class="nav-number">7.2.</span> <span class="nav-text">用户组管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户和用户组之间的操作"><span class="nav-number">7.3.</span> <span class="nav-text">用户和用户组之间的操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sudo"><span class="nav-number">8.</span> <span class="nav-text">sudo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令"><span class="nav-number">9.</span> <span class="nav-text">命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常用"><span class="nav-number">9.1.</span> <span class="nav-text">常用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#cat"><span class="nav-number">9.1.1.</span> <span class="nav-text">cat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ls"><span class="nav-number">9.1.2.</span> <span class="nav-text">ls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cp"><span class="nav-number">9.1.3.</span> <span class="nav-text">cp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mv"><span class="nav-number">9.1.4.</span> <span class="nav-text">mv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#touch"><span class="nav-number">9.1.5.</span> <span class="nav-text">touch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rm"><span class="nav-number">9.1.6.</span> <span class="nav-text">rm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#echo"><span class="nav-number">9.1.7.</span> <span class="nav-text">echo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cd"><span class="nav-number">9.1.8.</span> <span class="nav-text">cd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mkdir"><span class="nav-number">9.1.9.</span> <span class="nav-text">mkdir</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rmdir"><span class="nav-number">9.1.10.</span> <span class="nav-text">rmdir</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grep"><span class="nav-number">9.1.11.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#less"><span class="nav-number">9.1.12.</span> <span class="nav-text">less</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pwd"><span class="nav-number">9.1.13.</span> <span class="nav-text">pwd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#diff"><span class="nav-number">9.1.14.</span> <span class="nav-text">diff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#file"><span class="nav-number">9.1.15.</span> <span class="nav-text">file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">9.1.16.</span> <span class="nav-text">find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#locate"><span class="nav-number">9.1.17.</span> <span class="nav-text">locate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort"><span class="nav-number">9.1.18.</span> <span class="nav-text">sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#export"><span class="nav-number">9.1.19.</span> <span class="nav-text">export</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#man"><span class="nav-number">9.1.20.</span> <span class="nav-text">man</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#command-–help-h"><span class="nav-number">9.1.21.</span> <span class="nav-text">{command} –help|-h</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#info-command"><span class="nav-number">9.1.22.</span> <span class="nav-text">info {command}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#command-gt-file"><span class="nav-number">9.1.23.</span> <span class="nav-text">{command} &gt; {file}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#command-gt-gt-file"><span class="nav-number">9.1.24.</span> <span class="nav-text">{command} &gt;&gt; {file}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#command-command"><span class="nav-number">9.1.25.</span> <span class="nav-text">{command} | {command}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#command-2-gt-file"><span class="nav-number">9.1.26.</span> <span class="nav-text">{command} 2&gt; {file}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#command-gt-file-2-gt-amp-1"><span class="nav-number">9.1.27.</span> <span class="nav-text">{command} &gt; {file} 2&gt;&amp;1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#command-lt-file"><span class="nav-number">9.1.28.</span> <span class="nav-text">{command} &lt; {file}</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#du"><span class="nav-number">9.1.29.</span> <span class="nav-text">du</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chmod"><span class="nav-number">9.1.30.</span> <span class="nav-text">chmod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chown"><span class="nav-number">9.1.31.</span> <span class="nav-text">chown</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程"><span class="nav-number">9.2.</span> <span class="nav-text">进程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#特殊字符"><span class="nav-number">10.</span> <span class="nav-text">特殊字符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令行按键"><span class="nav-number">11.</span> <span class="nav-text">命令行按键</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置"><span class="nav-number">12.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装配置文件"><span class="nav-number">12.1.</span> <span class="nav-text">安装配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#yum-代理"><span class="nav-number">12.2.</span> <span class="nav-text">yum 代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局代理"><span class="nav-number">12.3.</span> <span class="nav-text">全局代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加到-dock-栏"><span class="nav-number">12.4.</span> <span class="nav-text">添加到 dock 栏</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">13.</span> <span class="nav-text">问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#FATAL-Could-not-read-from-Boot-Medium-System-Halted"><span class="nav-number">13.1.</span> <span class="nav-text">FATAL:Could not read from Boot Medium! System Halted.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数风格"><span class="nav-number">13.2.</span> <span class="nav-text">参数风格</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Failed-to-open-EFI-BOOT-grubx64-efi-Not-Found"><span class="nav-number">13.3.</span> <span class="nav-text">Failed to open \EFI\BOOT\grubx64.efi - Not Found</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vdi-迁移"><span class="nav-number">13.4.</span> <span class="nav-text">vdi 迁移</span></a></li></ol></li></ol></div>
             
 
           </div>

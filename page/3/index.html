@@ -241,6 +241,392 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/11/MessageQueue/RabbitMQ/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/11/MessageQueue/RabbitMQ/" itemprop="url">RabbitMQ</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-11T12:00:00+08:00">2018-04-11</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="vhost"><a href="#vhost" class="headerlink" title="vhost"></a>vhost</h1><p>进入 RabbitMQ 安装路径。</p>
+<ul>
+<li>创建: <code>rabbitmqctl add_vhost {vhost_name}</code></li>
+<li>删除: <code>rabbitmqctl delete_vhost {vhost_name}</code></li>
+<li>列举: <code>rabbitmqctl list_vhosts</code> </li>
+<li>管理远程节点: <code>rabbitmqctl -n {erl_app}@{server_name}</code><ul>
+<li>{erl_app} 是 erlang 应用程序名字，这里固定为 rabbit。</li>
+<li>{server_name} 是服务器主机名或 IP 地址。</li>
+<li>需要确保运行 Rabbit 节点的服务器和运行 rabbitmqctl 的工作站安装了相同的 Erlang Cookie。</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/01/数据库/Sql必知必会笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/01/数据库/Sql必知必会笔记/" itemprop="url">Sql必知必会笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-01T22:29:00+08:00">2018-04-01</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="检索数据"><a href="#检索数据" class="headerlink" title="检索数据"></a>检索数据</h1><h2 id="限制结果"><a href="#限制结果" class="headerlink" title="限制结果"></a>限制结果</h2><p>SQL Server 和 Access</p>
+<p><code>select top 5 {col} from {table};</code></p>
+<p>DB2</p>
+<p><code>select {col} from {table} fetch first 5 rows only;</code></p>
+<p>Oracle</p>
+<p><code>select {col} from {table} where rownum &lt;= 5;</code></p>
+<p>MySQL、MariaDB、PostgreSQL 和 SQLite</p>
+<p><code>select {col} from {table} limit 5;</code></p>
+<p><code>select {col} from {table} limit 5 offset 3;</code> 第 3 行起的 5 行数据</p>
+<p><code>select {col} from {table} limit 5,3;</code> MySQL 和 MariaDB 的快捷键</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/19/Java/JVM特性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/19/Java/JVM特性/" itemprop="url">JVM特性</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-19T00:00:00+08:00">2018-03-19</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>部分内容摘录、整理自《深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第 2 版）》。</p>
+<h1 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h1><h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><h3 id="线程隔离的数据区"><a href="#线程隔离的数据区" class="headerlink" title="线程隔离的数据区"></a>线程隔离的数据区</h3><p><strong>程序计数器 Program Counter Register</strong></p>
+<p>当前线程所执行的字节码的行号指示器。如果正在执行的是 native 方法，则计数器值为空。</p>
+<p><strong>Java 虚拟机栈 Java Virtual Machine Stacks</strong></p>
+<p>每个方法在执行时都会创建一个栈帧用于存储局部变量表、操作数栈、动态链接、方法出口等信息。</p>
+<p>一般所说的“栈”指的是其中的局部变量表。局部变量表存放了编译器可知的各种基本数据类型、对象引用（可能是一个指向对象起始地址的引用指针，也可能是一个代表对象的句柄或其他与此对象相关的位置）和 returnAddress 类型（指向了一条字节码指令的地址）。</p>
+<p>64 位长度的 long 和 double 类型的数据会占用 2 个局部变量空间（Slot），其余类型只占用 1 个。局部变量表所需的内存空间在编译期间完成分配，运行期不会更改。</p>
+<p><strong>本地方法栈 Native Method Stack</strong></p>
+<p>与虚拟机栈类似，只不过是给本地方法使用的。本地方法栈中的语言、使用方式和数据结构没有强制规定。某些虚拟机甚至直接把虚拟机栈和本地方法栈合二为一。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/19/Java/JVM特性/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/14/Java/由HashMap和HashTable说开/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1485,446 +1871,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/Java/Spring/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zeerho">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zeerho">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/01/Java/Spring/" itemprop="url">Spring</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:05+08:00">2017-01-01</time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>大部分内容整理自《Spring实战（第4版）》</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/01/01/Java/Spring/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/XML/SAX/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zeerho">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zeerho">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/01/XML/SAX/" itemprop="url">SAX</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="SAX"><a href="#SAX" class="headerlink" title="SAX"></a>SAX</h1><blockquote>
-<p>Simple API for XML</p>
-</blockquote>
-<ul>
-<li>是基于事件的 API。</li>
-<li>在一个比 DOM 低的级别上操作。</li>
-<li>提供比 DOM 更多的控制。</li>
-<li>几乎总是比 DOM 更有效率。</li>
-<li>需要比 DOM 更多的工作。</li>
-</ul>
-<h1 id="常用的-SAX-接口和类"><a href="#常用的-SAX-接口和类" class="headerlink" title="常用的 SAX 接口和类"></a>常用的 SAX 接口和类</h1><p>SAX 将其事件分为几个接口：</p>
-<ul>
-<li><strong>ContentHandler</strong> 定义与文档本身关联的事件（例如，开始和结束标记）。大多数应用程序都注册这些事件。</li>
-<li><strong>DTDHandler</strong> 定义与 DTD 关联的事件。然而，它不定义足够的事件来完整地报告 DTD。如果需要对 DTD 进行语法分析，请使用可选的 DeclHandler。DeclHandler 是 SAX 的扩展，并且不是所有的语法分析器都支持它。</li>
-<li><strong>EntityResolver</strong> 定义与装入实体关联的事件。只有少数几个应用程序注册这些事件。</li>
-<li><strong>ErrorHandler</strong> 定义错误事件。许多应用程序注册这些事件以便用它们自己的方式报错。</li>
-</ul>
-<p>为简化工作，SAX 在 DefaultHandler 类中提供了这些接口的缺省实现。在大多数情况下，为应用程序扩展 DefaultHandler 并覆盖相关的方法要比直接实现一个接口更容易。</p>
-<h1 id="XMLReader"><a href="#XMLReader" class="headerlink" title="XMLReader"></a>XMLReader</h1><p>为注册事件处理器并启动语法分析器，应用程序使用 XMLReader 接口中的相关方法，启动语法分析：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parser.parse(args[0]);</span><br></pre></td></tr></table></figure></p>
-<p><strong>XMLReader 的主要方法是：</strong></p>
-<ul>
-<li><strong>parse()</strong> 对 XML 文档进行语法分析。 parse() 有两个版本；一个接受文件名或 URL，另一个接受 InputSource 对象。</li>
-<li><strong>setContentHandler() 、 setDTDHandler() 、 setEntityResolver() 和 setErrorHandler()</strong> 让应用程序注册事件处理器。</li>
-<li><strong>setFeature() 和 setProperty()</strong> 控制语法分析器如何工作。它们采用一个特性或功能标识（一个类似于名称空间的 URI 和值）。功能采用 Boolean 值，而特性采用“对象”。</li>
-</ul>
-<p><strong>最常用的 XMLReaderFactory 功能是：</strong></p>
-<ul>
-<li><strong><a href="http://xml.org/sax/features/namespaces" target="_blank" rel="noopener">http://xml.org/sax/features/namespaces</a></strong>，所有 SAX 语法分析器都能识别它。如果将它设置为 true（缺省值），则在调用 ContentHandler 的方法时，语法分析器将识别出名称空间并解析前缀。</li>
-<li><strong><a href="http://xml.org/sax/features/validation" target="_blank" rel="noopener">http://xml.org/sax/features/validation</a></strong>，它是可选的。如果将它设置为 true，则验证语法分析器将验证该文档。非验证语法分析器忽略该功能。</li>
-</ul>
-<h1 id="XMLReaderFactory"><a href="#XMLReaderFactory" class="headerlink" title="XMLReaderFactory"></a>XMLReaderFactory</h1><p>XMLReaderFactory 创建语法分析器对象。它定义 createXMLReader() 的两个版本：一个采用语法分析器的类名作为参数，另一个从 org.xml.sax.driver 系统特性中获得类名称。<br>对于 Xerces，类是 org.apache.xerces.parsers.SAXParser 。应该使用 XMLReaderFactory ，因为它易于切换至另一种 SAX 语法分析器。实际上，只需要更改一行然后重新编译。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">XMLReader parser = XMLReaderFactory.createXMLReader(</span><br><span class="line">                       &quot;org.apache.xerces.parsers.SAXParser&quot;);</span><br></pre></td></tr></table></figure></p>
-<p>为获得更大的灵活性，应用程序可以从命令行读取类名或使用不带参数的 createXMLReader() 。因此，甚至可以不重新编译就更改语法分析器。</p>
-<h1 id="InputSource"><a href="#InputSource" class="headerlink" title="InputSource"></a>InputSource</h1><p>InputSource 控制语法分析器如何读取文件，包括 XML 文档和实体。<br>在大多数情况下，文档是从 URL 装入的。但是，有特殊需求的应用程序可以覆盖 InputSource 。例如，这可以用来从数据库中装入文档。</p>
-<h1 id="ContentHandler"><a href="#ContentHandler" class="headerlink" title="ContentHandler"></a>ContentHandler</h1><p>ContentHandler 是最常用的 SAX 接口，因为它定义 XML 文档的事件。</p>
-<p>ContentHandler 声明下列事件：</p>
-<ul>
-<li><strong>startDocument() / endDocument()</strong> 通知应用程序文档的开始或结束。</li>
-<li><strong>startElement() / endElement()</strong> 通知应用程序标记的开始或结束。属性作为 Attributes 参数传递。即使只有一个标记，“空”元素（例如， <code>&lt;img href=&quot;logo.gif&quot;/&gt;</code>）也生成 startElement() 和 endElement() 。</li>
-<li><strong>startPrefixMapping() / endPrefixMapping()</strong> 通知应用程序命名空间作用域。通常不需要该信息，因为当 <a href="http://xml.org/sax/features/namespaces" target="_blank" rel="noopener">http://xml.org/sax/features/namespaces</a> 为 true 时，语法分析器已经解析了名称空间。</li>
-<li>当语法分析器在元素中发现文本（已经过语法分析的字符数据）时， <strong>characters() / ignorableWhitespace()</strong> 会通知应用程序。要知道，语法分析器负责将文本分配到几个事件（更好地管理其缓冲区）。 ignorableWhitespace 事件用于由 XML 标准定义的可忽略空格。</li>
-<li><strong>processingInstruction()</strong> 将处理指令通知应用程序。</li>
-<li><strong>skippedEntity()</strong> 通知应用程序已经跳过了一个实体（即，当语法分析器未在 DTD/schema 中发现实体声明时）。</li>
-<li><strong>setDocumentLocator()</strong> 将 Locator 对象传递到应用程序。请注意，不需要 SAX 语法分析器提供 Locator ，但是如果它提供了，则必须在任何其它事件之前激活该事件。</li>
-</ul>
-<h1 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h1><p>在 startElement() 事件中，应用程序在 Attributes 参数中接收属性列表。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String attribute = attributes.getValue(&quot;&quot;,&quot;price&quot;);</span><br></pre></td></tr></table></figure></p>
-<p>Attributes 参数仅在 startElement() 事件期间可用。如果在事件之间需要它，则用 AttributesImpl 复制一个。</p>
-<p>Attributes 定义下列方法：</p>
-<ul>
-<li><strong>getValue(i) / getValue(qName) /getValue(uri,localName)</strong> 返回第 i 个属性值或给定名称的属性值。</li>
-<li><strong>getLength()</strong> 返回属性数目。</li>
-<li><strong>getQName(i) / getLocalName(i) /getURI(i)</strong> 返回限定名（带前缀）、本地名（不带前缀）和第 i 个属性的名称空间 URI。</li>
-<li><strong>getType(i) / getType(qName) / getType(uri,localName)</strong> 返回第 i 个属性的类型或者给定名称的属性类型。类型为字符串，即在 DTD 所使用的： “CDATA”、“ID”、“IDREF”、“IDREFS”、“NMTOKEN”、“NMTOKENS”、“ENTITY”、“ENTITIES” 或 “NOTATION”。</li>
-</ul>
-<h1 id="定位器"><a href="#定位器" class="headerlink" title="定位器"></a>定位器</h1><p>Locator 为应用程序提供行和列的位置。不需要语法分析器来提供 Locator 对象。</p>
-<p>Locator 定义下列方法：</p>
-<ul>
-<li><strong>getColumnNumber()</strong> 返回当前事件结束时所在的那一列。在 endElement() 事件中，它将返回结束标记所在的最后一列。</li>
-<li><strong>getLineNumber()</strong> 返回当前事件结束时所在的行。在 endElement() 事件中，它将返回结束标记所在的行。</li>
-<li><strong>getPublicId()</strong> 返回当前文档事件的公共标识。</li>
-<li><strong>getSystemId()</strong> 返回当前文档事件的系统标识。</li>
-</ul>
-<h1 id="DTDHandler"><a href="#DTDHandler" class="headerlink" title="DTDHandler"></a>DTDHandler</h1><p>DTDHandler 声明两个与 DTD 语法分析器相关的事件。</p>
-<ul>
-<li><strong>notationDecl()</strong> 通知应用程序已经声明了一个标记。</li>
-<li><strong>nparsedEntityDecl()</strong> 通知应用程序已经发现了一个未经过语法分析的实体声明。</li>
-</ul>
-<h1 id="EntityResolver"><a href="#EntityResolver" class="headerlink" title="EntityResolver"></a>EntityResolver</h1><p>EntityResolver 接口仅定义一个事件 resolveEntity() ，它返回 InputSource。<br>因为 SAX 语法分析器已经可以解析大多数 URL，所以很少应用程序实现 EntityResolver 。例外情况是目录文件，它将公共标识解析成系统标识。如果在应用程序中需要目录文件，请下载 Norman Walsh 的目录软件包。</p>
-<h1 id="ErrorHandler"><a href="#ErrorHandler" class="headerlink" title="ErrorHandler"></a>ErrorHandler</h1><p>ErrorHandler 接口定义错误事件。处理这些事件的应用程序可以提供定制错误处理。<br>安装了定制错误处理器后，语法分析器不再抛出异常。抛出异常是事件处理器的责任。<br>接口定义了与错误的三个级别或严重性对应的三个方法：</p>
-<ul>
-<li><strong>warning()</strong> 警示那些不是由 XML 规范定义的错误。例如，当没有 XML 声明时，某些语法分析器发出警告。它不是错误（因为声明是可选的），但是它可能值得注意。</li>
-<li><strong>error()</strong> 警示那些由 XML 规范定义的错误。</li>
-<li><strong>fatalError()</strong> 警示那些由 XML 规范定义的致命错误。</li>
-</ul>
-<h1 id="SAXException"><a href="#SAXException" class="headerlink" title="SAXException"></a>SAXException</h1><p>SAX 定义的大多数方法都可以抛出 SAXException 。当对 XML 文档进行语法分析时， SAXException 通知一个错误。<br>错误可以是语法分析错误也可以是事件处理器中的错误。要报告来自事件处理器的其它异常，可以将异常封装在 SAXException 中。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/UML类图/设计模式及设计方法——UML类图几种关系的总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zeerho">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zeerho">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/01/UML类图/设计模式及设计方法——UML类图几种关系的总结/" itemprop="url">设计模式及设计方法——UML类图几种关系的总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在UML类图中，常见的有以下几种关系:<strong>泛化</strong>（Generalization）,  <strong>实现</strong>（Realization）,<strong>关联</strong>（Association）,<strong>聚合</strong>（Aggregation）,<strong>组合</strong>(Composition)，<strong>依赖</strong>(Dependency)</p>
-<h1 id="1-泛化-Generalization"><a href="#1-泛化-Generalization" class="headerlink" title="1. 泛化(Generalization)"></a>1. <strong>泛化</strong>(Generalization)</h1><p>【泛化关系】：是一种继承关系,它指定了子类如何特化父类的所有特征和行为例如：老虎是动物的一种.<br>【箭头指向】：带三角箭头的实线，箭头指向父类<br><img src="http://hi.csdn.net/attachment/201104/22/0_1303436788Qi60.gif" alt="泛化关系"></p>
-<h1 id="2-实现（Realization"><a href="#2-实现（Realization" class="headerlink" title="2. 实现（Realization)"></a>2. <strong>实现</strong>（Realization)</h1><p>【实现关系】：是一种类与接口的关系，表示类是接口所有特征和行为的实现<br>【箭头指向】：带三角箭头的虚线，箭头指向接口<br><img src="http://hi.csdn.net/attachment/201104/22/0_13034367939K49.gif" alt="实现关系"></p>
-<h1 id="3-关联（Association）"><a href="#3-关联（Association）" class="headerlink" title="3. 关联（Association）"></a>3. <strong>关联</strong>（Association）</h1><p>【关联关系】：是一种拥有的关系,它使一个类知道另一个类的属性和方法；如：老师与学生，丈夫与妻子<br>关联可以是双向的，也可以是单向的。双向的关联可以有两个箭头或者没有箭头，单向的关联有一个箭头。<br>【代码体现】：成员变量<br>【箭头及指向】：带普通箭头的实心线，指向被拥有者<br><img src="http://hi.csdn.net/attachment/201104/22/0_1303436801W1kf.gif" alt="关联关系"></p>
-<p>上图中，老师与学生是双向关联，老师有多名学生，学生也可能有多名老师。但学生与某课程间的关系为单向关联，一名学生可能要上多门课程，课程是个抽象的东西他不拥有学生。<br><img src="http://hi.csdn.net/attachment/201104/22/0_13034368062Ka3.gif" alt="自身关联"><br> 上图为自身关联</p>
-<h1 id="4-聚合（Aggregation）"><a href="#4-聚合（Aggregation）" class="headerlink" title="4. 聚合（Aggregation）"></a>4. <strong>聚合</strong>（Aggregation）</h1><p>【聚合关系】：是整体与部分的关系.如车和轮胎是整体和部分的关系.<br>聚合关系是关联关系的一种，是强的关联关系；关联和聚合在语法上无法区分，必须考察具体的逻辑关系。<br>【代码体现】：成员变量<br>【箭头及指向】：带空心菱形的实心线，菱形指向整体<br><img src="http://hi.csdn.net/attachment/201104/22/0_1303436811y36B.gif" alt="聚合关系"></p>
-<h1 id="5-组合-Composition"><a href="#5-组合-Composition" class="headerlink" title="5. 组合(Composition)"></a>5. <strong>组合</strong>(Composition)</h1><p>【组合关系】：是整体与部分的关系.,没有公司就不存在部门      组合关系是关联关系的一种，是比聚合关系还要强的关系，它要求普通的聚合关系中代表整体的对象负责代表部分的对象的生命周期<br>【代码体现】：成员变量<br>【箭头及指向】：带实心菱形的实线，菱形指向整体<br><img src="http://hi.csdn.net/attachment/201104/22/0_1303436817mqXK.gif" alt="组合关系"></p>
-<h1 id="6-依赖-Dependency"><a href="#6-依赖-Dependency" class="headerlink" title="6. 依赖(Dependency)"></a>6. <strong>依赖</strong>(Dependency)</h1><p>【依赖关系】：是一种使用的关系,所以要尽量不使用双向的互相依赖。<br>【代码表现】：局部变量、方法的参数或者对静态方法的调用<br>【箭头及指向】：带箭头的虚线，指向被使用者<br> <img src="http://hi.csdn.net/attachment/201104/22/0_130343682580L6.gif" alt="依赖关系"></p>
-<p>各种关系的强弱顺序：<br><strong>泛化= 实现&gt; 组合&gt; 聚合&gt; 关联&gt; 依赖</strong></p>
-<p>下面这张UML图，比较形象地展示了各种类图关系：<br><img src="http://hi.csdn.net/attachment/201202/29/0_1330497855hqk2.gif" alt="各种类图关系"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1975,7 +1921,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1988,7 +1934,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

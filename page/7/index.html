@@ -241,6 +241,1752 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/操作系统/Linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/01/01/操作系统/Linux/" itemprop="url">Linux</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="系统安装"><a href="#系统安装" class="headerlink" title="系统安装"></a>系统安装</h1><h2 id="centos7"><a href="#centos7" class="headerlink" title="centos7"></a>centos7</h2><p>常用分区计划：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">挂载点</th>
+<th style="text-align:left">大小</th>
+<th style="text-align:left">设备类型</th>
+<th style="text-align:left">文件系统</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>/boot</code></td>
+<td style="text-align:left">1024M</td>
+<td style="text-align:left">standard Partition</td>
+<td style="text-align:left">xfs</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>swap</code></td>
+<td style="text-align:left">内存容量</td>
+<td style="text-align:left">LVM</td>
+<td style="text-align:left">swap</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>/</code></td>
+<td style="text-align:left">剩余</td>
+<td style="text-align:left">LVM</td>
+<td style="text-align:left">xfs</td>
+</tr>
+</tbody>
+</table>
+<p>安装前强制使用 GPT 分区表。</p>
+<ol>
+<li>光标移至 <code>Install CentOS 7</code></li>
+<li>按 Tab 键，在下方输入参数</li>
+<li><code>vmlinuz initrd=initrd.img inst.stage2=hd:LABEL=CentOS\x207\x20x86_64 rd.live.check quiet inst.gpt</code> 关键是 <code>inst.gpt</code>。</li>
+</ol>
+<h1 id="开机流程"><a href="#开机流程" class="headerlink" title="开机流程"></a>开机流程</h1><ol>
+<li>BIOS：开机主动执行的固件，会识别用户设定的用于启动系统的存储设备。</li>
+<li>MBR：用于启动系统的存储设备的第一个扇区（或 LBA）内的主要启动记录区块，内含开机管理程序。</li>
+<li>开机管理程序（boot loader）：用于读取并执行系统核心文件。<ol>
+<li>提供选单：用户可以选择不同的开机项目。</li>
+<li>载入核心文件：直接指向开机程序的地址分段来启动操作系统。</li>
+<li>转交其他 loader：将开机管理功能转交给其他 loader 负责。每个分区的启动扇区里都可以放入一个 boot loader，该 loader 只认识本分区的系统核心文件和其他分区的 loader。</li>
+</ol>
+</li>
+<li>核心文件：启动操作系统的各种功能</li>
+</ol>
+<p>一些发行版使用一个表来管理开机自启的进程，该表通常位于 /etc/inittab 文件中。另一些发行版则采用 /etc/init.d/ 目录，将开机时启动或停止某个应用的脚本放到该目录下，这些脚本通过 /etc/rcX.d/ 目录下的符号链接（链接到 /etc/init.d/ 目录中的启动脚本）启动，其中 X 代表运行级（run level）。</p>
+<h1 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h1><p><code>$ export VAR=&quot;test&quot;</code> 临时变量，重启系统后失效。</p>
+<p>/etc/environment 是整个系统的环境，/etc/profile 是所有用户的环境。</p>
+<p>login shell：通过终端凭借用户名和密码登录的动作。<br>non-login shell：在图形界面启动一个 terminal，或者执行 /bin/bash，/usr/bin/bash。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">文件</th>
+<th style="text-align:center">非交互+登录</th>
+<th style="text-align:center">交互+登录</th>
+<th style="text-align:center">交互+非登录</th>
+<th style="text-align:center">非交互+非登录</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">/etc/profile</td>
+<td style="text-align:center">加载</td>
+<td style="text-align:center">加载</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">/etc/bashrc</td>
+<td style="text-align:center">加载</td>
+<td style="text-align:center">加载</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">~/.bash_profile</td>
+<td style="text-align:center">加载</td>
+<td style="text-align:center">加载</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">~/.bashrc</td>
+<td style="text-align:center">加载</td>
+<td style="text-align:center">加载</td>
+<td style="text-align:center">加载</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">BASH_ENV</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">加载</td>
+</tr>
+</tbody>
+</table>
+<p>可以修改 shell 来模拟交互登录式的动作：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/path/to/my_sh -ilex</span></span><br><span class="line"><span class="comment">#e 一旦出错就退出当前 shell</span></span><br><span class="line"><span class="comment">#i 交互式</span></span><br><span class="line"><span class="comment">#l 登录式</span></span><br><span class="line"><span class="comment">#x 显示所执行的每条命令</span></span><br></pre></td></tr></table></figure>
+<p><strong>login shell 读取配置的顺序</strong></p>
+<ol>
+<li>/etc/profile<ul>
+<li>-&gt; /etc/inputrc</li>
+<li>-&gt; /etc/profile.d/*.sh -&gt; /etc/sysconfig/i18n</li>
+</ul>
+</li>
+<li>读到任意一个就忽略后面的（注意：调用链括号部分跟上面有重复）<ol>
+<li>~/.bash_profile -&gt; ~/.bashrc -&gt; /etc/bashrc (-&gt; /etc/profile.d/*.sh -&gt; /etc/sysconfig/i18n)</li>
+<li>~/.bash_login</li>
+<li>~/.profile</li>
+</ol>
+</li>
+</ol>
+<p><strong>non-login shell 读取配置的顺序</strong></p>
+<ol>
+<li>~/.bashrc -&gt; /etc/bashrc -&gt; /etc/profile.d/*.sh -&gt; /etc/sysconfig/i18n</li>
+</ol>
+<p><strong>总结：</strong>两者的交点是 ~/.bashrc（用户级）和 /etc/bashrc（系统级）。</p>
+<h2 id="etc-profile-内容解析"><a href="#etc-profile-内容解析" class="headerlink" title="/etc/profile 内容解析"></a>/etc/profile 内容解析</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment"># 根据 UID 决定 PATH 变量要不要含有 sbin 的系统指令目录</span></span><br><span class="line"><span class="function"><span class="title">pathmunge</span></span> () &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">":<span class="variable">$&#123;PATH&#125;</span>:"</span> <span class="keyword">in</span></span><br><span class="line">        *:<span class="string">"<span class="variable">$1</span>"</span>:*)</span><br><span class="line">            ;;</span><br><span class="line">        *)</span><br><span class="line">            <span class="keyword">if</span> [ <span class="string">"<span class="variable">$2</span>"</span> = <span class="string">"after"</span> ] ; <span class="keyword">then</span></span><br><span class="line">                PATH=<span class="variable">$PATH</span>:<span class="variable">$1</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                PATH=<span class="variable">$1</span>:<span class="variable">$PATH</span></span><br><span class="line">            <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">esac</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="comment"># 根据用户的账号设置此变量内容</span></span><br><span class="line"><span class="keyword">if</span> [ -x /usr/bin/id ]; <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$EUID</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># ksh workaround</span></span><br><span class="line">        EUID=`/usr/bin/id -u`</span><br><span class="line">        UID=`/usr/bin/id -ru`</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line">    USER=<span class="string">"`/usr/bin/id -un`"</span></span><br><span class="line">    LOGNAME=<span class="variable">$USER</span></span><br><span class="line">    MAIL=<span class="string">"/var/spool/mail/<span class="variable">$USER</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"> <span class="comment"># Path manipulation</span></span><br><span class="line"> <span class="comment"># 调用前面的 `pathmunge` 函数</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$EUID</span>"</span> = <span class="string">"0"</span> ]; <span class="keyword">then</span></span><br><span class="line">    pathmunge /usr/sbin</span><br><span class="line">    pathmunge /usr/<span class="built_in">local</span>/sbin</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    pathmunge /usr/<span class="built_in">local</span>/sbin after</span><br><span class="line">    pathmunge /usr/sbin after</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">HOSTNAME=`/usr/bin/hostname 2&gt;/dev/null`</span><br><span class="line"></span><br><span class="line"> <span class="comment"># 命令历史纪录相关</span></span><br><span class="line">HISTSIZE=1000</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$HISTCONTROL</span>"</span> = <span class="string">"ignorespace"</span> ] ; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">export</span> HISTCONTROL=ignoreboth</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">export</span> HISTCONTROL=ignoredups</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL</span><br><span class="line"></span><br><span class="line"> <span class="comment"># By default, we want umask to get set. This sets it for login shell</span></span><br><span class="line"> <span class="comment"># Current threshold for system reserved uid/gids is 200</span></span><br><span class="line"> <span class="comment"># You could check uidgid reservation validity in</span></span><br><span class="line"> <span class="comment"># /usr/share/doc/setup-*/uidgid file</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$UID</span> -gt 199 ] &amp;&amp; [ <span class="string">"`/usr/bin/id -gn`"</span> = <span class="string">"`/usr/bin/id -un`"</span> ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">umask</span> 002</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">umask</span> 022</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"> <span class="comment"># 调用其他配置</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> /etc/profile.d/*.sh /etc/profile.d/sh.local ; <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">if</span> [ -r <span class="string">"<span class="variable">$i</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="keyword">if</span> [ <span class="string">"<span class="variable">$&#123;-#*i&#125;</span>"</span> != <span class="string">"$-"</span> ]; <span class="keyword">then</span></span><br><span class="line">            . <span class="string">"<span class="variable">$i</span>"</span></span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            . <span class="string">"<span class="variable">$i</span>"</span> &gt;/dev/null</span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">unset</span> i</span><br><span class="line"><span class="built_in">unset</span> -f pathmunge</span><br></pre></td></tr></table></figure>
+<h1 id="挂载-卸载"><a href="#挂载-卸载" class="headerlink" title="挂载/卸载"></a>挂载/卸载</h1><p><code>df -h</code> 查看挂载情况<br><code>umount {file_system}</code> 卸载，终端中挂载消失，UI 中挂载仍在<br><code>mount {file_system}</code> 挂载<br><code>eject</code> 弹出，UI 中挂载也消失，且无法直接再用<code>mount</code>命令挂载回来</p>
+<h1 id="软件安装"><a href="#软件安装" class="headerlink" title="软件安装"></a>软件安装</h1><h2 id="JDK"><a href="#JDK" class="headerlink" title="JDK"></a>JDK</h2><ol>
+<li>安装<ol>
+<li>选择要安装 jdk 的位置，如 /usr/ 目录下，新建文件夹 java(<code>sudo mkdir /usr/java</code>)</li>
+<li>将文件 jdk-7u40-linux-i586.tar.gz 移动到 /usr/java</li>
+<li>解压：<code>sudo tar -zxvf jdk-7u40-linux-i586.tar.gz</code></li>
+<li>删除 jdk-7u40-linux-i586.tar.gz</li>
+</ol>
+</li>
+<li>配置<ol>
+<li>打开 /home/{user}/.bashrc，加入：<code>source /etc/profile</code></li>
+<li>打开 /etc/profile（<code>sudo vim /etc/profile</code>）<br>在最后面添加如下内容，这样使得每次进入该用户的 bash 时都会使添加的环境变量生效：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">JAVA_HOME=/usr/java/jdk1.7.0_40</span><br><span class="line">PATH=$JAVA_HOME/bin:$PATH</span><br><span class="line">export JAVA_HOME PATH</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+<p>验证是否安装成功：<code>java -version</code></p>
+<h2 id="Chrome"><a href="#Chrome" class="headerlink" title="Chrome"></a>Chrome</h2><ol>
+<li><code>sudo wget http://www.linuxidc.com/files/repo/google-chrome.list -P /etc/apt/sources.list.d/</code><br>将下载源加入系统的源列表</li>
+<li><code>wget -q -O - https://dl.google.com/linux/linux_signing_key.pub  | sudo apt-key add -</code><br>导入谷歌软件的公钥，用于后续步骤对下载软件进行认证</li>
+<li><code>sudo apt-get update</code><br>对当前系统可用的更新列表进行更新</li>
+<li><code>sudo apt-get install google-chrome-stable</code><br>安装 chrome 稳定版</li>
+<li><code>/usr/bin/google-chrome-stable</code><br>启动 chrome</li>
+</ol>
+<h2 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h2><ol>
+<li>下载 RPM包<br><code>wget https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm</code></li>
+<li>安装 RPM 包<br><code>yum localinstall mysql57-community-release-el7-9.noarch</code></li>
+<li>安装 mysql<br><code>yum install mysql-community-server</code></li>
+<li>查看自动生成的随机密码<br><code>grep &#39;temporary password&#39; /var/log/mysqld.log</code></li>
+<li>启动、查看 mysql service<br><code>service mysqld start</code><br><code>service mysqld status</code></li>
+<li>安全相关设置<br><code>mysql_secure_installation</code></li>
+<li>登录成功后修改密码强度限制（测试环境）<ol>
+<li><code>set global validate_password_policy=0;</code></li>
+<li><code>set global validate_password_length=4;</code></li>
+<li><code>set password=password(&#39;root&#39;)</code> 测试环境换个简单的密码</li>
+</ol>
+</li>
+</ol>
+<h2 id="erlang"><a href="#erlang" class="headerlink" title="erlang"></a>erlang</h2><p><strong>源码编译</strong></p>
+<ol>
+<li>下源码。从官网或 github 下：<ul>
+<li><code>wget http://www.erlang.org/download/otp_src_20.3.tar.gz</code></li>
+<li><code>git clone https://github.com/erlang/otp.git</code></li>
+</ul>
+</li>
+<li>解压 <code>tar -zxvf ~/Downloads/otp_src_20.3.tar.gz</code></li>
+<li>配置<ul>
+<li>如果是从 github 上下载的源码，要先生成配置脚本 <code>./otp_build autoconf</code></li>
+<li>配置中会检查必需的工具。<ul>
+<li>GNU <code>make</code></li>
+<li>Compiler – GNU C Compiler, gcc or the C compiler frontend for LLVM, clang.</li>
+<li>Perl 5</li>
+<li>GNU <code>m4</code></li>
+<li><code>ncurses</code>, <code>termcap</code>, or <code>termlib</code> – The development headers and libraries are needed, often known as ncurses-devel. Use –without-termcap to build without any of these libraries. Note that in this case only the old shell (without any line editing) can be used.</li>
+<li><code>sed</code></li>
+</ul>
+</li>
+<li><code>cd otp_src_20.3</code></li>
+<li>配置自定义的安装目录 <code>./configure --prefix=/opt/erlang</code></li>
+</ul>
+</li>
+<li>编译 <code>make</code></li>
+<li>安装 <code>make install</code></li>
+<li>设置环境变量 <code>vi /etc/profile</code>（<code>whereis erl</code> 查看安装目录）<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ERL_HOME=/usr/local/erlang</span><br><span class="line">PATH=$ERL_HOME/bin:$PATH</span><br><span class="line">export ERL_HOME PATH</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>yum 安装</strong></p>
+<ol>
+<li>安装 epel <code>yum -y install http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-11.noarch.rpm</code></li>
+<li>更新 erlang 仓库 <code>yum -y install  http://packages.erlang-solutions.com/erlang-solutions-1.0-1.noarch.rpm</code></li>
+<li>安装 erlang <code>yum install erlang</code></li>
+</ol>
+<h2 id="rabbitmq"><a href="#rabbitmq" class="headerlink" title="rabbitmq"></a>rabbitmq</h2><ol>
+<li>下包。<code>wget https://dl.bintray.com/rabbitmq/all/rabbitmq-server/3.7.4/rabbitmq-server-3.7.4-1.el7.noarch.rpm</code></li>
+<li>可能要安装 socat：<code>yum -i socat</code></li>
+<li>安装。<code>rpm -i rabbitmq-server-3.7.4-1.el7.noarch.rpm</code></li>
+<li>如果不是用这种包管理的方式安装的话可能要手动创建几个文件夹<ul>
+<li><code>mkdir -p /var/log/rabbitmq</code></li>
+<li><code>mkdir -p /var/log/rabbitmq/mnesia/rabbit</code></li>
+</ul>
+</li>
+<li>启动服务 <code>sbin/rabbitmq-server</code></li>
+</ol>
+<h1 id="包管理"><a href="#包管理" class="headerlink" title="包管理"></a>包管理</h1><h2 id="apt-get"><a href="#apt-get" class="headerlink" title="apt-get"></a>apt-get</h2><p><code>apt-get purge</code> <code>apt-get remove --purge</code></p>
+<p>删除软件包和配置文件，保留依赖包。</p>
+<p><code>apt-get remove</code></p>
+<p>删除软件包，保留依赖包和配置文件。</p>
+<p><code>apt-get autoremove</code></p>
+<p>删除不需要的依赖包。</p>
+<p><code>apt-get autoclean</code></p>
+<p>APT 的底层包是 dpkg，dpkg 会把 .deb 文件放在 /var/cache/apt/archives 中。</p>
+<h2 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h2><p><code>yum search {keyword}</code><br>根据关键字搜索软件包</p>
+<p><code>yum list</code><br>列出可安装包</p>
+<p><code>yum list [updates|installed|{name}|extras]</code><br>列出可更新包|已安装包|指定包|所有已安装但不在 Yum Repository 中的包</p>
+<p><code>yum info</code><br>列出所有软件包信息</p>
+<p><code>yum info [updates|installed|{name}|extras]</code><br>列出可更新包|已安装包|指定包|所有已安装但不在 Yum Repository 中的包的信息</p>
+<p><code>yum provides {name}</code><br>列出软件包提供哪些文件</p>
+<p><code>yum clean packages</code><br>清除缓存目录(/var/cache/yum)下的软件包<br><code>yum clean headers</code><br>清除缓存目录(/var/cache/yum)下的 headers<br><code>yum clean oldheaders</code><br>清除缓存目录(/var/cache/yum)下旧的 headers<br><code>yum clean, yum clean all</code> (= <code>yum clean packages</code>;<code>yum clean oldheaders</code>)<br>清除缓存目录(/var/cache/yum)下的软件包及旧的headers</p>
+<p><code>yum update</code> 升级系统<br><code>yum install {name}</code> 安装指定软件包<br><code>yum update {name}</code> 升级指定软件包<br><code>yum remove {name}</code> 卸载指定软件<br><code>yum grouplist</code> 查看系统中已经安装的和可用的软件组，可用的可以安装<br><code>yum grooupinstall {name}</code> 安装上一个命令显示的可用的软件组中的一个<br><code>yum grooupupdate {name}</code> 更新指定软件组的软件包<br><code>yum grooupremove {name}</code> 卸载指定软件组中的软件包<br><code>yum deplist {name}</code> 查询指定软件包的依赖关系<br><code>yum list yum\*</code> 列出所有以yum开头的软件包<br><code>yum localinstall {name}</code> 从硬盘安装rpm包并使用yum解决依赖</p>
+<h2 id="配置阿里云源"><a href="#配置阿里云源" class="headerlink" title="配置阿里云源"></a>配置阿里云源</h2><p><strong>ubuntu</strong></p>
+<p>源文件是 <code>/etc/apt/sources.list</code>，记录了 apt 所用的包仓库位置。类似的还有 <code>/etc/apt/sources.list.d/</code> 下的各种 <code>.list</code> 文件。</p>
+<ol>
+<li>备份。<code>sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak</code></li>
+<li>查看系统版本信息 <code>lsb_release -c</code>。冒号后面是系统代号，后面要用。</li>
+<li><p>编辑 <code>sources.list</code> 文件，将其中内容全删后粘贴以下内容。其中的 <code>bionic</code> 是系统代号，要根据实际情况替换。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line"></span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>更新软件列表 <code>sudo apt update</code></p>
+</li>
+</ol>
+<p><code>sources.list</code> 文件内容是以下格式。后面的 component 是对软件包的分类。Ubuntu 下是 main、restricted、universe、multiverse。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deb http://&#123;host&#125;/&#123;debian-distribution&#125; component1 component2 component3</span><br><span class="line">deb-src http://&#123;host&#125;/&#123;debian-distribution&#125; component1 component2 component3</span><br></pre></td></tr></table></figure>
+<p><strong>centos</strong></p>
+<p>1、用wget下载repo文件</p>
+<p><code>wget  http://mirrors.aliyun.com/repo/Centos-7.repo</code></p>
+<p>如果wget命令不生效，说明还没有安装wget工具，输入<code>yum -y install wget</code> 回车进行安装。</p>
+<p>2、移至源目录</p>
+<p><code>mv ./Centos-7.repo /etc/yum.repos.d/</code></p>
+<p>3、备份系统原来的repo文件</p>
+<p><code>mv CentOs-Base.repo CentOs-Base.repo.bak</code></p>
+<p>4、替换系统原理的repo文件</p>
+<p><code>mv Centos-7.repo CentOs-Base.repo</code></p>
+<p>5、执行yum源更新命令</p>
+<p><code>yum clean all</code><br><code>yum makecache</code><br><del><code>yum update</code></del></p>
+<h1 id="用户-用户组管理"><a href="#用户-用户组管理" class="headerlink" title="用户/用户组管理"></a>用户/用户组管理</h1><p>管理用户和用户组的命令基本都是对 <code>/etc/passwd</code>、<code>/etc/group</code> 和 <code>/etc/shadow</code> 进行操作。</p>
+<h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><p><strong>新增用户</strong></p>
+<p><code>useradd [-D] [opts] {newUser}</code></p>
+<ul>
+<li><code>-D</code> 变更预设值。</li>
+<li><code>-c {comment}</code> 备注，会保存在 <code>/etc/passwd</code> 的备注栏中。</li>
+<li><code>-d {loginDir}</code> 用户登录时的初始目录。</li>
+<li><code>-e {effectiveTime}</code> 账号的有效期限。</li>
+<li><code>-f {effectiveDays}</code> 密码过期后多少天关闭账号。</li>
+<li><code>-g {mainGroup}</code> 主用户组，缺省与用户同名。</li>
+<li><code>-G {supplementaryGroup}</code> 附加组。</li>
+<li><code>-m|-M</code> 自动建立/不建立用户的登录目录。</li>
+<li><code>-n</code> 取消建立与用户同名的组。</li>
+<li><code>-r</code> 建立系统账号。</li>
+<li><code>-s {shell}</code> 用户登录后使用的 shell。</li>
+<li><code>-u {uid}</code> 指定用户 ID。</li>
+</ul>
+<p><strong>关于 <code>adduser</code> 和 <code>useradd</code></strong></p>
+<p>Ubuntu 中 <code>useradd</code> 是一个二进制程序，<code>adduser</code> 是一个脚本，是对前者的封装；CentOS 中，<code>adduser</code> 是另一个的符号链接。 <strong>一般使用 <code>useradd</code>，它在不同发行版中都一样。</strong></p>
+<p><strong>修改用户信息</strong><br><code>usermod [-LU] [opts] {user}</code></p>
+<ul>
+<li><code>-L|-U</code> 锁定密码/解锁密码。</li>
+<li><code>-c {comment}</code> 备注，会保存在 <code>/etc/passwd</code> 的备注栏中。</li>
+<li><code>-d {loginDir}</code> 用户登录时的初始目录。</li>
+<li><code>-e {effectiveTime}</code> 账号的有效期限。</li>
+<li><code>-f {effectiveDays}</code> 密码过期后多少天关闭账号。</li>
+<li><code>-g {mainGroup}</code> 主用户组，缺省与用户同名。</li>
+<li><code>-G {supplementaryGroup}</code> 附加组，会覆盖已有的附加组。搭配 <code>-a</code> 可以新增而不覆盖。</li>
+<li><code>l</code> 修改用户名。</li>
+<li><code>-s {shell}</code> 用户登录后使用的 shell。</li>
+<li><code>-u {uid}</code> 指定用户 ID。</li>
+</ul>
+<p><strong>删除用户</strong></p>
+<p><code>userdel [-r] {user}</code></p>
+<ul>
+<li><code>-r</code> 连同用户目录一起删除。</li>
+</ul>
+<p><strong>修改密码</strong></p>
+<p><code>passwd [opts] {user}</code></p>
+<ul>
+<li><code>-l</code> 锁定用户，禁止登录。</li>
+<li><code>-u</code> 接触锁定。</li>
+<li><code>--stdin</code> 允许通过标准输入修改密码，比如 <code>echo &quot;abc&quot; | passwd --stdin tom</code>。</li>
+<li><code>-d</code> 可用空密码登录。</li>
+<li><code>-e</code> 强制该用户下次登录时修改密码。</li>
+<li><code>-S</code> 显示密码是否被锁定，以及密码所采用的加密算法名称。</li>
+</ul>
+<h2 id="用户组管理"><a href="#用户组管理" class="headerlink" title="用户组管理"></a>用户组管理</h2><p><strong>查看用户所属的组</strong></p>
+<p><code>groups [user]</code> 若不指定用户则为当前用户。</p>
+<p><strong>创建用户组</strong></p>
+<p><code>groupadd [-r] {group}</code></p>
+<ul>
+<li><code>[-r]</code> 创建系统用户组，即 GID 小于 500。</li>
+</ul>
+<p><strong>修改用户组</strong></p>
+<ul>
+<li><code>groupmod -n {new} {old}</code> 修改用户组名，不会改变 GID。</li>
+<li><code>groupmod -g {newGID} {group}</code> 修改 GID。</li>
+</ul>
+<p><strong>删除用户组</strong></p>
+<p><code>groupdel {group}</code></p>
+<p>若该用户组是某用户的主用户组，则必须先删除该用户，在删除该用户组。</p>
+<h2 id="用户和用户组之间的操作"><a href="#用户和用户组之间的操作" class="headerlink" title="用户和用户组之间的操作"></a>用户和用户组之间的操作</h2><p><strong>添加用户到用户组/从用户组中删除用户</strong></p>
+<ul>
+<li><code>gpasswd -a {user} -g {group}</code> 将指定用户添加到指定组。</li>
+<li><code>gpasswd -d {user} -g {group}</code> 从指定组中删除指定用户。</li>
+</ul>
+<p><strong>修改</strong></p>
+<p><code>groupmems [option] [action]</code></p>
+<ul>
+<li>option<ul>
+<li><code>-g</code> 更改为指定组。</li>
+</ul>
+</li>
+<li>action<ul>
+<li><code>-a</code> 指定用户加入组。</li>
+<li><code>-d</code> 从组中删除用户。</li>
+<li><code>-p</code> 从组中删除所有成员。</li>
+<li><code>-l</code> 显示组成员列表。</li>
+</ul>
+</li>
+</ul>
+<h1 id="sudo"><a href="#sudo" class="headerlink" title="sudo"></a>sudo</h1><ul>
+<li><code>sudo -V</code> 显示版本号</li>
+<li><code>sudo -h</code> 帮助</li>
+<li><code>sudo -l</code> 显示当前执行者的权限</li>
+<li><code>sudo -v</code> 重新验证用户并顺延验证失效时间</li>
+<li><code>sudo -k</code> 强制在下次执行 <code>sudo</code> 时验证密码</li>
+<li><code>sudo [-b] [-u {username}|{uid}] {cmd}</code><ul>
+<li><code>-b</code> 后台执行此命令</li>
+<li><code>-u {username}|{uid}</code> 用指定用户执行命令。缺省为 root。</li>
+</ul>
+</li>
+</ul>
+<p>赋予 sudo 特权实际上是修改 <code>/etc/sudoers</code>。该文件只能用 root 用户通过 <code>visudo</code> 来编辑。</p>
+<p><code>/etc/sudoers</code> 中包含两类内容：别名定义、授权规则。</p>
+<p><strong>别名定义</strong></p>
+<p><code>{aliasType} {name1} = {val1}, {val2}...[: {name2} = {val3}, {val4}...]</code></p>
+<ul>
+<li><code>{aliasType}</code> 有以下几种<ul>
+<li><code>Host_Alias</code> 主机别名</li>
+<li><code>User_Alias</code> 用户别名，可以是用户或用户组，若是用户组，前面要加 <code>%</code></li>
+<li><code>Runas_Alias</code> runas 别名，即 <code>sudo</code> 允许切换至的用户</li>
+<li><code>Cmnd_Alias</code> 命令别名</li>
+</ul>
+</li>
+</ul>
+<p><strong>授权规则</strong></p>
+<p><code>{user}|{group} {host}=[({runAs})] [NOPASSWD:] [!]{cmd1}[, {cmd2}...]</code></p>
+<ul>
+<li><code>{user}|{group}</code> 授权用户或用户组，用户组前面要加 <code>%</code></li>
+<li><code>{host}</code> 授权规则对应的主机</li>
+<li><code>({runAs})</code> 切换到哪些用户/组。缺省为 <code>(root:root)</code>。若为 <code>(ALL)</code>，即 <code>(ALL:ALL)</code>，则可切换到任意用户/组。</li>
+<li><code>NOPASSWD:</code> 不需要验证密码。</li>
+<li><code>[!]{cmd1}[, {cmd2}...]</code> 允许执行的命令。<code>!</code> 表示禁止执行。为了避免执行到同名命令导致安全问题，应写命令的全路径，执行时同理。可以使用通配符。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> # 井号为注释</span><br><span class="line"></span><br><span class="line"> # 默认有这么一行，可以当作参照</span><br><span class="line">root  ALL=(ALL)  ALL</span><br><span class="line"></span><br><span class="line"> # 给指定用户添加 sudo 权限</span><br><span class="line">tom  ALL=(ALL)  ALL</span><br><span class="line"></span><br><span class="line"> # 给指定用户组的所有用户添加 sudo 权限</span><br><span class="line">%example  ALL=(ALL)  ALL</span><br><span class="line"></span><br><span class="line"> # 使用 `sudo` 时不需要输入密码，一般不这样做，不太安全</span><br><span class="line">ben  ALL=(ALL)  NOPASSWD: ALL</span><br><span class="line"></span><br><span class="line"> # 指定可以通过 `sudo` 执行的命令的白名单。</span><br><span class="line"> # 多个命令之间用 `, ` 分隔。</span><br><span class="line"> # 命令必须写全路径，执行时也一样。为的是避免其他路径的同名命令被执行。</span><br><span class="line"> # `!` 表示禁止执行。</span><br><span class="line">%example  ALL=/sbin/mount /mnt/example, !/sbin/umount /mnt/example</span><br></pre></td></tr></table></figure>
+<h1 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h1><h2 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h2><h3 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h3><p>concatenate 显示文件内容。</p>
+<p><code>cat {file1} [{file2}]...</code><br>显示一个或多个文件的内容。对于多个文件，会将内容拼接起来显示。</p>
+<h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><p>显示指定目录的内容，缺省参数为当前目录。</p>
+<p><code>-a</code> <code>--all</code> 显示 dot 文件。<br><code>-A</code> <code>--almost-all</code> 显示 dot 文件，除了 . 和 ..。<br><code>--block-size=[K|M|G|T|P|E|Z|Y]</code> 定义显示文件大小的单位。<br><code>-c</code> 结合 <code>-lt</code>：显示最近修改时间，并按其排序；结合 <code>-l</code>：显示最近修改时间，按文件名排序；否则按最近修改时间排序。<br><code>-d</code> <code>--directory</code> 显示文件夹本身，而不是它的内容。<br><code>-F</code> 显示文件类型信息。<br><code>-hide={pattern}</code> 不显示匹配的文件。<br><code>-i</code> <code>--inode</code> 显示文件的 inode 号。<br><code>-I</code> <code>--ignore={pattern}</code> 不显示匹配的文件。<br><code>-l</code> 显示详细的列表。<br><code>-L</code> 当显示符号链接的文件信息时，显示符号链接指向的对象而非链接本身的信息。<br><code>-n</code> <code>--numeric-uid-gid</code> 类似 <code>-l</code>，但显示用户和用户组的 ID。<br><code>-o</code> 类似 <code>-l</code>，但不显示组信息。<br><code>-r</code> 反向排序。<br><code>-R</code> <code>--recursive</code> 递归显示子目录。<br><code>-S</code> 按文件大小排序。<br><code>-t</code> 按修改时间排序，由新到旧。<br><code>-u</code> 结合 <code>-lt</code>：显示最近打开时间并按其排序；结合 <code>-l</code>：显示最近打开时间，并按文件名排序；否则，按最近打开时间排序。<br><code>-U</code> 不排序。<br><code>-w</code> <code>--width={cols}</code> 定义屏幕宽度。<br><code>-X</code> 按扩展名的字母顺序排序。</p>
+<h3 id="cp"><a href="#cp" class="headerlink" title="cp"></a>cp</h3><p>复制文件。</p>
+<p><code>cp {file1} {file2}</code><br>将 file1 复制到 file2。<br><code>cp {file1} ... {file2} {dir}</code><br>将文件复制到指定目录。</p>
+<h3 id="mv"><a href="#mv" class="headerlink" title="mv"></a>mv</h3><p>重命名或移动文件。</p>
+<p><code>mv {file1} {file2}</code><br>将 file1 重命名为 file2。<br><code>mv {file1} ... {file2} {dir}</code><br>将文件移动到指定目录。</p>
+<h3 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h3><blockquote>
+<p>创建文件。若文件已存在则更新时间戳。</p>
+</blockquote>
+<p><code>touch {file}</code></p>
+<h3 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h3><blockquote>
+<p>删除文件。</p>
+</blockquote>
+<p><code>rm {file}</code></p>
+<h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3><p>将它的参数显示到标准输出。</p>
+<p><code>echo {variable}</code></p>
+<h3 id="cd"><a href="#cd" class="headerlink" title="cd"></a>cd</h3><blockquote>
+<p>设置当前工作目录。当前工作目录是指进程和 shell 当前所在的工作目录。</p>
+</blockquote>
+<p><code>cd {dir}</code></p>
+<h3 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h3><blockquote>
+<p>创建新目录。</p>
+</blockquote>
+<p><code>mkdir {dir}</code></p>
+<h3 id="rmdir"><a href="#rmdir" class="headerlink" title="rmdir"></a>rmdir</h3><blockquote>
+<p>删除目录，只能删除空目录。</p>
+</blockquote>
+<p><code>rmdir {dir}</code><br>删除指定目录。<br><code>rm -rf {dir}</code><br>删除指定目录及其中所有内容。</p>
+<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><blockquote>
+<p>显示文件和输入流中和参数匹配的行。可识别正则表达式。</p>
+</blockquote>
+<p><code>grep -[i][v] {keyword} {file}</code><br>-i 表示不区分大小写，-v 表示反转匹配，即显示所有不匹配的行。</p>
+<h3 id="less"><a href="#less" class="headerlink" title="less"></a>less</h3><p>分屏显示文件内容。</p>
+<p><code>less</code> 命令是 <code>more</code> 命令的增强版，在一些没有 <code>less</code> 命令的 Unix 系统和嵌入式系统中可以使用 <code>more</code> 命令。</p>
+<p>大部分移动命令同 vim，包括标记跳转。</p>
+<p><code>less [opt] {file}...</code></p>
+<ul>
+<li><code>-b {bufferSize}</code> 缓冲区大小。</li>
+<li><code>-e</code> 文件显示结束后自动离开。</li>
+<li><code>-f</code> 强制打开特殊文件，如外围设备代号、目录和二进制文件。</li>
+<li><code>-g</code> 只标识最后搜索的关键词。</li>
+<li><code>-i</code> 搜索忽略大小写。</li>
+<li><code>-m</code> 显示类似 <code>more</code> 的百分比。</li>
+<li><code>-N</code> 显示行号。</li>
+<li><code>-o {file}</code> 将 less 输出内容保存到指定文件。</li>
+<li><code>-Q</code> 不使用警告音。</li>
+<li><code>-s</code> 将连续空行显示为一行。</li>
+<li><code>-S</code> 舍弃行的超长部分。</li>
+<li><p><code>-x {n}</code> 将 <code>{tab}</code> 显示为 n 个空格。</p>
+</li>
+<li><p><code>/{str}</code> <code>?{str}</code> 向下/上搜索字符串。</p>
+</li>
+<li><code>n</code> <code>N</code> 重复/反向重复上一次搜索。</li>
+<li><code>y</code> <code>&lt;enter&gt;</code> 上/下滚一行。</li>
+<li><code>u</code> <code>d</code> 上/下滚半页。</li>
+<li><code>b</code> <code>&lt;space&gt;</code> 上/下滚一页。</li>
+<li><code>&lt;pageup&gt;</code> <code>&lt;pagedown&gt;</code> 向上/下滚一页。</li>
+<li><code>:n</code> <code>:p</code> 下/上一个文件。</li>
+<li><code>Q</code> 推出 <code>less</code>。</li>
+<li><code>h</code> 帮助。</li>
+</ul>
+<h3 id="pwd"><a href="#pwd" class="headerlink" title="pwd"></a>pwd</h3><blockquote>
+<p>输出当前的工作目录名。</p>
+</blockquote>
+<h3 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h3><blockquote>
+<p>查看两个文件之间的不同。</p>
+</blockquote>
+<p><code>diff {file1} {file2}</code></p>
+<h3 id="file"><a href="#file" class="headerlink" title="file"></a>file</h3><blockquote>
+<p>查看文件的格式信息。</p>
+</blockquote>
+<p><code>file {file}</code></p>
+<h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><blockquote>
+<p>查找文件。可以使用模式匹配参数，但必须给模式匹配参数加引号，因为 shell 会在运行命令前展开通配符。</p>
+</blockquote>
+<p><code>find {dir} -name {file} -print</code></p>
+<h3 id="locate"><a href="#locate" class="headerlink" title="locate"></a>locate</h3><blockquote>
+<p>在系统创建的文件索引中查找文件。该索引由系统周期性地进行更新。</p>
+</blockquote>
+<p><strong>head</strong> 和 <strong>tail</strong></p>
+<blockquote>
+<p>显示文件的前 10 行或后 10 行内容。</p>
+</blockquote>
+<p><code>head|tail [-{n}|+{n}][-f] {file}</code><br>-n 设置显示的行数，+n 设置显示第 n 行开始的内容，-f 设置不停地读取最新内容。</p>
+<h3 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h3><blockquote>
+<p>将文件内的所有行按照字母顺序快速排序。-n 按照数字顺序排序那些以数字开始的行，-r 反向排序。</p>
+</blockquote>
+<h3 id="export"><a href="#export" class="headerlink" title="export"></a>export</h3><blockquote>
+<p>将某个 shell 变量设置为环境变量。</p>
+</blockquote>
+<p><code>export {var}</code></p>
+<h3 id="man"><a href="#man" class="headerlink" title="man"></a>man</h3><h3 id="command-–help-h"><a href="#command-–help-h" class="headerlink" title="{command} –help|-h"></a>{command} –help|-h</h3><h3 id="info-command"><a href="#info-command" class="headerlink" title="info {command}"></a>info {command}</h3><blockquote>
+<p>获取在线帮助。</p>
+</blockquote>
+<p><code>man [-k] {command}</code><br>获取指定命令的帮助信息，可指定关键词进行查找。</p>
+<h3 id="command-gt-file"><a href="#command-gt-file" class="headerlink" title="{command} &gt; {file}"></a>{command} &gt; {file}</h3><h3 id="command-gt-gt-file"><a href="#command-gt-gt-file" class="headerlink" title="{command} &gt;&gt; {file}"></a>{command} &gt;&gt; {file}</h3><h3 id="command-command"><a href="#command-command" class="headerlink" title="{command} | {command}"></a>{command} | {command}</h3><h3 id="command-2-gt-file"><a href="#command-2-gt-file" class="headerlink" title="{command} 2&gt; {file}"></a>{command} 2&gt; {file}</h3><h3 id="command-gt-file-2-gt-amp-1"><a href="#command-gt-file-2-gt-amp-1" class="headerlink" title="{command} &gt; {file} 2&gt;&amp;1"></a>{command} &gt; {file} 2&gt;&amp;1</h3><h3 id="command-lt-file"><a href="#command-lt-file" class="headerlink" title="{command} &lt; {file}"></a>{command} &lt; {file}</h3><blockquote>
+<p><code>&gt;</code>将执行结果重定向至文件（缺省为终端屏幕），如果文件不存在，shell 会创建新文件；如果文件存在，shell 会先清空文件内容。bash 中可以通过设置参数<code>set -C</code>来防止清空。<br><code>&gt;&gt;</code>将执行结果重定向至文件末尾。<br><code>|</code>将执行结果作为后一个命令的输入。<br><code>2&gt;</code>重定向标准错误输出。2 是由 shell 修改的流 ID，1 是标准输出，2 是标准错误输出。<br><code>&gt;&amp;</code>将标准输出和标准错误输出重定向到同一个地方。<br><code>&lt;</code>将文件内容重定向为命令的标准输入。</p>
+</blockquote>
+<h3 id="du"><a href="#du" class="headerlink" title="du"></a>du</h3><blockquote>
+<p>查看文件和目录的磁盘使用空间。</p>
+</blockquote>
+<p><code>du -sh ./*</code><br>显示当前目录下所有文件和目录的磁盘使用情况。</p>
+<h3 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h3><p><code>chmod [ops] {xyz} {path}</code></p>
+<ul>
+<li><code>-R</code> 对目录内部递归执行。</li>
+<li><code>{xyz}</code> 依次对应拥有者、拥有者所在组、其他用户。rwx 641。</li>
+</ul>
+<h3 id="chown"><a href="#chown" class="headerlink" title="chown"></a>chown</h3><p><code>chown [ops] {userOrGroup} {path}</code></p>
+<ul>
+<li><code>{userOrGroup}</code> 用户名或组名。</li>
+<li><code>-c</code> 若拥有者确实发生更改才显示更改动作。</li>
+<li><code>-f</code> 若拥有者无法更改，不显示错误信息。</li>
+<li><code>-h</code> 更改链接本身，而不是它指向的路径。</li>
+<li><code>-v</code> 显示详情。</li>
+</ul>
+<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p><strong>ps</strong></p>
+<p>列出所有正在运行的进程。</p>
+<p>PID：进程 ID。<br>TTY：进程所在的终端设备。<br>STAT：进程在内存中的状态。完整状态列表参阅帮助手册。<br>TIME：进程占用 CPU 的总时长。<br>COMMAND：命令名，进程有可能将其由初始值改为其他。</p>
+<ul>
+<li><code>ps x</code> 显示当前用户运行的所有进程。</li>
+<li><code>ps ax</code> 显示系统当前运行的所有进程，包括其他用户的进程。</li>
+<li><code>ps u</code> 显示更详细的进程信息。</li>
+<li><code>ps w</code> 显示命令的全名，而非仅显示一行以内的内容。</li>
+<li><code>ps {PID}</code> 显示指定进程的信息，可用 $$ 表示当前 shell 的进程。</li>
+</ul>
+<p><strong>kill</strong></p>
+<p>向进程发送一个信号。</p>
+<p><code>kill [-{SIG}] {PID}</code><br>{SIG} 是具体的信号。缺省是 <code>TERM</code>。<code>STOP</code> 表示暂停，<code>CONT</code> 表示继续，<code>INT</code> 或 <code>CTRL-C</code> 表示中断，<code>KILL</code> 表示强行终止。也可使用数字代替信号名。</p>
+<ul>
+<li><code>KILL</code> 在内核层面立即终止进程，该信号不能被阻塞、处理或忽略。</li>
+<li><code>INT</code> 通知前台进程组终止进程。</li>
+<li><code>QUIT</code> 和 INT 类似, 但由 QUIT 字符(通常是 <code>Ctrl-\</code>)来控制。进程在因收到 QUIT 退出时会产生 core 文件, 在这个意义上类似于一个程序错误信号。</li>
+<li><code>TERM</code> 要求进程自己正常退出，该信号可以被阻塞或处理。</li>
+</ul>
+<h1 id="特殊字符"><a href="#特殊字符" class="headerlink" title="特殊字符"></a>特殊字符</h1><table>
+<thead>
+<tr>
+<th style="text-align:left">字符</th>
+<th style="text-align:left">名称</th>
+<th style="text-align:left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">*</td>
+<td style="text-align:left">星号</td>
+<td style="text-align:left">正则表达式，通用字符</td>
+</tr>
+<tr>
+<td style="text-align:left">.</td>
+<td style="text-align:left">句点</td>
+<td style="text-align:left">当前目录，文件/主机名的分隔符</td>
+</tr>
+<tr>
+<td style="text-align:left">!</td>
+<td style="text-align:left">感叹号</td>
+<td style="text-align:left">逻辑非运算符，命令历史</td>
+</tr>
+<tr>
+<td style="text-align:left">\</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">管道</td>
+<td>命令管道</td>
+</tr>
+<tr>
+<td style="text-align:left">/</td>
+<td style="text-align:left">斜线</td>
+<td style="text-align:left">命令分隔符，搜索命令</td>
+</tr>
+<tr>
+<td style="text-align:left">\</td>
+<td style="text-align:left">反斜线</td>
+<td style="text-align:left">常量，宏（非目录）</td>
+</tr>
+<tr>
+<td style="text-align:left">$</td>
+<td style="text-align:left">美元符号</td>
+<td style="text-align:left">变量符号，行尾</td>
+</tr>
+<tr>
+<td style="text-align:left">‘</td>
+<td style="text-align:left">单引号</td>
+<td style="text-align:left">字符串常量</td>
+</tr>
+<tr>
+<td style="text-align:left">`</td>
+<td style="text-align:left">反引号</td>
+<td style="text-align:left">命令替换</td>
+</tr>
+<tr>
+<td style="text-align:left">“</td>
+<td style="text-align:left">双引号</td>
+<td style="text-align:left">半字符串常量</td>
+</tr>
+<tr>
+<td style="text-align:left">^</td>
+<td style="text-align:left">脱字符</td>
+<td style="text-align:left">逻辑非运算，行头</td>
+</tr>
+<tr>
+<td style="text-align:left">~</td>
+<td style="text-align:left">波浪字符</td>
+<td style="text-align:left">逻辑非运算符，目录快捷方式</td>
+</tr>
+<tr>
+<td style="text-align:left">#</td>
+<td style="text-align:left">井号</td>
+<td style="text-align:left">注释，预处理，替换</td>
+</tr>
+<tr>
+<td style="text-align:left">[]</td>
+<td style="text-align:left">方括号</td>
+<td style="text-align:left">范围</td>
+</tr>
+<tr>
+<td style="text-align:left">{}</td>
+<td style="text-align:left">大括号</td>
+<td style="text-align:left">声明块，范围</td>
+</tr>
+<tr>
+<td style="text-align:left">_</td>
+<td style="text-align:left">下划线</td>
+<td style="text-align:left">空格的简单替代</td>
+</tr>
+</tbody>
+</table>
+<p>控制键 CTRL 通常用 ^ 来表示。</p>
+<h1 id="命令行按键"><a href="#命令行按键" class="headerlink" title="命令行按键"></a>命令行按键</h1><table>
+<thead>
+<tr>
+<th style="text-align:left">按键</th>
+<th style="text-align:left">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">CTRL-B</td>
+<td style="text-align:left">左移光标</td>
+</tr>
+<tr>
+<td style="text-align:left">CTRL-F</td>
+<td style="text-align:left">右移光标</td>
+</tr>
+<tr>
+<td style="text-align:left">CTRL-P</td>
+<td style="text-align:left">查看上一条命令（或上移光标）</td>
+</tr>
+<tr>
+<td style="text-align:left">CTRL-N</td>
+<td style="text-align:left">查看下一条命令（或下移光标）</td>
+</tr>
+<tr>
+<td style="text-align:left">CTRL-A</td>
+<td style="text-align:left">移动光标至行首</td>
+</tr>
+<tr>
+<td style="text-align:left">CTRL-E</td>
+<td style="text-align:left">移动光标至行尾</td>
+</tr>
+<tr>
+<td style="text-align:left">CTRL-W</td>
+<td style="text-align:left">删除前一个词</td>
+</tr>
+<tr>
+<td style="text-align:left">CTRL-U</td>
+<td style="text-align:left">删除从光标至行首的内容</td>
+</tr>
+<tr>
+<td style="text-align:left">CTRL-K</td>
+<td style="text-align:left">删除从光标至行尾的内容</td>
+</tr>
+<tr>
+<td style="text-align:left">CTRL-Y</td>
+<td style="text-align:left">粘贴已删除的文本</td>
+</tr>
+</tbody>
+</table>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><h2 id="安装配置文件"><a href="#安装配置文件" class="headerlink" title="安装配置文件"></a>安装配置文件</h2><p>kickstart<br>/root/anaconda-ks.cfg</p>
+<h2 id="yum-代理"><a href="#yum-代理" class="headerlink" title="yum 代理"></a>yum 代理</h2><p><code>sudo vi /etc/yum.conf</code></p>
+<p>加入<br>proxy=<a href="http://{host}:{port}" target="_blank" rel="noopener">http://{host}:{port}</a><br>proxy_username=abc<br>proxy_password=123</p>
+<h2 id="全局代理"><a href="#全局代理" class="headerlink" title="全局代理"></a>全局代理</h2><ol>
+<li><code>sudo vi /etc/profile</code></li>
+<li>加上</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http_proxy=http://&#123;user&#125;:&#123;pwd&#125;@&#123;host&#125;:&#123;port&#125;</span><br><span class="line">export http_proxy</span><br></pre></td></tr></table></figure>
+<h2 id="添加到-dock-栏"><a href="#添加到-dock-栏" class="headerlink" title="添加到 dock 栏"></a>添加到 dock 栏</h2><ol>
+<li><p>创建 <code>.desktop</code> 文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env xdg-open</span><br><span class="line">[Desktop Entry]</span><br><span class="line">Version=1.0</span><br><span class="line">Type=Application</span><br><span class="line"># 若是脚本且想看到命令行则改为 true</span><br><span class="line">Terminal=false</span><br><span class="line"># 必须，填启动文件路径，后面可加启动参数</span><br><span class="line">Exec=command to run here</span><br><span class="line"># 必须，用于搜索和显示</span><br><span class="line">Name=visible name here</span><br><span class="line">Comment=comment here</span><br><span class="line">Icon=icon path here</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加到桌面。把上述文件移至桌面。</p>
+</li>
+<li>添加到 dock 栏和 app 搜索。把上述文件移至 <code>~/.local/share/applications/</code>。</li>
+</ol>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="FATAL-Could-not-read-from-Boot-Medium-System-Halted"><a href="#FATAL-Could-not-read-from-Boot-Medium-System-Halted" class="headerlink" title="FATAL:Could not read from Boot Medium! System Halted."></a><code>FATAL:Could not read from Boot Medium! System Halted.</code></h2><p>解决：虚拟机设置-存储-删除多余的控制器</p>
+<h2 id="参数风格"><a href="#参数风格" class="headerlink" title="参数风格"></a>参数风格</h2><ol>
+<li>参数用一横的说明后面的参数是字符形式。</li>
+<li>参数用两横的说明后面的参数是单词形式。</li>
+<li>参数前有横的是 System V 风格。</li>
+<li>参数前没有横的是 BSD 风格。</li>
+</ol>
+<h2 id="Failed-to-open-EFI-BOOT-grubx64-efi-Not-Found"><a href="#Failed-to-open-EFI-BOOT-grubx64-efi-Not-Found" class="headerlink" title="Failed to open \EFI\BOOT\grubx64.efi - Not Found"></a>Failed to open \EFI\BOOT\grubx64.efi - Not Found</h2><ol>
+<li>挂载 centos 的 iso，进入 rescue 模式。</li>
+<li><code>cd /mnt/sysimage/boot/efi/EFI</code></li>
+<li><code>cp centos/grubx64.efi ../boot/</code></li>
+<li><code>reboot</code></li>
+</ol>
+<h2 id="vdi-迁移"><a href="#vdi-迁移" class="headerlink" title="vdi 迁移"></a>vdi 迁移</h2><p><code>VBoxManage internalcommands sethduuid H:\virtualSys\ubuntu.vdi</code></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/Java/Design Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/01/01/Java/Design Pattern/" itemprop="url">Design Pattern</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h1><ul>
+<li>封装变化</li>
+<li>多用组合，少用继承</li>
+<li>针对接口编程，而不是实现</li>
+<li>为交互对象之间的松耦合设计而努力</li>
+<li>类应该对扩展开放，对修改关闭</li>
+<li>依赖抽象，不要依赖具体类</li>
+<li>只和朋友交谈</li>
+<li>别找我，我会找你</li>
+<li>一个类应该只有一个引起变化的原因</li>
+</ul>
+<h1 id="最小知识原则"><a href="#最小知识原则" class="headerlink" title="最小知识原则"></a>最小知识原则</h1><p>对于任何一个对象，应设计成只跟<strong>尽量少</strong>的其他对象进行交互。</p>
+<p>在一个对象的方法内，只应该调用属于以下范围的方法：</p>
+<ul>
+<li>该对象本身</li>
+<li>被当作方法的参数而传递进来的对象</li>
+<li>此方法创建的对象</li>
+<li>该对象持有的组件</li>
+</ul>
+<p>不推荐的方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public float getPrice() &#123;</span><br><span class="line">    Car car = shop.getCar(&quot;BMW&quot;);</span><br><span class="line">    return car.getPrice();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>推荐的方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public float getPrice() &#123;</span><br><span class="line">    return shop.getPrice(&quot;BMW&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>优点：减少对象之间的耦合，减少维护成本。<br>缺点：产生额外的包装类，增加开发时间，降低运行时性能。</p>
+<h1 id="好莱坞原则"><a href="#好莱坞原则" class="headerlink" title="好莱坞原则"></a>好莱坞原则</h1><blockquote>
+<p>别调用我们，我们会调用你。</p>
+</blockquote>
+<p>系统组件之间应形成高低关系，其中高层组件可以决定是否调用低层组件，而低层组件不能调用高层组件。<br>这样使得依赖关系形成单调的趋势，而不是循环依赖。</p>
+<h1 id="策略模式-Strategy"><a href="#策略模式-Strategy" class="headerlink" title="策略模式 Strategy"></a>策略模式 Strategy</h1><blockquote>
+<p>策略模式定义了算法族，分别封装起来，让他们之间可以相互替换，此模式让算法的变化独立于使用算法的客户。</p>
+</blockquote>
+<h1 id="观察者模式-Subject-amp-Observer"><a href="#观察者模式-Subject-amp-Observer" class="headerlink" title="观察者模式 Subject &amp; Observer"></a>观察者模式 Subject &amp; Observer</h1><blockquote>
+<p>定义了对象之间的一对多依赖，这样一来，当一个对象改变状态时，它的所有依赖者都会收到通知并自动更新。</p>
+</blockquote>
+<h1 id="装饰者模式-Decorator"><a href="#装饰者模式-Decorator" class="headerlink" title="装饰者模式 Decorator"></a>装饰者模式 Decorator</h1><blockquote>
+<p>动态地将责任附加到对象上。若要扩展功能，装饰者提供了比继承更有弹性的替代方案。</p>
+</blockquote>
+<h1 id="工厂方法模式-Factory"><a href="#工厂方法模式-Factory" class="headerlink" title="工厂方法模式 Factory"></a>工厂方法模式 Factory</h1><p><strong>工厂方法</strong></p>
+<blockquote>
+<p>使用继承，把对象的创建委托给子类，父类提供抽象的创建方法。</p>
+</blockquote>
+<p><strong>抽象工厂方法</strong></p>
+<blockquote>
+<p>使用组合，向消费者提供一个工厂接口类型，该接口中含有抽象的创建方法。通过向消费者传入具体的工厂接口实现来得到不同的创建方法。这个工厂接口本身通常就使用了工厂方法的设计模式。</p>
+</blockquote>
+<h1 id="单例模式-Singleton"><a href="#单例模式-Singleton" class="headerlink" title="单例模式 Singleton"></a>单例模式 Singleton</h1><blockquote>
+<p>确保一个类只有一个实例，并提供一个全局访问点。</p>
+</blockquote>
+<p>单线程中的简单做法，在多线程中会有并发问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class MyClass &#123;</span><br><span class="line">    private static MyClass myClassSingleton;</span><br><span class="line">    private MyClass() &#123;&#125;</span><br><span class="line">    public static MyClass getInstance() &#123;</span><br><span class="line">        if (myClassSingleton == null) &#123;</span><br><span class="line">            myClassSingleton = new MyClass();</span><br><span class="line">        &#125;</span><br><span class="line">        return myClassSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解决并发问题的简单方法，但在频繁调用的情况下会严重影响性能</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class MyClass &#123;</span><br><span class="line">    private static MyClass myClassSingleton;</span><br><span class="line">    private MyClass() &#123;&#125;</span><br><span class="line">    public static synchronized MyClass getInstance() &#123;</span><br><span class="line">        if (myClassSingleton == null) &#123;</span><br><span class="line">            myClassSingleton = new MyClass();</span><br><span class="line">        &#125;</span><br><span class="line">        return myClassSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>“饿汉”模式，在静态初始化器中创建单件，利用 JVM 自身的特性保证了线程安全，在 JVM 加载这个类时就创建了单件实例，从而保证在任何线程访问该实例前就已经创建完毕。<br>若有大量使用概率很低的单例类使用“饿汉”模式，会造成明显的内存浪费。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class MyClass &#123;</span><br><span class="line">    private static MyClass myClassSingleton = new MyClass();//加载类时创建实例</span><br><span class="line">    private MyClass() &#123;&#125;</span><br><span class="line">    public static MyClass getInstance() &#123;</span><br><span class="line">        return myClassSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>“饱汉”模式，只在第一次访问单例时创建单例对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class MyClass &#123;</span><br><span class="line">    //volatile 关键词确保 myClassSingleton 赋值时能立即对所有线程可见。在 Java 1.4 及之前的版本中 volatile 实现有问题。</span><br><span class="line">    private volatile static MyClass myClassSingleton；</span><br><span class="line">    private MyClass() &#123;&#125;</span><br><span class="line">    public static MyClass getInstance() &#123;</span><br><span class="line">        if ( myClassSingleton == null) &#123; //double check 解决多线程并发问题</span><br><span class="line">            synchronized (MyClass.class) &#123;</span><br><span class="line">                if (myClassSingleton == null) &#123;</span><br><span class="line">                    myClassSingleton = new MyClass();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return myClassSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>若程序中使用了多个类加载器（Class Loader），会产生多个单例</strong></p>
+<p><strong>在 Java 1.2 之前，GC 有个 bug，当单例对象只被自身的类所引用时，会被 GC 清理</strong></p>
+<h1 id="命令模式-Command"><a href="#命令模式-Command" class="headerlink" title="命令模式 Command"></a>命令模式 Command</h1><blockquote>
+<p>将“请求”封装成对象，以便使用不同的请求、队列或者日志来参数化其他对象。命令模式也支持可撤销的操作。<br>本质上是在调用者和接收者之间加了一层用于命令的整合、转换、映射，从而实现调用者和接收者之间的解耦。</p>
+</blockquote>
+<h1 id="适配器模式-Adapter"><a href="#适配器模式-Adapter" class="headerlink" title="适配器模式 Adapter"></a>适配器模式 Adapter</h1><blockquote>
+<p>将一个类的接口，转换成客户期望的另一个接口，从而让原本不兼容的类之间可以兼容。</p>
+</blockquote>
+<h1 id="外观模式-Facade"><a href="#外观模式-Facade" class="headerlink" title="外观模式 Facade"></a>外观模式 Facade</h1><blockquote>
+<p>外观模式提供了一个统一的接口，用来方法子系统中的一群接口。外观定义了一个高层接口，让子系统更容易使用</p>
+</blockquote>
+<p>外观模式和适配器模式类似，都是在不同接口方法之间建立映射关系。<br>其中适配器模式着重<strong>转换</strong>，而外观模式着重于<strong>简化</strong>。</p>
+<h1 id="模板方法模式-Template"><a href="#模板方法模式-Template" class="headerlink" title="模板方法模式 Template"></a>模板方法模式 Template</h1><blockquote>
+<p>模板方法模式在一个方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。</p>
+</blockquote>
+<h1 id="迭代器模式-Iterator"><a href="#迭代器模式-Iterator" class="headerlink" title="迭代器模式 Iterator"></a>迭代器模式 Iterator</h1><blockquote>
+<p>迭代器模式提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。</p>
+</blockquote>
+<p>外部迭代器：客户自己通过调用 next 方法进行游走，并在游走的过程中进行处理。<br>内部迭代器：游走过程由迭代器自行完成，客户无法干预，且必须将游走过程中需要处理的逻辑传给迭代器。</p>
+<h1 id="组合模式-Composite"><a href="#组合模式-Composite" class="headerlink" title="组合模式 Composite"></a>组合模式 Composite</h1><blockquote>
+<p>组合模式允许你将对象组合成树形结构来表现“整体/部分”层次结构。组合能让客户以一致的方式处理个别对象以及组合对象。</p>
+</blockquote>
+<h1 id="状态模式-State"><a href="#状态模式-State" class="headerlink" title="状态模式 State"></a>状态模式 State</h1><blockquote>
+<p>状态模式允许对象在内部状态改变时改变它的行为，对象看起来好像修改了它的类。</p>
+</blockquote>
+<p>和策略模式一样，都是在一个接口下用不同的类封装不同的逻辑。区别在于策略模式一般由调用者直接或间接指定某个逻辑；而状态模式在内部进行策略转换。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/XML/XML/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/01/01/XML/XML/" itemprop="url">XML</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h1><p>XML</p>
+<blockquote>
+<p>可扩展标记语言（eXtensible Markup Language）</p>
+</blockquote>
+<p>XML 元素</p>
+<blockquote>
+<p>XML 元素指的是从（且包括）开始标签直到（且包括）结束标签的部分。<br>一个元素可以包含：其他元素、文本、属性，或混合以上所有…</p>
+</blockquote>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><ul>
+<li>声明部分 <code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; standalone=&quot;yes&quot;?&gt;</code> 可选，如果存在须放第一行；<ul>
+<li><code>standalone=&quot;yes&quot;</code> 表示该 XML 文档独立，不能引用外部的 DTD 规范文件，反之则非独立，可以引用外部规范文件。</li>
+</ul>
+</li>
+<li>XML 标签<ul>
+<li>所有元素都必须有关闭标签；</li>
+<li>XML 标签对大小写敏感；</li>
+<li>所有标签都必须正确嵌套；</li>
+</ul>
+</li>
+<li>XML 元素<ul>
+<li>必须包含<strong>根元素</strong>，它是所有其他元素的父元素；</li>
+<li>XML 元素中 <code>&lt;</code> 和 <code>&amp;</code> 是非法的，必须用实体引用来替代：<ul>
+<li>预定义实体引用 - 对应符号 - 含义</li>
+<li><code>&amp;lt;</code> - <code>&lt;</code> - less than</li>
+<li><code>&amp;gt;</code> - <code>&gt;</code> - greater than</li>
+<li><code>&amp;amp;</code> - <code>&amp;</code> - ampersand</li>
+<li><code>&amp;apos;</code> - <code>&#39;</code> - apostrophe</li>
+<li><code>&amp;quot;</code> - <code>&quot;</code> - quotation mark</li>
+</ul>
+</li>
+<li>XML 元素必须遵循以下命名规则：<ul>
+<li>名称可以包含字母、数字以及其他的字符；</li>
+<li>名称不能以数字或者标点符号开始；</li>
+<li>名称不能以字母 xml（或者 XML、Xml 等等）开始；</li>
+<li>名称不能包含空格；</li>
+<li>可使用任何名称，没有保留的字词。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>XML 属性<ul>
+<li>属性值必须加引号，单双引号皆可。若属性值中本身就含有单引号或双引号，则包裹属性值的引号必须用另一种，或将属性值中的引号用实体引用 <code>&amp;apos;</code> 和 <code>&amp;quot;</code> 替代；</li>
+<li>属性不能包含多个值（元素可以）；</li>
+<li>属性不能包含树结构（元素可以）；</li>
+<li>属性不容易扩展；</li>
+</ul>
+</li>
+<li>元数据应当存储为属性，数据本身应当存储为元素</li>
+<li>注释 <code>&lt;!-- This is a comment --&gt;</code>;</li>
+<li>XML 会保留连续的多个空格，而不会裁剪为一个；</li>
+<li>XML 以 <code>LF</code> 存储换行。</li>
+</ul>
+<h1 id="格式化"><a href="#格式化" class="headerlink" title="格式化"></a>格式化</h1><ol>
+<li>CSS <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;</span><br><span class="line">&lt;?xml-stylesheet type=&quot;text/css&quot; href=&quot;cd_catalog.css&quot;?&gt;</span><br><span class="line">&lt;root&gt;</span><br><span class="line">...</span><br><span class="line">&lt;/root&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>第二行的声明把 XML 文件链接到 CSS 文件。</p>
+<ol>
+<li>XSLT //TODO<blockquote>
+<p>eXtensible Stylesheet Language Transformations<br>XSLT 是首选的 XML 样式表语言，它在浏览器显示 XML 文件之前，先把它转换为 HTML。</p>
+</blockquote>
+</li>
+</ol>
+<h1 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h1><p>命名空间是在元素的开始标签的 xmlns 属性中定义的。<br>命名空间声明的语法：<code>xmlns:前缀=&quot;URI&quot;</code>。<br>可以为元素定义默认的命名空间来省去在所有子元素中使用前缀的工作：<code>xmlns=&quot;URI</code>。</p>
+<h1 id="CDATA"><a href="#CDATA" class="headerlink" title="CDATA"></a>CDATA</h1><ol>
+<li>CDATA - （未解析）字符数据 character data<br>术语 CDATA 是不应该由 XML 解析器解析的文本数据。<br>像 “&lt;” 和 “&amp;” 字符在 XML 元素中都是非法的。”&lt;” 会产生错误，因为解析器会把该字符解释为新元素的开始。”&amp;” 会产生错误，因为解析器会把该字符解释为字符实体的开始。<br>某些文本，比如 JavaScript 代码，包含大量 “&lt;” 或 “&amp;” 字符。为了避免错误，可以将脚本代码定义为 CDATA。<br>CDATA 部分中的所有内容都会被解析器忽略，而不会去解析其中的标签和实体引用，从而被当作普通文本来处理。<br>CDATA 部分由 <code>&lt;![CDATA[</code> 开始，由 <code>]]&gt;</code> 结束。<br>CDATA 部分不能包含字符串 <code>]]&gt;</code>。也不允许嵌套的 CDATA 部分。<br>标记 CDATA 部分结尾的 <code>]]&gt;</code> 不能包含空格或换行。</li>
+<li>PCDATA - 被解析的字符数据 parsed character data<br>XML 解析器通常会解析 XML 文档中所有的文本。PCDATA 是相对于 CDATA 而言的。</li>
+</ol>
+<h1 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h1><p>在载入一个 XML 文档时可能得到两个不同的错误，表示编码问题：</p>
+<ol>
+<li>在文本内容中发现无效字符。<br>如果 XML 中包含非 ASCII 字符，且文件保存为没有指定编码的单字节 ANSI（或 ASCII），就会得到该错误。</li>
+<li>将当前编码切换为不被支持的指定编码<br>如果 XML 文件保存为带有指定的单字节编码（WINDOWS-1252、ISO-8859-1、UTF-8）的双字节 Unicode（或 UTF-16），就会得到该错误。<br>如果 XML 文件保存为带有指定的双字节编码（UTF-16）的单字节 ANSI（或 ASCII），也会得到该错误。</li>
+</ol>
+<p>结论：</p>
+<ul>
+<li>始终使用编码属性</li>
+<li>使用支持编码的编辑器</li>
+<li>确保知道编辑器使用什么编码</li>
+<li>在编码属性中使用相同的编码</li>
+</ul>
+<h1 id="XML相关技术"><a href="#XML相关技术" class="headerlink" title="XML相关技术"></a>XML相关技术</h1><p>XHTML (可扩展 HTML) </p>
+<blockquote>
+<p>更严格更纯净的基于 XML 的 HTML 版本。</p>
+</blockquote>
+<p>XML DOM (XML 文档对象模型)</p>
+<blockquote>
+<p>访问和操作 XML 的标准文档模型。</p>
+</blockquote>
+<p>XSL (可扩展样式表语言)，包含三个部分：</p>
+<blockquote>
+<ol>
+<li>XSLT (XSL 转换) - 把 XML 转换为其他格式，比如 HTML</li>
+<li>XSL-FO (XSL 格式化对象)- 用于格式化 XML 文档的语言</li>
+<li>XPath - 用于导航 XML 文档的语言</li>
+</ol>
+</blockquote>
+<p>XQuery (XML 查询语言)</p>
+<blockquote>
+<p>基于 XML 的用于查询 XML 数据的语言。</p>
+</blockquote>
+<p><a href="#DTD">DTD</a> (文档类型定义)</p>
+<blockquote>
+<p>用于定义 XML 文档中的合法元素的标准。</p>
+</blockquote>
+<p><a href="#XSD">XSD</a> (XML 架构)</p>
+<blockquote>
+<p>基于 XML 的 DTD 替代物。</p>
+</blockquote>
+<p>XLink (XML 链接语言)</p>
+<blockquote>
+<p>在 XML 文档中创建超级链接的语言。</p>
+</blockquote>
+<p>XPointer (XML 指针语言)</p>
+<blockquote>
+<p>允许 XLink 超级链接指向 XML 文档中更多具体的部分。</p>
+</blockquote>
+<p>SOAP (简单对象访问协议)</p>
+<blockquote>
+<p>允许应用程序在 HTTP 之上交换信息的基于 XML 的协议。</p>
+</blockquote>
+<p>WSDL (Web 服务描述语言)</p>
+<blockquote>
+<p>用于描述网络服务的基于 XML 的语言。</p>
+</blockquote>
+<p>RDF (资源描述框架)</p>
+<blockquote>
+<p>用于描述网络资源的基于 XML 的语言。</p>
+</blockquote>
+<p>RSS (真正简易聚合)</p>
+<blockquote>
+<p>聚合新闻以及类新闻站点内容的格式。</p>
+</blockquote>
+<p>SVG (可伸缩矢量图形) </p>
+<blockquote>
+<p>定义 XML 格式的图形</p>
+</blockquote>
+<h1 id="DTD"><a href="#DTD" class="headerlink" title="DTD"></a>DTD</h1><p><a href="#XML相关技术">back</a></p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><blockquote>
+<p>DTD（文档类型定义）的作用是定义 XML 文档的合法构建模块。<br>DTD 可被成行地声明于 XML 文档中，也可作为一个外部引用。</p>
+</blockquote>
+<p><strong>内部的 DOCTYPE 声明</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0"?&gt;</span><br><span class="line"><span class="meta">&lt;!DOCTYPE note [</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT note (to,from,heading,body)&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT to (#PCDATA)&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT from (#PCDATA)&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT heading (#PCDATA)&gt;</span></span><br><span class="line"><span class="meta">&lt;!ELEMENT body (#PCDATA)&gt;</span></span><br><span class="line"><span class="meta">]&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">note</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">to</span>&gt;</span>Tove<span class="tag">&lt;/<span class="name">to</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">from</span>&gt;</span>Jani<span class="tag">&lt;/<span class="name">from</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">heading</span>&gt;</span>Reminder<span class="tag">&lt;/<span class="name">heading</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span>Don't forget me this weekend<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">note</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>!DOCTYPE note</code> (第二行)定义此文档是 note 类型的文档。</li>
+<li><code>!ELEMENT note</code> (第三行)定义 note  元素有四个元素：”to、from、heading,、body”</li>
+<li><code>!ELEMENT to</code> (第四行)定义 to 元素为 “#PCDATA” 类型</li>
+<li><code>!ELEMENT from</code> (第五行)定义 from 元素为 “#PCDATA” 类型</li>
+<li><code>!ELEMENT heading</code> (第六行)定义 heading 元素为 “#PCDATA” 类型</li>
+<li><code>!ELEMENT body</code> (第七行)定义 body 元素为 “#PCDATA” 类型</li>
+</ul>
+<p><strong>外部文档声明</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE note SYSTEM &quot;note.dtd&quot;&gt;</span><br><span class="line">&lt;note&gt;</span><br><span class="line">    &lt;to&gt;Tove&lt;/to&gt;</span><br><span class="line">    &lt;from&gt;Jani&lt;/from&gt;</span><br><span class="line">    &lt;heading&gt;Reminder&lt;/heading&gt;</span><br><span class="line">    &lt;body&gt;Don&apos;t forget me this weekend!&lt;/body&gt;</span><br><span class="line">&lt;/note&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>为什么使用 DTD</strong></p>
+<ul>
+<li>通过 DTD，每一个 XML 文件均可携带一个有关其自身格式的描述。</li>
+<li>通过 DTD，独立的团体可一致地使用某个标准的 DTD 来交换数据。</li>
+<li>应用程序可使用某个标准的 DTD 来验证从外部接收到的数据。</li>
+<li>可以使用 DTD 来验证自身的数据。</li>
+</ul>
+<h2 id="元素"><a href="#元素" class="headerlink" title="元素"></a>元素</h2><p>在 DTD 中，XML 元素通过元素声明来进行声明：<br><code>&lt;!ELEMENT element-name category&gt;</code><br>或<br><code>&lt;!ELEMENT element-name (element-content)&gt;</code></p>
+<ol>
+<li>空元素<br>空元素通过类别关键词 <code>EMPTY</code> 来声明<br><code>&lt;!ELEMENT element-name EMPTY&gt;</code></li>
+<li>只有 PCDATA 的元素<br>只有 PCDATA 的元素通过圆括号中的 <code>#PCDATA</code> 进行声明<br><code>&lt;!ELEMENT element-name (#PCDATA)&gt;</code></li>
+<li>带有任何内容的元素<br>通过类别关键词 <code>ANY</code> 声明的元素，可包含任何可解析数据的组合<br><code>&lt;!ELEMENT element-name ANY&gt;</code></li>
+<li>带有子元素（序列）的元素<br>带有一个或多个子元素的元素通过圆括号中的子元素名进行声明<br><code>&lt;!ELEMENT element-name (child1)&gt;</code><br>或<br><code>&lt;!ELEMENT element-name (child1,child2,...)&gt;</code><br>当子元素按照由逗号分隔开的序列进行声明时，这些子元素必须按照相同的顺序出现在文档中。在一个完整的声明中，子元素也必须被声明，同时子元素也可拥有子元素。</li>
+<li>声明必须出现且只出现一次的元素<br><code>&lt;!ELEMENT element-name (child-name)&gt;</code></li>
+<li>声明最少出现一次的元素<br><code>&lt;!ELEMENT element-name (child-name+)&gt;</code></li>
+<li>声明出现零次或多次的元素<br><code>&lt;!ELEMENT element-name (child-name*)&gt;</code></li>
+<li>声明出现零次或一次的元素<br><code>&lt;!ELEMENT element-name (child-name?)&gt;</code></li>
+<li>声明”非…即…”类型的内容<br>实例: <code>&lt;!ELEMENT note (to,from,header,(message|body))&gt;</code><br>上面的例子声明了：”note” 元素必须包含 “to” 元素、”from” 元素、”header” 元素，以及非 “message” 元素既 “body” 元素。</li>
+<li>声明混合型的内容<br>实例: <code>&lt;!ELEMENT note (#PCDATA|to|from|header|message)*&gt;</code><br>上面的例子声明了：”note” 元素可包含出现零次或多次的 PCDATA、”to”、”from”、”header” 或者 “message”。</li>
+</ol>
+<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p>在 DTD 中，属性通过 ATTLIST 声明来进行声明：<br><code>&lt;!ATTLIST {element-name} {attribute-name} attribute-type attribute-value&gt;</code><br>DTD 实例：<br><code>&lt;!ATTLIST payment type CDATA &quot;check&quot;&gt;</code><br>XML 实例：<br><code>&lt;payment type=&quot;check&quot; /&gt;</code></p>
+<p>属性类型(attribute-type)的选项：</p>
+<ul>
+<li><code>CDATA</code>: 值为字符数据 (character data)</li>
+<li><code>(en1|en2|..)</code>: 此值是枚举列表中的一个值</li>
+<li><code>ID</code>: 值为唯一的 id</li>
+<li><code>IDREF</code>: 值为另外一个元素的 id</li>
+<li><code>IDREFS</code>: 值为其他 id 的列表</li>
+<li><code>NMTOKEN</code>: 值为合法的 XML 名称</li>
+<li><code>NMTOKENS</code>: 值为合法的 XML 名称的列表</li>
+<li><code>ENTITY</code>: 值是一个实体</li>
+<li><code>ENTITIES</code>: 值是一个实体列表</li>
+<li><code>NOTATION</code>: 此值是符号的名称</li>
+<li><code>xml:</code>: 值是一个预定义的 XML 值</li>
+</ul>
+<p>默认属性值可使用下列值 :</p>
+<ul>
+<li><code>#REQUIRED</code>: 属性值是必需的</li>
+<li><code>#IMPLIED</code>: 属性不是必需的</li>
+<li><code>#FIXED value</code>: 属性值是固定的</li>
+</ul>
+<h2 id="实体"><a href="#实体" class="headerlink" title="实体"></a>实体</h2><p>实体是用于定义引用普通文本或特殊字符的快捷方式的变量。</p>
+<ul>
+<li>实体引用是对实体的引用。</li>
+<li>实体可在内部或外部进行声明</li>
+</ul>
+<p>一个内部实体声明：<br><code>&lt;!ENTITY entity-name &quot;entity-value&quot;&gt;</code><br>DTD 实例:<br><code>&lt;!ENTITY writer &quot;Donald Duck.&quot;&gt;</code><br><code>&lt;!ENTITY copyright &quot;Copyright W3CSchool.cc&quot;&gt;</code><br>XML 实例：<br><code>&lt;author&gt;&amp;writer;&amp;copyright;&lt;/author&gt;</code></p>
+<p>一个外部实体声明：<br><code>&lt;!ENTITY entity-name SYSTEM &quot;URI/URL&quot;&gt;</code><br>DTD 实例：<br><code>&lt;!ENTITY writer SYSTEM &quot;http://www.w3cschool.cc/entities.dtd&quot;&gt;</code><br><code>&lt;!ENTITY copyright SYSTEM &quot;http://www.w3cschool.cc/entities.dtd&quot;&gt;</code><br>XML 实例：<br><code>&lt;author&gt;&amp;writer;&amp;copyright;&lt;/author&gt;</code></p>
+<h1 id="XSD"><a href="#XSD" class="headerlink" title="XSD"></a>XSD</h1><p><a href="#XML相关技术">back</a></p>
+<blockquote>
+<p>XML Schema 的作用是定义 XML 文档的合法构建模块，类似 DTD。</p>
+<ul>
+<li>定义可出现在文档中的元素</li>
+<li>定义可出现在文档中的属性</li>
+<li>定义哪个元素是子元素</li>
+<li>定义子元素的次序</li>
+<li>定义子元素的数目</li>
+<li>定义元素是否为空，或者是否可包含文本</li>
+<li>定义元素和属性的数据类型</li>
+<li>定义元素和属性的默认值以及固定值</li>
+</ul>
+</blockquote>
+<h2 id="schema-元素"><a href="#schema-元素" class="headerlink" title="schema 元素"></a>schema 元素</h2><p><strong><code>&lt;schema&gt;</code> 元素是每一个 XML Schema 的根元素</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;</span><br><span class="line">targetNamespace=&quot;http://www.runoob.com&quot;</span><br><span class="line">xmlns=&quot;http://www.runoob.com&quot;</span><br><span class="line">elementFormDefault=&quot;qualified&quot;&gt;</span><br><span class="line">...</span><br><span class="line">&lt;/xs:schema&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;</code><br>显示 schema 中用到的元素和数据类型来自命名空间 “<a href="http://www.w3.org/2001/XMLSchema&quot;。同时它还规定了来自命名空间" target="_blank" rel="noopener">http://www.w3.org/2001/XMLSchema&quot;。同时它还规定了来自命名空间</a> “<a href="http://www.w3.org/2001/XMLSchema" target="_blank" rel="noopener">http://www.w3.org/2001/XMLSchema</a>“ 的元素和数据类型应该使用前缀 xs</li>
+<li><code>targetNamespace=&quot;http://www.runoob.com&quot;</code><br>显示被此 schema 定义的元素 (note, to, from, heading, body) 来自命名空间： “<a href="http://www.runoob.com" target="_blank" rel="noopener">http://www.runoob.com</a>“</li>
+<li><code>xmlns=&quot;http://www.runoob.com&quot;</code><br>指出默认的命名空间是 “<a href="http://www.runoob.com" target="_blank" rel="noopener">http://www.runoob.com</a>“</li>
+<li><code>elementFormDefault=&quot;qualified&quot;</code><br>指出任何 XML 实例文档所使用的且在此 schema 中声明过的元素必须被命名空间限定</li>
+</ul>
+<p><strong>在 XML 文档中引用 Schema</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;note xmlns=&quot;http://www.runoob.com&quot;</span><br><span class="line">xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">xsi:schemaLocation=&quot;http://www.runoob.com note.xsd&quot;&gt;</span><br><span class="line">    &lt;to&gt;Tove&lt;/to&gt;</span><br><span class="line">    &lt;from&gt;Jani&lt;/from&gt;</span><br><span class="line">    &lt;heading&gt;Reminder&lt;/heading&gt;</span><br><span class="line">    &lt;body&gt;Don&apos;t forget me this weekend!&lt;/body&gt;</span><br><span class="line">&lt;/note&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>xmlns=&quot;http://www.runoob.com&quot;</code><br>规定了默认命名空间的声明。此声明会告知 schema 验证器，在此 XML 文档中使用的所有元素都被声明于 “<a href="http://www.runoob.com" target="_blank" rel="noopener">http://www.runoob.com</a>“ 这个命名空间。</li>
+<li>一旦拥有了可用的 XML Schema 实例命名空间：<br><code>xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</code><br>就可以使用 schemaLocation 属性了。此属性有两个值。第一个值是需要使用的命名空间。第二个值是供命名空间使用的 XML schema 的位置：<br><code>xsi:schemaLocation=&quot;http://www.runoob.com note.xsd&quot;</code></li>
+</ul>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p><strong>字符串数据类型</strong></p>
+<ul>
+<li>字符串 String Data Type</li>
+</ul>
+<blockquote>
+<p>字符串数据类型可包含字符、换行、回车以及制表符。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;customer&quot; type=&quot;xs:string&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>规格化字符串 NormalizedString Data Type</li>
+</ul>
+<blockquote>
+<p>规格化字符串数据类型同样可包含字符，但是 XML 处理器会移除折行，回车以及制表符。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;customer&quot; type=&quot;xs:normalizedString&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Token 数据类型 Token Data Type</li>
+</ul>
+<blockquote>
+<p>Token 数据类型同样可包含字符，但是 XML 处理器会移除换行符、回车、制表符、开头和结尾的空格以及（连续的）空格。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;customer&quot; type=&quot;xs:token&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>字符串数据类型及衍生类型<br>|名称|描述|<br>|:–|:–|<br>|ENTITIES|<br>|ENTITY|<br>|ID|在 XML 中提交 ID 属性的字符串（仅与 schema 属性一同使用）|<br>|IDREF|在 XML 中提交 IDREF 属性的字符串（仅与 schema 属性一同使用）|<br>|IDREFS language|包含合法的语言 id 的字符串|<br>|Name|包含合法 XML 名称的字符串|<br>|NCName|<br>|NMTOKEN|在 XML 中提交 NMTOKEN 属性的字符串（仅与 schema 属性一同使用）|<br>|NMTOKENS|<br>|normalizedString|不包含换行符、回车或制表符的字符串|<br>|QName|<br>|string|字符串|<br>|token|不包含换行符、回车或制表符、开头或结尾空格或者多个连续空格的字符串|</li>
+</ul>
+<ul>
+<li>对字符串数据类型的限定（Restriction）<br>可与字符串数据类型一同使用的限定：<ul>
+<li>enumeration</li>
+<li>length</li>
+<li>maxLength</li>
+<li>minLength</li>
+<li>pattern (NMTOKENS、IDREFS 以及 ENTITIES 无法使用此约束)</li>
+<li>whiteSpace</li>
+</ul>
+</li>
+</ul>
+<p><strong>日期和时间数据类型</strong></p>
+<ul>
+<li>日期 Date Data Type：”YYYY-MM-DD”<br><code>&lt;xs:element name=&quot;start&quot; type=&quot;xs:date&quot;/&gt;</code><ul>
+<li>时区<ul>
+<li>在日期后加一个 “Z” 的方式，使用世界调整时间（UTC time）来输入一个日期<br><code>&lt;start&gt;2002-09-24Z&lt;/start&gt;</code></li>
+<li>在日期后添加一个正的或负时间的方法，来规定以世界调整时间为准的偏移量<br><code>&lt;start&gt;2002-09-24-06:00&lt;/start&gt;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>时间 Time Data Type：”hh:mm:ss”<br><code>&lt;xs:element name=&quot;start&quot; type=&quot;xs:time&quot;/&gt;</code><ul>
+<li>时区：同上</li>
+</ul>
+</li>
+<li>日期时间 DateTime Data Type：”YYYY-MM-DDThh:mm:ss”，其中 T 表示必需的时间部分的起始<br><code>&lt;xs:element name=&quot;startdate&quot; type=&quot;xs:dateTime&quot;/&gt;</code><ul>
+<li>时区：同上</li>
+</ul>
+</li>
+<li>持续时间 Duration Data Type：”PnYnMnDTnHnMnS”，其中<ul>
+<li>P 表示周期(必需)</li>
+<li>nY 表示年数</li>
+<li>nM 表示月数</li>
+<li>nD 表示天数</li>
+<li>T 表示时间部分的起始 -     （如果打算规定小时、分钟和秒，则此选项为必需）</li>
+<li>nH 表示小时数</li>
+<li>nM 表示分钟数</li>
+<li>nS 表示秒数<br><code>&lt;xs:element name=&quot;period&quot; type=&quot;xs:duration&quot;/&gt;</code><br>例：<code>&lt;period&gt;P5Y2M10DT15H&lt;/period&gt;</code></li>
+</ul>
+</li>
+<li>负的持续时间：在 P 前加减号</li>
+<li>日期和时间数据类型<br>|名称|描述|<br>|:–|:–|<br>|date|定义一个日期值|<br>|dateTime|定义一个日期和时间值|<br>|duration|定义一个时间间隔|<br>|gDay|定义日期的一个部分 - 天 (DD)|<br>|gMonth|定义日期的一个部分 - 月 (MM)|<br>|gMonthDay|定义日期的一个部分 - 月和天 (MM-DD)|<br>|gYear|定义日期的一个部分 - 年 (YYYY)|<br>|gYearMonth|定义日期的一个部分 - 年和月 (YYYY-MM)|<br>|time|定义一个时间值|</li>
+</ul>
+<ul>
+<li>对日期数据类型的限定（Restriction）<br>可与日期数据类型一同使用的限定：<ul>
+<li>enumeration</li>
+<li>maxExclusive</li>
+<li>maxInclusive</li>
+<li>minExclusive</li>
+<li>minInclusive</li>
+<li>pattern</li>
+<li>whiteSpace</li>
+</ul>
+</li>
+</ul>
+<p><strong>数值数据类型</strong></p>
+<ul>
+<li>十进制：最大位数是 18 位<br><code>&lt;xs:element name=&quot;prize&quot; type=&quot;xs:decimal&quot;/&gt;</code></li>
+<li>整数<br><code>&lt;xs:element name=&quot;prize&quot; type=&quot;xs:integer&quot;/&gt;</code></li>
+<li>数值数据类型<br>|名字|秒数|<br>|:–|:–|<br>|byte|有正负的 8 位整数|<br>|decimal|十进制数|<br>|int|有正负的 32 位整数|<br>|integer|整数值|<br>|long|有正负的 64 位整数|<br>|negativeInteger|仅包含负值的整数 ( .., -2, -1.)|<br>|nonNegativeInteger|仅包含非负值的整数 (0, 1, 2, ..)|<br>|nonPositiveInteger|仅包含非正值的整数 (.., -2, -1, 0)|<br>|positiveInteger|仅包含正值的整数 (1, 2, ..)|<br>|short|有正负的 16 位整数|<br>|unsignedLong|无正负的 64 位整数|<br>|unsignedInt|无正负的 32 位整数|<br>|unsignedShort|无正负的 16 位整数|<br>|unsignedByte|无正负的 8 位整数|</li>
+</ul>
+<ul>
+<li>对数值数据类型的限定（Restriction）<br>可与数值数据类型一同使用的限定：<ul>
+<li>enumeration</li>
+<li>fractionDigits</li>
+<li>maxExclusive</li>
+<li>maxInclusive</li>
+<li>minExclusive</li>
+<li>minInclusive</li>
+<li>pattern</li>
+<li>totalDigits</li>
+<li>whiteSpace</li>
+</ul>
+</li>
+</ul>
+<p><strong>杂项数据类型</strong></p>
+<blockquote>
+<p>其他杂项数据类型包括布尔、base64Binary、十六进制、浮点、双精度、anyURI、anyURI 以及 NOTATION。</p>
+</blockquote>
+<ul>
+<li>布尔 Boolean Data Type： 合法的布尔值是 true、false、1（表示 true） 以及 0（表示 false）<br><code>&lt;xs:attribute name=&quot;disabled&quot; type=&quot;xs:boolean&quot;/&gt;</code></li>
+<li>二进制 Binary Data Types：<br><code>&lt;xs:element name=&quot;blobsrc&quot; type=&quot;xs:hexBinary&quot;/&gt;</code><ul>
+<li>可使用两种二进制数据类型：<ul>
+<li>base64Binary (Base64 编码的二进制数据)</li>
+<li>hexBinary (十六进制编码的二进制数据)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>AnyURI 数据类型 AnyURI Data Type：用于规定 URI；如果某个 URI 含有空格，请用 %20 替换它们<br><code>&lt;xs:attribute name=&quot;src&quot; type=&quot;xs:anyURI&quot;/&gt;</code></li>
+<li>杂项数据类型<br>|名称|描述|<br>|:–|:–|<br>|anyURI|<br>|base64Binary|<br>|boolean|<br>|double|<br>|float|<br>|hexBinary|<br>|NOTATION|<br>|QName|</li>
+</ul>
+<ul>
+<li>对杂项数据类型的限定（Restriction）<br>可与杂项数据类型一同使用的限定：<ul>
+<li>enumeration (布尔数据类型无法使用此约束)</li>
+<li>length (布尔数据类型无法使用此约束)</li>
+<li>maxLength (布尔数据类型无法使用此约束)</li>
+<li>minLength (布尔数据类型无法使用此约束)</li>
+<li>pattern</li>
+<li>whiteSpace</li>
+</ul>
+</li>
+</ul>
+<h2 id="简易元素"><a href="#简易元素" class="headerlink" title="简易元素"></a>简易元素</h2><blockquote>
+<p>简易元素指那些仅包含文本的元素。它不会包含任何其他的元素或属性。<br>不过，“仅包含文本”这个限定却很容易造成误解。文本有很多类型。它可以是 XML Schema 定义中包括的类型中的一种（布尔、字符串、数据等等），或者它也可以是自行定义的定制类型。<br>也可向数据类型添加限定（即 facets），以此来限制它的内容，或者可以要求数据匹配某种特定的模式。</p>
+</blockquote>
+<p><strong>定义简易元素</strong><br><code>&lt;xs:element name=&quot;xxx&quot; type=&quot;yyy&quot;/&gt;</code><br>最常用的类型是：</p>
+<ul>
+<li>xs:string</li>
+<li>xs:decimal</li>
+<li>xs:integer</li>
+<li>xs:boolean</li>
+<li>xs:date</li>
+<li>xs:time</li>
+</ul>
+<p><strong>简易元素的默认值和固定值</strong><br>简易元素可拥有指定的默认值或固定值。<br>当没有其他的值被规定时，默认值就会自动分配给元素：<br><code>&lt;xs:element name=&quot;color&quot; type=&quot;xs:string&quot; default=&quot;red&quot;/&gt;</code><br>固定值同样会自动分配给元素，并且无法规定另外一个值：<br><code>&lt;xs:element name=&quot;color&quot; type=&quot;xs:string&quot; fixed=&quot;red&quot;/&gt;</code></p>
+<h2 id="属性-1"><a href="#属性-1" class="headerlink" title="属性"></a>属性</h2><blockquote>
+<p>所有的属性均作为简易类型来声明。简易元素无法拥有属性。假如某个元素拥有属性，它就会被当作某种复合类型。但是属性本身总是作为简易类型被声明的。</p>
+</blockquote>
+<p><strong>定义属性</strong><br><code>&lt;xs:attribute name=&quot;xxx&quot; type=&quot;yyy&quot;/&gt;</code><br>最常用的类型是：</p>
+<ul>
+<li>xs:string</li>
+<li>xs:decimal</li>
+<li>xs:integer</li>
+<li>xs:boolean</li>
+<li>xs:date</li>
+<li>xs:time</li>
+</ul>
+<p><strong>属性的默认值和固定值</strong><br>属性可拥有指定的默认值或固定值。<br>当没有其他的值被规定时，默认值就会自动分配给元素：<br><code>&lt;xs:attribute name=&quot;lang&quot; type=&quot;xs:string&quot; default=&quot;EN&quot;/&gt;</code><br>固定值同样会自动分配给元素，并且无法规定另外的值：<br><code>&lt;xs:attribute name=&quot;lang&quot; type=&quot;xs:string&quot; fixed=&quot;EN&quot;/&gt;</code></p>
+<p><strong>可选的和必需的属性</strong><br>在缺省的情况下，属性是可选的。如需规定属性为必选，须使用 “use” 属性：<br><code>&lt;xs:attribute name=&quot;lang&quot; type=&quot;xs:string&quot; use=&quot;required&quot;/&gt;</code></p>
+<h2 id="限定-Facets"><a href="#限定-Facets" class="headerlink" title="限定 / Facets"></a>限定 / Facets</h2><blockquote>
+<p>限定（restriction）用于为 XML 元素或者属性定义可接受的值。对 XML 元素的限定被称为 facet。</p>
+</blockquote>
+<p><strong>对值的限定</strong></p>
+<p>下面的例子定义了带有一个限定且名为 “age” 的元素。age 的值不能低于 0 或者高于 120：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;age&quot;&gt;</span><br><span class="line">  &lt;xs:simpleType&gt;</span><br><span class="line">    &lt;xs:restriction base=&quot;xs:integer&quot;&gt;</span><br><span class="line">      &lt;xs:minInclusive value=&quot;0&quot;/&gt;</span><br><span class="line">      &lt;xs:maxInclusive value=&quot;120&quot;/&gt;</span><br><span class="line">    &lt;/xs:restriction&gt;</span><br><span class="line">  &lt;/xs:simpleType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>对一组值的限定</strong></p>
+<p>如需把 XML 元素的内容限制为一组可接受的值，我们要使用枚举约束（enumeration constraint）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;car&quot;&gt;</span><br><span class="line">  &lt;xs:simpleType&gt;</span><br><span class="line">    &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">      &lt;xs:enumeration value=&quot;Audi&quot;/&gt;</span><br><span class="line">      &lt;xs:enumeration value=&quot;Golf&quot;/&gt;</span><br><span class="line">      &lt;xs:enumeration value=&quot;BMW&quot;/&gt;</span><br><span class="line">    &lt;/xs:restriction&gt;</span><br><span class="line">  &lt;/xs:simpleType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>上面的例子也可以被写为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;car&quot; type=&quot;carType&quot;/&gt;</span><br><span class="line">&lt;xs:simpleType name=&quot;carType&quot;&gt;</span><br><span class="line">  &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">    &lt;xs:enumeration value=&quot;Audi&quot;/&gt;</span><br><span class="line">    &lt;xs:enumeration value=&quot;Golf&quot;/&gt;</span><br><span class="line">    &lt;xs:enumeration value=&quot;BMW&quot;/&gt;</span><br><span class="line">  &lt;/xs:restriction&gt;</span><br><span class="line">&lt;/xs:simpleType&gt;</span><br></pre></td></tr></table></figure>
+<p>注意： 在这种情况下，类型 “carType” 可被其他元素使用，因为它不是 “car” 元素的组成部分。</p>
+<p><strong>对一系列值的限定</strong></p>
+<p>如需把 XML 元素的内容限制定义为一系列可使用的数字或字母，我们要使用模式约束（pattern constraint）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;letter&quot;&gt;</span><br><span class="line">    &lt;xs:simpleType&gt;</span><br><span class="line">        &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">            &lt;!-- 实际应用中取下列任一元素 --&gt;</span><br><span class="line">            &lt;!-- 只接受小写字母 a - z 其中的一个 --&gt;</span><br><span class="line">            &lt;xs:pattern value=&quot;[a-z]&quot;/&gt;</span><br><span class="line">            &lt;!-- 只接受大写字母 A - Z 其中的三个 --&gt;</span><br><span class="line">            &lt;xs:pattern value=&quot;[A-Z][A-Z][A-Z]&quot;/&gt;</span><br><span class="line">            &lt;!-- 只接受 a - z 中零个或多个字母 --&gt;</span><br><span class="line">            &lt;xs:pattern value=&quot;([a-z])*&quot;/&gt;</span><br><span class="line">            &lt;!-- 只接受一对或多对字母，每对字母由一个小写字母后跟一个大写字母组成 --&gt;</span><br><span class="line">            &lt;xs:pattern value=&quot;([a-z][A-Z])+&quot;/&gt;</span><br><span class="line">            &lt;!-- 只接受 male 或者 female --&gt;</span><br><span class="line">            &lt;xs:pattern value=&quot;male|female&quot;/&gt;</span><br><span class="line">            &lt;!-- 只接受由 8 个字符组成的一行字符，这些字符必须是大写或小写字母 a - z 亦或数字 0 - 9 --&gt;</span><br><span class="line">            &lt;xs:pattern value=&quot;[a-zA-Z0-9]&#123;8&#125;&quot;/&gt;</span><br><span class="line">        &lt;/xs:restriction&gt;</span><br><span class="line">    &lt;/xs:simpleType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>对空白字符的限定</strong></p>
+<p>如需规定对空白字符（whitespace characters）的处理方式，需要使用 whiteSpace 限定。<br>下面的例子定义了带有一个限定的名为 “address” 的元素。这个 whiteSpace 限定被设置为 “preserve”，这意味着 XML 处理器不会移除任何空白字符：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;address&quot;&gt;</span><br><span class="line">    &lt;xs:simpleType&gt;</span><br><span class="line">        &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">            &lt;!-- 实际应用中取下列任一元素 --&gt;</span><br><span class="line">            &lt;!-- 不会移除任何空白字符 --&gt;</span><br><span class="line">            &lt;xs:whiteSpace value=&quot;preserve&quot;/&gt;</span><br><span class="line">            &lt;!-- 将移除所有空白字符（换行、回车、空格以及制表符） --&gt;</span><br><span class="line">            &lt;xs:whiteSpace value=&quot;replace&quot;/&gt;</span><br><span class="line">            &lt;!-- 将移除所有空白字符（换行、回车、空格以及制表符会被替换为空格，开头和结尾的空格会被移除，而多个连续的空格会被缩减为一个单一的空格） --&gt;</span><br><span class="line">            &lt;xs:whiteSpace value=&quot;collapse&quot;/&gt;</span><br><span class="line">        &lt;/xs:restriction&gt;</span><br><span class="line">    &lt;/xs:simpleType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>对长度的限定</strong></p>
+<p>如需限制元素中值的长度，需要使用 length、maxLength 以及 minLength 限定。<br>本例定义了带有一个限定且名为 “password” 的元素。其值必须精确到 8 个字符：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;password&quot;&gt;</span><br><span class="line">    &lt;xs:simpleType&gt;</span><br><span class="line">        &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">            &lt;!-- 值必须精确到 8 个字符 --&gt;</span><br><span class="line">            &lt;xs:length value=&quot;8&quot;/&gt;</span><br><span class="line">            &lt;!-- 值最小为 5 个字符，最大为 8 个字符 --&gt;</span><br><span class="line">            &lt;xs:minLength value=&quot;5&quot;/&gt;</span><br><span class="line">            &lt;xs:maxLength value=&quot;8&quot;/&gt;</span><br><span class="line">        &lt;/xs:restriction&gt;</span><br><span class="line">    &lt;/xs:simpleType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>数据类型的限定</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">限定</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">enumeration</td>
+<td style="text-align:left">定义可接受值的一个列表</td>
+</tr>
+<tr>
+<td style="text-align:left">fractionDigits</td>
+<td style="text-align:left">定义所允许的最大的小数位数。必须大于等于0。</td>
+</tr>
+<tr>
+<td style="text-align:left">length</td>
+<td style="text-align:left">定义所允许的字符或者列表项目的精确数目。必须大于或等于0。</td>
+</tr>
+<tr>
+<td style="text-align:left">maxExclusive</td>
+<td style="text-align:left">定义数值的上限。所允许的值必须小于此值。</td>
+</tr>
+<tr>
+<td style="text-align:left">maxInclusive</td>
+<td style="text-align:left">定义数值的上限。所允许的值必须小于或等于此值。</td>
+</tr>
+<tr>
+<td style="text-align:left">maxLength</td>
+<td style="text-align:left">定义所允许的字符或者列表项目的最大数目。必须大于或等于0。</td>
+</tr>
+<tr>
+<td style="text-align:left">minExclusive</td>
+<td style="text-align:left">定义数值的下限。所允许的值必需大于此值。</td>
+</tr>
+<tr>
+<td style="text-align:left">minInclusive</td>
+<td style="text-align:left">定义数值的下限。所允许的值必需大于或等于此值。</td>
+</tr>
+<tr>
+<td style="text-align:left">minLength</td>
+<td style="text-align:left">定义所允许的字符或者列表项目的最小数目。必须大于或等于0。</td>
+</tr>
+<tr>
+<td style="text-align:left">pattern</td>
+<td style="text-align:left">定义可接受的字符的精确序列。</td>
+</tr>
+<tr>
+<td style="text-align:left">totalDigits</td>
+<td style="text-align:left">定义所允许的阿拉伯数字的精确位数。必须大于0。</td>
+</tr>
+<tr>
+<td style="text-align:left">whiteSpace</td>
+<td style="text-align:left">定义空白字符（换行、回车、空格以及制表符）的处理方式。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="复合元素"><a href="#复合元素" class="headerlink" title="复合元素"></a>复合元素</h2><blockquote>
+<p>复合元素指包含其他元素及/或属性的 XML 元素。</p>
+<ul>
+<li>空元素</li>
+<li>包含其他元素的元素</li>
+<li>仅包含文本的元素</li>
+<li>包含元素和文本的元素</li>
+</ul>
+<p>上述元素均可包含属性。</p>
+</blockquote>
+<p><strong>定义复合元素</strong></p>
+<p>这个复合 XML 元素，”employee”，仅包含其他元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;employee&gt;</span><br><span class="line">    &lt;firstname&gt;John&lt;/firstname&gt;</span><br><span class="line">    &lt;lastname&gt;Smith&lt;/lastname&gt;</span><br><span class="line">&lt;/employee&gt;</span><br></pre></td></tr></table></figure>
+<p>在 XML Schema 中，有两种方式来定义复合元素：</p>
+<ol>
+<li>通过命名此元素，可直接对 “employee” 元素进行声明：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;employee&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:sequence&gt;</span><br><span class="line">      &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;/xs:sequence&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>假如使用上面所描述的方法，那么仅有 “employee” 可使用所规定的复合类型。请注意其子元素，”firstname” 以及 “lastname”，被包围在指示器 <code>&lt;sequence&gt;</code> 中。这意味着子元素必须以它们被声明的次序出现。</p>
+<ol>
+<li>“employee” 元素可以使用 type 属性，这个属性的作用是引用要使用的复合类型的名称：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;employee&quot; type=&quot;personinfo&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:complexType name=&quot;personinfo&quot;&gt;</span><br><span class="line">  &lt;xs:sequence&gt;</span><br><span class="line">    &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">  &lt;/xs:sequence&gt;</span><br><span class="line">&lt;/xs:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>如果使用了上面所描述的方法，那么若干元素均可以使用相同的复合类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;employee&quot; type=&quot;personinfo&quot;/&gt;</span><br><span class="line">&lt;xs:element name=&quot;student&quot; type=&quot;personinfo&quot;/&gt;</span><br><span class="line">&lt;xs:element name=&quot;member&quot; type=&quot;personinfo&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:complexType name=&quot;personinfo&quot;&gt;</span><br><span class="line">  &lt;xs:sequence&gt;</span><br><span class="line">    &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">  &lt;/xs:sequence&gt;</span><br><span class="line">&lt;/xs:complexType&gt;</span><br></pre></td></tr></table></figure>
+<p>也可以在已有的复合元素之上以某个复合元素为基础，然后添加一些元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;employee&quot; type=&quot;fullpersoninfo&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:complexType name=&quot;personinfo&quot;&gt;</span><br><span class="line">  &lt;xs:sequence&gt;</span><br><span class="line">    &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">  &lt;/xs:sequence&gt;</span><br><span class="line">&lt;/xs:complexType&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:complexType name=&quot;fullpersoninfo&quot;&gt;</span><br><span class="line">  &lt;xs:complexContent&gt;</span><br><span class="line">    &lt;xs:extension base=&quot;personinfo&quot;&gt;</span><br><span class="line">      &lt;xs:sequence&gt;</span><br><span class="line">        &lt;xs:element name=&quot;address&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">        &lt;xs:element name=&quot;city&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">        &lt;xs:element name=&quot;country&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;/xs:sequence&gt;</span><br><span class="line">    &lt;/xs:extension&gt;</span><br><span class="line">  &lt;/xs:complexContent&gt;</span><br><span class="line">&lt;/xs:complexType&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="复合类型-空元素"><a href="#复合类型-空元素" class="headerlink" title="复合类型-空元素"></a><strong>复合类型-空元素</strong></h3><blockquote>
+<p>空的复合元素不能包含内容，只能含有属性。</p>
+</blockquote>
+<p>一个空的 XML 元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;product prodid=&quot;1345&quot; /&gt;</span><br></pre></td></tr></table></figure>
+<p>上面的 “product” 元素根本没有内容。为了定义无内容的类型，就必须声明一个在其内容中只能包含元素的类型，但是实际上并不会声明任何元素，比如这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;product&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">        &lt;xs:complexContent&gt;</span><br><span class="line">            &lt;xs:restriction base=&quot;xs:integer&quot;&gt;</span><br><span class="line">                &lt;xs:attribute name=&quot;prodid&quot; type=&quot;xs:positiveInteger&quot;/&gt;</span><br><span class="line">            &lt;/xs:restriction&gt;</span><br><span class="line">        &lt;/xs:complexContent&gt;</span><br><span class="line">    &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，定义了一个带有复合内容的复合类型。complexContent 元素给出的信号是，打算限定或者拓展某个复合类型的内容模型，而 integer 限定则声明了一个属性但不会引入任何的元素内容。<br>但是，也可以更加紧凑地声明此 “product” 元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;product&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:attribute name=&quot;prodid&quot; type=&quot;xs:positiveInteger&quot;/&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>或者可以为一个 complexType 元素起一个名字，然后为 “product” 元素设置一个 type 属性并引用这个 complexType 名称（通过使用此方法，若干个元素均可引用相同的复合类型）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;product&quot; type=&quot;prodtype&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:complexType name=&quot;prodtype&quot;&gt;</span><br><span class="line">  &lt;xs:attribute name=&quot;prodid&quot; type=&quot;xs:positiveInteger&quot;/&gt;</span><br><span class="line">&lt;/xs:complexType&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="复合类型-仅含元素"><a href="#复合类型-仅含元素" class="headerlink" title="复合类型-仅含元素"></a><strong>复合类型-仅含元素</strong></h3><blockquote>
+<p>“仅含元素”的复合类型元素是只能包含其他元素的元素。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;person&gt;</span><br><span class="line">    &lt;firstname&gt;John&lt;/firstname&gt;</span><br><span class="line">    &lt;lastname&gt;Smith&lt;/lastname&gt;</span><br><span class="line">&lt;/person&gt;</span><br></pre></td></tr></table></figure>
+<p>可在 schema 中这样定义 “person” 元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;person&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:sequence&gt;</span><br><span class="line">      &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;/xs:sequence&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>注意，它意味着被定义的元素必须按上面的次序出现在 “person” 元素中。<br>或者可以为 complexType 元素设定一个名称，并让 “person” 元素的 type 属性来引用此名称（如使用此方法，若干元素均可引用相同的复合类型）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;person&quot; type=&quot;persontype&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:complexType name=&quot;persontype&quot;&gt;</span><br><span class="line">  &lt;xs:sequence&gt;</span><br><span class="line">    &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">  &lt;/xs:sequence&gt;</span><br><span class="line">&lt;/xs:complexType&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="复合类型-仅含文本"><a href="#复合类型-仅含文本" class="headerlink" title="复合类型-仅含文本"></a><strong>复合类型-仅含文本</strong></h3><blockquote>
+<p>含文本的复合元素可包含文本和属性。</p>
+</blockquote>
+<p>此类型仅包含简易的内容（文本和属性），因此要向此内容添加 simpleContent 元素。当使用简易内容时，我们就必须在 simpleContent 元素内定义扩展或限定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;somename&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:simpleContent&gt;</span><br><span class="line">      &lt;xs:extension base=&quot;basetype&quot;&gt;</span><br><span class="line">        ....</span><br><span class="line">        ....</span><br><span class="line">      &lt;/xs:extension&gt;</span><br><span class="line">    &lt;/xs:simpleContent&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>或者：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;somename&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:simpleContent&gt;</span><br><span class="line">      &lt;xs:restriction base=&quot;basetype&quot;&gt;</span><br><span class="line">        ....</span><br><span class="line">        ....</span><br><span class="line">      &lt;/xs:restriction&gt;</span><br><span class="line">    &lt;/xs:simpleContent&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>提示： 请使用 extension 或 restriction 元素来扩展或限制元素的基本简易类型。 这里有一个 XML 元素的例子，”shoesize”，其中仅包含文本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;shoesize country=&quot;france&quot;&gt;35&lt;/shoesize&gt;</span><br></pre></td></tr></table></figure>
+<p>下面这个例子声明了一个复合类型，其内容被定义为整数值，并且 “shoesize” 元素含有名为 “country” 的属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;shoesize&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:simpleContent&gt;</span><br><span class="line">      &lt;xs:extension base=&quot;xs:integer&quot;&gt;</span><br><span class="line">        &lt;xs:attribute name=&quot;country&quot; type=&quot;xs:string&quot; /&gt;</span><br><span class="line">      &lt;/xs:extension&gt;</span><br><span class="line">    &lt;/xs:simpleContent&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>也可为 complexType 元素设定一个名称，并让 “shoesize” 元素的 type 属性来引用此名称（通过使用此方法，若干元素均可引用相同的复合类型）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;shoesize&quot; type=&quot;shoetype&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:complexType name=&quot;shoetype&quot;&gt;</span><br><span class="line">  &lt;xs:simpleContent&gt;</span><br><span class="line">    &lt;xs:extension base=&quot;xs:integer&quot;&gt;</span><br><span class="line">      &lt;xs:attribute name=&quot;country&quot; type=&quot;xs:string&quot; /&gt;</span><br><span class="line">    &lt;/xs:extension&gt;</span><br><span class="line">  &lt;/xs:simpleContent&gt;</span><br><span class="line">&lt;/xs:complexType&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="复合类型-混合内容"><a href="#复合类型-混合内容" class="headerlink" title="复合类型-混合内容"></a><strong>复合类型-混合内容</strong></h3><blockquote>
+<p>混合的复合类型可包含属性、元素以及文本。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;letter&gt;</span><br><span class="line">    Dear Mr.&lt;name&gt;John Smith&lt;/name&gt;.</span><br><span class="line">    Your order &lt;orderid&gt;1032&lt;/orderid&gt;</span><br><span class="line">    will be shipped on &lt;shipdate&gt;2001-07-13&lt;/shipdate&gt;.</span><br><span class="line">&lt;/letter&gt;</span><br></pre></td></tr></table></figure>
+<p>下面这个 schema 声明了这个 “letter” 元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;letter&quot;&gt;</span><br><span class="line">  &lt;xs:complexType mixed=&quot;true&quot;&gt;</span><br><span class="line">    &lt;xs:sequence&gt;</span><br><span class="line">      &lt;xs:element name=&quot;name&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;orderid&quot; type=&quot;xs:positiveInteger&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;shipdate&quot; type=&quot;xs:date&quot;/&gt;</span><br><span class="line">    &lt;/xs:sequence&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>注意： 为了使字符数据可以出现在 “letter” 的子元素之间，mixed 属性必须被设置为 “true”。<code>&lt;xs:sequence&gt;</code> 标签 (name、orderid 以及 shipdate ) 意味着被定义的元素必须依次出现在 “letter” 元素内部。<br>也可以为 complexType 元素起一个名字，并让 “letter” 元素的 type 属性引用 complexType 的这个名称（通过这个方法，若干元素均可引用同一个复合类型）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;letter&quot; type=&quot;lettertype&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:complexType name=&quot;lettertype&quot; mixed=&quot;true&quot;&gt;</span><br><span class="line">  &lt;xs:sequence&gt;</span><br><span class="line">    &lt;xs:element name=&quot;name&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;xs:element name=&quot;orderid&quot; type=&quot;xs:positiveInteger&quot;/&gt;</span><br><span class="line">    &lt;xs:element name=&quot;shipdate&quot; type=&quot;xs:date&quot;/&gt;</span><br><span class="line">  &lt;/xs:sequence&gt;</span><br><span class="line">&lt;/xs:complexType&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="指示器"><a href="#指示器" class="headerlink" title="指示器"></a>指示器</h2><blockquote>
+<p>通过指示器，可以控制在文档中使用元素的方式。</p>
+<ul>
+<li>Order 指示器：<ul>
+<li>All</li>
+<li>Choice</li>
+<li>Sequence</li>
+</ul>
+</li>
+<li>Occurrence 指示器：<ul>
+<li>maxOccurs</li>
+<li>minOccurs</li>
+</ul>
+</li>
+<li>Group 指示器：<ul>
+<li>Group name</li>
+<li>attributeGroup name</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><strong>Order 指示器</strong></p>
+<blockquote>
+<p>Order 指示器用于定义元素的顺序。</p>
+</blockquote>
+<ul>
+<li>All 指示器<br>规定子元素可以按照任意顺序出现，且每个子元素必须只出现一次：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;person&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:all&gt;</span><br><span class="line">      &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;/xs:all&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>注意： 当使用 all 指示器时，可以把 <code>&lt;minOccurs&gt;</code> 设置为 0 或者 1，而只能把 <code>&lt;maxOccurs&gt;</code> 指示器设置为 1。</p>
+<ul>
+<li>Choice 指示器<br>规定可出现某个子元素或者可出现另外一个子元素（非此即彼）：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;person&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:choice&gt;</span><br><span class="line">      &lt;xs:element name=&quot;employee&quot; type=&quot;employee&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;member&quot; type=&quot;member&quot;/&gt;</span><br><span class="line">    &lt;/xs:choice&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Sequence 指示器<br>规定子元素必须按照特定的顺序出现：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;person&quot;&gt;</span><br><span class="line">   &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:sequence&gt;</span><br><span class="line">      &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;/xs:sequence&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>Occurrence 指示器</strong></p>
+<blockquote>
+<p>用于定义某个元素出现的频率。</p>
+</blockquote>
+<p>注意： 对于所有的 “Order” 和 “Group” 指示器（any、all、choice、sequence、group name 以及 group reference），其中的 maxOccurs 以及 minOccurs 的默认值均为 1。</p>
+<ul>
+<li>maxOccurs 指示器<br>可规定某个元素可出现的最大次数：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;person&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:sequence&gt;</span><br><span class="line">      &lt;xs:element name=&quot;full_name&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;child_name&quot; type=&quot;xs:string&quot; maxOccurs=&quot;10&quot;/&gt;</span><br><span class="line">    &lt;/xs:sequence&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>上面的例子表明，子元素 “child_name” 可在 “person” 元素中最少出现一次（其中 minOccurs 的默认值是 1），最多出现 10 次。</p>
+<ul>
+<li>minOccurs 指示器<br>可规定某个元素能够出现的最小次数：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;person&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:sequence&gt;</span><br><span class="line">      &lt;xs:element name=&quot;full_name&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;child_name&quot; type=&quot;xs:string&quot;</span><br><span class="line">      maxOccurs=&quot;10&quot; minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">    &lt;/xs:sequence&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>上面的例子表明，子元素 “child_name” 可在 “person” 元素中出现最少 0 次，最多出现 10 次。<br>如需使某个元素的出现次数不受限制，请使用 maxOccurs=”unbounded” 这个声明：<br>一个实际的例子：</p>
+<p><strong>Group 指示器</strong></p>
+<blockquote>
+<p>用于定义相关的数批元素。</p>
+</blockquote>
+<ul>
+<li>元素组<br>通过 group 声明进行定义：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:group name=&quot;groupname&quot;&gt;</span><br><span class="line">...</span><br><span class="line">&lt;/xs:group&gt;</span><br></pre></td></tr></table></figure>
+<p>必须在 group 声明内部定义一个 all、choice 或者 sequence 元素。下面这个例子定义了名为 “persongroup” 的 group，它定义了必须按照精确的顺序出现的一组元素：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:group name=&quot;persongroup&quot;&gt;</span><br><span class="line">  &lt;xs:sequence&gt;</span><br><span class="line">    &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;xs:element name=&quot;birthday&quot; type=&quot;xs:date&quot;/&gt;</span><br><span class="line">  &lt;/xs:sequence&gt;</span><br><span class="line">&lt;/xs:group&gt;</span><br></pre></td></tr></table></figure>
+<p>在把 group 定义完毕以后，就可以在另一个定义中引用它了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:group name=&quot;persongroup&quot;&gt;</span><br><span class="line">  &lt;xs:sequence&gt;</span><br><span class="line">    &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;xs:element name=&quot;birthday&quot; type=&quot;xs:date&quot;/&gt;</span><br><span class="line">  &lt;/xs:sequence&gt;</span><br><span class="line">&lt;/xs:group&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:element name=&quot;person&quot; type=&quot;personinfo&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:complexType name=&quot;personinfo&quot;&gt;</span><br><span class="line">  &lt;xs:sequence&gt;</span><br><span class="line">    &lt;xs:group ref=&quot;persongroup&quot;/&gt;</span><br><span class="line">    &lt;xs:element name=&quot;country&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">  &lt;/xs:sequence&gt;</span><br><span class="line">&lt;/xs:complexType&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>属性组<br>通过 attributeGroup 声明来进行定义：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:attributeGroup name=&quot;groupname&quot;&gt;</span><br><span class="line">...</span><br><span class="line">&lt;/xs:attributeGroup&gt;</span><br></pre></td></tr></table></figure>
+<p>下面这个例子定义了名为 “personattrgroup” 的一个属性组：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:attributeGroup name=&quot;personattrgroup&quot;&gt;</span><br><span class="line">  &lt;xs:attribute name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">  &lt;xs:attribute name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">  &lt;xs:attribute name=&quot;birthday&quot; type=&quot;xs:date&quot;/&gt;</span><br><span class="line">&lt;/xs:attributeGroup&gt;</span><br></pre></td></tr></table></figure>
+<p>在已定义完毕属性组之后，就可以在另一个定义中引用它了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:attributeGroup name=&quot;personattrgroup&quot;&gt;</span><br><span class="line">  &lt;xs:attribute name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">  &lt;xs:attribute name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">  &lt;xs:attribute name=&quot;birthday&quot; type=&quot;xs:date&quot;/&gt;</span><br><span class="line">&lt;/xs:attributeGroup&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:element name=&quot;person&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:attributeGroup ref=&quot;personattrgroup&quot;/&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="any-元素"><a href="#any-元素" class="headerlink" title="any 元素"></a>any 元素</h2><blockquote>
+<p>any 元素使我们有能力通过未被 schema 规定的元素来拓展 XML 文档。</p>
+</blockquote>
+<p>下面这个例子是从名为 “family.xsd” 的 XML schema 中引用的片段。它展示了一个针对 “person” 元素的声明。通过使用 any 元素，我们可以通过任何元素（在 <code>&lt;lastname&gt;</code> 之后）扩展 “person” 的内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;person&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:sequence&gt;</span><br><span class="line">      &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:any minOccurs=&quot;0&quot;/&gt;</span><br><span class="line">    &lt;/xs:sequence&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>现在，我们希望使用 “children” 元素来扩展 “person” 元素。这此种情况下就可以这么做，即使以上这个 schema 的作者没有声明任何 “children” 元素。<br>请看这个 schema 文件，名为 “children.xsd”：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;</span><br><span class="line">&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;</span><br><span class="line">targetNamespace=&quot;http://www.w3schools.com&quot;</span><br><span class="line">xmlns=&quot;http://www.w3schools.com&quot;</span><br><span class="line">elementFormDefault=&quot;qualified&quot;&gt;</span><br><span class="line">    &lt;xs:element name=&quot;children&quot;&gt;</span><br><span class="line">      &lt;xs:complexType&gt;</span><br><span class="line">        &lt;xs:sequence&gt;</span><br><span class="line">          &lt;xs:element name=&quot;childname&quot; type=&quot;xs:string&quot;</span><br><span class="line">          maxOccurs=&quot;unbounded&quot;/&gt;</span><br><span class="line">        &lt;/xs:sequence&gt;</span><br><span class="line">      &lt;/xs:complexType&gt;</span><br><span class="line">    &lt;/xs:element&gt;</span><br><span class="line">&lt;/xs:schema&gt;</span><br></pre></td></tr></table></figure>
+<p>下面这个 XML 文件（名为 “Myfamily.xml”），使用了来自两个不同的 schema 中的成分，”family.xsd” 和 “children.xsd”：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;</span><br><span class="line">&lt;persons xmlns=&quot;http://www.microsoft.com&quot;</span><br><span class="line">xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">xsi:schemaLocation=&quot;http://www.microsoft.com family.xsd</span><br><span class="line">http://www.w3schools.com children.xsd&quot;&gt;</span><br><span class="line">    &lt;person&gt;</span><br><span class="line">      &lt;firstname&gt;Hege&lt;/firstname&gt;</span><br><span class="line">      &lt;lastname&gt;Refsnes&lt;/lastname&gt;</span><br><span class="line">      &lt;children&gt;</span><br><span class="line">        &lt;childname&gt;Cecilie&lt;/childname&gt;</span><br><span class="line">      &lt;/children&gt;</span><br><span class="line">    &lt;/person&gt;</span><br><span class="line">    &lt;person&gt;</span><br><span class="line">      &lt;firstname&gt;Stale&lt;/firstname&gt;</span><br><span class="line">      &lt;lastname&gt;Refsnes&lt;/lastname&gt;</span><br><span class="line">    &lt;/person&gt;</span><br><span class="line">&lt;/persons&gt;</span><br></pre></td></tr></table></figure>
+<p>上面这个 XML 文件是有效的，这是由于 schema “family.xsd” 允许我们通过在 “lastname” 元素后的可选元素来扩展 “person” 元素。</p>
+<h2 id="anyAttribute"><a href="#anyAttribute" class="headerlink" title="anyAttribute"></a>anyAttribute</h2><blockquote>
+<p>anyAttribute 元素使我们有能力通过未被 schema 规定的属性来扩展 XML 文档。</p>
+</blockquote>
+<p>下面的例子是来自名为 “family.xsd” 的 XML schema 的一个片段。它为我们展示了针对 “person” 元素的一个声明。通过使用 <code>&lt;anyAttribute&gt;</code> 元素，我们就可以向 “person” 元素添加任意数量的属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;person&quot;&gt;</span><br><span class="line">  &lt;xs:complexType&gt;</span><br><span class="line">    &lt;xs:sequence&gt;</span><br><span class="line">      &lt;xs:element name=&quot;firstname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">      &lt;xs:element name=&quot;lastname&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">    &lt;/xs:sequence&gt;</span><br><span class="line">    &lt;xs:anyAttribute/&gt;</span><br><span class="line">  &lt;/xs:complexType&gt;</span><br><span class="line">&lt;/xs:element&gt;</span><br></pre></td></tr></table></figure>
+<p>现在，我们希望通过 “gender” 属性来扩展 “person” 元素。在这种情况下我们就可以这样做，即使这个 schema 的作者从未声明过任何 “gender” 属性。<br>请看这个 schema 文件，名为 “attribute.xsd”：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;</span><br><span class="line">&lt;xs:schema xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;</span><br><span class="line">targetNamespace=&quot;http://www.w3schools.com&quot;</span><br><span class="line">xmlns=&quot;http://www.w3schools.com&quot;</span><br><span class="line">elementFormDefault=&quot;qualified&quot;&gt;</span><br><span class="line">    &lt;xs:attribute name=&quot;gender&quot;&gt;</span><br><span class="line">      &lt;xs:simpleType&gt;</span><br><span class="line">        &lt;xs:restriction base=&quot;xs:string&quot;&gt;</span><br><span class="line">          &lt;xs:pattern value=&quot;male|female&quot;/&gt;</span><br><span class="line">        &lt;/xs:restriction&gt;</span><br><span class="line">      &lt;/xs:simpleType&gt;</span><br><span class="line">    &lt;/xs:attribute&gt;</span><br><span class="line">&lt;/xs:schema&gt;</span><br></pre></td></tr></table></figure>
+<p>下面这个 XML（名为 “Myfamily.xml”），使用了来自不同 schema 的成分，”family.xsd” 和 “attribute.xsd”：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;</span><br><span class="line">&lt;persons xmlns=&quot;http://www.microsoft.com&quot;</span><br><span class="line">xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">xsi:SchemaLocation=&quot;http://www.microsoft.com family.xsd</span><br><span class="line">http://www.w3schools.com attribute.xsd&quot;&gt;</span><br><span class="line">    &lt;person gender=&quot;female&quot;&gt;</span><br><span class="line">      &lt;firstname&gt;Hege&lt;/firstname&gt;</span><br><span class="line">      &lt;lastname&gt;Refsnes&lt;/lastname&gt;</span><br><span class="line">    &lt;/person&gt;</span><br><span class="line">    &lt;person gender=&quot;male&quot;&gt;</span><br><span class="line">      &lt;firstname&gt;Stale&lt;/firstname&gt;</span><br><span class="line">      &lt;lastname&gt;Refsnes&lt;/lastname&gt;</span><br><span class="line">    &lt;/person&gt;</span><br><span class="line">&lt;/persons&gt;</span><br></pre></td></tr></table></figure>
+<p>上面这个 XML 文件是有效的，这是因为 schema “family.xsd” 允许我们向 “person” 元素添加属性。</p>
+<h2 id="元素替换"><a href="#元素替换" class="headerlink" title="元素替换"></a>元素替换</h2><blockquote>
+<p>通过元素替换 (Element Substitution)，一个元素可对另一个元素进行替换。</p>
+</blockquote>
+<p><strong>元素替换</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;name&quot; type=&quot;xs:string&quot;/&gt;</span><br><span class="line">&lt;xs:element name=&quot;navn&quot; substitutionGroup=&quot;name&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:complexType name=&quot;custinfo&quot;&gt;</span><br><span class="line">  &lt;xs:sequence&gt;</span><br><span class="line">    &lt;xs:element ref=&quot;name&quot;/&gt;</span><br><span class="line">  &lt;/xs:sequence&gt;</span><br><span class="line">&lt;/xs:complexType&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:element name=&quot;customer&quot; type=&quot;custinfo&quot;/&gt;</span><br><span class="line">&lt;xs:element name=&quot;kunde&quot; substitutionGroup=&quot;customer&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p>有效的 XML 文档类似这样（根据上面的 schema）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;customer&gt;</span><br><span class="line">  &lt;name&gt;John Smith&lt;/name&gt;</span><br><span class="line">&lt;/customer&gt;</span><br></pre></td></tr></table></figure>
+<p>或类似这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;kunde&gt;</span><br><span class="line">  &lt;navn&gt;John Smith&lt;/navn&gt;</span><br><span class="line">&lt;/kunde&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>阻止元素替换</strong></p>
+<p>为防止其他的元素替换某个指定的元素，须使用 block 属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;name&quot; type=&quot;xs:string&quot; block=&quot;substitution&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p>某个 XML schema 的片段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;xs:element name=&quot;name&quot; type=&quot;xs:string&quot; block=&quot;substitution&quot;/&gt;</span><br><span class="line">&lt;xs:element name=&quot;navn&quot; substitutionGroup=&quot;name&quot;/&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:complexType name=&quot;custinfo&quot;&gt;</span><br><span class="line">  &lt;xs:sequence&gt;</span><br><span class="line">    &lt;xs:element ref=&quot;name&quot;/&gt;</span><br><span class="line">  &lt;/xs:sequence&gt;</span><br><span class="line">&lt;/xs:complexType&gt;</span><br><span class="line"></span><br><span class="line">&lt;xs:element name=&quot;customer&quot; type=&quot;custinfo&quot; block=&quot;substitution&quot;/&gt;</span><br><span class="line">&lt;xs:element name=&quot;kunde&quot; substitutionGroup=&quot;customer&quot;/&gt;</span><br></pre></td></tr></table></figure>
+<p>合法的 XML 文档应该类似这样（根据上面的 schema）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;customer&gt;</span><br><span class="line">  &lt;name&gt;John Smith&lt;/name&gt;</span><br><span class="line">&lt;/customer&gt;</span><br></pre></td></tr></table></figure>
+<p>但是下面的文档不再合法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;kunde&gt;</span><br><span class="line">  &lt;navn&gt;John Smith&lt;/navn&gt;</span><br><span class="line">&lt;/kunde&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>使用 substitutionGroup</strong><br>可替换元素的类型必须和主元素相同，或者从主元素衍生而来。假如可替换元素的类型与主元素的类型相同，那么就不必规定可替换元素的类型了。<br>注意，substitutionGroup 中的所有元素（主元素和可替换元素）必须被声明为<strong>全局元素</strong>，否则就无法工作！</p>
+<p><strong>什么是全局元素（Global Elements）</strong><br>全局元素指 “schema” 元素的直接子元素！本地元素（Local elements）指嵌套在其他元素中的元素。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/工具/Vim/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1269,6 +3015,144 @@ let sub = substitute(line, &apos;/\*\|\*/\|{{{\d\=', '', 'g')
 </ul>
 
           
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/网络/计算机网络/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/01/01/网络/计算机网络/" itemprop="url">计算机网络</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>整理自谢希仁著《计算机网络》。</p>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>所有的因特网标准都是以 RFC（Request For Comments）的形式在因特网上发表。</p>
+<p>制订因特网的正式标准要经过四个阶段 [RFC 2026]：</p>
+<ul>
+<li>因特网草案（Internet Draft）——还不是 RFC 文档</li>
+<li>建议标准（Proposed Standard）——开始成为 RFC 文档</li>
+<li>草案标准（Draft Standard）</li>
+<li>因特网标准（Internet Standard）</li>
+</ul>
+<p><strong>通信方式大致分为两大类</strong></p>
+<ul>
+<li>C/S（Client/Server）<ul>
+<li>B/S（Browser/Server）：C/S 的一种特例，特指客户端为浏览器的情况</li>
+</ul>
+</li>
+<li>P2P（Peer-to-Peer）</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/01/01/网络/计算机网络/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2935,7 +4819,7 @@ let sub = substitute(line, &apos;/\*\|\*/\|{{{\d\=', '', 'g')
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/Java/volatile/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/Java/XStream/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zeerho">
@@ -2954,7 +4838,7 @@ let sub = substitute(line, &apos;/\*\|\*/\|{{{\d\=', '', 'g')
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/01/01/Java/volatile/" itemprop="url">volatile</a></h1>
+                <a class="post-title-link" href="/2017/01/01/Java/XStream/" itemprop="url">XStream</a></h1>
         
 
         <div class="post-meta">
@@ -3003,73 +4887,59 @@ let sub = substitute(line, &apos;/\*\|\*/\|{{{\d\=', '', 'g')
 
       
         
-          
-            <p><em>本文内容摘取及参考自<a href="http://www.cnblogs.com/dolphin0520/p/3920373.html" target="_blank" rel="noopener">此博客</a></em></p>
-<h1 id="硬件层面的并发同步问题"><a href="#硬件层面的并发同步问题" class="headerlink" title="硬件层面的并发同步问题"></a>硬件层面的并发同步问题</h1><p>CPU 处理数据时，先将内存中的数据读取到高速缓存中，处理结束之后将高速缓存中的数据写回到内存中。</p>
-<p>这种数据处理方式提高了速度，但会引起并发同步问题。即使是单核 CPU，也会以线程调度的形式表现出该问题。</p>
-<p>为解决缓存不一致问题，通常有 2 种解决方法：</p>
-<ul>
-<li>在总线加 LOCK# 锁；</li>
-<li>通过缓存一致性协议。</li>
-</ul>
-<p>在早期的 CPU 中，是通过在总线上加 LOCK# 锁的方式来解决缓存不一致的问题。因为 CPU 和其他部件进行通信都是通过总线来进行的，如果对总线加 LOCK# 锁的话，也就是说阻塞了其他 CPU 对其他部件访问（如内存），从而使得只能有一个 CPU 能使用这个变量的内存。但是由于在锁住总线期间，其他 CPU 无法访问内存，导致效率低下。</p>
-<p>所以就出现了缓存一致性协议。最出名的就是 Intel 的 MESI 协议。MESI 协议保证了每个缓存中使用的共享变量的副本是一致的。它核心的思想是：当 CPU 写数据时，如果发现操作的变量是共享变量，即在其他 CPU 中也存在该变量的副本，会发出信号通知其他 CPU 将该变量的缓存行置为无效状态，因此当其他 CPU 需要读取这个变量时，发现自己缓存中缓存该变量的缓存行是无效的，那么它就会从内存重新读取。</p>
-<hr>
-<h1 id="并发编程涉及到的-3-个概念及-Java-提供的方案"><a href="#并发编程涉及到的-3-个概念及-Java-提供的方案" class="headerlink" title="并发编程涉及到的 3 个概念及 Java 提供的方案"></a>并发编程涉及到的 3 个概念及 Java 提供的方案</h1><p>在 Java 虚拟机规范中通过定义一种 Java 内存模型（Java Memory Model，JMM）试图来屏蔽各个硬件平台和操作系统的内存访问差异，以实现让 Java 程序在各种平台下都能达到一致的内存访问效果。它定义了程序中变量的访问规则，往大一点说是定义了程序执行的次序。</p>
-<p>注意，为了获得较好的执行性能，Java 内存模型并没有限制执行引擎使用处理器的寄存器或者高速缓存来提升指令执行速度，也没有限制编译器对指令进行重排序。也就是说，<strong>在 Java 内存模型中，也会存在缓存一致性问题和指令重排序的问题</strong>。</p>
-<p>Java 内存模型规定所有的变量都是存在主存当中（类似于前面说的物理内存），每个线程都有自己的工作内存（类似于前面的高速缓存）。线程对变量的所有操作都必须在工作内存中进行，而不能直接对主存进行操作。并且每个线程不能访问其他线程的工作内存。</p>
-<h2 id="1-原子性"><a href="#1-原子性" class="headerlink" title="1. 原子性"></a>1. 原子性</h2><blockquote>
-<p>原子性指的是操作的不可拆解性。具有原子性的操作要么全部执行，要么全部不执行，无法拆解开一步步地执行。</p>
-</blockquote>
-<p>在 Java 中，对基本数据类型的变量的读取和赋值操作是原子性操作。如果要实现更大范围操作的原子性，可以通过 <code>synchronized</code> 和 <code>Lock</code> 来实现。<br>在低版本 JDK 中，在 32 位平台下，对 64 位数据的读取和赋值是需要通过两个操作来完成的，不能保证其原子性。但是好像在最新的 JDK 中，JVM 已经保证对 64 位数据的读取和赋值也是原子性操作了。</p>
-<h2 id="2-可见性"><a href="#2-可见性" class="headerlink" title="2. 可见性"></a>2. 可见性</h2><blockquote>
-<p>可见性指的是当多线程访问同一变量时，若某一线程更改了该变量，则其他线程能立即获知该变量已被修改，并去读取最新的值。</p>
-</blockquote>
-<p>对于可见性，Java 提供了 <code>volatile</code> 关键字来保证可见性。当一个共享变量被 <code>volatile</code> 修饰时，它会保证修改的值会立即被更新到主存，当有其他线程需要读取时，会去主存中读取新值。</p>
-<p>而普通的共享变量不能保证可见性，因为普通共享变量被修改之后，什么时候被写入主存是不确定的，当其他线程去读取时，此时内存中可能还是原来的旧值，因此无法保证可见性。</p>
-<p>另外，通过 <code>synchronized</code> 和 <code>Lock</code> 也能够保证可见性，<code>synchronized</code> 和 <code>Lock</code> 能保证同一时刻只有一个线程获取锁然后执行同步代码，并且在释放锁之前会将对变量的修改刷新到主存当中。因此可以保证可见性。</p>
-<h2 id="3-有序性"><a href="#3-有序性" class="headerlink" title="3. 有序性"></a>3. 有序性</h2><blockquote>
-<p>有序性指的是程序按照源代码的编写顺序执行。</p>
-</blockquote>
-<p>在 Java 内存模型中，允许编译器和处理器对指令进行重排序（Instruction Reorder），但是重排序过程不会影响到单线程程序的执行，却会影响到多线程并发执行的正确性。</p>
-<p>在 Java 里面，可以通过 volatile 关键字来保证一定的“有序性”。另外可以通过 <code>synchronized</code> 和 <code>Lock</code> 来保证有序性，很显然，<code>synchronized</code> 和 <code>Lock</code> 保证每个时刻是有一个线程执行同步代码，相当于是让线程顺序执行同步代码，自然就保证了有序性。</p>
-<p>另外，Java 内存模型具备一些先天的“有序性”，即不需要通过任何手段就能够得到保证的有序性，这个通常也称为 “<strong>happens-before</strong>” 原则。如果两个操作的执行次序无法从“happens-before”原则推导出来，那么它们就不能保证它们的有序性，虚拟机可以随意地对它们进行重排序。</p>
-<p><strong>happens-before</strong> 原则（先行发生原则）：</p>
-<ul>
-<li>程序次序规则：一个线程内，按照代码顺序，书写在前面的操作先行发生于书写在后面的操作。（这条实际上指的是编译器的指令重排一定不会影响单线程状态下的正确性，即对于单线程来说，程序就像是按照代码顺序执行的一样）</li>
-<li>锁定规则：一个 unLock 操作先行发生于后面对同一个锁额 lock 操作</li>
-<li>volatile 变量规则：对一个变量的写操作先行发生于后面对这个变量的读操作</li>
-<li>传递规则：如果操作 A 先行发生于操作 B，而操作 B 又先行发生于操作 C，则可以得出操作 A 先行发生于操作 C</li>
-<li>线程启动规则：Thread 对象的 start() 方法先行发生于此线程的每个一个动作</li>
-<li>线程中断规则：对线程 interrupt() 方法的调用先行发生于被中断线程的代码检测到中断事件的发生</li>
-<li>线程终结规则：线程中所有的操作都先行发生于线程的终止检测，可以通过 Thread.join() 方法结束、Thread.isAlive() 的返回值手段检测到线程已经终止执行</li>
-<li>对象终结规则：一个对象的初始化完成先行发生于它的 finalize() 方法的开始</li>
-</ul>
-<hr>
-<h1 id="深入剖析-volatile"><a href="#深入剖析-volatile" class="headerlink" title="深入剖析 volatile"></a>深入剖析 volatile</h1><h2 id="volatile-的两层语义"><a href="#volatile-的两层语义" class="headerlink" title="volatile 的两层语义"></a>volatile 的两层语义</h2><ol>
-<li>保证了不同线程对这个变量进行操作时的可见性，即一个线程修改了某个变量的值，这新值对其他线程来说是立即可见的。</li>
-<li>禁止进行指令重排序。</li>
-</ol>
-<h2 id="volatile-是否保证原子性"><a href="#volatile-是否保证原子性" class="headerlink" title="volatile 是否保证原子性"></a>volatile 是否保证原子性</h2><p>volatile 不保证原子性。可用 synchronized、Lock、java.util.concurrent.atomic.* 来保证原子性</p>
-<h2 id="volatile-是否保证可见性"><a href="#volatile-是否保证可见性" class="headerlink" title="volatile 是否保证可见性"></a>volatile 是否保证可见性</h2><ol>
-<li>使用 volatile 关键字会强制将修改的值立即写入主存；</li>
-<li>使用 volatile 关键字的话，当线程 2 修改某共享变量时，会导致线程 1 的工作内存中的该变量的缓存行无效（反映到硬件层的话，就是 CPU 的 L1 或者 L2 缓存中对应的缓存行无效）；</li>
-<li>由于线程 1 的工作内存中的缓存变量的缓存行无效，所以线程 1 再次读取变量的值时会去主存读取。</li>
-</ol>
-<h2 id="volatile-是否保证有序性"><a href="#volatile-是否保证有序性" class="headerlink" title="volatile 是否保证有序性"></a>volatile 是否保证有序性</h2><p>volatile 关键字禁止指令重排序有两层意思：</p>
-<ol>
-<li>当程序执行到 volatile 变量的读操作或者写操作时，在其前面的操作的更改肯定全部已经进行，且结果已经对后面的操作可见；在其后面的操作肯定还没有进行；</li>
-<li>在进行指令优化时，不能将在对 volatile 变量访问的语句前面的语句放在其后面执行，也不能把在对 volatile 变量访问的语句后面的语句放到其前面执行。</li>
-</ol>
-<h2 id="volatile-的原理和实现机制"><a href="#volatile-的原理和实现机制" class="headerlink" title="volatile 的原理和实现机制"></a>volatile 的原理和实现机制</h2><p>“观察加入 volatile 关键字和没有加入 volatile 关键字时所生成的汇编代码发现，加入 volatile 关键字时，会多出一个 lock 前缀指令”——《深入理解Java虚拟机》</p>
-<p>lock前缀指令实际上相当于一个内存屏障（也成内存栅栏），内存屏障会提供 3 个功能：</p>
-<ol>
-<li>它确保指令重排序时不会把其后面的指令排到内存屏障之前的位置，也不会把前面的指令排到内存屏障的后面；即在执行到内存屏障这句指令时，在它前面的操作已经全部完成；</li>
-<li>它会强制将对缓存的修改操作立即写入主存；</li>
-<li>如果是写操作，它会导致其他CPU中对应的缓存行无效。</li>
-</ol>
-
-          
+          <h1 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h1><table>
+<thead>
+<tr>
+<th style="text-align:left">注解</th>
+<th style="text-align:left">作用</th>
+<th style="text-align:left">作用目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>@XStreamAlias(&quot;label_name&quot;)</code></td>
+<td style="text-align:left">别名注解</td>
+<td style="text-align:left">作用目标: 类,字段</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>@XStreamImplicit</code></td>
+<td style="text-align:left">隐式集合</td>
+<td style="text-align:left">集合字段</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>@XStreamImplicit(itemFieldName=&quot;item_field_name&quot;)</code></td>
+<td style="text-align:left">隐式集合，并指定集合内标签名</td>
+<td style="text-align:left">集合字段</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>@XStreamConverter(SingleValueCalendarConverter.class)</code></td>
+<td style="text-align:left">注入转换器</td>
+<td style="text-align:left">对象</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>@XStreamAsAttribute</code></td>
+<td style="text-align:left">设为该标签的属性</td>
+<td style="text-align:left">字段</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>@XStreamOmitField</code></td>
+<td style="text-align:left">忽略字段</td>
+<td style="text-align:left">字段</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>xstream.autodetectAnnotations(true);</code></td>
+<td style="text-align:left">自动侦查注解</td>
+</tr>
+</tbody>
+</table>
+<p><em>自动侦查注解与 <code>XStream.processAnnotations(Class[] cls)</code> 的区别在于性能.自动侦查注解将缓存所有类的类型.</em>  </p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/01/01/Java/XStream/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -3153,7 +5023,7 @@ let sub = substitute(line, &apos;/\*\|\*/\|{{{\d\=', '', 'g')
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3166,7 +5036,7 @@ let sub = substitute(line, &apos;/\*\|\*/\|{{{\d\=', '', 'g')
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -537,8 +537,26 @@
 </li>
 <li><code>git branch -u {remote}/{remote_branch} [{local_branch}]</code><br><code>git branch --set-upstream-to={remote}/{remote_branch} [{local_branch}]</code><br>对已有分支绑定跟踪分支</li>
 </ul>
-<h1 id="差异比较"><a href="#差异比较" class="headerlink" title="差异比较"></a>差异比较</h1><p><code>git diff {source_branch} {target_branch}</code><br>查看两个分支之间的差异<br><code>git diff {source_branch}...{target_branch}</code><br>查看 target 分支与 source 和 target 共同祖先之间的差异<br><code>git diff</code><br>暂存区到工作区的变化<br><code>git diff --cached|--staged</code><br>版本库到暂存区的变化<br><code>git diff HEAD</code><br>版本库到工作区的变化</p>
-<p>git维护代码分为三部分：“工作区 working directory”、“暂存区 index”、“版本库 head”（分别标注为1，2，3）。<br><code>git add</code> 完成1-&gt;2<br><code>git commit</code> 完成2-&gt;3<br><code>git commit -a</code> 两者结合<br><code>git diff</code> 2到1的变化<br><code>git diff --cached|--staged</code> 3到2的变化<br><code>git diff HEAD</code> 3到1的变化</p>
+<h1 id="差异比较"><a href="#差异比较" class="headerlink" title="差异比较"></a>差异比较</h1><ul>
+<li><code>git diff {branch1} {branch2}</code><br>查看两个分支之间的详细差异<ul>
+<li><code>--stat</code> 概要信息</li>
+<li><code>-- {path}</code> 指定文件</li>
+</ul>
+</li>
+<li><code>git diff {branch1}...{branch2}</code><br>查看 branch2 分支与两个分支共同祖先之间的差异</li>
+<li><code>git diff</code><br>工作区到暂存区的变化</li>
+<li><code>git diff --cached|--staged</code><br>暂存区到版本库的变化</li>
+<li><code>git diff HEAD</code><br>工作区到版本库的变化</li>
+</ul>
+<p>git维护代码分为三部分：“工作区 working directory”、“暂存区 index”、“版本库 head”（分别标注为1，2，3）。</p>
+<ul>
+<li><code>git add</code> 完成1-&gt;2</li>
+<li><code>git commit</code> 完成2-&gt;3</li>
+<li><code>git commit -a</code> 两者结合</li>
+<li><code>git diff</code> 2到1的变化</li>
+<li><code>git diff --cached|--staged</code> 3到2的变化</li>
+<li><code>git diff HEAD</code> 3到1的变化</li>
+</ul>
 <h1 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h1><p><code>git merge [-n] [--stat] [--no-commit] [--squash] [--[no-]edit] [-s &lt;strategy&gt;] [-X &lt;strategy-option&gt;] [-S[&lt;keyid&gt;]] [--[no-]allow-unrelated-histories] [--[no-]rerere-autoupdate] [-m &lt;msg&gt;] [&lt;commit&gt;…]</code></p>
 <ul>
 <li><code>--stat</code> <code>--no-stat</code> <code>-n</code> 显示/不显示合并的差异数据。</li>
@@ -691,12 +709,34 @@
 <blockquote>
 <p>因为这里 merge 指代的是我们想要 merge 的远程分支，是站在远程仓库的角度看到的引用路径。<br> 在本地仓库来看，远程仓库的分支引用路径为 <code>refs/remotes/{branch}</code>；站在远程仓库的角度来看，这个分支引用路径自然就是 <code>refs/heads/{branch}</code>。<br> 和我们在本地直接执行 <code>git merge</code> 是不同的（本地执行 <code>git merge origin/develop</code> 则是直接 merge refs/remotes/develop）。</p>
 </blockquote>
-<h2 id="credential"><a href="#credential" class="headerlink" title="credential"></a>credential</h2><ul>
-<li><code>helper</code> 凭证管理方式。<ul>
-<li><code>store</code> 明文保存于 <code>~/.git-credentials</code>，形如 <code>http://{user}:{pwd}@example.com/</code><h2 id="other"><a href="#other" class="headerlink" title="other"></a>other</h2><code>git config --list</code><br>查看配置信息。其中重复的变量来自不同的配置文件，Git 会采用最后一个。</li>
+<h2 id="credential"><a href="#credential" class="headerlink" title="credential"></a>credential</h2><p>各 credential 工具都有 3 个操作：</p>
+<ul>
+<li><code>get</code> 查找匹配的密令。</li>
+<li><code>store</code> 存储密令。</li>
+<li><code>erase</code> 删除匹配的密令。</li>
 </ul>
-</li>
+<p>以上操作需要按照特定格式输入参数，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git credential-&#123;helper&#125; &#123;operation&#125; (1)</span><br><span class="line">protocol=https (2)</span><br><span class="line">host=example.com</span><br><span class="line">username=tom</span><br><span class="line">password=abc (3)</span><br><span class="line">(4)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>(1)：{helper} 是具体的 credential 工具，比如 store；{operation} 是 <code>get</code>、<code>store</code>、<code>erase</code> 之一。</li>
+<li>(2)：协议、主机等参数。</li>
+<li>(3)：用户名、密码参数可选，取决于是什么操作。</li>
+<li>(4)：参数输入完毕后连续两个换行表示录入完成。</li>
 </ul>
+<p>windows 默认用的是 <code>manager</code>（见 <code>C:\Program Files\Git\mingw64\etc\gitconfig</code>）。改用其他工具后仍然会从 <code>manager</code> 中取密令，要用 <code>erase</code> 操作先移除。不知道是不是 bug。</p>
+<h3 id="静态配置用户名"><a href="#静态配置用户名" class="headerlink" title="静态配置用户名"></a>静态配置用户名</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[credential &quot;https://example.com&quot;]</span><br><span class="line">  username = tom</span><br></pre></td></tr></table></figure>
+<h3 id="cache"><a href="#cache" class="headerlink" title="cache"></a>cache</h3><p><code>git config credential.helper &#39;cache [{opts}]&#39;</code></p>
+<ul>
+<li><code>--timeout {seconds}</code> 默认 900.</li>
+<li><code>--socket {path}</code><br>通过 {path} 来跟负责缓存的守护进程交互。默认是 <code>$XDG_CACHE_HOME/git/credential/socket</code>，除非 <code>~/.git-credential-cache/</code> 存在，那就用 <code>~/.git-credential-cache/socket</code></li>
+</ul>
+<p><code>git credential-cache exit</code> 手动退出，缓存的密码会消失。</p>
+<h3 id="store"><a href="#store" class="headerlink" title="store"></a>store</h3><p><code>git config credential.helper &#39;store [{opts}]&#39;</code></p>
+<p>明文存储在磁盘上。形如 <code>http://{user}:{pwd}@example.com/</code>。</p>
+<ul>
+<li><code>--file={path}</code><br>指定文件。默认查找 <code>~/.git-credentials</code> 和 <code>$XDG_COFNIG_HOME/git/credentials</code>。</li>
+</ul>
+<h2 id="other"><a href="#other" class="headerlink" title="other"></a>other</h2><p><code>git config --list</code><br>查看配置信息。其中重复的变量来自不同的配置文件，Git 会采用最后一个。</p>
 <p><code>git config user.name</code><br>查看特定变量。</p>
 <h1 id="git-help"><a href="#git-help" class="headerlink" title="git help"></a>git help</h1><p><code>git help {verb}</code><br><code>git {verb} --help</code><br><code>man git-{verb}</code><br>查看特定命令 <code>{verb}</code> 的帮助信息。</p>
 <h1 id="git-tag"><a href="#git-tag" class="headerlink" title="git tag"></a>git tag</h1><p><em>查看标签</em></p>
@@ -833,8 +873,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/01/Java/Effective Java 笔记/" rel="next" title="Effective Java 笔记">
-                <i class="fa fa-chevron-left"></i> Effective Java 笔记
+              <a href="/2017/01/01/操作系统/Linux/" rel="next" title="Linux">
+                <i class="fa fa-chevron-left"></i> Linux
               </a>
             
           </div>
@@ -843,8 +883,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/01/01/Java/Java 8/" rel="prev" title="Java 8">
-                Java 8 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/01/01/Java/Java Web Services/" rel="prev" title="Java Web Services">
+                Java Web Services <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -922,7 +962,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -935,7 +975,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -984,7 +1024,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#暂存"><span class="nav-number">1.</span> <span class="nav-text">暂存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提交"><span class="nav-number">2.</span> <span class="nav-text">提交</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#删除"><span class="nav-number">3.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#撤销"><span class="nav-number">4.</span> <span class="nav-text">撤销</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反转"><span class="nav-number">5.</span> <span class="nav-text">反转</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重命名"><span class="nav-number">6.</span> <span class="nav-text">重命名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#储藏"><span class="nav-number">7.</span> <span class="nav-text">储藏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#日志"><span class="nav-number">8.</span> <span class="nav-text">日志</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#衍合"><span class="nav-number">9.</span> <span class="nav-text">衍合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#远程仓库"><span class="nav-number">10.</span> <span class="nav-text">远程仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分支"><span class="nav-number">11.</span> <span class="nav-text">分支</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#差异比较"><span class="nav-number">12.</span> <span class="nav-text">差异比较</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#合并"><span class="nav-number">13.</span> <span class="nav-text">合并</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#版本范围表示"><span class="nav-number">14.</span> <span class="nav-text">版本范围表示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-number">15.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内部命令"><span class="nav-number">16.</span> <span class="nav-text">内部命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#统计对象"><span class="nav-number">16.1.</span> <span class="nav-text">统计对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除对象"><span class="nav-number">16.2.</span> <span class="nav-text">删除对象</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件状态生命周期"><span class="nav-number">17.</span> <span class="nav-text">文件状态生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-config"><span class="nav-number">18.</span> <span class="nav-text">git config</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#user"><span class="nav-number">18.1.</span> <span class="nav-text">user</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#core"><span class="nav-number">18.2.</span> <span class="nav-text">core</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#help"><span class="nav-number">18.3.</span> <span class="nav-text">help</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#merge"><span class="nav-number">18.4.</span> <span class="nav-text">merge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#commit"><span class="nav-number">18.5.</span> <span class="nav-text">commit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#push"><span class="nav-number">18.6.</span> <span class="nav-text">push</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#branch"><span class="nav-number">18.7.</span> <span class="nav-text">branch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#credential"><span class="nav-number">18.8.</span> <span class="nav-text">credential</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#other"><span class="nav-number">18.9.</span> <span class="nav-text">other</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-help"><span class="nav-number">19.</span> <span class="nav-text">git help</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-tag"><span class="nav-number">20.</span> <span class="nav-text">git tag</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gitignore-文件"><span class="nav-number">21.</span> <span class="nav-text">.gitignore 文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#乱码"><span class="nav-number">22.</span> <span class="nav-text">乱码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-中的-upstream-和-downstream"><span class="nav-number">23.</span> <span class="nav-text">git 中的 upstream 和 downstream</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#暂存"><span class="nav-number">1.</span> <span class="nav-text">暂存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#提交"><span class="nav-number">2.</span> <span class="nav-text">提交</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#删除"><span class="nav-number">3.</span> <span class="nav-text">删除</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#撤销"><span class="nav-number">4.</span> <span class="nav-text">撤销</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反转"><span class="nav-number">5.</span> <span class="nav-text">反转</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重命名"><span class="nav-number">6.</span> <span class="nav-text">重命名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#储藏"><span class="nav-number">7.</span> <span class="nav-text">储藏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#日志"><span class="nav-number">8.</span> <span class="nav-text">日志</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#衍合"><span class="nav-number">9.</span> <span class="nav-text">衍合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#远程仓库"><span class="nav-number">10.</span> <span class="nav-text">远程仓库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分支"><span class="nav-number">11.</span> <span class="nav-text">分支</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#差异比较"><span class="nav-number">12.</span> <span class="nav-text">差异比较</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#合并"><span class="nav-number">13.</span> <span class="nav-text">合并</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#版本范围表示"><span class="nav-number">14.</span> <span class="nav-text">版本范围表示</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他"><span class="nav-number">15.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内部命令"><span class="nav-number">16.</span> <span class="nav-text">内部命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#统计对象"><span class="nav-number">16.1.</span> <span class="nav-text">统计对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除对象"><span class="nav-number">16.2.</span> <span class="nav-text">删除对象</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件状态生命周期"><span class="nav-number">17.</span> <span class="nav-text">文件状态生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-config"><span class="nav-number">18.</span> <span class="nav-text">git config</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#user"><span class="nav-number">18.1.</span> <span class="nav-text">user</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#core"><span class="nav-number">18.2.</span> <span class="nav-text">core</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#help"><span class="nav-number">18.3.</span> <span class="nav-text">help</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#merge"><span class="nav-number">18.4.</span> <span class="nav-text">merge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#commit"><span class="nav-number">18.5.</span> <span class="nav-text">commit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#push"><span class="nav-number">18.6.</span> <span class="nav-text">push</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#branch"><span class="nav-number">18.7.</span> <span class="nav-text">branch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#credential"><span class="nav-number">18.8.</span> <span class="nav-text">credential</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#静态配置用户名"><span class="nav-number">18.8.1.</span> <span class="nav-text">静态配置用户名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cache"><span class="nav-number">18.8.2.</span> <span class="nav-text">cache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#store"><span class="nav-number">18.8.3.</span> <span class="nav-text">store</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#other"><span class="nav-number">18.9.</span> <span class="nav-text">other</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-help"><span class="nav-number">19.</span> <span class="nav-text">git help</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-tag"><span class="nav-number">20.</span> <span class="nav-text">git tag</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gitignore-文件"><span class="nav-number">21.</span> <span class="nav-text">.gitignore 文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#乱码"><span class="nav-number">22.</span> <span class="nav-text">乱码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-中的-upstream-和-downstream"><span class="nav-number">23.</span> <span class="nav-text">git 中的 upstream 和 downstream</span></a></li></ol></div>
             
 
           </div>

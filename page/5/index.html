@@ -241,7 +241,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/Java/Spring 配置文件详解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/Java/SimpleDateFormat/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zeerho">
@@ -260,7 +260,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/01/01/Java/Spring 配置文件详解/" itemprop="url">Spring 配置文件详解</a></h1>
+                <a class="post-title-link" href="/2017/01/01/Java/SimpleDateFormat/" itemprop="url">SimpleDateFormat</a></h1>
         
 
         <div class="post-meta">
@@ -310,8 +310,406 @@
       
         
           
-            <h1 id="Spring2-5-配置文件详解"><a href="#Spring2-5-配置文件详解" class="headerlink" title="Spring2.5 配置文件详解"></a>Spring2.5 配置文件详解</h1><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span>  </span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:aop</span>=<span class="string">"http://www.springframework.org/schema/aop"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tx</span>=<span class="string">"http://www.springframework.org/schema/tx"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">                        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">                        http://www.springframework.org/schema/context</span></span></span><br><span class="line"><span class="tag"><span class="string">                        http://www.springframework.org/schema/context/spring-context-2.5.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">                        http://www.springframework.org/schema/aop</span></span></span><br><span class="line"><span class="tag"><span class="string">                        http://www.springframework.org/schema/aop/spring-aop-2.5.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">                        http://www.springframework.org/schema/tx</span></span></span><br><span class="line"><span class="tag"><span class="string">                        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">context:annotation-config</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.demo"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">aop:aspectj-autoproxy</span>/&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Bean实例名称"</span> <span class="attr">class</span>=<span class="string">"全限定类名"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Bean实例名称"</span> <span class="attr">class</span>=<span class="string">"全限定类名"</span> <span class="attr">scope</span>=<span class="string">"prototype"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Bean实例名称"</span> <span class="attr">class</span>=<span class="string">"全限定类名"</span></span></span><br><span class="line"><span class="tag">		<span class="attr">init-method</span>=<span class="string">"初始化时调用的方法名"</span></span></span><br><span class="line"><span class="tag">		<span class="attr">destroy-method</span>=<span class="string">"对象销毁时调用的方法名"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Bean实例名称"</span> <span class="attr">class</span>=<span class="string">"全限定类名"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"属性名"</span> <span class="attr">ref</span>=<span class="string">"要引用的Bean的id"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"属性名"</span> <span class="attr">value</span>=<span class="string">"直接指定属性值"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"属性名"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"全限定类名"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"Bean中Set类型属性名称"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">value</span>&gt;</span>set中的元素<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"要引用的Bean的id"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"Bean中List类型属性名称"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">value</span>&gt;</span>list中的元素<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"要引用的Bean的id"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"Bean中Map类型属性名称"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">map</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"Map元素的key"</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">value</span>&gt;</span>Map元素的value<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">entry</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"Map元素的key"</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"要引用的Bean的id"</span>/&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">entry</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">map</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"Bean中Properties类型属性名称"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">props</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"properties元素的key"</span>&gt;</span>properties元素的value<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">props</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"Bean中要初始化为null的属性名称"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">null</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"Bean实例名称"</span> <span class="attr">class</span>=<span class="string">"全限定类名"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"从0开始的序号"</span> <span class="attr">type</span>=<span class="string">"构造参数的类型"</span> <span class="attr">value</span>=<span class="string">"构造参数的值"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"从0开始的序号"</span> <span class="attr">type</span>=<span class="string">"构造参数的类型"</span> <span class="attr">ref</span>=<span class="string">"要引用的Bean的id"</span>/&gt;</span></span><br><span class="line">		</span><br><span class="line">		</span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span>	</span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"目标对象名称"</span> <span class="attr">class</span>=<span class="string">"目标对象全限定类名"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"切面实例名称"</span> <span class="attr">class</span>=<span class="string">"切面类全限定类名"</span>/&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">id</span>=<span class="string">"切面id"</span> <span class="attr">ref</span>=<span class="string">"要引用的切面实例id"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"切点名称"</span> <span class="attr">expression</span>=<span class="string">"切点正则表达式"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">pointcut-ref</span>=<span class="string">"切点名称"</span> <span class="attr">method</span>=<span class="string">"切面类中用作前置通知的方法名"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">aop:after-returning</span> <span class="attr">pointcut-ref</span>=<span class="string">"切点名称"</span> <span class="attr">method</span>=<span class="string">"切面类中用作后置通知的方法名"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">aop:after-throwing</span> <span class="attr">pointcut-ref</span>=<span class="string">"切点名称"</span> <span class="attr">method</span>=<span class="string">"切面类中用作异常通知的方法名"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">aop:after</span> <span class="attr">pointcut-ref</span>=<span class="string">"切点名称"</span> <span class="attr">method</span>=<span class="string">"切面类中用作最终通知的方法名"</span>/&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">aop:around</span> <span class="attr">pointcut-ref</span>=<span class="string">"切点名称"</span> <span class="attr">method</span>=<span class="string">"切面类中用作环绕通知的方法名"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">&lt;!--配置事务管理器--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"事务管理器实例名称"</span> <span class="attr">class</span>=<span class="string">"事务管理器全限定类名"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"数据源属性名称"</span> <span class="attr">ref</span>=<span class="string">"要引用的数据源实例名称"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--配置一个事务通知--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">"事务通知名称"</span> <span class="attr">transaction-manager</span>=<span class="string">"事务管理器实例名称"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!--方法以get开头的，不用事务--&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"get*"</span> <span class="attr">read-only</span>=<span class="string">"true"</span> <span class="attr">propagation</span>=<span class="string">"NOT_SUPPORTED"</span>/&gt;</span></span><br><span class="line">			<span class="comment">&lt;!--其他方法以默认事务进行--&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"*"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--使用AOP技术实现事务管理--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"事务切点名称"</span> <span class="attr">expression</span>=<span class="string">"事务切点正则表达式"</span>/&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">advice-ref</span>=<span class="string">"事务通知名称"</span> <span class="attr">pointcut-ref</span>=<span class="string">"事务切点名称"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://7xvqyt.com1.z0.glb.clouddn.com/Spring%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%A6%E8%A7%A3.bmp" alt="Spring配置详解"></p>
+            <table>
+<thead>
+<tr>
+<th style="text-align:left">字母</th>
+<th style="text-align:left">日期或时间元素</th>
+<th style="text-align:left">表示</th>
+<th style="text-align:left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">G</td>
+<td style="text-align:left">Era标志符</td>
+<td style="text-align:left">Text</td>
+<td style="text-align:left">AD</td>
+</tr>
+<tr>
+<td style="text-align:left">y</td>
+<td style="text-align:left">年</td>
+<td style="text-align:left">Year</td>
+<td style="text-align:left">1996;96</td>
+</tr>
+<tr>
+<td style="text-align:left">M</td>
+<td style="text-align:left">年中的月份</td>
+<td style="text-align:left">Month</td>
+<td style="text-align:left">July;Jul;07</td>
+</tr>
+<tr>
+<td style="text-align:left">w</td>
+<td style="text-align:left">年中的周数</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">27</td>
+</tr>
+<tr>
+<td style="text-align:left">W</td>
+<td style="text-align:left">月份中的周数</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">2</td>
+</tr>
+<tr>
+<td style="text-align:left">D</td>
+<td style="text-align:left">年中的天数</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">189</td>
+</tr>
+<tr>
+<td style="text-align:left">d</td>
+<td style="text-align:left">月份中的天数</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">10</td>
+</tr>
+<tr>
+<td style="text-align:left">F</td>
+<td style="text-align:left">月份中的星期</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">2</td>
+</tr>
+<tr>
+<td style="text-align:left">E</td>
+<td style="text-align:left">星期中的天数</td>
+<td style="text-align:left">Text</td>
+<td style="text-align:left">Tuesday;Tue</td>
+</tr>
+<tr>
+<td style="text-align:left">a</td>
+<td style="text-align:left">Am/pm 标记</td>
+<td style="text-align:left">Text</td>
+<td style="text-align:left">PM</td>
+</tr>
+<tr>
+<td style="text-align:left">H</td>
+<td style="text-align:left">一天中的小时数（0-23）</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">0</td>
+</tr>
+<tr>
+<td style="text-align:left">k</td>
+<td style="text-align:left">一天中的小时数（1-24）</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">24</td>
+</tr>
+<tr>
+<td style="text-align:left">K</td>
+<td style="text-align:left">am/pm 中的小时数（0-11）</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">0</td>
+</tr>
+<tr>
+<td style="text-align:left">h</td>
+<td style="text-align:left">am/pm 中的小时数（1-12）</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">12</td>
+</tr>
+<tr>
+<td style="text-align:left">m</td>
+<td style="text-align:left">小时中的分钟数</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">30</td>
+</tr>
+<tr>
+<td style="text-align:left">s</td>
+<td style="text-align:left">分钟中的秒数</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">55</td>
+</tr>
+<tr>
+<td style="text-align:left">S</td>
+<td style="text-align:left">毫秒数</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:left">978</td>
+</tr>
+<tr>
+<td style="text-align:left">z</td>
+<td style="text-align:left">时区</td>
+<td style="text-align:left">General time zone</td>
+<td style="text-align:left">Pacific Standard Time;PST;GMT-08:00</td>
+</tr>
+<tr>
+<td style="text-align:left">Z</td>
+<td style="text-align:left">时区</td>
+<td style="text-align:left">RFC 822 time zone</td>
+<td style="text-align:left">-0800</td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/Java/Quartz/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/01/01/Java/Quartz/" itemprop="url">Quartz</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-JobDetail"><a href="#1-JobDetail" class="headerlink" title="1.JobDetail"></a>1.JobDetail</h1><p><code>JobDetail</code>的结构如下：</p>
+<p><code>JobDetail</code>中有三个关键字段：<code>JobKey</code>、<code>Job</code>、<code>JobDataMap</code>。</p>
+<ul>
+<li><code>JobKey</code>：包含<code>group</code>和<code>name</code>两个字段，标识了唯一的一个<code>JobKey</code>。其中任一<code>group</code>内所有<code>name</code>不得重复。</li>
+<li><code>Job</code>：所有实现<code>Job</code>接口的类必须重写<code>void execute(JobExecutionContext context)</code>方法，该方法包含了触发任务后要执行的代码。</li>
+<li><code>JobDataMap</code>：包含了任务所需的数据。</li>
+</ul>
+<p>Quartz推荐使用<code>JobBuilder</code>来构造<code>JobDetail</code>（实际上是<code>JobDetail</code>的实现类<code>JobDetailImpl</code>）。方式是静态引入<code>JobBuilder</code>的静态方法<code>JobBuilder.newJob()</code>。</p>
+<p>可以自定义任务类，只需实现<code>Job</code>接口。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.demo.quartz;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.quartz.Job;</span><br><span class="line"><span class="keyword">import</span> org.quartz.JobExecutionContext;</span><br><span class="line"><span class="keyword">import</span> org.quartz.JobExecutionException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JobImpl</span> <span class="keyword">implements</span> <span class="title">Job</span></span>&#123;</span><br><span class="line">    <span class="comment">//必须提供无参构造</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">JobImpl</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(JobExecutionContext context)</span> <span class="keyword">throws</span> JobExecutionException</span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="2-Trigger"><a href="#2-Trigger" class="headerlink" title="2.Trigger"></a>2.Trigger</h1><p>常用的触发器有 <strong>SimpleTrigger</strong> 和 <strong>CronTrigger</strong>。<br><strong>SimpleTrigger</strong> 适用于在一个固定时间点和重复次数或固定的时间间隔的情况。<br><strong>CronTrigger</strong> 适用于比较复杂的作业调度。需要 cron 表达式。<br>|字段名|允许的值|允许的特殊字符|<br>|:-:|:-:|:-:|<br>|秒|0-59|, - <em> /|<br>|分|0-59|, - </em> /|<br>|时|0-23|, - <em> /|<br>|日|1-31|, - </em> ? / L W C|<br>|月|1-12或JAN-DEC|, - <em> /|<br>|周几|1-7或SUN-SAT（1表示周日）|, - </em> ? / L C # |<br>|年（可选）|empty，1970-2099|, - * /|</p>
+<ul>
+<li><code>*</code>：“每一”。</li>
+<li><code>?</code>：“不确定的值”。由于“日”和“周几”之间存在联系，所以不能用<code>* * *</code>表示“每月每日，不论周几”，而要用<code>* * ?</code>。</li>
+<li><code>-</code>：指定一个值的范围。</li>
+<li><code>,</code>：指定若干个值。</li>
+<li><code>/</code>：指定一个值的增加幅度，<code>初值/步长</code>，在该字段的取值范围内<strong>不会</strong>循环增长。在<code>/</code>前加<code>*</code>表示从0开始。</li>
+<li><code>L</code>：在“日”字段中表示该月最后一天（lastday）。在“周几”字段中表示周六，<code>5L</code>表示该月最后一个周四。</li>
+<li><code>W</code>：表示离该日最近的一个工作日（workday），既可向前也可向后取，但是不能跨月。可与<code>L</code>组合成<code>LW</code>表示“该月最后一个工作日”。</li>
+<li><code>#</code>：<code>y#x</code>表示该月“第x个周y-1”。若该日期不存在则不会触发。</li>
+<li><code>C</code>：表示基于相关日历（calendar）所计算出的值，具体用法存疑。</li>
+<li>备注：对于“月”和“周几”字段的合法字符来说大小写不敏感。</li>
+</ul>
+<h1 id="3-实例"><a href="#3-实例" class="headerlink" title="3.实例"></a>3.实例</h1><h2 id="简单构造方式"><a href="#简单构造方式" class="headerlink" title="简单构造方式"></a>简单构造方式</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    <span class="comment">/*********************Scheduler************************/</span></span><br><span class="line">    <span class="comment">//创建调度器工厂</span></span><br><span class="line">    SchedulerFactory schedulerFactory = <span class="keyword">new</span> StdSchedulerFactory();</span><br><span class="line">    <span class="comment">//获取一个调度器实例</span></span><br><span class="line">    Scheduler scheduler = schedulerFactory.getScheduler();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*********************JobDetail************************/</span></span><br><span class="line">    <span class="comment">//创建JobDetail实例</span></span><br><span class="line">    JobDetail jobDetail = <span class="keyword">new</span> JobDetail(<span class="string">"job_name"</span>,<span class="string">"job_group"</span>,JobImpl.class);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**********************Trigger*************************/</span>    </span><br><span class="line">    <span class="comment">//创建简单触发器实例</span></span><br><span class="line">    SimpleTrigger simpleTrigger = <span class="keyword">new</span> SimpleTrigger(<span class="string">"trigger_name"</span>,<span class="string">"trigger_group"</span>);</span><br><span class="line">    <span class="comment">//设置触发器的开始时间</span></span><br><span class="line">    Long ctime = System.currentTimeMillis();</span><br><span class="line">    simpleTrigger.setStartTime(<span class="keyword">new</span> Date(ctime));</span><br><span class="line">    <span class="comment">//设置触发周期，单位毫秒</span></span><br><span class="line">    simpleTrigger.setRepeatInterval(<span class="number">1000</span>);</span><br><span class="line">    <span class="comment">//设置触发次数</span></span><br><span class="line">    simpleTrigger.setRepeatCount(<span class="number">10</span>);</span><br><span class="line">    <span class="comment">//设置触发器的结束时间（到达结束时间后即使触发次数未到零也会停止触发）</span></span><br><span class="line">    simpleTrigger.setEndTime(ctime+<span class="number">60000L</span>);</span><br><span class="line">    <span class="comment">//设置优先级，默认5</span></span><br><span class="line">    simpleTrigger.setPriority(<span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//将jobDetail和simpleTrigger关联起来</span></span><br><span class="line">    scheduler.scheduleJob(jobDetail,simpleTrigger);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//启动scheduler</span></span><br><span class="line">    scheduler.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Quartz推荐构造方式"><a href="#Quartz推荐构造方式" class="headerlink" title="Quartz推荐构造方式"></a>Quartz推荐构造方式</h2><p>Quartz提供了一组“Builder-style API”来构造相关的对象。具体方法是通过静态引用对应Builder类中的静态方法来进行对象的构造。这些类包括：<code>ScheduleBuilder</code>的各种实现类以及<code>TriggerBuilder</code>,<code>JobBuilder</code>,<br><code>DateBuilder</code>,<code>JobKey</code>,<code>TriggerKey</code>。具体的方式如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">JobDetail job = newJob(MyJob.class)</span><br><span class="line">                .withIdentity(<span class="string">"myJob"</span>)</span><br><span class="line">                .build();</span><br><span class="line">            </span><br><span class="line">Trigger trigger = newTrigger() </span><br><span class="line">                    .withIdentity(triggerKey(<span class="string">"myTrigger"</span>, <span class="string">"myTriggerGroup"</span>))</span><br><span class="line">                    .withSchedule(simpleSchedule()</span><br><span class="line">                        .withIntervalInHours(<span class="number">1</span>)</span><br><span class="line">                        .repeatForever())</span><br><span class="line">                    .startAt(futureDate(<span class="number">10</span>, MINUTES))</span><br><span class="line">                    .build();</span><br><span class="line"></span><br><span class="line">scheduler.scheduleJob(job, trigger);</span><br></pre></td></tr></table></figure></p>
+<h1 id="4-与Spring整合"><a href="#4-与Spring整合" class="headerlink" title="4.与Spring整合"></a>4.与Spring整合</h1><h2 id="方式1-作业类继承QuartzJobBean"><a href="#方式1-作业类继承QuartzJobBean" class="headerlink" title="方式1.作业类继承QuartzJobBean"></a>方式1.作业类继承QuartzJobBean</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.quartz.JobExecutionContext;</span><br><span class="line"><span class="keyword">import</span> org.quartz.JobExecutionException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.quartz.QuartzJobBean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">myJob1</span> <span class="keyword">extends</span> <span class="title">QuartzJobBean</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">executeInternal</span><span class="params">(JobExecutionContext context)</span> <span class="keyword">throws</span> JobExecutionException</span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--这是第一种配置JobDetail的方法--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myjob"</span> <span class="attr">class</span>=<span class="string">"org.springframework.scheduling.quartz.JobDetailBean"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">"myJobName"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jobClass"</span> <span class="attr">value</span>=<span class="string">"com.demo.myJob1"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jobDataAsMap"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">map</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">entry</span> <span class="attr">key</span>=<span class="string">"blabla"</span>&gt;</span><span class="tag">&lt;<span class="name">value</span>&gt;</span>blabla<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">map</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="方式2-在配置中定义作业类和执行方法"><a href="#方式2-在配置中定义作业类和执行方法" class="headerlink" title="方式2.在配置中定义作业类和执行方法"></a>方式2.在配置中定义作业类和执行方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.quartz.JobExecutionContext;</span><br><span class="line"><span class="keyword">import</span> org.quartz.JobExecutionException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.quartz.QuartzJobBean;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">myJob2</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--这是第二种配置JobDetail的方法--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"myJob"</span> <span class="attr">class</span>=<span class="string">"com.demo.myJob2"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"SpringJobDetail"</span> <span class="attr">class</span>=<span class="string">"org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"targetObject"</span> <span class="attr">ref</span>=<span class="string">"myJob2"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"targetMethod"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>execute<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--这是两种方法共用的触发器和调度器工厂的配置--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--触发器--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"CronTriggerBean"</span> <span class="attr">class</span>=<span class="string">"org.springframework.scheduling.quartz.CronTriggerBean"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jobDetail"</span> <span class="attr">ref</span>=<span class="string">"myJob"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"cronExpression"</span> <span class="attr">value</span>=<span class="string">"这里填cron表达式"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--调度工厂--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"SpringJobSchedulerFactoryBean"</span> <span class="attr">class</span>=<span class="string">"org.springframework.scheduling.quartz.SchedulerFactoryBean&gt;</span></span></span><br><span class="line"><span class="tag"><span class="string">    &lt;property name="</span><span class="attr">triggers</span>"&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">ref</span> <span class="attr">bean</span>=<span class="string">"CronTriggerBean"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/电脑相关/Windows 配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/01/01/电脑相关/Windows 配置/" itemprop="url">Windows 配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="win8-10-开机自动登陆"><a href="#win8-10-开机自动登陆" class="headerlink" title="win8/10 开机自动登陆"></a>win8/10 开机自动登陆</h1><ol>
+<li><code>win+r</code>，输入 <code>netplwiz</code></li>
+<li>选择想要自动登录的用户，去掉“要使用本计算机，用户必须输入用户名和密码”的勾</li>
+</ol>
+<h1 id="win10-新窗口不在最前"><a href="#win10-新窗口不在最前" class="headerlink" title="win10 新窗口不在最前"></a>win10 新窗口不在最前</h1><p>设置 - 设备 - 鼠标和触摸板 - 当我悬停在非活动窗口上方时对其进行滚动</p>
+<h1 id="pl-sql-无限试用"><a href="#pl-sql-无限试用" class="headerlink" title="pl/sql 无限试用"></a>pl/sql 无限试用</h1><p>卸载后删除注册表</p>
+<ol>
+<li><code>regedit</code></li>
+<li><code>HKEY_CURRENT_USER/Software/Allround Automations</code></li>
+<li><code>HKEY_CURRENT_USER/Software/Microsoft/Security</code></li>
+</ol>
 
           
         
@@ -460,6 +858,269 @@
 <h2 id="XmlTransient"><a href="#XmlTransient" class="headerlink" title="@XmlTransient"></a>@XmlTransient</h2><p><code>@XmlTransient</code> 用于标示在由 java 对象映射 xml 时，忽略此属性。即在生成的 xml 文件中不出现此元素。</p>
 <h2 id="XmlJavaTypeAdapter"><a href="#XmlJavaTypeAdapter" class="headerlink" title="@XmlJavaTypeAdapter"></a>@XmlJavaTypeAdapter</h2><p><code>@XmlJavaTypeAdapter</code> 常用在转换比较复杂的对象时，如 map 类型或者格式化日期等。使用此注解时，需要自己写一个 adapter 类继承 XmlAdapter 抽象类，并实现里面的方法。</p>
 <p><code>@XmlJavaTypeAdapter(value=xxx.class)</code>，value 为自己定义的 adapter 类。<br>　　XmlAdapter如下：<br>　　<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public abstract class XmlAdapter&lt;ValueType,BoundType&gt; &#123;</span><br><span class="line">    // Do-nothing constructor for the derived classes.</span><br><span class="line">    protected XmlAdapter() &#123;&#125;</span><br><span class="line">    // Convert a value type to a bound type.</span><br><span class="line">    public abstract BoundType unmarshal(ValueType v);</span><br><span class="line">    // Convert a bound type to a value type.</span><br><span class="line">    public abstract ValueType marshal(BoundType v);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/电脑相关/系统安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/01/01/电脑相关/系统安装/" itemprop="url">系统安装</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="硬盘重装"><a href="#硬盘重装" class="headerlink" title="硬盘重装"></a>硬盘重装</h1><p><strong>准备：</strong> nt6 hdd installer v3.1.4、系统镜像文件<br><strong>步骤：</strong> </p>
+<ol>
+<li>解压系统镜像文件到系统盘以外的其他盘的根目录下；将nt6 hdd installer跟镜像文件放在一起。</li>
+<li>运行nt6 hdd installer v3.1.4，输入数字“1”，程序会自动检测setup.exe文件。</li>
+<li>等待一段时间，待加载完成，按提示选择【重启】，电脑即会自动重启。重启后，会显示加载mode1或者mode2的界面，选择mode1即可，进入下一步，系统自动开始安装，静静等待即可。</li>
+</ol>
+<h1 id="U盘刻录"><a href="#U盘刻录" class="headerlink" title="U盘刻录"></a>U盘刻录</h1><p><strong>准备：</strong> UltraISO软碟通破解版（绿色版）、系统镜像文件<br><strong>步骤：</strong> </p>
+<ol>
+<li>打开软碟通并插上U盘。</li>
+<li>打开镜像文件-&gt;”启动”-&gt;”写入硬盘镜像”-&gt;硬盘驱动器选择相应U盘-&gt;”写入”。</li>
+</ol>
+<h1 id="系统设置"><a href="#系统设置" class="headerlink" title="系统设置"></a>系统设置</h1><h2 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h2><p>控制面板—网络和共享中心—更改适配器设置—右键所有的网卡然后点击属性—取消勾选Microsoft网络文件和打印机共享—确定—重启系统</p>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><ol>
+<li>关闭磁盘碎片整理计划。</li>
+<li>关闭系统索引：<ul>
+<li>控制面板 – 管理工具 – 服务 – Windows Search 禁用</li>
+<li>控制面板 – 索引选项 – 选中索引项 – 修改 – 取消不想索引的位置</li>
+</ul>
+</li>
+<li>关闭家庭组：<ul>
+<li>Win+C – 设置 – 更改电脑设置 – 家庭组 – 离开</li>
+<li>控制面板 – 管理工具 – 服务 – HomeGroup Listener 和 HomeGroup Provider 禁用</li>
+</ul>
+</li>
+<li>设置 Superfetch 服务：控制面板 – 管理工具 – 服务 – Superfetch – 启动类型 – 自动（延迟启动），可以避免刚启动好Win8对硬盘的频繁访问。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/Java/Google Java 编程风格指南摘要/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/01/01/Java/Google Java 编程风格指南摘要/" itemprop="url">Google Java 编程风格指南摘要</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>出处：<a href="http://hawstein.com/posts/google-java-style.html" target="_blank" rel="noopener">http://hawstein.com/posts/google-java-style.html</a></p>
+<h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3><p>Java 语言规范推荐顺序</p>
+<p>public protected private abstract static final transient volatile synchronized native strictfp</p>
 
           
         
@@ -827,7 +1488,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/Java/XStream/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/Java/Freemarker/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zeerho">
@@ -846,7 +1507,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/01/01/Java/XStream/" itemprop="url">XStream</a></h1>
+                <a class="post-title-link" href="/2017/01/01/Java/Freemarker/" itemprop="url">Freemarker</a></h1>
         
 
         <div class="post-meta">
@@ -895,59 +1556,147 @@
 
       
         
-          <h1 id="常用注解"><a href="#常用注解" class="headerlink" title="常用注解"></a>常用注解</h1><table>
-<thead>
-<tr>
-<th style="text-align:left">注解</th>
-<th style="text-align:left">作用</th>
-<th style="text-align:left">作用目标</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>@XStreamAlias(&quot;label_name&quot;)</code></td>
-<td style="text-align:left">别名注解</td>
-<td style="text-align:left">作用目标: 类,字段</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>@XStreamImplicit</code></td>
-<td style="text-align:left">隐式集合</td>
-<td style="text-align:left">集合字段</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>@XStreamImplicit(itemFieldName=&quot;item_field_name&quot;)</code></td>
-<td style="text-align:left">隐式集合，并指定集合内标签名</td>
-<td style="text-align:left">集合字段</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>@XStreamConverter(SingleValueCalendarConverter.class)</code></td>
-<td style="text-align:left">注入转换器</td>
-<td style="text-align:left">对象</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>@XStreamAsAttribute</code></td>
-<td style="text-align:left">设为该标签的属性</td>
-<td style="text-align:left">字段</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>@XStreamOmitField</code></td>
-<td style="text-align:left">忽略字段</td>
-<td style="text-align:left">字段</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>xstream.autodetectAnnotations(true);</code></td>
-<td style="text-align:left">自动侦查注解</td>
-</tr>
-</tbody>
-</table>
-<p><em>自动侦查注解与 <code>XStream.processAnnotations(Class[] cls)</code> 的区别在于性能.自动侦查注解将缓存所有类的类型.</em>  </p>
+          <h1 id="Freemarker-模板文件的组成"><a href="#Freemarker-模板文件的组成" class="headerlink" title="Freemarker 模板文件的组成"></a>Freemarker 模板文件的组成</h1><ul>
+<li><strong>文本：</strong>直接输出的部分。</li>
+<li><strong>注释：</strong><code>&lt;#-- 注释 --&gt;</code>格式部分，不会输出。</li>
+<li><strong>插值：</strong>即<code>${...}</code>或<code>#{...}</code>格式的部分，将被数据模型中的对应数据所替代并输出。</li>
+<li><strong>FTL 指令：</strong>和 HTML 标记类似，名字前加<code>#</code>予以区分，不会输出。</li>
+</ul>
+<p>下面是一个 FreeMarker 模板的例子,包含了以上所说的 4 个部分<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>Welcome!<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">#--</span> 注释部分，不会输出到<span class="attr">HTML</span>中 <span class="attr">--</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">#--</span> 下面使用插值 <span class="attr">--</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Welcome $&#123;user&#125; !<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>We have these animals:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">#--</span> 使用<span class="attr">FTL</span>指令 <span class="attr">--</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">#list</span> <span class="attr">animals</span> <span class="attr">as</span> <span class="attr">being</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>$&#123;being.name&#125; for $&#123;being.price&#125; Euros<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">#list</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/01/01/Java/XStream/#more" rel="contents">
+            <a class="btn" href="/2017/01/01/Java/Freemarker/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
           <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/UML类图/设计模式及设计方法——UML类图几种关系的总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zeerho">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zeerho">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/01/01/UML类图/设计模式及设计方法——UML类图几种关系的总结/" itemprop="url">设计模式及设计方法——UML类图几种关系的总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在UML类图中，常见的有以下几种关系:<strong>泛化</strong>（Generalization）,  <strong>实现</strong>（Realization）,<strong>关联</strong>（Association）,<strong>聚合</strong>（Aggregation）,<strong>组合</strong>(Composition)，<strong>依赖</strong>(Dependency)</p>
+<h1 id="1-泛化-Generalization"><a href="#1-泛化-Generalization" class="headerlink" title="1. 泛化(Generalization)"></a>1. <strong>泛化</strong>(Generalization)</h1><p>【泛化关系】：是一种继承关系,它指定了子类如何特化父类的所有特征和行为例如：老虎是动物的一种.<br>【箭头指向】：带三角箭头的实线，箭头指向父类<br><img src="http://hi.csdn.net/attachment/201104/22/0_1303436788Qi60.gif" alt="泛化关系"></p>
+<h1 id="2-实现（Realization"><a href="#2-实现（Realization" class="headerlink" title="2. 实现（Realization)"></a>2. <strong>实现</strong>（Realization)</h1><p>【实现关系】：是一种类与接口的关系，表示类是接口所有特征和行为的实现<br>【箭头指向】：带三角箭头的虚线，箭头指向接口<br><img src="http://hi.csdn.net/attachment/201104/22/0_13034367939K49.gif" alt="实现关系"></p>
+<h1 id="3-关联（Association）"><a href="#3-关联（Association）" class="headerlink" title="3. 关联（Association）"></a>3. <strong>关联</strong>（Association）</h1><p>【关联关系】：是一种拥有的关系,它使一个类知道另一个类的属性和方法；如：老师与学生，丈夫与妻子<br>关联可以是双向的，也可以是单向的。双向的关联可以有两个箭头或者没有箭头，单向的关联有一个箭头。<br>【代码体现】：成员变量<br>【箭头及指向】：带普通箭头的实心线，指向被拥有者<br><img src="http://hi.csdn.net/attachment/201104/22/0_1303436801W1kf.gif" alt="关联关系"></p>
+<p>上图中，老师与学生是双向关联，老师有多名学生，学生也可能有多名老师。但学生与某课程间的关系为单向关联，一名学生可能要上多门课程，课程是个抽象的东西他不拥有学生。<br><img src="http://hi.csdn.net/attachment/201104/22/0_13034368062Ka3.gif" alt="自身关联"><br> 上图为自身关联</p>
+<h1 id="4-聚合（Aggregation）"><a href="#4-聚合（Aggregation）" class="headerlink" title="4. 聚合（Aggregation）"></a>4. <strong>聚合</strong>（Aggregation）</h1><p>【聚合关系】：是整体与部分的关系.如车和轮胎是整体和部分的关系.<br>聚合关系是关联关系的一种，是强的关联关系；关联和聚合在语法上无法区分，必须考察具体的逻辑关系。<br>【代码体现】：成员变量<br>【箭头及指向】：带空心菱形的实心线，菱形指向整体<br><img src="http://hi.csdn.net/attachment/201104/22/0_1303436811y36B.gif" alt="聚合关系"></p>
+<h1 id="5-组合-Composition"><a href="#5-组合-Composition" class="headerlink" title="5. 组合(Composition)"></a>5. <strong>组合</strong>(Composition)</h1><p>【组合关系】：是整体与部分的关系.,没有公司就不存在部门      组合关系是关联关系的一种，是比聚合关系还要强的关系，它要求普通的聚合关系中代表整体的对象负责代表部分的对象的生命周期<br>【代码体现】：成员变量<br>【箭头及指向】：带实心菱形的实线，菱形指向整体<br><img src="http://hi.csdn.net/attachment/201104/22/0_1303436817mqXK.gif" alt="组合关系"></p>
+<h1 id="6-依赖-Dependency"><a href="#6-依赖-Dependency" class="headerlink" title="6. 依赖(Dependency)"></a>6. <strong>依赖</strong>(Dependency)</h1><p>【依赖关系】：是一种使用的关系,所以要尽量不使用双向的互相依赖。<br>【代码表现】：局部变量、方法的参数或者对静态方法的调用<br>【箭头及指向】：带箭头的虚线，指向被使用者<br> <img src="http://hi.csdn.net/attachment/201104/22/0_130343682580L6.gif" alt="依赖关系"></p>
+<p>各种关系的强弱顺序：<br><strong>泛化= 实现&gt; 组合&gt; 聚合&gt; 关联&gt; 依赖</strong></p>
+<p>下面这张UML图，比较形象地展示了各种类图关系：<br><img src="http://hi.csdn.net/attachment/201202/29/0_1330497855hqk2.gif" alt="各种类图关系"></p>
+
+          
         
       
     </div>
@@ -1157,993 +1906,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/备忘/错误记录/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zeerho">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zeerho">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/01/备忘/错误记录/" itemprop="url">错误记录</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="eclipse-中-unsupported-major-minor-version"><a href="#eclipse-中-unsupported-major-minor-version" class="headerlink" title="eclipse 中 unsupported major.minor version"></a>eclipse 中 unsupported major.minor version</h1><table>
-<thead>
-<tr>
-<th style="text-align:left">JDK 编译器版本</th>
-<th style="text-align:left">target 参数</th>
-<th style="text-align:left">十六进制 minor.major</th>
-<th style="text-align:left">十进制 minor.major</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">jdk1.1.8</td>
-<td style="text-align:left">不能带 target 参数</td>
-<td style="text-align:left">00 03 00 2D</td>
-<td style="text-align:left">45.3</td>
-</tr>
-<tr>
-<td style="text-align:left">jdk1.2.2</td>
-<td style="text-align:left">-target 1.2</td>
-<td style="text-align:left">00 00 00 2E</td>
-<td style="text-align:left">46.0</td>
-</tr>
-<tr>
-<td style="text-align:left">jdk1.3.1_19</td>
-<td style="text-align:left">不带(默认为 -target 1.1)</td>
-<td style="text-align:left">00 03 00 2D</td>
-<td style="text-align:left">45.3</td>
-</tr>
-<tr>
-<td style="text-align:left">jdk1.3.1_19</td>
-<td style="text-align:left">-target 1.3</td>
-<td style="text-align:left">00 00 00 2F</td>
-<td style="text-align:left">47.0</td>
-</tr>
-<tr>
-<td style="text-align:left">j2sdk1.4.2_10</td>
-<td style="text-align:left">不带(默认为 -target 1.2)</td>
-<td style="text-align:left">00 00 00 2E</td>
-<td style="text-align:left">46.0</td>
-</tr>
-<tr>
-<td style="text-align:left">j2sdk1.4.2_10</td>
-<td style="text-align:left">-target 1.4</td>
-<td style="text-align:left">00 00 00 30</td>
-<td style="text-align:left">48.0</td>
-</tr>
-<tr>
-<td style="text-align:left">jdk1.5.0_11</td>
-<td style="text-align:left">不带(默认为 -target 1.5)</td>
-<td style="text-align:left">00 00 00 31</td>
-<td style="text-align:left">49.0</td>
-</tr>
-<tr>
-<td style="text-align:left">jdk1.5.0_11</td>
-<td style="text-align:left">-target 1.4 -source 1.4</td>
-<td style="text-align:left">00 00 00 30</td>
-<td style="text-align:left">48.0</td>
-</tr>
-<tr>
-<td style="text-align:left">jdk1.6.0_01</td>
-<td style="text-align:left">不带(默认为 -target 1.6)</td>
-<td style="text-align:left">00 00 00 32</td>
-<td style="text-align:left">50.0</td>
-</tr>
-<tr>
-<td style="text-align:left">jdk1.6.0_01</td>
-<td style="text-align:left">-target 1.5</td>
-<td style="text-align:left">00 00 00 31</td>
-<td style="text-align:left">49.0</td>
-</tr>
-<tr>
-<td style="text-align:left">jdk1.6.0_01</td>
-<td style="text-align:left">-target 1.4 -source 1.4</td>
-<td style="text-align:left">00 00 00 30</td>
-<td style="text-align:left">48.0</td>
-</tr>
-<tr>
-<td style="text-align:left">jdk1.7.0</td>
-<td style="text-align:left">不带(默认为 -target 1.6)</td>
-<td style="text-align:left">00 00 00 32</td>
-<td style="text-align:left">50.0</td>
-</tr>
-<tr>
-<td style="text-align:left">jdk1.7.0</td>
-<td style="text-align:left">-target 1.7</td>
-<td style="text-align:left">00 00 00 33</td>
-<td style="text-align:left">51.0</td>
-</tr>
-<tr>
-<td style="text-align:left">jdk1.7.0</td>
-<td style="text-align:left">-target 1.4 -source 1.4</td>
-<td style="text-align:left">00 00 00 30</td>
-<td style="text-align:left">48.0</td>
-</tr>
-<tr>
-<td style="text-align:left">Apache Harmony 5.0M3</td>
-<td style="text-align:left">不带(默认为 -target 1.2)</td>
-<td style="text-align:left">00 00 00 2E</td>
-<td style="text-align:left">46.0</td>
-</tr>
-<tr>
-<td style="text-align:left">Apache Harmony 5.0M3</td>
-<td style="text-align:left">-target 1.4</td>
-<td style="text-align:left">00 00 00 30</td>
-<td style="text-align:left">48.0</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<h1 id="eclipse-安装-dorado7-插件"><a href="#eclipse-安装-dorado7-插件" class="headerlink" title="eclipse 安装 dorado7 插件"></a>eclipse 安装 dorado7 插件</h1><p>背景：eclipse版本为 J2EE， Indigo Service Release 2，Build Id：20120216-1857。操作系统为 win7_x64 旗舰版 Service Pack 1。<br>问题：尝试多个版本的dorado7插件及其配套第三方插件都安装失败。<br>解决：尝试7.2.3版本安装成功。<a href="http://www.bsdn.org/projects/dorado7/download" target="_blank" rel="noopener">下载地址</a>，具体为该下载页中的“历史版本-&gt;标准版-&gt;dorado-7.2.3-without-eclipse.zip”。</p>
-<ol>
-<li>三方插件使用 3rd_plugins_for_indigo_20121203 版本，其中包含</li>
-</ol>
-<ul>
-<li>aptana-2.0.5  </li>
-<li>emf-query-runtime-1.4.0 </li>
-<li>emf-transaction-runtime-1.4.0 </li>
-<li>emf-validation-runtime-1.4.0 </li>
-<li>gmf-runtime-1.4.2 </li>
-<li>mdt-ocl-runtime-3.0.2 </li>
-<li>mdt-uml2-runtime-3.1.2 </li>
-</ul>
-<ol>
-<li>dorado 插件使用 dorado-7.4.0-win64 版本。</li>
-<li>eclipse中 dorado 插件正常显示，但 dorado 前端 .view.xml 文件依然无法打开。尝试更新配置规则，报错<code>java.lang.NoClassDefFoundError: org/apache/commons/jexl2/JexlContext</code>。但利用 jdclipse 打开该 .class 文件源代码，从报错处可一路跳转至本地仓库中的 JexlContext.class。</li>
-<li>第一次更新某个项目的配置规则时，会弹出一个窗口，提示“<strong>Select dorado home folder</strong>  You must specify a valid dorado home folder.”此处<strong>不</strong>应选择工程项目的dorado-home目录，而应该选择“..\eclipse\configuration\org.eclipse.osgi\bundles\xx\1\.cp\webapps\WEB-INF\dorado-home”，其中“..”为eclipse软件的父路径，“xx”为一个不确定的数字。若bundles文件夹内的子文件夹较多，可直接搜索“configure.properties”。</li>
-</ol>
-<hr>
-<h1 id="IE-浏览器缓存无法清理"><a href="#IE-浏览器缓存无法清理" class="headerlink" title="IE 浏览器缓存无法清理"></a>IE 浏览器缓存无法清理</h1><p>版本：IE11<br><code>Internet 选项-&gt;删除...-&gt;保留收藏夹网站数据</code>去勾</p>
-<hr>
-<h1 id="Git-Bash-“git-status”-命令乱码"><a href="#Git-Bash-“git-status”-命令乱码" class="headerlink" title="Git Bash “git status” 命令乱码"></a>Git Bash “git status” 命令乱码</h1><p><code>C:\ProgramData\Git\config</code>文件内，在<code>[core]</code>下添加<code>quotepath = false</code>。也可以在 Git Bash 内执行命令：<code>git config --global core.quotepath false</code>。</p>
-<hr>
-<h1 id="Git-–-fatal-Unable-to-create-‘XXX-git-index-lock’-File-exists"><a href="#Git-–-fatal-Unable-to-create-‘XXX-git-index-lock’-File-exists" class="headerlink" title="Git – fatal: Unable to create ‘XXX/.git/index.lock’: File exists."></a>Git – fatal: Unable to create ‘XXX/.git/index.lock’: File exists.</h1><p>手动删除<code>.git\index.lock</code>。</p>
-<hr>
-<h1 id="An-internal-error-occurred-during-“Requesting-Java-AST-from-selection”"><a href="#An-internal-error-occurred-during-“Requesting-Java-AST-from-selection”" class="headerlink" title="An internal error occurred during: “Requesting Java AST from selection”."></a>An internal error occurred during: “Requesting Java AST from selection”.</h1><p>用 Eclipse编写Javascript函数中出现 return 时。<br>错误提示：<br>An internal error occurred during: “Requesting JavaScript AST from selection”.<br>解决方法：<br>修改 Mark Occurrences。快捷键：Alt+Shift+O。<br>(Window–&gt;Preferences-&gt;Javascript–&gt;Editor–&gt;Mark Occurrences)去勾。</p>
-<hr>
-<h1 id="VirtualBox-安装-CentOS-7-黑屏"><a href="#VirtualBox-安装-CentOS-7-黑屏" class="headerlink" title="VirtualBox 安装 CentOS 7 黑屏"></a>VirtualBox 安装 CentOS 7 黑屏</h1><p>问题：经过第一个界面后黑屏，没有继续安装<br>解决：主机的 BIOS 中 enable virtualization technology</p>
-<hr>
-<h1 id="dorado7-更新配置规则失败"><a href="#dorado7-更新配置规则失败" class="headerlink" title="dorado7 更新配置规则失败"></a>dorado7 更新配置规则失败</h1><p>需要先编译工程</p>
-<hr>
-<h1 id="补丁安装失败"><a href="#补丁安装失败" class="headerlink" title="补丁安装失败"></a>补丁安装失败</h1><p>开启 Windows Modules Installer 服务</p>
-<hr>
-<h1 id="升级-win10-后-vbox-无法启动任务"><a href="#升级-win10-后-vbox-无法启动任务" class="headerlink" title="升级 win10 后 vbox 无法启动任务"></a>升级 win10 后 vbox 无法启动任务</h1><p>更新 vbox 到最新版本</p>
-<hr>
-<h1 id="Maven-部署-Web-项目报错-webxml-attribute-is-required"><a href="#Maven-部署-Web-项目报错-webxml-attribute-is-required" class="headerlink" title="Maven 部署 Web 项目报错 webxml attribute is required"></a>Maven 部署 Web 项目报错 webxml attribute is required</h1><p>maven 的 web 项目默认的 webroot 是在src\main\webapp。如果在此目录下找不到 web.xml 就抛出以上的异常。<br>解决办法：需要在 pom.xml 中增加 <code>&lt;webResources&gt;</code>配置，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;    </span><br><span class="line">    &lt;finalName&gt;simple-webapp&lt;/finalName&gt;    </span><br><span class="line">    &lt;plugins&gt;    </span><br><span class="line">        &lt;plugin&gt;    </span><br><span class="line">            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;    </span><br><span class="line">            &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;    </span><br><span class="line">            &lt;version&gt;2.1.1&lt;/version&gt;    </span><br><span class="line">            &lt;configuration&gt;</span><br><span class="line">                  &lt;webXml&gt;WebContent\WEB-INF\web.xml&lt;/webXml&gt;</span><br><span class="line">            &lt;/configuration&gt;    </span><br><span class="line">        &lt;/plugin&gt;    </span><br><span class="line">    &lt;/plugins&gt;    </span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
-<h1 id="Eclipse-编译器（ECJ）编译-spring-boot-configuration-processor-报错：NoClassDeffoundError"><a href="#Eclipse-编译器（ECJ）编译-spring-boot-configuration-processor-报错：NoClassDeffoundError" class="headerlink" title="Eclipse 编译器（ECJ）编译 spring-boot-configuration-processor 报错：NoClassDeffoundError"></a>Eclipse 编译器（ECJ）编译 spring-boot-configuration-processor 报错：NoClassDeffoundError</h1><p>ecj 内部的问题，改用 javac。</p>
-<p>参考：</p>
-<ol>
-<li><a href="https://intellij-support.jetbrains.com/hc/en-us/community/posts/360000177844-Eclipse-compiler-raises-NoClassDefFoundError-for-spring-boot-configuration-processor-s-ConfigurationMetadata-class" target="_blank" rel="noopener">https://intellij-support.jetbrains.com/hc/en-us/community/posts/360000177844-Eclipse-compiler-raises-NoClassDefFoundError-for-spring-boot-configuration-processor-s-ConfigurationMetadata-class</a></li>
-<li><a href="https://youtrack.jetbrains.com/issue/IDEA-189760" target="_blank" rel="noopener">https://youtrack.jetbrains.com/issue/IDEA-189760</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/Java/Freemarker/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zeerho">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zeerho">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/01/Java/Freemarker/" itemprop="url">Freemarker</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Freemarker-模板文件的组成"><a href="#Freemarker-模板文件的组成" class="headerlink" title="Freemarker 模板文件的组成"></a>Freemarker 模板文件的组成</h1><ul>
-<li><strong>文本：</strong>直接输出的部分。</li>
-<li><strong>注释：</strong><code>&lt;#-- 注释 --&gt;</code>格式部分，不会输出。</li>
-<li><strong>插值：</strong>即<code>${...}</code>或<code>#{...}</code>格式的部分，将被数据模型中的对应数据所替代并输出。</li>
-<li><strong>FTL 指令：</strong>和 HTML 标记类似，名字前加<code>#</code>予以区分，不会输出。</li>
-</ul>
-<p>下面是一个 FreeMarker 模板的例子,包含了以上所说的 4 个部分<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>Welcome!<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">#--</span> 注释部分，不会输出到<span class="attr">HTML</span>中 <span class="attr">--</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">#--</span> 下面使用插值 <span class="attr">--</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Welcome $&#123;user&#125; !<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>We have these animals:<span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">#--</span> 使用<span class="attr">FTL</span>指令 <span class="attr">--</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">#list</span> <span class="attr">animals</span> <span class="attr">as</span> <span class="attr">being</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span>$&#123;being.name&#125; for $&#123;being.price&#125; Euros<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">#list</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/01/01/Java/Freemarker/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/Java/Design Pattern/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zeerho">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zeerho">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/01/Java/Design Pattern/" itemprop="url">Design Pattern</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h1><ul>
-<li>封装变化</li>
-<li>多用组合，少用继承</li>
-<li>针对接口编程，而不是实现</li>
-<li>为交互对象之间的松耦合设计而努力</li>
-<li>类应该对扩展开放，对修改关闭</li>
-<li>依赖抽象，不要依赖具体类</li>
-<li>只和朋友交谈</li>
-<li>别找我，我会找你</li>
-<li>一个类应该只有一个引起变化的原因</li>
-</ul>
-<h1 id="最小知识原则"><a href="#最小知识原则" class="headerlink" title="最小知识原则"></a>最小知识原则</h1><p>对于任何一个对象，应设计成只跟<strong>尽量少</strong>的其他对象进行交互。</p>
-<p>在一个对象的方法内，只应该调用属于以下范围的方法：</p>
-<ul>
-<li>该对象本身</li>
-<li>被当作方法的参数而传递进来的对象</li>
-<li>此方法创建的对象</li>
-<li>该对象持有的组件</li>
-</ul>
-<p>不推荐的方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public float getPrice() &#123;</span><br><span class="line">    Car car = shop.getCar(&quot;BMW&quot;);</span><br><span class="line">    return car.getPrice();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>推荐的方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public float getPrice() &#123;</span><br><span class="line">    return shop.getPrice(&quot;BMW&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>优点：减少对象之间的耦合，减少维护成本。<br>缺点：产生额外的包装类，增加开发时间，降低运行时性能。</p>
-<h1 id="好莱坞原则"><a href="#好莱坞原则" class="headerlink" title="好莱坞原则"></a>好莱坞原则</h1><blockquote>
-<p>别调用我们，我们会调用你。</p>
-</blockquote>
-<p>系统组件之间应形成高低关系，其中高层组件可以决定是否调用低层组件，而低层组件不能调用高层组件。<br>这样使得依赖关系形成单调的趋势，而不是循环依赖。</p>
-<h1 id="策略模式-Strategy"><a href="#策略模式-Strategy" class="headerlink" title="策略模式 Strategy"></a>策略模式 Strategy</h1><blockquote>
-<p>策略模式定义了算法族，分别封装起来，让他们之间可以相互替换，此模式让算法的变化独立于使用算法的客户。</p>
-</blockquote>
-<h1 id="观察者模式-Subject-amp-Observer"><a href="#观察者模式-Subject-amp-Observer" class="headerlink" title="观察者模式 Subject &amp; Observer"></a>观察者模式 Subject &amp; Observer</h1><blockquote>
-<p>定义了对象之间的一对多依赖，这样一来，当一个对象改变状态时，它的所有依赖者都会收到通知并自动更新。</p>
-</blockquote>
-<h1 id="装饰者模式-Decorator"><a href="#装饰者模式-Decorator" class="headerlink" title="装饰者模式 Decorator"></a>装饰者模式 Decorator</h1><blockquote>
-<p>动态地将责任附加到对象上。若要扩展功能，装饰者提供了比继承更有弹性的替代方案。</p>
-</blockquote>
-<h1 id="工厂方法模式-Factory"><a href="#工厂方法模式-Factory" class="headerlink" title="工厂方法模式 Factory"></a>工厂方法模式 Factory</h1><p><strong>工厂方法</strong></p>
-<blockquote>
-<p>使用继承，把对象的创建委托给子类，父类提供抽象的创建方法。</p>
-</blockquote>
-<p><strong>抽象工厂方法</strong></p>
-<blockquote>
-<p>使用组合，向消费者提供一个工厂接口类型，该接口中含有抽象的创建方法。通过向消费者传入具体的工厂接口实现来得到不同的创建方法。这个工厂接口本身通常就使用了工厂方法的设计模式。</p>
-</blockquote>
-<h1 id="单例模式-Singleton"><a href="#单例模式-Singleton" class="headerlink" title="单例模式 Singleton"></a>单例模式 Singleton</h1><blockquote>
-<p>确保一个类只有一个实例，并提供一个全局访问点。</p>
-</blockquote>
-<p>单线程中的简单做法，在多线程中会有并发问题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class MyClass &#123;</span><br><span class="line">    private static MyClass myClassSingleton;</span><br><span class="line">    private MyClass() &#123;&#125;</span><br><span class="line">    public static MyClass getInstance() &#123;</span><br><span class="line">        if (myClassSingleton == null) &#123;</span><br><span class="line">            myClassSingleton = new MyClass();</span><br><span class="line">        &#125;</span><br><span class="line">        return myClassSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>解决并发问题的简单方法，但在频繁调用的情况下会严重影响性能</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class MyClass &#123;</span><br><span class="line">    private static MyClass myClassSingleton;</span><br><span class="line">    private MyClass() &#123;&#125;</span><br><span class="line">    public static synchronized MyClass getInstance() &#123;</span><br><span class="line">        if (myClassSingleton == null) &#123;</span><br><span class="line">            myClassSingleton = new MyClass();</span><br><span class="line">        &#125;</span><br><span class="line">        return myClassSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>“饿汉”模式，在静态初始化器中创建单件，利用 JVM 自身的特性保证了线程安全，在 JVM 加载这个类时就创建了单件实例，从而保证在任何线程访问该实例前就已经创建完毕。<br>若有大量使用概率很低的单例类使用“饿汉”模式，会造成明显的内存浪费。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public class MyClass &#123;</span><br><span class="line">    private static MyClass myClassSingleton = new MyClass();//加载类时创建实例</span><br><span class="line">    private MyClass() &#123;&#125;</span><br><span class="line">    public static MyClass getInstance() &#123;</span><br><span class="line">        return myClassSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>“饱汉”模式，只在第一次访问单例时创建单例对象。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class MyClass &#123;</span><br><span class="line">    //volatile 关键词确保 myClassSingleton 赋值时能立即对所有线程可见。在 Java 1.4 及之前的版本中 volatile 实现有问题。</span><br><span class="line">    private volatile static MyClass myClassSingleton；</span><br><span class="line">    private MyClass() &#123;&#125;</span><br><span class="line">    public static MyClass getInstance() &#123;</span><br><span class="line">        if ( myClassSingleton == null) &#123; //double check 解决多线程并发问题</span><br><span class="line">            synchronized (MyClass.class) &#123;</span><br><span class="line">                if (myClassSingleton == null) &#123;</span><br><span class="line">                    myClassSingleton = new MyClass();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return myClassSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>若程序中使用了多个类加载器（Class Loader），会产生多个单例</strong></p>
-<p><strong>在 Java 1.2 之前，GC 有个 bug，当单例对象只被自身的类所引用时，会被 GC 清理</strong></p>
-<h1 id="命令模式-Command"><a href="#命令模式-Command" class="headerlink" title="命令模式 Command"></a>命令模式 Command</h1><blockquote>
-<p>将“请求”封装成对象，以便使用不同的请求、队列或者日志来参数化其他对象。命令模式也支持可撤销的操作。<br>本质上是在调用者和接收者之间加了一层用于命令的整合、转换、映射，从而实现调用者和接收者之间的解耦。</p>
-</blockquote>
-<h1 id="适配器模式-Adapter"><a href="#适配器模式-Adapter" class="headerlink" title="适配器模式 Adapter"></a>适配器模式 Adapter</h1><blockquote>
-<p>将一个类的接口，转换成客户期望的另一个接口，从而让原本不兼容的类之间可以兼容。</p>
-</blockquote>
-<h1 id="外观模式-Facade"><a href="#外观模式-Facade" class="headerlink" title="外观模式 Facade"></a>外观模式 Facade</h1><blockquote>
-<p>外观模式提供了一个统一的接口，用来方法子系统中的一群接口。外观定义了一个高层接口，让子系统更容易使用</p>
-</blockquote>
-<p>外观模式和适配器模式类似，都是在不同接口方法之间建立映射关系。<br>其中适配器模式着重<strong>转换</strong>，而外观模式着重于<strong>简化</strong>。</p>
-<h1 id="模板方法模式-Template"><a href="#模板方法模式-Template" class="headerlink" title="模板方法模式 Template"></a>模板方法模式 Template</h1><blockquote>
-<p>模板方法模式在一个方法中定义一个算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以在不改变算法结构的情况下，重新定义算法中的某些步骤。</p>
-</blockquote>
-<h1 id="迭代器模式-Iterator"><a href="#迭代器模式-Iterator" class="headerlink" title="迭代器模式 Iterator"></a>迭代器模式 Iterator</h1><blockquote>
-<p>迭代器模式提供一种方法顺序访问一个聚合对象中的各个元素，而又不暴露其内部的表示。</p>
-</blockquote>
-<p>外部迭代器：客户自己通过调用 next 方法进行游走，并在游走的过程中进行处理。<br>内部迭代器：游走过程由迭代器自行完成，客户无法干预，且必须将游走过程中需要处理的逻辑传给迭代器。</p>
-<h1 id="组合模式-Composite"><a href="#组合模式-Composite" class="headerlink" title="组合模式 Composite"></a>组合模式 Composite</h1><blockquote>
-<p>组合模式允许你将对象组合成树形结构来表现“整体/部分”层次结构。组合能让客户以一致的方式处理个别对象以及组合对象。</p>
-</blockquote>
-<h1 id="状态模式-State"><a href="#状态模式-State" class="headerlink" title="状态模式 State"></a>状态模式 State</h1><blockquote>
-<p>状态模式允许对象在内部状态改变时改变它的行为，对象看起来好像修改了它的类。</p>
-</blockquote>
-<p>和策略模式一样，都是在一个接口下用不同的类封装不同的逻辑。区别在于策略模式一般由调用者直接或间接指定某个逻辑；而状态模式在内部进行策略转换。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/Java/Google Java 编程风格指南摘要/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zeerho">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zeerho">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/01/Java/Google Java 编程风格指南摘要/" itemprop="url">Google Java 编程风格指南摘要</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>出处：<a href="http://hawstein.com/posts/google-java-style.html" target="_blank" rel="noopener">http://hawstein.com/posts/google-java-style.html</a></p>
-<h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3><p>Java 语言规范推荐顺序</p>
-<p>public protected private abstract static final transient volatile synchronized native strictfp</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/01/操作系统/DOS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zeerho">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zeerho">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/01/操作系统/DOS/" itemprop="url">DOS</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-01T09:00:00+08:00">2017-01-01</time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="简单批处理命令"><a href="#简单批处理命令" class="headerlink" title="简单批处理命令"></a>简单批处理命令</h1><p><code>echo</code><br>:   <code>echo [{on|off}] [message]</code><br>打开/关闭回显功能，或显示消息。若没有参数，<code>echo</code>命令将显示当前回显设置。<br>在实际应用中会把<code>echo</code>和重定向符号（也称管道符号）结合来实现输入一些命令到特定的文件中。</p>
-<p><code>rem</code> 和 <code>::</code><br>:   <code>rem message</code><br>注释命令。关闭回显时，<code>rem</code>和<code>::</code>及其后的内容都不会显示；打开回显时，<code>rem</code>及其后的内容会显示，而<code>::</code>不会。</p>
-<p><code>pause</code><br>:   暂停命令。运行<code>pause</code>命令时，将显示<code>Press any key to continue...</code>或<code>请按任意键继续...</code>。</p>
-<p><code>call</code><br>:   <code>call [[Drive:][Path]FileName] [:label [arguments]]</code><br>从一个批处理程序调用另一个批处理程序，并且不终止父批处理程序。<code>call</code>命令接受用作调用目标的标签。如果在脚本或批处理文件外使用Call，它将不会在命令行起作用。</p>
-<p><code>start</code><br>:   调用外部程序，所有的 DOS 命令和命令行程序都可以由 start 命令来调用。<br>常用参数：</p>
-<pre><code>- `MIN` 开始时窗口最小化。
-- `SEPARATE` 在分开的空间内开始 16 位 Windows 程序。
-- `HIGH` 在 HIGH 优先级类别开始应用程序。
-- `REALTIME` 在 REALTIME 优先级类别开始应用程序。
-- `WAIT` 启动应用程序并等候它结束。
-
-执行的应用程序是 32 位 GUI 应用程序时，CMD.EXE 不等应用程序终止就返回命令提示。如果在命令脚本内执行，该新行为则不会发生。
-</code></pre><p><code>goto</code><br>:   <code>goto label</code><br><code>:LABEL</code> 表示一个标签<br>跳转命令。程序指针跳转到指定的标签，从标签后的第一条命令开始继续执行批处理程序。</p>
-<p><code>set</code><br>:  显示、设置或删除临时变量（仅在当前命令行窗口有效）。</p>
-<pre><code>- 显示变量：`set`或`set s`，前者显示批处理当前已定义的所有变量及其值，后者显示所有以s开头的变量及值。
-- 设值变量：`set a=abc`向变量a赋值abc。若变量a已被定义，则a的值被修改为abc；若变量a未定义，则此命令定义新的变量a，同时赋初始值abc。
-- 删除变量：`set a= `此命令可删除变量a。若变量a已被定义，则删除变量a；若a未定义，则此命令无实际意义。
-
-批处理中的变量不区分类型。
-</code></pre><p><code>set</code>命令具有扩展功能，如用作交互输入、字符串处理、数值计算等，属于高级命令范畴。</p>
-<p><code>setx [/m] {key} {value}</code> 设置非临时变量。默认是用户环境变量，<code>/m</code> 表示系统环境变量。</p>
-<h1 id="批处理符号"><a href="#批处理符号" class="headerlink" title="批处理符号"></a>批处理符号</h1><p><code>@</code><br>:   回显屏蔽，不显示<code>@</code>后面的命令。</p>
-<p><code>&gt;</code> 与 <code>&gt;&gt;</code><br>:   将输出信息重定向到指定的设备或文件。系统默认输出到显示器。<br><code>echo abc&gt;a.txt</code>将本在显示器上显示的消息abc输出到文件a.txt中，屏幕上无显示。若文件a.txt已存在，则将擦除其内容并写入消息abc；若a.txt不存在，则将新建一个a.txt文件并写入消息abc。<br><code>echo abc&gt;&gt;a.txt</code>若a.txt已存在，则不会擦除原有内容而是在文件末尾添加消息abc；若a.txt不存在，则同上。</p>
-<p><code>&lt;</code><br>:   将输入信息来源重定向为指定的设备或文件。系统默认从显示器读取输入信息。</p>
-<p><code>|</code><br>:   将管道符号<code>|</code>前面的命令的输出结果重定向输出到管道符号后面的命令中去，作为后面命令的输入。</p>
-<p><code>^</code><br>:   转义符<code>^</code>将特殊符号转化为一般符号。特殊符号指：<code>|</code> <code>&amp;</code> <code>&gt;</code> <code>&lt;</code>。</p>
-<p><code>&amp;</code> <code>&amp;&amp;</code> <code>||</code><br>:   逻辑命令符：<br><code>&amp;</code>:用来连接n个DOS命令，并把这些命令按顺序执行，不管是否有命令执行失败。<br><code>&amp;&amp;</code>:当<code>&amp;&amp;</code>前面的命令成功执行时，才执行后面的命令，否则不执行。<br><code>||</code>:当<code>||</code>前面的命令失败时，执行<code>||</code>后面的命令，否则不执行。<br><em><code>&amp;&amp;</code>和<code>||</code>实际上是通过判断errorlevel来实现的</em></p>
-<h1 id="常用-DOS-命令"><a href="#常用-DOS-命令" class="headerlink" title="常用 DOS 命令"></a>常用 DOS 命令</h1><h2 id="文件夹管理"><a href="#文件夹管理" class="headerlink" title="文件夹管理"></a>文件夹管理</h2><ul>
-<li><code>cd</code>：显示当前目录名或改变当前目录。</li>
-<li><code>md</code>：创建目录。</li>
-<li><code>rd</code>：删除一个目录。</li>
-<li><code>dir</code>：显示目录中的文件和子目录列表。</li>
-<li><code>tree</code>：以图形的形式显示驱动器或路径的文件夹结构。</li>
-<li><code>path</code>：为可执行文件显示或设置一个搜索路径。</li>
-<li><code>copy</code>：复制文件和目录树。</li>
-</ul>
-<h2 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h2><ul>
-<li><code>type</code>：显示文本文件的内容。</li>
-<li><code>copy</code>：将一份或多份文件复制到另一个位置。</li>
-<li><code>del</code>：删除一个或数个文件。</li>
-<li><code>move</code>：移动文件并重命名文件和目录。（Windows XP Home Edition中没有）。</li>
-<li><code>ren</code>：重命名文件。</li>
-<li><code>replace</code>：替换文件。</li>
-<li><code>attrib</code>：显示或更改文件属性。</li>
-<li><code>find</code>：搜索字符串。</li>
-<li><code>fc</code>：比较两个文件或两个文件集并显示它们之间的不同。</li>
-</ul>
-<h2 id="网络命令"><a href="#网络命令" class="headerlink" title="网络命令"></a>网络命令</h2><ul>
-<li><code>ping</code>：进行网络连接测试、名称解析。</li>
-<li><code>ftp</code>：文件传输。</li>
-<li><code>net</code>：网络命令集及用户管理。<ul>
-<li><code>net start|stop {service}</code> 启动/停止服务</li>
-</ul>
-</li>
-<li><code>telnet</code>：远程登陆。</li>
-<li><code>ipconfig</code>：显示、修改TCP/IP设置。</li>
-<li><code>msg</code>：给用户发送消息。</li>
-<li><code>arp</code>：显示、修改局域网的IP地址-物理地址映射列表。</li>
-</ul>
-<h2 id="系统管理"><a href="#系统管理" class="headerlink" title="系统管理"></a>系统管理</h2><ul>
-<li><code>at</code>：安排在特定日期和时间运行命令和程序。</li>
-<li><code>shutdown</code>：立即或定时关机或重启。</li>
-<li><code>tskill</code>：结束进程。</li>
-<li><code>taskkill</code>：结束进程（比<code>tskill</code>高级，但Win XP Home版中无该命令。</li>
-<li><code>tasklist</code>：显示进程列表（Windows XP Home Edition中没有）。</li>
-<li><code>sc</code>：系统服务设置与控制。<ul>
-<li><code>sc config {service} start=demand|auto|disabled</code> 手动/自动/禁用</li>
-<li><code>sc start|stop {service}</code> 启动/停止服务</li>
-</ul>
-</li>
-<li><code>reg</code>：注册表控制台工具。 </li>
-<li><code>powercfg</code>：控制系统上的电源设置。</li>
-</ul>
-<p>对于以上列出的所有命令，在cmd中输入<code>命令/？</code>即可查看该命令的帮助信息。</p>
-<h1 id="语句结构"><a href="#语句结构" class="headerlink" title="语句结构"></a>语句结构</h1><h2 id="if语句（选择结构）"><a href="#if语句（选择结构）" class="headerlink" title="if语句（选择结构）"></a>if语句（选择结构）</h2><ol>
-<li>字符串比较<br>if语句只能对两个字符（串）是否相同、先后顺序进行判断等。命令格式：<br><code>IF [/i] [not] string1 compare-op string2 command1 [else command2]</code><br>选择开关 <code>/i</code> 则不区分字符串大小写；选择 <code>not</code> 项，则对判断结果进行逻辑非。<br>其中，比较操作符 compare-op 有以下几类：</li>
-</ol>
-<ul>
-<li><code>==</code> 等于</li>
-<li><code>EQU</code> 等于</li>
-<li><code>NEQ</code> 不等于</li>
-<li><code>LSS</code> 小于</li>
-<li><code>LEQ</code> 小于或等于</li>
-<li><code>GTR</code> 大于</li>
-<li><code>GEQ</code> 大于或等于</li>
-</ul>
-<ol>
-<li>存在判断<br>判断文件或文件夹是否存在。命令格式：<br><code>IF [NOT] EXIST filename command1 [else command2]</code></li>
-</ol>
-<ul>
-<li>存在判断既可以判断文件也可以判断文件夹；</li>
-<li><code>%0</code>代表当前批处理的全称（包括驱动器盘符、路径、文件名和扩展类型）；</li>
-<li><code>%~df0</code>是对<code>%0</code>的修正，只保留了其驱动器盘符和路径，详情参考<code>for /?</code>；</li>
-<li>if语句的多行书写要求<code>command1</code>的左括号必须和<code>if</code>在同一行、<code>else</code>必须和<code>command1</code>的右括号同行、<code>command2</code>的左括号必须与<code>else</code>同行、<code>command1</code>和<code>command2</code>都可以任意多行，即<code>command</code>可以是命令集。</li>
-</ul>
-<ol>
-<li><p>定义判断<br>判断变量的是否存在，即是否已被定义。命令格式：<br><code>IF [NOT] DEFINED variable command1 [else command2]</code></p>
-</li>
-<li><p>结果判断<br>判断命令执行后的返回码。命令格式：<br><code>IF [NOT] errorlevel n command]</code><br>DOS程序在运行完成后都有返回码（也叫错误码），如果和命令中定义的返回码<code>n</code>相符，则执行<code>command</code>。</p>
-</li>
-</ol>
-<h2 id="for语句（循环结构）"><a href="#for语句（循环结构）" class="headerlink" title="for语句（循环结构）"></a>for语句（循环结构）</h2><p>for语句有多个开关，不同开关将会实现不同功能。</p>
-<ol>
-<li><p>无开关<br>无开关的for语句能够在设定的范围内进行循环。命令格式：<br><code>FOR %%variable IN (set) DO command</code><br>其中，<code>%%variable</code>是批处理程序中的书写格式，在DOS中书写为<code>%variable</code>；<code>set</code>是需要设定的循环范围（变量集合）；<code>do</code>后面的<code>command</code>是循环所执行的命令，即循环体。</p>
-</li>
-<li><p>开关<code>/L</code><br>根据<code>set</code>里面的设置进行循环，从而实现对循环次数的直接控制。命令格式：<br><code>FOR /L %%variable IN (start,step,end) DO command</code><br>其中，<code>start</code>为开始计数的初始值，<code>step</code>为每次递增的值，<code>end</code>为结束值。当<code>end</code>小于<code>start</code>时，<code>step</code>需要设置为负数。<code>%%i</code>的结束值有可能不是<code>end</code>而是不大于<code>end</code>的一个数。</p>
-</li>
-<li><p>开关<code>/F</code><br>能够对字符串进行操作，也能够对命令的返回值进行操作，还可以访问硬盘上的ASCII码文件，比如txt文档等。命令格式：<br><code>FOR /F [&quot;options&quot;] %%variable IN (set) DO command</code><br>其中，<code>set</code>为<code>&quot;String&quot;</code>、<code>&#39;command&#39;</code>、<code>file-set</code>中的一个；<code>options</code>是<code>eol=c</code>、<code>skip=n</code>、<code>delims=xxx</code>、<code>tokens=x,y,m-n</code>、<code>usebackq</code>中的一个或多个的组合。各选项的意义参见<code>for /f</code>。</p>
-</li>
-<li><p>开关<code>/D</code>或<code>/R</code><br>含开关<code>/D</code>或<code>/R</code>的for语句是与目录或文件有关的命令，有时被用于通过遍历文件夹来查找一个文件或文件夹。</p>
-</li>
-<li><p>其他<br>在for循环中，当一个变量被多次赋值时，<code>%dd%</code>所获取的仅仅是<code>dd</code>第一次被赋予的值。要想刷新<code>dd</code>的值，就必须先通过命令<code>setlocal enabledelayedexpansion</code>来开启延迟变量开关，然后用<code>!dd!</code>来获取<code>dd</code>的值。</p>
-</li>
-</ol>
-<h1 id="字符串处理"><a href="#字符串处理" class="headerlink" title="字符串处理"></a>字符串处理</h1><ol>
-<li><p>截取字符串<br><code>%var:~m,n%</code> 截取第m+1到n+1个字符<br><code>%var:~m</code> 截取第1到第m+1个字符<br>其中表示下标的<code>m</code> <code>n</code>可为负数。<br><strong>替换操作不会直接改变被操作的字符串，若要使生效变动，需再次对被操作字符串赋值。</strong></p>
-</li>
-<li><p>替换字符串<br><code>%var:src_part=des_part%</code><br><strong>替换操作不会直接改变被操作的字符串，若要使生效变动，需再次对被操作字符串赋值。</strong></p>
-</li>
-<li><p>合并字符串<br><code>%str1%%str2%</code><br>只需直接将字符串放在一起。</p>
-</li>
-<li><p>扩充字符串<br>对表示文件路径的字符串进行特殊处理。<br><code>~I</code> 删除任何引号（”），扩充<code>%I</code><br><code>%~fI</code> 将<code>%I</code>扩充到一个完全合格的路径名<br><code>%~dI</code> 仅将<code>%I</code>扩充到一个驱动器号<br><code>%~pI</code> 仅将<code>%I</code>扩充到一个路径<br><code>%~nI</code> 仅将<code>%I</code>扩充到一个文件名<br><code>%~xI</code> 仅将<code>%I</code>扩充到一个文件扩展名<br><code>%~sI</code> 扩充的路径只含有短名<br><code>%~aI</code> 将<code>%I</code>扩充到文件的文件属性<br><code>%~tI</code> 将<code>%I</code>扩充到文件的日期/时间<br><code>%~zI</code> 将<code>%I</code>扩充到文件的大小<br><code>%~$PATH:I</code> 查找被列在路径环境变量PATH中的目录，并将<code>%I</code>扩充到找到的第一个完全合格的名称。如果环境变量名未被定义，或者没有找到文件，此组合键会扩充到空字符串<br>可以组合修饰符来得到多重结果：<br><code>%~dpI</code> 仅将<code>%I</code>扩充到一个驱动器号和路径<br><code>%~nxI</code> 仅将<code>%I</code>扩充到一个文件名和扩展名<br><code>%~fsI</code> 仅将<code>%I</code>扩充到一个带有短名的完整路径名<br><code>%~dp$PATH:i</code> 查找被列在路径环境变量PATH中的目录，并将<code>%I</code>扩充到找到的第一个驱动器号和路径。<br><code>%~ftzaI</code> 将<code>%I</code>扩充到类似输出线路的DIR<br>以上<code>I</code>代表一个变量，该被扩充的变量需满足两个条件：</p>
-</li>
-</ol>
-<ul>
-<li>该字符串代表一个文件路径。</li>
-<li>变量要用<code>%x</code>来表示，<code>x</code>可取<code>a-z A-Z 0-9</code>供62个字符中的任意一个。</li>
-</ul>
-<h1 id="数值计算"><a href="#数值计算" class="headerlink" title="数值计算"></a>数值计算</h1><p>批处理只能进行整型计算，忽略浮点数的小数部分；同时数值计算的范围也受限于系统位数。命令格式：<br><code>set /a expression</code><br><code>set</code>支持的运算符跟C语言中的一样，只是没有增一减一。<br><code>set</code>支持的运算符及优先级排序：<br><code>()</code> 分组<br><code>!~-</code>一元运算符（逻辑非、按位非、取负）<br><code>*/%</code> 算数运算符（乘、取商、取余）<br><code>+-</code> 算数运算符（加、减）<br><code>&lt;&lt;&gt;&gt;</code> 逻辑移位（左移一位、右移一位）<br><code>&amp;</code> 按位与<br><code>^</code> 按位异<br><code>|</code> 按位或<br><code>= *= /= %= += -=</code> 赋值<br><code>&amp;= ^= |= &lt;&lt;= &gt;&gt;= ,</code> 表达式分隔符（<code>set</code>可一次处理多个表达式）<br><code>set /a</code>中，直接用变量名即可取得变量的值；<code>set</code>支持八进制（数字前缀0）、十进制（数字无前缀）和十六进制（数字前缀0x），且支持不同进制之间的计算，计算及显示结果为十进制。</p>
-<h1 id="批处理概念方法"><a href="#批处理概念方法" class="headerlink" title="批处理概念方法"></a>批处理概念方法</h1><h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><p>系统变量由操作系统事先定义好，适用于任何批处理。要查看所有系统变量，可以在cmd窗口中输入<code>set</code>。<br>几个常用的系统变量：<br><code>ComputerName</code> 计算机名，即右键-我的电脑-属性-计算机名-选项卡中的“完整的计算机名称”<br><code>ComSpec</code> cmd.exe的完整路径名<br><code>HomeDrive</code> 系统分区盘符<br><code>Path</code> 可执行文件的默认搜索路径<br><code>ProgramFiles</code> 系统的Program Files的路径<br><code>Prompt</code> 返回当前解释程序的命令提示符设置，由 Cmd.exe 生成<br><code>SystemDrive</code> 包含系统根目录的分区<br><code>SystemRoot</code> 系统根目录路径<br><code>Temp</code> <code>Tmp</code> 临时文件的存放目录<br><code>UserName</code> 当前用户名<br><code>UserProfile</code> 当前用户的配置目录<br><code>WinDir</code> 操作系统路径</p>
-<h2 id="用户变量"><a href="#用户变量" class="headerlink" title="用户变量"></a>用户变量</h2><p>用户变量由 <code>set</code> 命令定义，可参考 <code>set /?</code>。<br><strong>变量引用</strong><br>一般情况下可以直接用变量名操作变量，通过<code>%var%</code>或<code>!var!</code>来获取变量的值。其中，只有在for语句里面重复对同一变量多次赋值时才需要使用<code>!var!</code>，并且在使用<code>!var!</code>调用变量时，要首先“启用延迟环境变量扩充”，<code>setlocal enabledelayedexpansion</code>。启用延迟环境变量扩充后，所有的<code>!</code>都将被视为“取变量值”的特殊符号，即使用<code>^!</code>也不能输出符号“!”。若要输出“!”，需要停用延迟环境变量扩充，<code>setlocal disabledelayedexpansion</code>。</p>
-<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><ol>
-<li><p>直接传递<br>在使用<code>call</code>命令时，不使用任何参数，在子函数或子批处理里面直接对主函数（也称父批处理）里面的变量进行修改。</p>
-</li>
-<li><p>间接传递<br>在使用<code>call</code>命令时，在其后面添加参数，形如<code>call {[:label][ChildBatch]} Parameter1 Parameter2 ... ParameterN</code>。参数在子函数或子批处理里面是以%1~%9的形式表示的。 </p>
-</li>
-</ol>
-<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>有些命令在执行之后将会返回一定的错误值（errorlevel），可以通过errorlevel的值判断命令执行状况。获取返回值errorlevel的方法是，在执行命令后立马调用返回值errorlevel。<br><em><code>if errorlevel 0</code>和<code>if %errorlevel%==0</code>是一样的。</em></p>
-<h2 id="用户交互"><a href="#用户交互" class="headerlink" title="用户交互"></a>用户交互</h2><ol>
-<li><p>视窗</p>
-<ol>
-<li>设置窗口背景色和字体颜色。详见<code>color /?</code>。</li>
-<li>设置窗口大小，<code>mode con [cols=c] [lines=n]</code>，cols即宽度，lines即高度。</li>
-<li>GUI交互窗口。详见<code>msg /?</code>。</li>
-</ol>
-</li>
-<li><p>声音<br>调用vbs的方法：<br><code>vbscript:createobject(&quot;sapi.spvoice&quot;).speak(&quot;Here are the words to say.&quot;)</code><br>其中spvoice是支持语音合成（TTS）的核心类。</p>
-</li>
-<li><p>控制</p>
-<ol>
-<li>暂停批处理：按下键盘上的Pause键。</li>
-<li>终止批处理：组合键Ctrl+C。</li>
-</ol>
-</li>
-</ol>
-<h2 id="ASCII码"><a href="#ASCII码" class="headerlink" title="ASCII码"></a>ASCII码</h2><p>暂略。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2194,7 +1956,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2207,7 +1969,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
